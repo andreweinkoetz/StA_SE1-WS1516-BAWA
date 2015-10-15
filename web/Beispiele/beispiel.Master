@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="beispiel.master.cs" Inherits="web.Beispiele.beispiel" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="..\StyleSheet.css" />
+    <title>Einheitlicher Titel über Master-Page</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h1>Einheitlicher Header aus Master-Page </h1>
+        Master-Pages erlauben es, eine einheitliche Struktur über mehrere (oder alle) Webseiten zu definieren. <br />
+        Eine Master-Page stellt ein Gerüst zur Verfügung mit gemeinsamem Layout und gemeinsamen Funktionen. <br />
+        Die Content-Seiten enthalten die eigentliche Information, die angezeigt werden soll. <br />
+        Wenn Nutzer eine Content-Seite anfordern, mischt ASP.NET den Inhalt der Master-Page und der Content-Page und produziert daraus die Webseite.<p />
+        <hr />
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+        <p /><hr />
+        In diesem Beispiel: Master-Page: <i> beispiel.Master</i>, <br/>
+        Content-Pages: <a href="Seite1mitMaster.aspx"><i>Seite1mitMaster.aspx</i></a> und <a href="Seite2mitMaster.aspx"><i>Seite2mitMaster.aspx</i></a> <p />
+        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="default.aspx">Home</asp:HyperLink> 
+
+    </form>
+</body>
+</html>
