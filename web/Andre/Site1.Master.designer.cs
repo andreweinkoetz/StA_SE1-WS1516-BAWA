@@ -40,6 +40,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.Image logo;
         
         /// <summary>
+        /// Label1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
         /// bodyc-Steuerelement
         /// </summary>
         /// <remarks>

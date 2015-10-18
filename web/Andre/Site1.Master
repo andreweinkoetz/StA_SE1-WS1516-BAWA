@@ -71,7 +71,9 @@
                     <tr>
                         <td colspan="2" style="padding-bottom: 10px">
                             <asp:Image ImageAlign="Left" ID="logo" runat="server" ImageUrl="~/Andre/img/terst.png" /></td>
-                        <td style="background-color: crimson">Pizza, Pizza - DIE Pizza Ihrer Stadt!</td>
+                        <td style="background-color: crimson">
+                            <asp:Label ID="Label1" runat="server" Text="Pizza, Pizza - DIE Pizza Ihrer Stadt"></asp:Label>
+                        </td>
                     </tr>
                 </table>
             </div>
