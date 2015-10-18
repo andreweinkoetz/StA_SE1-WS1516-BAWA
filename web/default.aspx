@@ -14,7 +14,8 @@
 
         <h1>Willkommen bei Heigert's Pizza!</h1></div>
     <p>
-        <a href="Beispiele/default.aspx">Hier</a> gehts weiter zu einigen Beispielprogrammen ...
+        <a href="Beispiele/default.aspx">Hier</a> gehts weiter zu einigen Beispielprogrammen ... <br />
+        Hier gehts zu Andre's Testseiten: <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Andre/WebForm1.aspx">Klick!</asp:HyperLink>
     </p> 
         <p><i>Version: 1.10.2015</i></p>
     </form>

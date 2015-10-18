@@ -10,7 +10,7 @@
 namespace web {
     
     
-    public partial class _default {
+    public partial class WebForm1 {
         
         /// <summary>
         /// form1-Steuerelement

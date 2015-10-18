@@ -7,27 +7,27 @@
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace web {
+namespace web.Andre {
     
     
-    public partial class _default {
+    public partial class WebForm2 {
         
         /// <summary>
-        /// form1-Steuerelement
+        /// GridView1-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
-        /// HyperLink1-Steuerelement
+        /// SqlDataSource2-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
     }
 }
