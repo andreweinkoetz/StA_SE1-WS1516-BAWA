@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="default_layout.master.cs" Inherits="web.Andre.def_layout" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="mainstyle.css" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="header">
+            <div class="container">
+                <div id="menu">
+                    <ul>
+                        <li><a>Pizza</a></li>
+                        <li><a>Getr&auml;nke</a></li>
+                        <li><a>Desserts</a></li>
+                    </ul>
+                </div>
+                <div id="head_logo">
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/img/pizza_logo.png" ImageAlign="Right" />
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="container page">
+                <asp:ContentPlaceHolder ID="contentBox" runat="server">
+                </asp:ContentPlaceHolder>
+
+            </div>
+        </div>
+        <div id="footer">
+            <div class="container">
+                <p>&copy; Copyright 2015 - Pizza, Pizza M&uuml;nchen&trade;</p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

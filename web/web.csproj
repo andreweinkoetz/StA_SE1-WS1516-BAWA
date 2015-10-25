@@ -72,6 +72,8 @@
     <Content Include="Beispiele\user-zaehlen.aspx" />
     <Content Include="Beispiele\user-read.aspx" />
     <Content Include="default.aspx" />
+    <Content Include="img\pizza_logo.png" />
+    <Content Include="mainstyle.css" />
     <Content Include="StyleSheet.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -181,10 +183,18 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="default_layout.Master.cs">
+      <DependentUpon>default_layout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default_layout.Master.designer.cs">
+      <DependentUpon>default_layout.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Beispiele\beispiel.Master" />
+    <Content Include="default_layout.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
