@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bll
 {
-    class clsProductFacade
+    public class clsProductFacade
     {
         clsProductCollection _productCol; //Objektvariable für Product-Collection,
         /// <summary>

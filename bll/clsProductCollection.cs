@@ -8,7 +8,7 @@ using bll;
 
 namespace bll
 {
-    class clsProductCollection : clsBLLCollections
+   internal class clsProductCollection : clsBLLCollections
     {
         string _databaseFile; // String zur Access-Datei
         DAL.DALObjects.dDataProvider _myDAL; // DAL: Zugriff auf die Datenbank
