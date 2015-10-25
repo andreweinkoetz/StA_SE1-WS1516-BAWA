@@ -59,7 +59,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Andre\andre.css" />
+    <Content Include="Andre\mainstyle.css" />
     <Content Include="Andre\img\pizza_logo.png" />
     <Content Include="Andre\WebForm1.aspx" />
     <Content Include="Andre\WebForm3.aspx" />
@@ -83,12 +83,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Andre\Site2.Master.cs">
-      <DependentUpon>Site2.Master</DependentUpon>
+    <Compile Include="Andre\default_layout.Master.cs">
+      <DependentUpon>default_layout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\Site2.Master.designer.cs">
-      <DependentUpon>Site2.Master</DependentUpon>
+    <Compile Include="Andre\default_layout.Master.designer.cs">
+      <DependentUpon>default_layout.Master</DependentUpon>
     </Compile>
     <Compile Include="Andre\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
@@ -213,7 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Beispiele\beispiel.Master" />
-    <Content Include="Andre\Site2.Master" />
+    <Content Include="Andre\default_layout.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
