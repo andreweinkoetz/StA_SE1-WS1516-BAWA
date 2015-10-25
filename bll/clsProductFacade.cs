@@ -22,7 +22,7 @@ namespace bll
         /// </summary>
         public List<clsProduct> ProductsGetAll()
         {
-            return _productCol.getAllProduct();
+            return _productCol.getAllProducts();
         } //ProductsGetAll()
     } // clsProductFacade
 }
