@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace bll
 {
-    class clsProductCollection : clsBLLCollections
+   internal class clsProductCollection : clsBLLCollections
     {
         string _databaseFile; // String zur Access-Datei
         DAL.DALObjects.dDataProvider _myDAL; // DAL: Zugriff auf die Datenbank
@@ -22,7 +22,7 @@ namespace bll
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetAllProducts");
             DataTable _myDataTable = _myDataSet.Tables[0];
-            List<clsPoduct> _myProductList = new List<clsPoduct>();
+            List<clsProduct> _myProductList = new List<clsProduct>();
 
             foreach (DataRow _dr in _myDataTable.Rows)
             {
@@ -33,12 +33,13 @@ namespace bll
             return _myProductList;
         }
 
-        internal clsProductCollection DatarowToClsProduct(DataRow _dr)
+        internal clsProduct DatarowToClsProduct(DataRow _dr)
         {
-            clsProductCollection _myProduct = new clsProduct();
+            clsProduct _myProduct = new clsProduct();
             _myProduct.Id = AddIntFieldValue(_dr, "PID");
             _myProduct.Name = AddStringFieldValue(_dr, "PName");
             _myProduct.PricePerUnit = AddDoubleFieldValue(_dr, "PPricePerUnit");
+            return _myProduct;
         }
     }
 }

@@ -22,6 +22,15 @@ namespace web.Andre {
         protected global::System.Web.UI.WebControls.GridView GridView1;
         
         /// <summary>
+        /// clsProd-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource clsProd;
+        
+        /// <summary>
         /// SqlDataSource1-Steuerelement
         /// </summary>
         /// <remarks>
