@@ -10,6 +10,15 @@
 namespace web.Andre {
     
     
-    public partial class WebForm3 {
+    public partial class WebForm2 {
+        
+        /// <summary>
+        /// DetailsView1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DetailsView DetailsView1;
     }
 }

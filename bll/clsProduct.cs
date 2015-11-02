@@ -34,6 +34,38 @@ namespace bll
             get { return _pricePerUnit; }
             set { _pricePerUnit = value; }
         }
+
+        private String _category;
+
+        public String Category
+        {
+            get
+            {
+                return _category;
+            }
+
+            set
+            {
+                _category = value;
+            }
+        }
+
+        private String _cUnit;
+
+        public string CUnit
+        {
+            get
+            {
+                return _cUnit;
+            }
+
+            set
+            {
+                _cUnit = value;
+            }
+        }
+
+
     }
     // weitere Attribute und gg. Methoden sind noch auszuprogrammieren!
 } //clsProduct

@@ -59,10 +59,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Andre\img\marker20-2.png" />
+    <Content Include="Andre\img\marker20-3.png" />
+    <Content Include="Andre\img\marker20.png" />
     <Content Include="Andre\mainstyle.css" />
     <Content Include="Andre\img\pizza_logo.png" />
     <Content Include="Andre\WebForm1.aspx" />
-    <Content Include="Andre\WebForm3.aspx" />
+    <Content Include="Andre\WebForm2.aspx" />
     <Content Include="Beispiele\default.aspx" />
     <Content Include="Beispiele\order-insert.aspx" />
     <Content Include="Beispiele\order-read.aspx" />
@@ -97,12 +100,12 @@
     <Compile Include="Andre\WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\WebForm3.aspx.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
+    <Compile Include="Andre\WebForm2.aspx.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\WebForm3.aspx.designer.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
+    <Compile Include="Andre\WebForm2.aspx.designer.cs">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Beispiele\beispiel.Master.cs">
       <DependentUpon>beispiel.Master</DependentUpon>

@@ -6,9 +6,10 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="mainstyle.css" />
-    <title></title>
+    <title>Pizza, Pizza!</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -16,9 +17,38 @@
             <div class="container">
                 <div id="menu">
                     <ul>
+
                         <li><a>Pizza</a></li>
                         <li><a>Getr&auml;nke</a></li>
                         <li><a>Desserts</a></li>
+                        <li>
+                            <% if (Session["roleID"] != null)
+                                {
+                                    switch ((int)Session["roleID"])
+                                    {
+                                        case 1:
+                                            Response.Write("<a href=\"http://www.google.de\">Administration</a>");
+                                            break;
+                                        case 2:
+                                            Response.Write("<a href=\"http://www.google.de\">Mein Konto</a>");
+                                            break;
+                                        case 0:
+                                        default:
+                                            Response.Write("<a href=\"WebForm2.aspx\">Registrieren/Login</a>");
+                                            break;
+
+                                    }
+                                }
+                                else
+                                {
+                                    Response.Write("<a href=\"WebForm2.aspx\">Registrieren/Login</a>");
+                                }
+                            %>
+                        </li>
+                        <li style="padding-bottom: 0px">
+                            <a href="http://www.google.de">
+                                <img alt="cart" src="img/marker20-3.png" /></a>
+                        </li>
                     </ul>
                 </div>
                 <div id="head_logo">
@@ -35,7 +65,8 @@
         </div>
         <div id="footer">
             <div class="container">
-                <p>&copy; Copyright 2015 - Pizza, Pizza M&uuml;nchen&trade;</p>
+                <p>&copy; Copyright 2015 - Pizza, Pizza M&uuml;nchen&trade; &bull; <a>Impressum</a></p>
+
             </div>
         </div>
     </form>

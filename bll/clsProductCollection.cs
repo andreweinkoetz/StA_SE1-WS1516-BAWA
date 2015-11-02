@@ -33,12 +33,54 @@ namespace bll
             return _myProductList;
         }
 
+        internal List<clsProduct> getAllProductsByCategory(int _category)
+        {
+            _myDAL.AddParam("PFKCategory", _category, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetAllProductsByCategory");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+            List<clsProduct> _myProductList = new List<clsProduct>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                clsProduct _myProduct = DatarowToClsProduct(_dr);
+                _myProductList.Add(_myProduct);
+            }
+
+            return _myProductList;
+        }
+
+        /// <summary>
+        /// Gibt Produkt mit gegebener ID zurück
+        /// </summary>
+        /// <param name="_id">ID des gesuchten Produkts</param>
+        /// <returns>Produkt-Objekt (oder NULL) </returns>
+        internal clsProduct GetProductById(int _id)
+        {
+            _myDAL.AddParam("ID", _id, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetProductByID");
+
+            if (_myDataSet.Tables[0].Rows.Count != 0)
+            {
+                DataRow _dr = _myDataSet.Tables[0].Rows[0];
+                return DatarowToClsProduct(_dr);
+            }
+            else
+            {
+                return null;
+            }
+
+        } // getProductById()
+
+
         internal clsProduct DatarowToClsProduct(DataRow _dr)
         {
             clsProduct _myProduct = new clsProduct();
             _myProduct.Id = AddIntFieldValue(_dr, "PID");
             _myProduct.Name = AddStringFieldValue(_dr, "PName");
             _myProduct.PricePerUnit = AddDoubleFieldValue(_dr, "PPricePerUnit");
+            _myProduct.CUnit = AddStringFieldValue(_dr, "CUnit");
+            _myProduct.Category = AddStringFieldValue(_dr, "CName");
             return _myProduct;
         }
     }
