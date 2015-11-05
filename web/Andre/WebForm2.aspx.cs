@@ -15,12 +15,46 @@ namespace web.Andre
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            GridViewRow[] test = ((List<GridViewRow>)Session["selPizza"]).ToArray();
+            ArrayList andre = new ArrayList(((List<GridViewRow>)Session["selPizza"]));
+
+
+            DataTable dt = new DataTable();
+
+            if (dt != null)
+            {
+
+                dt = new DataTable("MyTable");
+
+                dt.Columns.Add("Col1");
+
+                dt.Columns.Add("Col2");
+
+                dt.Columns.Add("Col3");
+
+                dt.Columns.Add("Col4");
+
+            }
+
+            foreach (GridViewRow item in andre)
+            {
+                DropDownList drop1 = new DropDownList();
+
+               
+
+               dt.LoadDataRow(new object[] { item.Cells[1].Text,item.Cells[2].Text,item.Cells[6].Text,item.Cells[7].Text }, true);
+            }
             
+
             
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
         }
 
-       
-        
+        protected void GridView1_RowDeleting(object sender, EventArgs e)
+        {
+
+          
+        }
+
     }
 }
