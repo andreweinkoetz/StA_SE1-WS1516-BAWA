@@ -24,6 +24,7 @@ es Abzug auf die Gesamtnote.</li>
 V2 hinaus implementiert werden.</li>
 <li>Programmierung (Funktionalität, Qualität) und Dokumentation (Statusbericht,
 Pflichtenheft) werden bei der Note gleich stark gewichtet.</li>
+</ul>
 
 <h2>Umfang Meilensteine</h2>
 <u>Version V1 (Minimalfunktionalität, zu implementieren für Meilenstein M1):</u>
@@ -33,7 +34,7 @@ Pflichtenheft) werden bei der Note gleich stark gewichtet.</li>
 <li>Bestellen (inklusive Preisberechnung) und eigene Bestellungen anschauen.</li>
 </ul>
 
-Version V3 (Minimalfunktionalität, zusätzlich zu V1, zu implementieren für Meilenstein M3):
+<u>Version V3 (Minimalfunktionalität, zusätzlich zu V1, zu implementieren für Meilenstein M3):</u>
 <ul>
 
 <li>Funktionen für Gast, Kunde, Service-Mitarbeiter. Ausnahmen:</li>
