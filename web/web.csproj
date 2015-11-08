@@ -64,8 +64,9 @@
     <Content Include="Andre\img\marker20.png" />
     <Content Include="Andre\mainstyle.css" />
     <Content Include="Andre\img\pizza_logo.png" />
-    <Content Include="Andre\WebForm1.aspx" />
-    <Content Include="Andre\WebForm2.aspx" />
+    <Content Include="Andre\Pizza.aspx" />
+    <Content Include="Andre\Orders.aspx" />
+    <Content Include="Andre\MeinKonto.aspx" />
     <Content Include="Beispiele\default.aspx" />
     <Content Include="Beispiele\order-insert.aspx" />
     <Content Include="Beispiele\order-read.aspx" />
@@ -93,19 +94,26 @@
     <Compile Include="Andre\default_layout.Master.designer.cs">
       <DependentUpon>default_layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Andre\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Andre\Pizza.aspx.cs">
+      <DependentUpon>Pizza.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Andre\Pizza.aspx.designer.cs">
+      <DependentUpon>Pizza.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
+    <Compile Include="Andre\Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
+    <Compile Include="Andre\Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Andre\MeinKonto.aspx.cs">
+      <DependentUpon>MeinKonto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Andre\MeinKonto.aspx.designer.cs">
+      <DependentUpon>MeinKonto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Beispiele\beispiel.Master.cs">
       <DependentUpon>beispiel.Master</DependentUpon>

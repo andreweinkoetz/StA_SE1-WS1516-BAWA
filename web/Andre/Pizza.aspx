@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="web.Andre.WebForm1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="Pizza.aspx.cs" Inherits="web.Andre.PizzaCode" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
@@ -16,7 +16,7 @@
     <p style="font-family: 'Segoe UI'; font-weight: bold">Unsere Pizza</p>
 
     <p style="font-family: 'Segoe UI'; font-weight: bold; text-align: left">
-        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
+        <asp:GridView ID="gvPizza" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvPizza_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/Andre/img/marker20-2.png" />
@@ -27,7 +27,7 @@
                 <asp:BoundField DataField="CUnit" HeaderText="CUnit" SortExpression="CUnit" Visible="False" />
                 <asp:TemplateField HeaderText="Größe Pizza">
                     <ItemTemplate>
-                        <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                        <asp:DropDownList ID="sizeSelect" runat="server" AutoPostBack="true" OnSelectedIndexChanged="sizeSelect_SelectedIndexChanged">
                             <asp:ListItem Value="">- Größe</asp:ListItem>
                             <asp:ListItem Value="28">Klein (28cm)</asp:ListItem>
                             <asp:ListItem Value="32">Gro&szlig; (32cm)</asp:ListItem>
@@ -35,7 +35,15 @@
                         </asp:DropDownList>
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText="Extras">
+                    <ItemTemplate>
+                        <asp:CheckBoxList ID="ExtrasCheckBoxList" runat="server" AutoPostBack="False" DataSourceID="ExtrasDataSource" DataTextField="Name" DataValueField="ID">
+                        </asp:CheckBoxList>
+                        <asp:ObjectDataSource ID="ExtrasDataSource" runat="server" SelectMethod="ExtrasGetAll" TypeName="bll.clsExtraFacade"></asp:ObjectDataSource>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Preis"></asp:TemplateField>
+                
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -56,12 +64,13 @@
 
     <p style="font-family: 'Segoe UI'; font-weight: bold; text-align: center">
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
-        <a href="WebForm2.aspx">Test</a>
+        <a href="Orders.aspx">Test</a>
         <asp:Label ID="lblChooseSize" runat="server"></asp:Label>
 
     </p>
     <p>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="ProductsGetAll" TypeName="bll.clsProductFacade"></asp:ObjectDataSource>
+    </p>
+    <p>
     </p>
 </asp:Content>
 

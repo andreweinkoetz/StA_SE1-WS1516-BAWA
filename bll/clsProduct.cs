@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace bll
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class clsProduct
     {
         private int _id;
+        /// <summary>
+        /// 
+        /// </summary>
         public int Id
         {
             get { return _id; }
@@ -16,6 +22,9 @@ namespace bll
         }
 
         private String _name;
+        /// <summary>
+        /// 
+        /// </summary>
         public String Name
         {
             get { return _name; }
@@ -29,6 +38,9 @@ namespace bll
         }
 
         private double _pricePerUnit;
+        /// <summary>
+        /// 
+        /// </summary>
         public double PricePerUnit
         {
             get { return _pricePerUnit; }
@@ -37,6 +49,9 @@ namespace bll
 
         private String _category;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public String Category
         {
             get
@@ -52,6 +67,9 @@ namespace bll
 
         private String _cUnit;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string CUnit
         {
             get

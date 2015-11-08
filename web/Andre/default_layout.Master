@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="default_layout.Master.cs" Inherits="web.Andre.Site2" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="default_layout.Master.cs" Inherits="web.Andre.Master" %>
 
 <!DOCTYPE html>
 
@@ -9,20 +9,21 @@
     <title>Pizza, Pizza!</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-
 </head>
+   
 <body>
+    
     <form id="form1" runat="server">
         <div id="header">
             <div class="container">
                 <div id="menu">
                     <ul>
-
-                        <li><a>Pizza</a></li>
+                        
+                        <li><a href="Pizza.aspx">Pizza</a></li>
                         <li><a>Getr&auml;nke</a></li>
                         <li><a>Desserts</a></li>
                         <li>
-                            <% if (Session["roleID"] != null)
+                             <% if (Session["roleID"] != null)
                                 {
                                     switch ((int)Session["roleID"])
                                     {
@@ -30,7 +31,7 @@
                                             Response.Write("<a href=\"http://www.google.de\">Administration</a>");
                                             break;
                                         case 2:
-                                            Response.Write("<a href=\"http://www.google.de\">Mein Konto</a>");
+                                            Response.Write("<a href=\"MeinKonto.aspx\">Mein Konto</a>");
                                             break;
                                         case 0:
                                         default:
@@ -46,7 +47,7 @@
                             %>
                         </li>
                         <li style="padding-bottom: 0px">
-                            <a href="http://www.google.de">
+                            <a href="Orders.aspx">
                                 <img alt="cart" src="img/marker20-3.png" /></a>
                         </li>
                     </ul>

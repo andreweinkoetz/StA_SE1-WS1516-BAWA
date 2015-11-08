@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsBLLCollections.cs" />
+    <Compile Include="clsExtra.cs" />
+    <Compile Include="clsExtraCollection.cs" />
+    <Compile Include="clsExtraFacade.cs" />
     <Compile Include="clsOrder.cs" />
     <Compile Include="clsOrderCollection.cs" />
     <Compile Include="clsOrderFacade.cs" />

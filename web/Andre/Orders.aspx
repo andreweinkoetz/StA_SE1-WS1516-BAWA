@@ -1,14 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="WebForm2.aspx.cs" Inherits="web.Andre.WebForm2" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="Orders.aspx.cs" Inherits="web.Andre.Orders" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p style="font-size:36px">Ihre Bestellung:</p>
-    <asp:GridView ID="GridView1" runat="server" Width="100%" OnRowDeleting="GridView1_RowDeleting" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
+    <% if (Session["selProducts"] != null) {%>
+    <asp:GridView ID="gvOrder" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="#CCCCCC" />
-        <Columns>
-            <asp:CommandField ShowDeleteButton="true"  />
-        </Columns>
         <FooterStyle BackColor="#CCCCCC" />
         <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
         <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
@@ -18,5 +16,9 @@
         <SortedDescendingCellStyle BackColor="#CAC9C9" />
         <SortedDescendingHeaderStyle BackColor="#383838" />
     </asp:GridView>
-    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+    <asp:Button ID="clearCart" runat="server" Text="Warenkorb leeren" OnClick="clearCart_Click" />
+    <%} else { %>
+    
+    <asp:Label ID="Label2" runat="server" Text="Nix im Warenkorb!"></asp:Label>
+    <%} %>
 </asp:Content>
