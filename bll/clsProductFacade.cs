@@ -49,6 +49,16 @@ namespace bll
             return _productCol.GetProductById(ID);
         }
 
+        /// <summary>
+        /// Produkt-Liste erstellen.
+        /// </summary>
+        /// <param name="_Products"></param>
+        /// <returns></returns>
+        public List<clsProduct> createListofProducts(params clsProduct[] _Products)
+        {
+            return _productCol.createListofProducts(_Products);
+        }
+
 
 
     } // clsProductFacade

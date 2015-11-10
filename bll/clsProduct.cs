@@ -83,7 +83,92 @@ namespace bll
             }
         }
 
+        private int _size;
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Size
+        {
+            get
+            {
+                return _size;
+            }
+
+            set
+            {
+                _size = value;
+            }
+        }
+
+       
+
+
+
+    }//clsProduct
+    // weitere Attribute und gg. Methoden sind noch auszuprogrammieren!
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class clsProductExtended : clsProduct
+    {
+        private List<clsExtra> _productExtras;
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<clsExtra> ProductExtras
+        {
+            get
+            {
+                return _productExtras;
+            }
+
+            set
+            {
+                _productExtras = value;
+            }
+        }
+
+        private int _opID;
+        /// <summary>
+        /// 
+        /// </summary>
+        public int OpID
+        {
+            get
+            {
+                return _opID;
+            }
+
+            set
+            {
+                _opID = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public clsProductExtended() : base()
+        {
+            this._opID = 0;
+            this._productExtras = null;
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_productExtras"></param>
+        public clsProductExtended(List<clsExtra> _productExtras) : base()
+        {
+            this._productExtras = _productExtras;
+        }
+
+      
 
     }
-    // weitere Attribute und gg. Methoden sind noch auszuprogrammieren!
-} //clsProduct
+}
+
+
+

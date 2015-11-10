@@ -27,12 +27,13 @@
                 <asp:BoundField DataField="CUnit" HeaderText="CUnit" SortExpression="CUnit" Visible="False" />
                 <asp:TemplateField HeaderText="Größe Pizza">
                     <ItemTemplate>
-                        <asp:DropDownList ID="sizeSelect" runat="server" AutoPostBack="true" OnSelectedIndexChanged="sizeSelect_SelectedIndexChanged">
-                            <asp:ListItem Value="">- Größe</asp:ListItem>
-                            <asp:ListItem Value="28">Klein (28cm)</asp:ListItem>
-                            <asp:ListItem Value="32">Gro&szlig; (32cm)</asp:ListItem>
-                            <asp:ListItem Value="60">XXL (60cm)</asp:ListItem>
+                        <asp:DropDownList ID="sizeSelect" runat="server" AutoPostBack="true" OnSelectedIndexChanged="sizeSelect_SelectedIndexChanged" DataSourceID="objSizeSource" DataValueField="Value" DataTextField="Name">
                         </asp:DropDownList>
+                        <asp:ObjectDataSource ID="objSizeSource" runat="server" SelectMethod="getSizesByCategory" TypeName="bll.clsSizeFacade">
+                            <SelectParameters>
+                                <asp:SessionParameter Name="_category" SessionField="category" Type="Int32" />
+                            </SelectParameters>
+                        </asp:ObjectDataSource>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Extras">
@@ -43,7 +44,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Preis"></asp:TemplateField>
-                
+
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -60,6 +61,9 @@
                 <asp:SessionParameter Name="_category" SessionField="category" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
+
+
+
     </p>
 
     <p style="font-family: 'Segoe UI'; font-weight: bold; text-align: center">

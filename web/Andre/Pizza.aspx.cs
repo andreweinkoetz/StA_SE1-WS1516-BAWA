@@ -5,11 +5,22 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using bll;
 
 namespace web.Andre
 {
     public partial class PizzaCode : System.Web.UI.Page
     {
+
+        protected override void OnInit(EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                lblChooseSize.ForeColor = System.Drawing.Color.Red;
+            }
+
+            Session["category"] = 1;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,6 +40,7 @@ namespace web.Andre
                 gvPizza.Columns[0].Visible = false;
                 gvPizza.Columns[6].Visible = false;
                 gvPizza.Columns[7].Visible = false;
+                gvPizza.Columns[8].Visible = false;
             }
             else
             {
@@ -44,23 +56,35 @@ namespace web.Andre
 
             if (!String.IsNullOrEmpty(selectedSize))
             {
-                CheckBoxList extraCheckList =  (CheckBoxList)gvPizza.SelectedRow.FindControl("ExtrasCheckBoxList");
+                clsProductExtended _myProduct = new clsProductExtended();
+                List<clsExtra> _myExtraList = new List<clsExtra>();
+                GridViewRow selectedRow = gvPizza.SelectedRow;
+                CheckBoxList extraCheckList =  (CheckBoxList)selectedRow.FindControl("ExtrasCheckBoxList");
                 foreach (ListItem item in extraCheckList.Items)
                 {
                     if (item.Selected)
                     {
-                        gvPizza.SelectedRow.Cells[7].Text += item.Text + "\n";
+                        _myExtraList.Add(new clsExtra((Int32.Parse(item.Value)), item.Text));
+                        selectedRow.Cells[7].Text += item.Text + "\n";
                         item.Selected = false;
                     }
                 }
+
+                _myProduct.ProductExtras = _myExtraList;
+                _myProduct.Id = Int32.Parse(selectedRow.Cells[1].Text);
+                _myProduct.Name = selectedRow.Cells[2].Text;
+                _myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text);
+                _myProduct.Size = Int32.Parse(selectedSize);
+
                 lblChooseSize.Text = "";
 
-                ((ArrayList)Session["selProducts"]).Add(Andre.Master.cloneRow(gvPizza.SelectedRow));
+                ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
 
-                ((DropDownList)gvPizza.SelectedRow.FindControl("sizeSelect")).SelectedValue = "";
+                //((ArrayList)base.Session["selProducts"]).Add(Andre.Master.cloneRow(selectedRow));
+
                 Session["lastSelectedSize"] = "";
-                gvPizza.SelectedRow.Cells[8].Text = "";
-                gvPizza.SelectedRow.Cells[7].Text = "";
+                selectedRow.Cells[8].Text = null;
+                selectedRow.Cells[7].Text = null;
             }
             else
             {
@@ -84,15 +108,7 @@ namespace web.Andre
         }
 
 
-        protected override void OnInit(EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                lblChooseSize.ForeColor = System.Drawing.Color.Red;
-            }
-
-            Session["category"] = 1;
-        }
+       
 
         protected void sizeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -110,6 +126,7 @@ namespace web.Andre
         protected void Button1_Click(object sender, EventArgs e)
         {
             Session["roleID"] = 2;
+            Session["userID"] = 1;
     
         }
 

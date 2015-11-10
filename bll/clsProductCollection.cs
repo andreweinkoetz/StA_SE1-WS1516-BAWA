@@ -33,6 +33,13 @@ namespace bll
             return _myProductList;
         }
 
+        internal List<clsProduct> createListofProducts(params clsProduct[] _Products)
+        {
+            List<clsProduct> _myProductsList = new List<clsProduct>(_Products);
+
+            return _myProductsList;
+        }
+
         internal List<clsProduct> getAllProductsByCategory(int _category)
         {
             _myDAL.AddParam("PFKCategory", _category, DAL.DataDefinition.enumerators.SQLDataType.INT);

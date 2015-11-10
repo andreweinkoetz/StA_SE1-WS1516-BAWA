@@ -3,8 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
-    <p style="font-size:36px">Ihre Bestellung:</p>
-    <% if (Session["selProducts"] != null) {%>
+    <p style="font-size:36px"><asp:Label ID="lblOrder" runat="server" Text="Ihre Bestellung:"></asp:Label></p>
+    <% if (Session["selProducts"] != null && ((List<bll.clsProductExtended>)Session["selProducts"]).Count > 0) {%>
     <asp:GridView ID="gvOrder" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="#CCCCCC" />
         <FooterStyle BackColor="#CCCCCC" />
@@ -16,7 +16,14 @@
         <SortedDescendingCellStyle BackColor="#CAC9C9" />
         <SortedDescendingHeaderStyle BackColor="#383838" />
     </asp:GridView>
-    <asp:Button ID="clearCart" runat="server" Text="Warenkorb leeren" OnClick="clearCart_Click" />
+    <p style="text-align:right"><asp:Label ID="lblSum" runat="server" Text=""></asp:Label></p>
+    
+        <table style="width: 100%;">
+            <tr>
+                <td style="text-align:left"><asp:Button ID="clearCart" runat="server" Text="Warenkorb leeren" OnClick="clearCart_Click" /></td>
+                <td style="text-align:right"><asp:Button ID="btOrder" runat="server" Text="Bestellung aufgeben" OnClick="btOrder_Click" /></td>
+            </tr>
+        </table>  
     <%} else { %>
     
     <asp:Label ID="Label2" runat="server" Text="Nix im Warenkorb!"></asp:Label>

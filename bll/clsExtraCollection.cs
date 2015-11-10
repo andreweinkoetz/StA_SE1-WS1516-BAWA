@@ -33,6 +33,12 @@ namespace bll
             return _myExtrasList;
         }
 
+        internal List<clsExtra> createListOfExtras(params clsExtra[] _Extras)
+        {
+            List<clsExtra> _myExtrasList = new List<clsExtra>(_Extras);
+            return _myExtrasList;
+        }
+
         internal clsExtra DatarowToClsExtra(DataRow _dr)
         {
             clsExtra _myExtra = new clsExtra();

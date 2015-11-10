@@ -67,19 +67,6 @@
     <Content Include="Andre\Pizza.aspx" />
     <Content Include="Andre\Orders.aspx" />
     <Content Include="Andre\MeinKonto.aspx" />
-    <Content Include="Beispiele\default.aspx" />
-    <Content Include="Beispiele\order-insert.aspx" />
-    <Content Include="Beispiele\order-read.aspx" />
-    <Content Include="Beispiele\Seite1mitMaster.aspx" />
-    <Content Include="Beispiele\Seite2mitMaster.aspx" />
-    <Content Include="Beispiele\session1.aspx" />
-    <Content Include="Beispiele\session2.aspx" />
-    <Content Include="Beispiele\user-aendern.aspx" />
-    <Content Include="Beispiele\user-aendern1.aspx" />
-    <Content Include="Beispiele\user-insert.aspx" />
-    <Content Include="Beispiele\user-select.aspx" />
-    <Content Include="Beispiele\user-zaehlen.aspx" />
-    <Content Include="Beispiele\user-read.aspx" />
     <Content Include="default.aspx" />
     <Content Include="StyleSheet.css" />
     <Content Include="Web.config">
@@ -115,104 +102,6 @@
     <Compile Include="Andre\MeinKonto.aspx.designer.cs">
       <DependentUpon>MeinKonto.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\beispiel.Master.cs">
-      <DependentUpon>beispiel.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\beispiel.Master.designer.cs">
-      <DependentUpon>beispiel.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\order-insert.aspx.cs">
-      <DependentUpon>order-insert.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\order-insert.aspx.designer.cs">
-      <DependentUpon>order-insert.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\order-read.aspx.cs">
-      <DependentUpon>order-read.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\order-read.aspx.designer.cs">
-      <DependentUpon>order-read.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\Seite1mitMaster.aspx.cs">
-      <DependentUpon>Seite1mitMaster.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\Seite1mitMaster.aspx.designer.cs">
-      <DependentUpon>Seite1mitMaster.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\Seite2mitMaster.aspx.cs">
-      <DependentUpon>Seite2mitMaster.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\Seite2mitMaster.aspx.designer.cs">
-      <DependentUpon>Seite2mitMaster.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\session1.aspx.cs">
-      <DependentUpon>session1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\session1.aspx.designer.cs">
-      <DependentUpon>session1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\session2.aspx.cs">
-      <DependentUpon>session2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\session2.aspx.designer.cs">
-      <DependentUpon>session2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-aendern.aspx.cs">
-      <DependentUpon>user-aendern.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-aendern.aspx.designer.cs">
-      <DependentUpon>user-aendern.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-aendern1.aspx.cs">
-      <DependentUpon>user-aendern1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-aendern1.aspx.designer.cs">
-      <DependentUpon>user-aendern1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-insert.aspx.cs">
-      <DependentUpon>user-insert.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-insert.aspx.designer.cs">
-      <DependentUpon>user-insert.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-select.aspx.cs">
-      <DependentUpon>user-select.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-select.aspx.designer.cs">
-      <DependentUpon>user-select.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-zaehlen.aspx.cs">
-      <DependentUpon>user-zaehlen.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-zaehlen.aspx.designer.cs">
-      <DependentUpon>user-zaehlen.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-read.aspx.cs">
-      <DependentUpon>user-read.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-read.aspx.designer.cs">
-      <DependentUpon>user-read.aspx</DependentUpon>
-    </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -223,7 +112,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Beispiele\beispiel.Master" />
     <Content Include="Andre\default_layout.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

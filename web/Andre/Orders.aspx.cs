@@ -6,24 +6,31 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using bll;
 
 namespace web.Andre
 {
     public partial class Orders : System.Web.UI.Page
     {
-        private ArrayList selectedProducts;
+        private List<clsProductExtended> selectedProducts;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && Session["selProducts"] != null)
+            if (Session["selProducts"] != null)
             {
-                selectedProducts = (ArrayList)Session["selProducts"];
+                selectedProducts = (List<clsProductExtended>)Session["selProducts"];
+            }
+
+            if (!IsPostBack)
+            {
+
                 initializeOrderView(selectedProducts);
+                lblSum.Text = "Gesamtsumme: " + getTotalSum() + " EUR";
             }
 
         }
 
-        private void initializeOrderView(ArrayList showInGridView)
+        private void initializeOrderView(List<clsProductExtended> _selectedProducts)
         {
 
             DataTable dt = new DataTable();
@@ -40,9 +47,18 @@ namespace web.Andre
 
             dt.Columns.Add("Preis");
 
-            foreach (GridViewRow row in showInGridView)
+
+
+            foreach (clsProductExtended _product in _selectedProducts)
             {
-                dt.LoadDataRow(new object[] { row.Cells[1].Text, row.Cells[2].Text, row.Cells[6].Text, row.Cells[7].Text, row.Cells[8].Text }, true);
+                String extraText = "";
+
+                foreach (clsExtra _extra in _product.ProductExtras)
+                {
+                    extraText += _extra.Name + "\n";
+                }
+
+                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _product.Size, extraText, (_product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5) }, true);
             }
 
             gvOrder.DataSource = dt;
@@ -52,6 +68,63 @@ namespace web.Andre
         protected void clearCart_Click(object sender, EventArgs e)
         {
             Session["selProducts"] = null;
+        }
+
+        protected void btOrder_Click(object sender, EventArgs e)
+        {
+            bool orderIsCorrect = true;
+            clsOrderFacade _orderFacade = new clsOrderFacade();
+            clsOrderExtended _myOrder = new clsOrderExtended();
+            _myOrder.OrderNumber = _myOrder.GetHashCode();
+            _myOrder.UserId = (int)Session["userID"];
+            _myOrder.OrderDate = DateTime.Now;
+            _myOrder.OrderStatus = 0;
+            _myOrder.OrderSum = getTotalSum();
+
+            foreach (clsProductExtended _product in selectedProducts)
+            {
+                _product.OpID = _product.GetHashCode() + _myOrder.OrderNumber;
+                orderIsCorrect = _orderFacade.InsertOrderedProduct(_myOrder, _product) && orderIsCorrect;
+                if (_product.ProductExtras.Count > 0)
+                {
+                    orderIsCorrect = _orderFacade.InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
+                }
+            }
+            orderIsCorrect = _orderFacade.InsertOrder(_myOrder) && orderIsCorrect;
+
+            if (orderIsCorrect)
+            {
+                lblOrder.ForeColor = System.Drawing.Color.Red;
+                lblOrder.Text = "Ihre Bestellung war erfolgreich. Bestellnummer: #" + _myOrder.OrderNumber;
+            }
+
+        }
+
+        private int getNumberOfExtras(clsProductExtended _product)
+        {
+
+            int numberOfExtras = 0;
+
+            foreach (clsExtra _extra in _product.ProductExtras)
+            {
+                numberOfExtras++;
+            }
+
+            return numberOfExtras;
+
+        }
+
+        private double getTotalSum()
+        {
+            double _sum = 0;
+
+            foreach (clsProductExtended _product in selectedProducts)
+            {
+
+                _sum += _product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5;
+            }
+
+            return _sum;
         }
     }
 }

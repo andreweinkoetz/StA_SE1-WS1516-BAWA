@@ -74,6 +74,9 @@
     <Compile Include="clsProduct.cs" />
     <Compile Include="clsProductCollection.cs" />
     <Compile Include="clsProductFacade.cs" />
+    <Compile Include="clsSize.cs" />
+    <Compile Include="clsSizeCollection.cs" />
+    <Compile Include="clsSizeFacade.cs" />
     <Compile Include="clsUser.cs" />
     <Compile Include="clsUserCollection.cs" />
     <Compile Include="clsUserFacade.cs" />

@@ -18,8 +18,8 @@ namespace bll
         /// <summary>
         /// Order-Collection Konstruktor 
         /// </summary>
-        public clsOrderCollection() 
-        {   
+        public clsOrderCollection()
+        {
             // hier wird der Pfad zur Access-Datei aus web.config gelesen
             _databaseFile = System.Configuration.ConfigurationManager.AppSettings["AccessFileName"];
             // DAL-Objekt instantiieren, wird von den Methoden unten genutzt
@@ -49,13 +49,13 @@ namespace bll
             }
             return _myOrderList;
         } //getAllOrders() 
- 
+
         /// <summary>
         /// Insert eines Orderobjekts
         /// </summary>
         /// <param name="_Order">Order-Objekt</param>
         /// <returns>1 falls Insert erfolgreich </returns>
-        public int InsertOrder(clsOrder _Order)
+        public int InsertOrder(clsOrderExtended _Order)
         {
 
             //DB-Provider instanziiert und eine Verbindung zur access-Datenbank aufgebaut
@@ -63,20 +63,62 @@ namespace bll
 
             // Jetzt müssen wir erstmal die Übergabeparameter hinzufügen 
             // (Parameter in derselben Reihenfolge wie in der Access-Query)
-            _myProvider.AddParam("UserId", _Order.UserId, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("ProduktId", _Order.ProductId, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("Date", _Order.OrderDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
-            _myProvider.AddParam("Size", _Order.OrderSize, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("Extras", _Order.OrderExtras, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("Count", _Order.OrderCount, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("Sum", _Order.OrderSum, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
-            _myProvider.AddParam("Delivery", _Order.OrderDelivery, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
-            _myProvider.AddParam("Status", _Order.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("ONumber", _Order.OrderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("OFKUserId", _Order.UserId, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("ODate", _Order.OrderDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
+            _myProvider.AddParam("ODeliveryDate", _Order.OrderDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
+            _myProvider.AddParam("ODelivery", _Order.OrderDelivery, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
+            _myProvider.AddParam("OStatus", _Order.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("OSum", _Order.OrderSum, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
             //Ausführen und veränderte Zeilen zurückgeben
             int _changedSets = _myProvider.MakeStoredProcedureAction("QOInsertOrder");
 
             return _changedSets;
         } //insertOrder()
+
+        public int InsertOrderedProduct(clsOrderExtended _Order, clsProductExtended _Product)
+        {
+            int _changedSets = 0;
+
+
+            //DB-Provider instanziiert und eine Verbindung zur access-Datenbank aufgebaut
+            DAL.DALObjects.dDataProvider _myProvider = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
+
+            _myProvider.AddParam("OPID", _Product.OpID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("OPFKProductID", _Product.Id, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("OPOrderNumber", _Order.OrderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("OPSize", _Product.Size, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            //Ausführen und veränderte Zeilen zurückgeben
+            _changedSets += _myProvider.MakeStoredProcedureAction("QOInsertOrderedProduct");
+
+
+
+
+            return _changedSets;
+        }
+
+        public int InsertOrderedExtras(clsProductExtended _Product, List<clsExtra> _Extras)
+        {
+            int _changedSets = 0;
+
+            foreach (clsExtra _Extra in _Extras)
+            {
+                //DB-Provider instanziiert und eine Verbindung zur access-Datenbank aufgebaut
+                DAL.DALObjects.dDataProvider _myProvider = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
+
+                // Jetzt müssen wir erstmal die Übergabeparameter hinzufügen 
+                // (Parameter in derselben Reihenfolge wie in der Access-Query)
+                _myProvider.AddParam("OEFKOPID", _Product.OpID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+                _myProvider.AddParam("OEFKExtraID", _Extra.ID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+                //Ausführen und veränderte Zeilen zurückgeben
+                _changedSets += _myProvider.MakeStoredProcedureAction("QOInsertOrderedExtras");
+            }
+
+            return _changedSets;
+
+        }
 
         /// <summary>
         /// DatarowToclsOrder(): Transforms a DataRow into a OrderExtended Object
@@ -88,14 +130,10 @@ namespace bll
             clsOrderExtended _myOrder = new clsOrderExtended();
             //und hier die Daten nach Index
             _myOrder.ID = (int)_dr["OID"];
-            _myOrder.ProductId = AddIntFieldValue(_dr, "OFKProduktId");
             _myOrder.ProductName = AddStringFieldValue(_dr, "PName");
             _myOrder.UserId = AddIntFieldValue(_dr, "OFKUserId");
             _myOrder.UserName = AddStringFieldValue(_dr, "UName");
             _myOrder.OrderDate = AddDateTimeFieldValue(_dr, "ODate");
-            _myOrder.OrderExtras = AddIntFieldValue(_dr, "OExtras");
-            _myOrder.OrderSize = AddIntFieldValue(_dr, "OSize");
-            _myOrder.OrderCount = AddIntFieldValue(_dr, "OCount");
             _myOrder.OrderSum = AddDoubleFieldValue(_dr, "OSum");
             _myOrder.OrderDelivery = AddBoolFieldValue(_dr, "ODelivery");
             _myOrder.OrderStatus = AddIntFieldValue(_dr, "OStatus");

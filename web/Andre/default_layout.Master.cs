@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using bll;
 
 namespace web.Andre
 {
@@ -14,7 +15,7 @@ namespace web.Andre
         {
             if (Session["selProducts"] == null)
             {
-                Session["selProducts"] = new ArrayList();
+                Session["selProducts"] = new List<clsProductExtended>();
             }
 
           
