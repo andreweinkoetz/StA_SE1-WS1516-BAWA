@@ -16,7 +16,7 @@ namespace bll
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public clsUserFacade() 
+        public clsUserFacade()
         {
             _usrCol = new clsUserCollection();
         }
@@ -38,6 +38,35 @@ namespace bll
         public clsUser UserGetById(int id)
         {
             return _usrCol.GetUserById(id);
+        }
+
+        /// <summary>
+        /// Gets the password of a given user.
+        /// </summary>
+        /// <returns></returns>
+        public String getPassword(string name)
+        {
+            return _usrCol.getPasswordOfAUser(name);
+        }
+
+
+        /// <summary>
+        /// Gets the ID of a given user.
+        /// </summary>
+        /// <returns></returns>
+        public int getID(string name)
+        {
+            return _usrCol.getIDOfAUser(name);
+        }
+
+
+        /// <summary>
+        /// Gets the role of a given user.
+        /// </summary>
+        /// <returns></returns>
+        public int getRole(string name)
+        {
+            return _usrCol.getRoleOfAUser(name);
         }
 
         /// <summary>

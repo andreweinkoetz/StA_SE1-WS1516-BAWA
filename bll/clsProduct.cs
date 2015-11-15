@@ -83,11 +83,11 @@ namespace bll
             }
         }
 
-        private int _size;
+        private double _size;
         /// <summary>
         /// 
         /// </summary>
-        public int Size
+        public double Size
         {
             get
             {

@@ -1,31 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="Pizza.aspx.cs" Inherits="web.Andre.PizzaCode" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="Beverages.aspx.cs" Inherits="web.Andre.Beverage_Code" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        #Button1 {
-            text-align: left;
-        }
-
-        #TextArea1 {
-            height: 167px;
-            width: 412px;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
-    <p style="font-family: 'Segoe UI'; font-weight: bold">Unsere Pizza</p>
+    <p style="font-family: 'Segoe UI'; font-weight: bold">Unsere Getränke</p>
 
     <p style="font-family: 'Segoe UI'; font-weight: bold; text-align: left">
-        <asp:GridView ID="gvPizza" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvPizza_SelectedIndexChanged">
+        <asp:GridView ID="gvBeverages" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvBeverage_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/Andre/img/marker20-2.png" />
                 <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-                <asp:BoundField DataField="PricePerUnit" HeaderText="Preis pro cm" SortExpression="PricePerUnit" DataFormatString="{0:C}" />
+                <asp:BoundField DataField="PricePerUnit" HeaderText="Preis pro Liter" SortExpression="PricePerUnit" DataFormatString="{0:C}" />
                 <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" Visible="False" />
                 <asp:BoundField DataField="CUnit" HeaderText="CUnit" SortExpression="CUnit" Visible="False" />
-                <asp:TemplateField HeaderText="Größe Pizza">
+                <asp:TemplateField HeaderText="Größe Getränk">
                     <ItemTemplate>
                         <asp:DropDownList ID="sizeSelect" runat="server" AutoPostBack="true" OnSelectedIndexChanged="sizeSelect_SelectedIndexChanged" DataSourceID="objSizeSource" DataValueField="Value" DataTextField="Name">
                         </asp:DropDownList>
@@ -36,13 +26,7 @@
                         </asp:ObjectDataSource>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Extras">
-                    <ItemTemplate>
-                        <asp:CheckBoxList ID="ExtrasCheckBoxList" runat="server" AutoPostBack="False" DataSourceID="ExtrasDataSource" DataTextField="Name" DataValueField="ID">
-                        </asp:CheckBoxList>
-                        <asp:ObjectDataSource ID="ExtrasDataSource" runat="server" SelectMethod="ExtrasGetAll" TypeName="bll.clsExtraFacade"></asp:ObjectDataSource>
-                    </ItemTemplate>
-                </asp:TemplateField>
+
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -74,8 +58,4 @@
             </td>
         </tr>
     </table>
-
-
-
 </asp:Content>
-

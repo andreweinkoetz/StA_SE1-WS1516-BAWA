@@ -39,7 +39,7 @@ namespace bll
         internal clsSize DatarowToClsSize(DataRow _dr)
         {
             clsSize _mySize = new clsSize();
-            _mySize.Value = AddIntFieldValue(_dr, "SValue");
+            _mySize.Value = AddDoubleFieldValue(_dr, "SValue");
             _mySize.Name = AddStringFieldValue(_dr, "SName");
             return _mySize;
         }

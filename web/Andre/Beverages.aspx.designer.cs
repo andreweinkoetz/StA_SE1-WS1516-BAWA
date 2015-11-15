@@ -10,16 +10,16 @@
 namespace web.Andre {
     
     
-    public partial class PizzaCode {
+    public partial class Beverage_Code {
         
         /// <summary>
-        /// gvPizza-Steuerelement
+        /// gvBeverages-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPizza;
+        protected global::System.Web.UI.WebControls.GridView gvBeverages;
         
         /// <summary>
         /// ObjectDataSource2-Steuerelement

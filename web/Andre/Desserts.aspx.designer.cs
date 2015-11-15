@@ -10,16 +10,16 @@
 namespace web.Andre {
     
     
-    public partial class PizzaCode {
+    public partial class Dessert_Code {
         
         /// <summary>
-        /// gvPizza-Steuerelement
+        /// gvDesserts-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPizza;
+        protected global::System.Web.UI.WebControls.GridView gvDesserts;
         
         /// <summary>
         /// ObjectDataSource2-Steuerelement
@@ -29,14 +29,5 @@ namespace web.Andre {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource2;
-        
-        /// <summary>
-        /// lblChooseSize-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblChooseSize;
     }
 }

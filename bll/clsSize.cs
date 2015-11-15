@@ -8,8 +8,8 @@ namespace bll
 {
     public class clsSize
     {
-        private int _value;
-        public int Value
+        private double _value;
+        public double Value
         {
             get
             {

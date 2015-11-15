@@ -10,20 +10,20 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-   
+
 <body>
-    
+
     <form id="form1" runat="server">
         <div id="header">
             <div class="container">
                 <div id="menu">
                     <ul>
-                        
+
                         <li><a href="Pizza.aspx">Pizza</a></li>
-                        <li><a>Getr&auml;nke</a></li>
-                        <li><a>Desserts</a></li>
+                        <li><a href="Beverages.aspx">Getr&auml;nke</a></li>
+                        <li><a href="Desserts.aspx">Desserts</a></li>
                         <li>
-                             <% if (Session["roleID"] != null)
+                            <% if (Session["roleID"] != null)
                                 {
                                     switch ((int)Session["roleID"])
                                     {
@@ -31,18 +31,16 @@
                                             Response.Write("<a href=\"http://www.google.de\">Administration</a>");
                                             break;
                                         case 2:
-                                            Response.Write("<a href=\"MeinKonto.aspx\">Mein Konto</a>");
+                                            Response.Write("<a href=\"http://www.google.de\">Bestellungen verwalten</a>");
                                             break;
-                                        case 0:
-                                        default:
-                                            Response.Write("<a href=\"WebForm2.aspx\">Registrieren/Login</a>");
+                                        case 3:
+                                            Response.Write("<a href=\"MyAccount.aspx\">Mein Konto</a>");
                                             break;
-
                                     }
                                 }
                                 else
                                 {
-                                    Response.Write("<a href=\"WebForm2.aspx\">Registrieren/Login</a>");
+                                    Response.Write("<a href=\"LoginPage.aspx\">Registrieren/Login</a>");
                                 }
                             %>
                         </li>
@@ -61,7 +59,6 @@
             <div class="container page">
                 <asp:ContentPlaceHolder ID="contentBox" runat="server">
                 </asp:ContentPlaceHolder>
-
             </div>
         </div>
         <div id="footer">

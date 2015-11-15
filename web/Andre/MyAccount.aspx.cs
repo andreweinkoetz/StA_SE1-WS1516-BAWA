@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace web.Andre
 {
-    public partial class MeinKonto : System.Web.UI.Page
+    public partial class MyAccount_Code : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

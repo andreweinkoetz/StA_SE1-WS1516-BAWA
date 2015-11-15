@@ -10,6 +10,6 @@
 namespace web.Andre {
     
     
-    public partial class MeinKonto {
+    public partial class MyAccount_Code {
     }
 }

@@ -16,16 +16,15 @@ namespace web.Andre
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["selProducts"] != null)
+            if (!IsPostBack && (Session["selProducts"] != null))
             {
                 selectedProducts = (List<clsProductExtended>)Session["selProducts"];
-            }
-
-            if (!IsPostBack)
-            {
-
                 initializeOrderView(selectedProducts);
-                lblSum.Text = "Gesamtsumme: " + getTotalSum() + " EUR";
+                lblSum.Text = "Gesamtsumme: " + String.Format("{0:C}",getTotalSum());
+            }
+            else if (Session["selProducts"] != null)
+            {
+                selectedProducts = (List<clsProductExtended>)Session["selProducts"];
             }
 
         }
@@ -45,24 +44,39 @@ namespace web.Andre
 
             dt.Columns.Add("Extras");
 
-            dt.Columns.Add("Preis");
-
-
+            dt.Columns.Add("Preis Gesamt");
 
             foreach (clsProductExtended _product in _selectedProducts)
             {
-                String extraText = "";
-
-                foreach (clsExtra _extra in _product.ProductExtras)
+                String _extraText = "";
+                String _sizeText = "";
+                if (_product.ProductExtras != null)
                 {
-                    extraText += _extra.Name + "\n";
+                    foreach (clsExtra _extra in _product.ProductExtras)
+                    {
+                        _extraText += _extra.Name + "\n";
+                    }
                 }
-
-                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _product.Size, extraText, (_product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5) }, true);
+                _sizeText = setSizeText(_product);
+                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5)) }, true);
             }
 
             gvOrder.DataSource = dt;
             gvOrder.DataBind();
+        }
+
+        private String setSizeText(clsProductExtended _product)
+        {
+            switch (_product.Category)
+            {
+                case "1":
+                    return _product.Size + " cm";
+                case "2":
+                    return _product.Size + " Liter";
+                case "3":
+                    return _product.Size + " Stück";
+            }
+            return null;
         }
 
         protected void clearCart_Click(object sender, EventArgs e)
@@ -85,9 +99,12 @@ namespace web.Andre
             {
                 _product.OpID = _product.GetHashCode() + _myOrder.OrderNumber;
                 orderIsCorrect = _orderFacade.InsertOrderedProduct(_myOrder, _product) && orderIsCorrect;
-                if (_product.ProductExtras.Count > 0)
+                if (_product.ProductExtras != null)
                 {
-                    orderIsCorrect = _orderFacade.InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
+                    if (_product.ProductExtras.Count > 0)
+                    {
+                        orderIsCorrect = _orderFacade.InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
+                    }
                 }
             }
             orderIsCorrect = _orderFacade.InsertOrder(_myOrder) && orderIsCorrect;
@@ -96,6 +113,7 @@ namespace web.Andre
             {
                 lblOrder.ForeColor = System.Drawing.Color.Red;
                 lblOrder.Text = "Ihre Bestellung war erfolgreich. Bestellnummer: #" + _myOrder.OrderNumber;
+                Session["selProducts"] = null;
             }
 
         }
@@ -104,6 +122,11 @@ namespace web.Andre
         {
 
             int numberOfExtras = 0;
+
+            if (_product.ProductExtras == null)
+            {
+                return numberOfExtras;
+            }
 
             foreach (clsExtra _extra in _product.ProductExtras)
             {
@@ -120,7 +143,6 @@ namespace web.Andre
 
             foreach (clsProductExtended _product in selectedProducts)
             {
-
                 _sum += _product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5;
             }
 
