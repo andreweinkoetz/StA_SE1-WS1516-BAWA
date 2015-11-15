@@ -10,42 +10,42 @@
 namespace web.Andre {
     
     
-    public partial class MyAccount_Code {
+    public partial class OrderDetail_Code {
         
         /// <summary>
-        /// lblMyOrders-Steuerelement
+        /// lblOrderNumber-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMyOrders;
+        protected global::System.Web.UI.WebControls.Label lblOrderNumber;
         
         /// <summary>
-        /// btLogout-Steuerelement
+        /// gvOrderDetail-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btLogout;
+        protected global::System.Web.UI.WebControls.GridView gvOrderDetail;
         
         /// <summary>
-        /// gvMyOrders-Steuerelement
+        /// btOrderOverview-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMyOrders;
+        protected global::System.Web.UI.WebControls.Button btOrderOverview;
         
         /// <summary>
-        /// QOGetOrdersByUserID-Steuerelement
+        /// lblTotalSum-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource QOGetOrdersByUserID;
+        protected global::System.Web.UI.WebControls.Label lblTotalSum;
     }
 }

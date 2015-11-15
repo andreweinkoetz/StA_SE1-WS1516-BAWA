@@ -61,7 +61,6 @@
   <ItemGroup>
     <Content Include="Andre\img\marker20-2.png" />
     <Content Include="Andre\img\marker20-3.png" />
-    <Content Include="Andre\img\marker20.png" />
     <Content Include="Andre\mainstyle.css" />
     <Content Include="Andre\img\pizza_logo.png" />
     <Content Include="Andre\Pizza.aspx" />
@@ -69,6 +68,8 @@
     <Content Include="Andre\MyAccount.aspx" />
     <Content Include="Andre\Desserts.aspx" />
     <Content Include="Andre\Beverages.aspx" />
+    <Content Include="Andre\OrderDetail.aspx" />
+    <Content Include="Andre\OrderManagement.aspx" />
     <Content Include="default.aspx" />
     <Content Include="Andre\LoginPage.aspx" />
     <Content Include="Andre\RegistryPage.aspx" />
@@ -119,6 +120,20 @@
     </Compile>
     <Compile Include="Andre\Beverages.aspx.designer.cs">
       <DependentUpon>Beverages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Andre\OrderDetail.aspx.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Andre\OrderDetail.aspx.designer.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Andre\OrderManagement.aspx.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Andre\OrderManagement.aspx.designer.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>

@@ -148,6 +148,7 @@ namespace bll
 
 
         private int _OPId;
+
         /// <summary>
         /// Verknüpfungs-ID für Zuordnung zu bestellten Produkten.
         /// </summary>
@@ -164,6 +165,25 @@ namespace bll
             }
         }
 
+        private DateTime _orderDeliveryDate;
+
+        /// <summary>
+        /// Zeitpunkt wann Bestellung geliefert wurde.
+        /// </summary>
+        public DateTime OrderDeliveryDate
+        {
+            get
+            {
+                return _orderDeliveryDate;
+            }
+
+            set
+            {
+                _orderDeliveryDate = value;
+            }
+        }
+
+
         /// <summary>
         /// Constructor (mit Default-Werten)
         /// ruft zunächst Constructor der Oberklasse (clsOrder) auf und setzt dann die zusätzlichen Attribute
@@ -173,6 +193,7 @@ namespace bll
             this._productName = "";
             this._userName = "";
             this._OPId = 0;
+            this._orderDeliveryDate = DateTime.MinValue;
         }
         
     } // clsOrderExtended

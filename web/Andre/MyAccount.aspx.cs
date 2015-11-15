@@ -11,7 +11,26 @@ namespace web.Andre
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Session["userID"] == null)
+            {
+                lblMyOrders.ForeColor = System.Drawing.Color.Red;
+                lblMyOrders.Font.Size = 16;
+                lblMyOrders.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. \nBitte melden Sie sich an.";
+                btLogout.Visible = false;
+            }
+        }
 
+        protected void btLogout_Click(object sender, EventArgs e)
+        {
+            Session["userID"] = null;
+            Session["roleID"] = null;
+            Server.Transfer("LoginPage.aspx");
+        }
+
+        protected void gvMyOrders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Session["oNumber"] = Int32.Parse(gvMyOrders.SelectedRow.Cells[1].Text);
+            Server.Transfer("OrderDetail.aspx",false);
         }
     }
 }

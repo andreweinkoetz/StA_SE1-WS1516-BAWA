@@ -31,6 +31,15 @@ namespace bll
         } // OrdersGetAll()
 
         /// <summary>
+        /// Alle Bestellungen die noch nicht geliefert wurden anzeigen.
+        /// </summary>
+        /// <returns></returns>
+        public List<clsOrderExtended> getOrdersNotDelivered()
+        {
+            return _orderCol.getOrdersNotDelivered();
+        }
+
+        /// <summary>
         /// OrderInsert
         /// </summary>
         /// <param name="_newOrder"></param>
@@ -42,6 +51,27 @@ namespace bll
             else
                 return false;
         } // OrderInsert()
+
+
+        /// <summary>
+        /// Alle Bestellungen eines Users.
+        /// </summary>
+        /// <param name="_userID"></param>
+        /// <returns></returns>
+        public List<clsOrderExtended> getOrdersByUserID(int _userID)
+        {
+            return _orderCol.getOrdersByUserID(_userID);
+        }
+
+        /// <summary>
+        /// Alle Produkte inkl. Extras einer Bestellung.
+        /// </summary>
+        /// <param name="_orderNumber"></param>
+        /// <returns></returns>
+        public List<clsProductExtended> getOrderedProductsByOrderNumber(int _orderNumber)
+        {
+            return _orderCol.getOrderedProductsByOrderNumber(_orderNumber);
+        }
 
 
         /// <summary>

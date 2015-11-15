@@ -10,16 +10,16 @@
 namespace web.Andre {
     
     
-    public partial class MyAccount_Code {
+    public partial class OrderManagement_Code {
         
         /// <summary>
-        /// lblMyOrders-Steuerelement
+        /// lblOrderMgmt-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMyOrders;
+        protected global::System.Web.UI.WebControls.Label lblOrderMgmt;
         
         /// <summary>
         /// btLogout-Steuerelement
@@ -31,21 +31,30 @@ namespace web.Andre {
         protected global::System.Web.UI.WebControls.Button btLogout;
         
         /// <summary>
-        /// gvMyOrders-Steuerelement
+        /// gvOrderMgmt-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMyOrders;
+        protected global::System.Web.UI.WebControls.GridView gvOrderMgmt;
         
         /// <summary>
-        /// QOGetOrdersByUserID-Steuerelement
+        /// getOrdersNotDelivered-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource QOGetOrdersByUserID;
+        protected global::System.Web.UI.WebControls.ObjectDataSource getOrdersNotDelivered;
+        
+        /// <summary>
+        /// statusTable-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table statusTable;
     }
 }

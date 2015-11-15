@@ -31,7 +31,7 @@
                                             Response.Write("<a href=\"http://www.google.de\">Administration</a>");
                                             break;
                                         case 2:
-                                            Response.Write("<a href=\"http://www.google.de\">Bestellungen verwalten</a>");
+                                            Response.Write("<a href=\"OrderManagement.aspx\">Bestellungen verwalten</a>");
                                             break;
                                         case 3:
                                             Response.Write("<a href=\"MyAccount.aspx\">Mein Konto</a>");
