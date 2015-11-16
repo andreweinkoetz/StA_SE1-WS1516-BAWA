@@ -28,7 +28,7 @@
                                     switch ((int)Session["roleID"])
                                     {
                                         case 1:
-                                            Response.Write("<a href=\"http://www.google.de\">Administration</a>");
+                                            Response.Write("<a href=\"Administration.aspx\">Administration</a>");
                                             break;
                                         case 2:
                                             Response.Write("<a href=\"OrderManagement.aspx\">Bestellungen verwalten</a>");

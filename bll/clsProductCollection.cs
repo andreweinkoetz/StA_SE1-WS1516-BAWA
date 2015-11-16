@@ -79,6 +79,17 @@ namespace bll
 
         } // getProductById()
 
+        internal bool UpdateProduct(clsProductExtended _product)
+        {
+            _myDAL.AddParam("PName", _product.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+            _myDAL.AddParam("PPricePerUnit", _product.PricePerUnit, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+            _myDAL.AddParam("PSell", _product.ToSell, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
+            _myDAL.AddParam("CName", _product.Category, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+            _myDAL.AddParam("PID", _product.Id, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            int affectedRow = _myDAL.MakeStoredProcedureAction("QPUpdateProductByID");
+            return affectedRow == 1;
+        }
 
         internal clsProduct DatarowToClsProduct(DataRow _dr)
         {
@@ -88,6 +99,7 @@ namespace bll
             _myProduct.PricePerUnit = AddDoubleFieldValue(_dr, "PPricePerUnit");
             _myProduct.CUnit = AddStringFieldValue(_dr, "CUnit");
             _myProduct.Category = AddStringFieldValue(_dr, "CName");
+            _myProduct.ToSell = AddBoolFieldValue(_dr, "PSell");
             return _myProduct;
         }
     }

@@ -63,7 +63,10 @@ namespace web.Andre
                 {
                     if (item.Selected)
                     {
-                        _myExtraList.Add(new clsExtra((Int32.Parse(item.Value)), item.Text));
+                        clsExtraFacade _myExtraFacade = new clsExtraFacade();
+                        int _eID = Int32.Parse(item.Value);
+                        double _priceOfExtra = _myExtraFacade.getPriceOfExtra(_eID);
+                        _myExtraList.Add(new clsExtra(_eID, item.Text,_priceOfExtra));
                         item.Selected = false;
                     }
                 }

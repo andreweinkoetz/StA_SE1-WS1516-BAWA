@@ -59,7 +59,15 @@ namespace bll
             return _productCol.createListofProducts(_Products);
         }
 
-
+        /// <summary>
+        /// Einzelnes Produkt in DB aktualisieren.
+        /// </summary>
+        /// <param name="_product"></param>
+        /// <returns></returns>
+        public bool UpdateProduct(clsProductExtended _product)
+        {
+            return _productCol.UpdateProduct(_product);
+        }
 
     } // clsProductFacade
 

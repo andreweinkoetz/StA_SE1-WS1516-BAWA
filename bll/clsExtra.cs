@@ -47,16 +47,35 @@ namespace bll
             }
         }
 
-        public clsExtra(int _id, String _name)
+        private double _price;
+        /// <summary>
+        /// Preis für das Extra.
+        /// </summary>
+        public double Price
+        {
+            get
+            {
+                return _price;
+            }
+
+            set
+            {
+                _price = value;
+            }
+        }
+
+        public clsExtra(int _id, String _name, double _price)
         {
             this._id = _id;
             this._name = _name;
+            this._price = _price;
         }
 
         public clsExtra()
         {
             this._id = 0;
             this._name = "";
+            this._price = 0;
         }
     }
 }

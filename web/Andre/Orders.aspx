@@ -26,6 +26,6 @@
         </table>  
     <%} else { %>
     
-    <asp:Label ID="Label2" runat="server" Text="Nix im Warenkorb!"></asp:Label>
+    <asp:Label ID="lblEmptyCart" runat="server" Text="Warenkorb ist leer."></asp:Label>
     <%} %>
 </asp:Content>

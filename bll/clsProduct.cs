@@ -100,6 +100,26 @@ namespace bll
             }
         }
 
+
+        private bool _toSell;
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ToSell
+        {
+            get
+            {
+                return _toSell;
+            }
+
+            set
+            {
+                _toSell = value;
+            }
+        }
+
+      
+
        
 
 

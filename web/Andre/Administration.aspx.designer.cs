@@ -10,60 +10,87 @@
 namespace web.Andre {
     
     
-    public partial class Orders {
+    public partial class Administration_Code {
         
         /// <summary>
-        /// lblOrder-Steuerelement
+        /// lblAdminOverview-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOrder;
+        protected global::System.Web.UI.WebControls.Label lblAdminOverview;
         
         /// <summary>
-        /// gvOrder-Steuerelement
+        /// btLogout-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvOrder;
+        protected global::System.Web.UI.WebControls.Button btLogout;
         
         /// <summary>
-        /// lblSum-Steuerelement
+        /// tblAdm-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSum;
+        protected global::System.Web.UI.WebControls.Table tblAdm;
         
         /// <summary>
-        /// clearCart-Steuerelement
+        /// ddlistData-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button clearCart;
+        protected global::System.Web.UI.WebControls.DropDownList ddlistData;
         
         /// <summary>
-        /// btOrder-Steuerelement
+        /// ddlistStat-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btOrder;
+        protected global::System.Web.UI.WebControls.DropDownList ddlistStat;
         
         /// <summary>
-        /// lblEmptyCart-Steuerelement
+        /// lblErrorMsg-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmptyCart;
+        protected global::System.Web.UI.WebControls.Label lblErrorMsg;
+        
+        /// <summary>
+        /// btAdmData-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btAdmData;
+        
+        /// <summary>
+        /// btAdmOrders-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btAdmOrders;
+        
+        /// <summary>
+        /// btAdmStat-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btAdmStat;
     }
 }

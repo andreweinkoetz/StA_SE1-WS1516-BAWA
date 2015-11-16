@@ -58,7 +58,7 @@ namespace web.Andre
                     }
                 }
                 _sizeText = setSizeText(_product);
-                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5)) }, true);
+                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + getCostsOfExtras(_product))) }, true);
             }
 
             gvOrder.DataSource = dt;
@@ -118,22 +118,22 @@ namespace web.Andre
 
         }
 
-        private int getNumberOfExtras(clsProductExtended _product)
+        private double getCostsOfExtras(clsProductExtended _product)
         {
 
-            int numberOfExtras = 0;
+            double _costsOfExtras = 0;
 
             if (_product.ProductExtras == null)
             {
-                return numberOfExtras;
+                return _costsOfExtras;
             }
 
             foreach (clsExtra _extra in _product.ProductExtras)
             {
-                numberOfExtras++;
+                _costsOfExtras += _extra.Price;
             }
 
-            return numberOfExtras;
+            return _costsOfExtras;
 
         }
 
@@ -143,7 +143,7 @@ namespace web.Andre
 
             foreach (clsProductExtended _product in selectedProducts)
             {
-                _sum += _product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5;
+                _sum += _product.PricePerUnit * _product.Size + getCostsOfExtras(_product);
             }
 
             return _sum;

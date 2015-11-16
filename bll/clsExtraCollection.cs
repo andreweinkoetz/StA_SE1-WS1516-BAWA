@@ -33,10 +33,22 @@ namespace bll
             return _myExtrasList;
         }
 
-        internal List<clsExtra> createListOfExtras(params clsExtra[] _Extras)
+        internal double getPriceOfExtra(int _eID)
         {
-            List<clsExtra> _myExtrasList = new List<clsExtra>(_Extras);
-            return _myExtrasList;
+            _myDAL.AddParam("EID", _eID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QEGetPriceOfExtra");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            if (_myDataSet.Tables[0].Rows.Count != 0)
+            {
+                DataRow _dr = _myDataSet.Tables[0].Rows[0];
+                return AddDoubleFieldValue(_dr, "EPrice");
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         internal clsExtra DatarowToClsExtra(DataRow _dr)
@@ -44,6 +56,7 @@ namespace bll
             clsExtra _myExtra = new clsExtra();
             _myExtra.ID = AddIntFieldValue(_dr, "EID");
             _myExtra.Name = AddStringFieldValue(_dr, "EName");
+            _myExtra.Price = AddDoubleFieldValue(_dr, "EPrice");
 
             return _myExtra;
         }

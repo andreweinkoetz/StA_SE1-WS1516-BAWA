@@ -70,6 +70,8 @@
     <Content Include="Andre\Beverages.aspx" />
     <Content Include="Andre\OrderDetail.aspx" />
     <Content Include="Andre\OrderManagement.aspx" />
+    <Content Include="Andre\Administration.aspx" />
+    <Content Include="Andre\AdmData.aspx" />
     <Content Include="default.aspx" />
     <Content Include="Andre\LoginPage.aspx" />
     <Content Include="Andre\RegistryPage.aspx" />
@@ -134,6 +136,20 @@
     </Compile>
     <Compile Include="Andre\OrderManagement.aspx.designer.cs">
       <DependentUpon>OrderManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Andre\Administration.aspx.cs">
+      <DependentUpon>Administration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Andre\Administration.aspx.designer.cs">
+      <DependentUpon>Administration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Andre\AdmData.aspx.cs">
+      <DependentUpon>AdmData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Andre\AdmData.aspx.designer.cs">
+      <DependentUpon>AdmData.aspx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
