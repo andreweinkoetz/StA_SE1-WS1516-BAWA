@@ -17,27 +17,25 @@
     <hr />
 
     <p>
-        <asp:GridView ID="gvOrderMgmt" runat="server" AutoGenerateColumns="False" DataSourceID="getOrdersNotDelivered" Width="100%">
+        <asp:GridView ID="gvOrderMgmt" runat="server" AutoGenerateColumns="False" DataSourceID="getOrdersNotDelivered" Width="100%" OnSelectedIndexChanged="gvOrderMgmt_SelectedIndexChanged">
+            <SelectedRowStyle BorderColor="Red" BorderStyle="Solid" BorderWidth="3px" />
+            <RowStyle BorderStyle="None" />
             <Columns>
-                <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber" />
-                <asp:BoundField DataField="UserName" HeaderText="Besteller" SortExpression="UserName" />
-                <asp:BoundField DataField="OrderDate" HeaderText="Zeitpunkt der Bestellung" SortExpression="OrderDate" />
-                <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Zeitpunkt der Lieferung" SortExpression="OrderDeliveryDate" />
-                <asp:BoundField DataField="OrderStatus" HeaderText="Bestellstatus" SortExpression="OrderStatus" />
+                <asp:CommandField ShowSelectButton="True" ButtonType="Button" SelectText="Wählen" />
+                <asp:BoundField DataField="OrderNumber" HeaderText="Bestellung#" SortExpression="OrderNumber" />
+                <asp:BoundField DataField="UserName" HeaderText="Kunde" SortExpression="UserName" />
+                <asp:BoundField DataField="OrderDate" HeaderText="Bestelldatum" SortExpression="OrderDate" />
                 <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Lieferung?" SortExpression="OrderDelivery" />
-                <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" />
+                <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status" SortExpression="OrderStatusDescription" />
+                <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Lieferzeitpunkt" SortExpression="OrderDeliveryDate" />
+                <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}" />
             </Columns>
         </asp:GridView>
         <asp:ObjectDataSource ID="getOrdersNotDelivered" runat="server" SelectMethod="getOrdersNotDelivered" TypeName="bll.clsOrderFacade"></asp:ObjectDataSource>
     </p>
-    <asp:Table ID="statusTable" runat="server">
-        <asp:TableHeaderRow>
-            <asp:TableHeaderCell ColumnSpan="2">Beachte:</asp:TableHeaderCell>
-        </asp:TableHeaderRow>
-        <asp:TableRow><asp:TableCell>0 - </asp:TableCell><asp:TableCell>Bestellung eingegangen</asp:TableCell></asp:TableRow>
-        <asp:TableRow><asp:TableCell>1 - </asp:TableCell><asp:TableCell>Bestellung in Arbeit</asp:TableCell></asp:TableRow>
-        <asp:TableRow><asp:TableCell>2 - </asp:TableCell><asp:TableCell>Bestellung ausgeliefert</asp:TableCell></asp:TableRow>
-        <asp:TableRow><asp:TableCell>3 - </asp:TableCell><asp:TableCell>Bestellung storniert</asp:TableCell></asp:TableRow>
-    </asp:Table>
+    <p style="width:100%; text-align:center">
+        <asp:Button ID="btInProgress" runat="server" Text="Bestellung in Arbeit" Enabled="false" OnClick="btInProgress_Click" Visible="False" Height="30px" Width="150px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
+        <asp:Button ID="btDelivered" runat="server" Text="Bestellung geliefert" Enabled="false" OnClick="btDelivered_Click" Visible="False" Height="30px" Width="150px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
+    </p>
    
 </asp:Content>

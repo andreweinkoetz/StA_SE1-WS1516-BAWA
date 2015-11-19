@@ -67,7 +67,7 @@ namespace web.Andre
 
         protected void btAdmOrders_Click(object sender, EventArgs e)
         {
-            Server.Transfer("Orders.aspx");
+            Server.Transfer("OrderManagement.aspx");
         }
 
         protected void btAdmStat_Click(object sender, EventArgs e)

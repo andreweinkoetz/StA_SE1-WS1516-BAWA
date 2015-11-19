@@ -183,6 +183,25 @@ namespace bll
             }
         }
 
+        private String _orderStatusDescription;
+
+        /// <summary>
+        /// Textuelle Beschreibung des Status.
+        /// </summary>
+        public string OrderStatusDescription
+        {
+            get
+            {
+                return _orderStatusDescription;
+            }
+
+            set
+            {
+                _orderStatusDescription = value;
+            }
+        }
+
+
 
         /// <summary>
         /// Constructor (mit Default-Werten)
@@ -193,7 +212,8 @@ namespace bll
             this._productName = "";
             this._userName = "";
             this._OPId = 0;
-            this._orderDeliveryDate = DateTime.MinValue;
+            this._orderDeliveryDate = DateTime.MaxValue;
+            this._orderStatusDescription = "";
         }
         
     } // clsOrderExtended

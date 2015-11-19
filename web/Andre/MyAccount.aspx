@@ -23,7 +23,7 @@
                 <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber" />
                 <asp:BoundField DataField="OrderDate" HeaderText="Datum der Bestellung" SortExpression="OrderDate" />
                 <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Zum Liefern?" SortExpression="OrderDelivery" />
-                <asp:BoundField DataField="OrderStatus" HeaderText="Status der Bestellung" SortExpression="OrderStatus" />
+                <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status der Bestellung" SortExpression="OrderStatusDescription" />
                 <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Datum der Lieferung" SortExpression="OrderDeliveryDate" />
                 <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}" />
             </Columns>

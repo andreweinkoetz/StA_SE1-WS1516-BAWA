@@ -63,13 +63,13 @@ namespace bll
 
             // Jetzt müssen wir erstmal die Übergabeparameter hinzufügen 
             // (Parameter in derselben Reihenfolge wie in der Access-Query)
-            _myProvider.AddParam("ONumber", _Order.OrderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("OFKUserId", _Order.UserId, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("ODate", _Order.OrderDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
-            //_myProvider.AddParam("ODeliveryDate", _Order.OrderDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
-            _myProvider.AddParam("ODelivery", _Order.OrderDelivery, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
-            _myProvider.AddParam("OStatus", _Order.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            _myProvider.AddParam("OSum", _Order.OrderSum, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+            _myProvider.AddParam("Number", _Order.OrderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("UserId", _Order.UserId, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("Date", _Order.OrderDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
+            _myProvider.AddParam("ODeliveryDate", _Order.OrderDeliveryDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
+            _myProvider.AddParam("Delivery", _Order.OrderDelivery, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
+            _myProvider.AddParam("Status", _Order.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myProvider.AddParam("Sum", _Order.OrderSum, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
             //Ausführen und veränderte Zeilen zurückgeben
             int _changedSets = _myProvider.MakeStoredProcedureAction("QOInsertOrder");
 
@@ -91,9 +91,6 @@ namespace bll
 
             //Ausführen und veränderte Zeilen zurückgeben
             _changedSets += _myProvider.MakeStoredProcedureAction("QOInsertOrderedProduct");
-
-
-
 
             return _changedSets;
         }
@@ -139,6 +136,7 @@ namespace bll
             _myOrder.OrderDelivery = AddBoolFieldValue(_dr, "ODelivery");
             _myOrder.OrderStatus = AddIntFieldValue(_dr, "OStatus");
             _myOrder.OrderSum = AddDoubleFieldValue(_dr, "OSum");
+            _myOrder.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
 
             return _myOrder;
         } //DatarowToclsOrder()
@@ -253,6 +251,17 @@ namespace bll
             }
             return _myOrderList;
         } //getAllOrders() 
+
+        internal int updateOrderStatusByONumber(clsOrderExtended _myOrder)
+        {
+            _myDAL.AddParam("Status", _myOrder.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myDAL.AddParam("DeliveryDate", _myOrder.OrderDeliveryDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
+            _myDAL.AddParam("ONumber", _myOrder.OrderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            
+
+            int changedSets = _myDAL.MakeStoredProcedureAction("QOUpdateOrderStatusByONumber");
+            return changedSets;
+        }
 
     } //clsOrderCollection
 }

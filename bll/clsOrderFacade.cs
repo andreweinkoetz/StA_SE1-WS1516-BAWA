@@ -113,6 +113,16 @@ namespace bll
             return (_orderCol.InsertOrderedProduct(_Order, _Product) > 0);
         }
 
+        /// <summary>
+        /// Bestellstatus aktualisieren.
+        /// </summary>
+        /// <param name="_myOrder"></param>
+        /// <returns></returns>
+        public bool updateOrderStatusByONumber(clsOrderExtended _myOrder)
+        {
+            return (_orderCol.updateOrderStatusByONumber(_myOrder) == 1);
+        }
+
 
     } // clsOrderFacade
 }

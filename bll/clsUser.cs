@@ -55,9 +55,9 @@ namespace bll
             set
             {
                 if ((value != null) && (value != ""))
-                    _name = value;
+                    _title = value;
                 else
-                    _name = "No Title";
+                    _title = "No Title";
             }
         }
 

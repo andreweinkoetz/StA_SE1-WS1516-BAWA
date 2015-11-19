@@ -92,7 +92,8 @@ namespace web.Andre
             _myOrder.OrderNumber = _myOrder.GetHashCode();
             _myOrder.UserId = (int)Session["userID"];
             _myOrder.OrderDate = DateTime.Now;
-            _myOrder.OrderStatus = 0;
+            _myOrder.OrderStatus = 1; // Bestellung eingangen!
+            _myOrder.OrderDelivery = chkDelivery.Checked;
             _myOrder.OrderSum = getTotalSum();
 
             foreach (clsProductExtended _product in selectedProducts)

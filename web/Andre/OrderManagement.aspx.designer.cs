@@ -49,12 +49,21 @@ namespace web.Andre {
         protected global::System.Web.UI.WebControls.ObjectDataSource getOrdersNotDelivered;
         
         /// <summary>
-        /// statusTable-Steuerelement
+        /// btInProgress-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table statusTable;
+        protected global::System.Web.UI.WebControls.Button btInProgress;
+        
+        /// <summary>
+        /// btDelivered-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btDelivered;
     }
 }
