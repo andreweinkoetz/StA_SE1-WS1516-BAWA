@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -34,7 +35,7 @@ namespace web.beispiele
             // bll.clsUserFacade _User = new bll.clsUserFacade();
 
             newUser.Name = txtName.Text;
-            newUser.Address = txtAddress.Text;
+            newUser.Place = txtAddress.Text;
             newUser.Role = Convert.ToInt32(rblRolle.SelectedValue);
             newUser.IsActive = chkIsActive.Checked;
             newUser.Password = txtPassword.Text;

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace bll
 {
+    /// <summary>
+    /// Die GUI kann Methoden aus dieser Klasse nutzen.
+    /// </summary>
     public class clsProductFacade
     {
         clsProductCollection _productCol; //Objektvariable für Product-Collection,

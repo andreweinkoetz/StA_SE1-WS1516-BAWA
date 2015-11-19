@@ -16,7 +16,7 @@ namespace bll
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public clsUserFacade() 
+        public clsUserFacade()
         {
             _usrCol = new clsUserCollection();
         }
@@ -41,11 +41,31 @@ namespace bll
         }
 
         /// <summary>
+        /// Gets the password of a given user.
+        /// </summary>
+        /// <returns></returns>
+        public String getPassword(string email)
+        {
+            return _usrCol.getPasswordOfAUser(email);
+        }
+
+        /// <summary>
         /// User Insert
         /// </summary>
-        /// <returns>true, wenn Insert erfogreich</returns>
+        /// <returns>true, wenn Insert erfolgreich</returns>
         public bool UserInsert(clsUser newUser)
         {
+            //List<clsUser> allUsers = UsersGetAll();
+            //
+            //foreach (clsUser user in allUsers)
+            //{
+            //    if (user.Equals(allUsers))
+            //    {
+            //        return false;
+            //  }
+            //}
+
+
             // hier könnte man checken ob es den User schon in der DB gibt !? Wollen wir doppelte Usernamen haben?
 
             if (_usrCol.InsertUser(newUser) == 1)

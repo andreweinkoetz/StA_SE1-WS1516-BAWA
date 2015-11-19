@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -25,8 +26,8 @@ namespace web.Beispiele
                         bll.clsUserFacade _Users = new bll.clsUserFacade();
                         bll.clsUser _myUser = _Users.UserGetById(_uid);     // User lesen
                         txtName.Text = _myUser.Name;
-                        txtAddress.Text = _myUser.Address;
-                        txtPassword.Text = _myUser.Password;
+                        txtAddress.Text = _myUser.Place;
+                        txtPassword.Text = Convert.ToString(_myUser.Password);
                         txtDistanz.Text = _myUser.Distance.ToString(); ;
                         chkIsActive.Checked = _myUser.IsActive;
                         rblRole.SelectedValue = _myUser.Role.ToString();
@@ -53,7 +54,7 @@ namespace web.Beispiele
             bll.clsUser _updUser = new bll.clsUser();
             _updUser.ID = Convert.ToInt32(Page.Request.Params.GetValues(0)[0]);
             _updUser.Name = txtName.Text;
-            _updUser.Address = txtAddress.Text;
+            _updUser.Place = txtAddress.Text;
             _updUser.Password = txtPassword.Text;
             _updUser.Distance = Convert.ToInt32(txtDistanz.Text);
             _updUser.IsActive = chkIsActive.Checked;

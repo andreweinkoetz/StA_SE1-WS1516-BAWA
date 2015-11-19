@@ -31,7 +31,7 @@ namespace web.beispiele
             _myUser = _Users.UserGetById(_id);
 
             if (_myUser != null)
-                lblMsg.Text = "Auswahl in DropDownList1: " + _myUser.Name + " " + _myUser.Address;
+                lblMsg.Text = "Auswahl in DropDownList1: " + _myUser.Name + " " + _myUser.Place;
             else
                 lblMsg.Text = "Auswahl in DropDownList1 nicht gefunden: " + _id.ToString();
         }  // btnDropDownSelect_Click()
@@ -52,7 +52,7 @@ namespace web.beispiele
             _myUser = _Users.UserGetById(_id);
 
             if (_myUser != null)
-                lblMsg.Text = "Auswahl in DropDownList2: " + _myUser.Name + " " + _myUser.Address;
+                lblMsg.Text = "Auswahl in DropDownList2: " + _myUser.Name + " " + _myUser.Place;
             else
                 lblMsg.Text = "Auswahl in DropDownList2 nicht gefunden: " + _id.ToString();
 

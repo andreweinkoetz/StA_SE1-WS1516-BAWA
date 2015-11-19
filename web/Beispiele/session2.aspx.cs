@@ -15,7 +15,7 @@ namespace web.Beispiele
             if (Session["CurrentUser"] != null)
             {   // jemand hat sich auf einer anderen Seite angemeldet
                 bll.clsUser _currentUser = (bll.clsUser) Session["CurrentUser"];
-                lblUser.Text = "Hallo, Sie sind " + _currentUser.Name + " aus " + _currentUser.Address + "!";
+                lblUser.Text = "Hallo, Sie sind " + _currentUser.Name + " aus " + _currentUser.Place + "!";
                 _uid = _currentUser.ID;
 
             }

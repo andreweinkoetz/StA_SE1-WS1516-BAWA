@@ -14,7 +14,7 @@ namespace web.Beispiele
             if (Session["CurrentUser"] != null)
             {   // Session["CurrentUser"] ist mit dem zuletzt angemeldeten Benutzer belegt
                 bll.clsUser _currentUser = (bll.clsUser) Session["CurrentUser"];
-                lblUser.Text = "Hallo " + _currentUser.Name + " aus " + _currentUser.Address + "!";
+                lblUser.Text = "Hallo " + _currentUser.Name + " aus " + _currentUser.Place + "!";
             }
             else
             {   // bisher niemend angemeldet
@@ -32,7 +32,7 @@ namespace web.Beispiele
             bll.clsUserFacade _myUsers = new bll.clsUserFacade();
             bll.clsUser _currentUser = _myUsers.UserGetById(Convert.ToInt32(ddlUsers.SelectedValue));
             Session["CurrentUser"] = _currentUser;
-            lblUser.Text = "Hallo " + _currentUser.Name + " aus " + _currentUser.Address + "!";
+            lblUser.Text = "Hallo " + _currentUser.Name + " aus " + _currentUser.Place + "!";
         }
     }
 }
