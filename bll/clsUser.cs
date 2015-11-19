@@ -19,14 +19,18 @@ namespace bll
         public clsUser()
         {
             this._id = 0;
+            this._title = "No Title";
             this._name = "No Name";
-            this._prename = "No Name";
+            this._prename = "No Prename";
             this._street = "No Street";
             this._nr = 0;
+            this._postcode = 0;
             this._place = "No Place";
+            this._phone = "No Phone";
             this._distance = 0;
             this._isActive = false;
             this._role = 0;
+            this._email = "No E-Mail";
             this._password = "";
         }
 
@@ -39,6 +43,22 @@ namespace bll
         {
             get { return _id; }
             set { _id = value; }
+        }
+
+        private string _title;
+        /// <summary>
+        /// Anrede des Nutzers
+        /// </summary>
+        public String Title
+        {
+            get { return _title; }
+            set
+            {
+                if ((value != null) && (value != ""))
+                    _name = value;
+                else
+                    _name = "No Title";
+            }
         }
 
         private string _name;
@@ -105,6 +125,22 @@ namespace bll
             }
         }
 
+        private int _postcode;
+        /// <summary>
+        /// Postleitzahl des Users
+        /// </summary>
+        public int Postcode
+        {
+            get { return _postcode; }
+            set
+            {
+                if (value < 0)
+                    _postcode = 0;
+                else
+                    _postcode = value;
+            }
+        }
+
         private string _place;
         /// <summary>
         /// Adresse des Nutzers
@@ -118,6 +154,22 @@ namespace bll
                     _place = value;
                 else
                     _place = "No Place";
+            }
+        }
+
+        private string _phone;
+        /// <summary>
+        /// Telefonnummer des Users
+        /// </summary>
+        public String Phone
+        {
+            get { return _phone; }
+            set
+            {
+                if ((value != null) && (value != ""))
+                    _phone = value;
+                else
+                    _phone = "No Phone";
             }
         }
 
@@ -155,6 +207,20 @@ namespace bll
         {
             get { return _isActive; }
             set { _isActive = value; }
+        }
+
+        private string _email;
+        /// <summary>
+        /// E-Mail Adresse des Users
+        /// </summary>
+        public string EMail
+        {
+            get { return _email; }
+            set
+            {
+                if (value == null) _email = null;
+                else _email = value;
+            }
         }
 
         private string _password;

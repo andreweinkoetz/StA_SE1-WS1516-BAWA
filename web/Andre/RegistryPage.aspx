@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="RegistryPage.aspx.cs" Inherits="web.RegistryPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="RegistryPage.aspx.cs" Inherits="web.Andre.RegistryPage" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p>
@@ -21,7 +21,7 @@
         <asp:TableRow>
             <asp:TableCell> Anrede* </asp:TableCell>
             <asp:TableCell>
-                    <asp:DropDownList runat="server" Width="70">
+                    <asp:DropDownList ID="ddlTitle" runat="server" Width="70">
                         <asp:ListItem> - </asp:ListItem>
                         <asp:ListItem> Herrn </asp:ListItem>
                         <asp:ListItem> Frau </asp:ListItem>
@@ -31,51 +31,55 @@
         <asp:TableRow>
             <asp:TableCell> Name* </asp:TableCell>
             <asp:TableCell >
-                <asp:TextBox runat="server" placeholder="Name" ID="txtBoxName" Width="150"></asp:TextBox>
-                <asp:TextBox runat="server" placeholder="Vorname" ID="txtBoxVorname" Width="150"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Name" ID="txtBoxName" Width="150" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Vorname" ID="txtBoxVorname" Width="150" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
                 <asp:Label ID="lblErrorName" runat="server" Text="" ForeColor="Red"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell> Adresse* </asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="Straße" ID="txtBoxStraße" Width="250"></asp:TextBox>
-                <asp:TextBox runat="server" placeholder="Nr." ID="txtBoxHnr" Width="50"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Straße" ID="txtBoxStraße" Width="250" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Nr." ID="txtBoxHnr" Width="50" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:Label ID="lblErrorStreet" runat="server" Text="" ForeColor="Red"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell></asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="PLZ" ID="txtBoxPLZ" Width="80"></asp:TextBox>
-                <asp:TextBox runat="server" placeholder="Ort" ID="txtBoxPlace" Width="220"></asp:TextBox>
-            </asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell runat="server"> E-Mail* </asp:TableCell>
-            <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="E-Mail" ID="txtBoxEmail" Width="300"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="PLZ" ID="txtBoxPLZ" Width="80" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Ort" ID="txtBoxPlace" Width="220" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:Label ID="lblErrorPlace" runat="server" Text="" ForeColor="Red"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell> Telefon* </asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="Telefon" ID="txtBoxPhone" Width="300"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Telefon" ID="txtBoxPhone" Width="300" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:Label ID="lblErrorPhone" runat="server" Text="" ForeColor="Red"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>  
         <asp:TableRow>
             <asp:TableCell></asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
+            <asp:TableCell runat="server"> E-Mail* </asp:TableCell>
+            <asp:TableCell>
+                <asp:TextBox runat="server" placeholder="E-Mail" ID="txtBoxEmail" Width="300" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:Label ID="lblErrorEmail" runat="server" Text="" ForeColor="Red"></asp:Label>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
             <asp:TableCell> Passwort* </asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="Passwort" ID="txtBoxPassword" Width="300" TextMode="Password"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Passwort" ID="txtBoxPassword" Width="300" TextMode="Password" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
                 <asp:Label ID="lblErrorPwd" runat="server" Text="" ForeColor="Red"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell> Passwort bestätigen* </asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="Passwort bestätigen" ID="txtBoxPaswordx2" Width="300" TextMode="Password"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Passwort bestätigen" ID="txtBoxPasswordx2" Width="300" TextMode="Password" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
@@ -86,4 +90,3 @@
         </asp:TableRow>    
     </asp:Table>
 </asp:Content>
-

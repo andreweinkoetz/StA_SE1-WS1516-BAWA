@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace web
+namespace web.Andre
 {
     public partial class LoginPage : System.Web.UI.Page
     {
@@ -26,15 +26,15 @@ namespace web
         {
             clsUserFacade userFacade = new clsUserFacade();
             bll.clsUser userToLogin = new bll.clsUser();
-            userToLogin.Name = txtBoxUsername.Text;
-            userToLogin.Password = userFacade.getPassword(userToLogin.Name);
+            userToLogin.EMail = txtBoxUsername.Text;
+            userToLogin.Password = userFacade.getPassword(userToLogin.EMail);
 
             MD5 md5Hash = MD5.Create();
             bool isValid = VerifyPassword(md5Hash, txtBoxPassword.Text, userToLogin.Password);
             if (isValid)
             {
-                Session["userID"] = userFacade.getID(userToLogin.Name);
-                Session["roleID"] = userFacade.getRole(userToLogin.Name);
+                Session["userID"] = userFacade.getIDOfUser(userToLogin.EMail);
+                Session["roleID"] = userFacade.getRoleOfUser(userToLogin.EMail);
                 Server.Transfer("Pizza.aspx");
             }
             else
@@ -84,21 +84,17 @@ namespace web
             userToLogin.Name = txtBoxUsername.Text;
             userToLogin.Password = userFacade.getPassword(userToLogin.Name);
 
-            if (0 == comparer.Compare(passwordInputHash, userFacade.getPassword(userToLogin.Name)))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (comparer.Compare(passwordInputHash, userFacade.getPassword(userToLogin.Name)) == 0);
         }
 
+        /// <summary>
+        /// Show the password.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void chkBoxClear_Click(object sender, EventArgs e)
         {
-
             String safe = txtBoxPassword.Text;
-
             if (chkClear.Checked)
             {
                 txtBoxPassword.TextMode = TextBoxMode.SingleLine;

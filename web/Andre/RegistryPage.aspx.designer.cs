@@ -7,7 +7,7 @@
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace web {
+namespace web.Andre {
     
     
     public partial class RegistryPage {
@@ -58,6 +58,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.Table tblRegistry;
         
         /// <summary>
+        /// ddlTitle-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTitle;
+        
+        /// <summary>
         /// txtBoxName-Steuerelement
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.TextBox txtBoxHnr;
         
         /// <summary>
+        /// lblErrorStreet-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorStreet;
+        
+        /// <summary>
         /// txtBoxPLZ-Steuerelement
         /// </summary>
         /// <remarks>
@@ -121,13 +139,13 @@ namespace web {
         protected global::System.Web.UI.WebControls.TextBox txtBoxPlace;
         
         /// <summary>
-        /// txtBoxEmail-Steuerelement
+        /// lblErrorPlace-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBoxEmail;
+        protected global::System.Web.UI.WebControls.Label lblErrorPlace;
         
         /// <summary>
         /// txtBoxPhone-Steuerelement
@@ -137,6 +155,33 @@ namespace web {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBoxPhone;
+        
+        /// <summary>
+        /// lblErrorPhone-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorPhone;
+        
+        /// <summary>
+        /// txtBoxEmail-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBoxEmail;
+        
+        /// <summary>
+        /// lblErrorEmail-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorEmail;
         
         /// <summary>
         /// txtBoxPassword-Steuerelement
@@ -157,13 +202,13 @@ namespace web {
         protected global::System.Web.UI.WebControls.Label lblErrorPwd;
         
         /// <summary>
-        /// txtBoxPaswordx2-Steuerelement
+        /// txtBoxPasswordx2-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBoxPaswordx2;
+        protected global::System.Web.UI.WebControls.TextBox txtBoxPasswordx2;
         
         /// <summary>
         /// btnSubmit-Steuerelement

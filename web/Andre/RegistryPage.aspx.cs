@@ -9,18 +9,17 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace web
+namespace web.Andre
 {
     public partial class RegistryPage : System.Web.UI.Page
     {
-
         private clsUserFacade userFacade = new clsUserFacade();
-        private clsUser userToInsert = new clsUser();
+        private bll.clsUser userToInsert = new bll.clsUser();
         private bool userCanBeInsertedInDB = true;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         /// <summary>
@@ -30,71 +29,173 @@ namespace web
         /// <param name="sender"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            TextBox[] textBoxes = { txtBoxName, txtBoxVorname, txtBoxStraße, txtBoxHnr,
+                txtBoxPLZ, txtBoxPlace, txtBoxPhone, txtBoxEmail, txtBoxPassword,
+                txtBoxPasswordx2 };
 
-            checkForValidDigits(txtBoxName.Text, lblErrorName, sender, e);
-            userToInsert.Name = txtBoxName.Text;
+            Label[] errorLabels = { lblErrorName, lblErrorStreet, lblErrorPlace, lblErrorEmail, lblErrorPwd };
 
-            checkForValidDigits(txtBoxVorname.Text, lblErrorName, sender, e);
-            userToInsert.Prename = txtBoxVorname.Text;
-
-            userToInsert.Street = txtBoxStraße.Text;
-            if (!txtBoxHnr.Text.Equals(""))
+            foreach (TextBox element in textBoxes)
             {
-                int Hnr = Convert.ToInt32(txtBoxHnr.Text);
-                userToInsert.Nr = Hnr;
+                bool result = checkAndSetValidInput(element);
+                if (result)
+                {
+                    userCanBeInsertedInDB = false;
+                }
             }
-            userToInsert.Place = txtBoxPlace.Text;
-            userToInsert.IsActive = true;
-            userToInsert.Role = 3;
-
-            if (txtBoxPassword.Text.Equals("") | txtBoxPaswordx2.Text.Equals(""))
-            {
-                lblErrorPwd.Text = "Das Feld darf nicht leer sein!";
-            }
-
-            if (!txtBoxPassword.Text.Equals(txtBoxPaswordx2.Text))
-            {
-                lblErrorPwd.Text = "Sie müssen 2x das selbe Passwort eingeben!";
-                userCanBeInsertedInDB = false;
-            }
-
-            MD5 md5Hash = MD5.Create();
-            string hash = createMD5Hash(md5Hash, txtBoxPaswordx2.Text);
-            userToInsert.Password = hash;
-
             if (userCanBeInsertedInDB)
             {
-                if (userFacade.UserInsert(userToInsert))
-                {
-                    Server.Transfer("LoginPage.aspx");
-                }
-                else
-                {
-                    lblErrorName.Text = "Registrierung fehlgeschlagen. Fehler in der DB.";
-                }
+                userFacade.UserInsert(userToInsert);
+                Server.Transfer("LoginPage.aspx");
             }
         }
 
-        /// <summary>
-        /// Checks if valid informations are entered.
-        /// </summary>
-        /// <param name="textToProve"></param>
-        /// <param name="errorLabel"></param>
-        /// <param name="e"></param>
-        /// <param name="sender"></param>
-        void checkForValidDigits(string textToProve, Label errorLabel, object sender, EventArgs e)
+        bool checkAndSetValidInput(TextBox stringToProve)
         {
+            bool errorOccured = false;
 
-            if (textToProve.Equals(""))
+            userToInsert.Title = ddlTitle.SelectedItem.Text;
+            userToInsert.IsActive = true;
+            userToInsert.Role = 3;
+
+            switch (stringToProve.ID)
             {
-                errorLabel.Text = "Bitte geben sie einen (Vor-)Namen ein!";
-                userCanBeInsertedInDB = false;
+                case "txtBoxName":
+                case "txtBoxVorname":
+                    if (txtBoxName.Text.Equals("") | txtBoxVorname.Text.Equals(""))
+                    {
+                        lblErrorName.Text = "Bitte geben Sie ihren Vor- und Nachnamen ein!";
+                        errorOccured = true;
+                    }
+                    else if (!isAlphaString(txtBoxName.Text) | !isAlphaString(txtBoxVorname.Text))
+                    {
+                        lblErrorName.Text = "Namen können nur Buchstaben enthalten!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured)
+                    {
+                        userToInsert.Name = txtBoxName.Text;
+                        userToInsert.Prename = txtBoxVorname.Text;
+                    }
+                    break;
+
+                case "txtBoxStraße":
+                    if (txtBoxStraße.Text.Equals(""))
+                    {
+                        lblErrorStreet.Text = "Bitte geben Sie eine Straße ein!";
+                        errorOccured = true;
+                    }
+                    else if (!isAlphaString(txtBoxStraße.Text))
+                    {
+                        lblErrorStreet.Text = "Straßennamen können nur Buchstaben enthalten!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured) { userToInsert.Street = txtBoxStraße.Text; }
+                    break;
+                case "txtBoxHnr":
+                    if (txtBoxHnr.Text.Equals(""))
+                    {
+                        lblErrorStreet.Text = "Bitte geben Sie eine Hausnummer ein!";
+                        errorOccured = true;
+                    }
+                    else if (!isAlphaNumericString(txtBoxHnr.Text))
+                    {
+                        lblErrorStreet.Text = "Hausnummern können nur Zahlen und Buchstaben enthalten!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured)
+                    { userToInsert.Nr = Convert.ToInt32(txtBoxHnr.Text); }
+                    break;
+                case "txtBoxPLZ":
+                    if (txtBoxPLZ.Text.Equals(""))
+                    {
+                        lblErrorPlace.Text = "Bitte geben Sie eine Postleitzahl ein!";
+                        errorOccured = true;
+                    }
+                    else if (!isNumericString(txtBoxPLZ.Text))
+                    {
+                        lblErrorPlace.Text = "Die Postleitzahl kann nur Zahlen enthalten!";
+                        errorOccured = true;
+                    }
+                    else if (getLengthOfWord(txtBoxPLZ.Text) != 5)
+                    {
+                        lblErrorPlace.Text = "Postleitzahlen in Deutschland müssen fünfstellig sein!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured)
+                    { userToInsert.Postcode = Convert.ToInt32(txtBoxPLZ.Text); }
+                    break;
+
+                case "txtBoxPlace":
+                    if (txtBoxPlace.Text.Equals(""))
+                    {
+                        lblErrorPlace.Text = "Bitte geben Sie einen Ort ein!";
+                        errorOccured = true;
+                    }
+                    else if (!isAlphaString(txtBoxPlace.Text))
+                    {
+                        lblErrorPlace.Text = "Orte können nur Buchstaben enthalten!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured)
+                    {
+                        userToInsert.Place = txtBoxPlace.Text;
+                    }
+                    break;
+
+                case "txtBoxPhone":
+                    if (txtBoxPhone.Text.Equals(""))
+                    {
+                        lblErrorPhone.Text = "Bitte geben Sie eine Telefonnummer ein!";
+                        errorOccured = true;
+                    }
+                    else if (!isTelephoneNumber(txtBoxPhone.Text))
+                    {
+                        lblErrorPhone.Text = "Telefonnummern bestehen nur aus Zahlen!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured)
+                    {
+                        userToInsert.Phone = "+49" + txtBoxPhone.Text;
+                    }
+                    break;
+
+                case "txtBoxEmail":
+                    if (txtBoxEmail.Text.Equals(""))
+                    {
+                        lblErrorEmail.Text = "Bitte geben Sie eine Email-Adresse ein!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured)
+                    { userToInsert.EMail = txtBoxEmail.Text; }
+                    break;
+
+                case "txtBoxPassword":
+                case "txtBoxPasswordx2":
+                    if (txtBoxPassword.Text.Equals("") | txtBoxPasswordx2.Text.Equals(""))
+                    {
+                        lblErrorPwd.Text = "Bitte geben Sie ein Passwort ein!";
+                        errorOccured = true;
+                    }
+                    if (!errorOccured)
+                    {
+                        MD5 md5Hash = MD5.Create();
+                        string hash = createMD5Hash(md5Hash, txtBoxPasswordx2.Text);
+                        userToInsert.Password = hash;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Komponente nicht gefunden!");
+                    break;
             }
-            else if (!isAlphaString(textToProve))
+
+            if (!txtBoxPassword.Text.Equals(txtBoxPasswordx2.Text))
             {
-                errorLabel.Text = "Namen können nur Buchstaben enthalten!";
-                userCanBeInsertedInDB = false;
+                lblErrorPwd.Text = "Bitte geben Sie zweimal das gleiche Passwort ein!";
+                errorOccured = true;
             }
+
+            return errorOccured;
         }
 
         /// <summary>
@@ -127,7 +228,7 @@ namespace web
         /// <returns></returns>
         bool isAlphaNumericString(string wordToTest)
         {
-            System.Text.RegularExpressions.Regex template = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
+            System.Text.RegularExpressions.Regex template = new Regex(@"^[A-Za-z0-9]+$");
             return template.IsMatch(wordToTest);
         }
 
@@ -139,7 +240,7 @@ namespace web
         static bool isAlphaString(string wordToTest)
         {
 
-            System.Text.RegularExpressions.Regex template = new System.Text.RegularExpressions.Regex(@"^[A-Za-z]+$");
+            System.Text.RegularExpressions.Regex template = new Regex(@"^[A-Za-z_äÄöÖüÜß\s]+$");
             return template.IsMatch(wordToTest);
 
         }
@@ -151,9 +252,24 @@ namespace web
         /// <returns></returns>
         bool isNumericString(string wordToTest)
         {
-            System.Text.RegularExpressions.Regex template = new System.Text.RegularExpressions.Regex("^[0-9]$");
+            System.Text.RegularExpressions.Regex template = new Regex(@"^[0-9]+$");
             return template.IsMatch(wordToTest);
         }
 
+        bool isTelephoneNumber(string wordToTest)
+        {
+            System.Text.RegularExpressions.Regex template = new Regex(@"^[0-9]+$");
+            return template.IsMatch(wordToTest);
+        }
+
+        /// <summary>
+        /// Ermittelt die Laenge eines Zeichensatzes.
+        /// </summary>
+        /// <param name="wordToTest"></param>
+        /// <returns></returns>
+        int getLengthOfWord(string wordToTest)
+        {
+            return wordToTest.Length;
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="LoginPage.aspx.cs" Inherits="web.LoginPage" %>
+﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Andre/default_layout.Master" AutoEventWireup="true" CodeBehind="LoginPage.aspx.cs" Inherits="web.Andre.LoginPage" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p>
@@ -10,9 +10,6 @@
     <br />
     <hr />
     <br />
-    <p>
-        Noch nicht registriert? Klicken Sie <a href="RegistryPage.aspx">hier!</a>
-    </p>
     <p>
         <asp:Label ID="loginData" runat="server" Text="Anmeldedaten" Font-Bold="true" Font-Size="Large"></asp:Label>
     </p>
@@ -26,7 +23,7 @@
         <asp:TableRow>
             <asp:TableCell> Passwort </asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" ID="txtBoxPassword" Width="150" TextMode="Password"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="Passwort" ID="txtBoxPassword" Width="150" TextMode="Password"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
@@ -45,4 +42,6 @@
     </asp:Table>
      <asp:Label ID="lblTest" runat="server" Text=""></asp:Label>        
 </asp:Content>
+
+
 

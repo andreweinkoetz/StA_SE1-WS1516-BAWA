@@ -7,7 +7,7 @@
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace web {
+namespace web.Andre {
     
     
     public partial class LoginPage {

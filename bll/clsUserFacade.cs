@@ -41,40 +41,46 @@ namespace bll
         }
 
         /// <summary>
-        /// Gets the password of a given user.
+        /// Gibt das Passwort des Users zurück.
         /// </summary>
         /// <returns></returns>
-        public String getPassword(string name)
+        public String getPassword(string _email)
         {
-            return _usrCol.getPasswordOfAUser(name);
+            return _usrCol.getPasswordOfAUser(_email);
         }
 
-
         /// <summary>
-        /// Gets the ID of a given user.
+        /// Gibt die ID des Users zurück.
         /// </summary>
+        /// <param name="_email"></param>
         /// <returns></returns>
-        public int getID(string name)
+        public int getIDOfUser(string _email)
         {
-            return _usrCol.getIDOfAUser(name);
+            return _usrCol.getIDOfUser(_email);
         }
 
-
-        /// <summary>
-        /// Gets the role of a given user.
-        /// </summary>
-        /// <returns></returns>
-        public int getRole(string name)
+        public int getRoleOfUser(string _email)
         {
-            return _usrCol.getRoleOfAUser(name);
+            return _usrCol.getRoleOfUser(_email);
         }
 
         /// <summary>
         /// User Insert
         /// </summary>
-        /// <returns>true, wenn Insert erfogreich</returns>
+        /// <returns>true, wenn Insert erfolgreich</returns>
         public bool UserInsert(clsUser newUser)
         {
+            //List<clsUser> allUsers = UsersGetAll();
+            //
+            //foreach (clsUser user in allUsers)
+            //{
+            //    if (user.Equals(allUsers))
+            //    {
+            //        return false;
+            //  }
+            //}
+
+
             // hier könnte man checken ob es den User schon in der DB gibt !? Wollen wir doppelte Usernamen haben?
 
             if (_usrCol.InsertUser(newUser) == 1)
