@@ -59,96 +59,95 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Andre\img\marker20-2.png" />
-    <Content Include="Andre\img\marker20-3.png" />
-    <Content Include="Andre\mainstyle.css" />
-    <Content Include="Andre\img\pizza_logo.png" />
-    <Content Include="Andre\Pizza.aspx" />
-    <Content Include="Andre\Orders.aspx" />
-    <Content Include="Andre\MyAccount.aspx" />
-    <Content Include="Andre\Desserts.aspx" />
-    <Content Include="Andre\Beverages.aspx" />
-    <Content Include="Andre\OrderDetail.aspx" />
-    <Content Include="Andre\OrderManagement.aspx" />
-    <Content Include="Andre\Administration.aspx" />
-    <Content Include="Andre\AdmData.aspx" />
+    <Content Include="img\marker20-2.png" />
+    <Content Include="img\marker20-3.png" />
+    <Content Include="mainstyle.css" />
+    <Content Include="img\pizza_logo.png" />
+    <Content Include="Pizza.aspx" />
+    <Content Include="Orders.aspx" />
+    <Content Include="MyAccount.aspx" />
+    <Content Include="Desserts.aspx" />
+    <Content Include="Beverages.aspx" />
+    <Content Include="OrderDetail.aspx" />
+    <Content Include="OrderManagement.aspx" />
+    <Content Include="Administration.aspx" />
+    <Content Include="AdmData.aspx" />
     <Content Include="default.aspx" />
-    <Content Include="Andre\LoginPage.aspx" />
-    <Content Include="Andre\RegistryPage.aspx" />
-    <Content Include="StyleSheet.css" />
+    <Content Include="LoginPage.aspx" />
+    <Content Include="RegistryPage.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Andre\default_layout.Master.cs">
+    <Compile Include="default_layout.Master.cs">
       <DependentUpon>default_layout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\default_layout.Master.designer.cs">
+    <Compile Include="default_layout.Master.designer.cs">
       <DependentUpon>default_layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Andre\Pizza.aspx.cs">
+    <Compile Include="Pizza.aspx.cs">
       <DependentUpon>Pizza.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\Pizza.aspx.designer.cs">
+    <Compile Include="Pizza.aspx.designer.cs">
       <DependentUpon>Pizza.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\Orders.aspx.cs">
+    <Compile Include="Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\Orders.aspx.designer.cs">
+    <Compile Include="Orders.aspx.designer.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\MyAccount.aspx.cs">
+    <Compile Include="MyAccount.aspx.cs">
       <DependentUpon>MyAccount.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\MyAccount.aspx.designer.cs">
+    <Compile Include="MyAccount.aspx.designer.cs">
       <DependentUpon>MyAccount.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\Desserts.aspx.cs">
+    <Compile Include="Desserts.aspx.cs">
       <DependentUpon>Desserts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\Desserts.aspx.designer.cs">
+    <Compile Include="Desserts.aspx.designer.cs">
       <DependentUpon>Desserts.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\Beverages.aspx.cs">
+    <Compile Include="Beverages.aspx.cs">
       <DependentUpon>Beverages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\Beverages.aspx.designer.cs">
+    <Compile Include="Beverages.aspx.designer.cs">
       <DependentUpon>Beverages.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\OrderDetail.aspx.cs">
+    <Compile Include="OrderDetail.aspx.cs">
       <DependentUpon>OrderDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\OrderDetail.aspx.designer.cs">
+    <Compile Include="OrderDetail.aspx.designer.cs">
       <DependentUpon>OrderDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\OrderManagement.aspx.cs">
+    <Compile Include="OrderManagement.aspx.cs">
       <DependentUpon>OrderManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\OrderManagement.aspx.designer.cs">
+    <Compile Include="OrderManagement.aspx.designer.cs">
       <DependentUpon>OrderManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\Administration.aspx.cs">
+    <Compile Include="Administration.aspx.cs">
       <DependentUpon>Administration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\Administration.aspx.designer.cs">
+    <Compile Include="Administration.aspx.designer.cs">
       <DependentUpon>Administration.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\AdmData.aspx.cs">
+    <Compile Include="AdmData.aspx.cs">
       <DependentUpon>AdmData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\AdmData.aspx.designer.cs">
+    <Compile Include="AdmData.aspx.designer.cs">
       <DependentUpon>AdmData.aspx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
@@ -158,24 +157,24 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Andre\LoginPage.aspx.cs">
+    <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\LoginPage.aspx.designer.cs">
+    <Compile Include="LoginPage.aspx.designer.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Andre\RegistryPage.aspx.cs">
+    <Compile Include="RegistryPage.aspx.cs">
       <DependentUpon>RegistryPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Andre\RegistryPage.aspx.designer.cs">
+    <Compile Include="RegistryPage.aspx.designer.cs">
       <DependentUpon>RegistryPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Andre\default_layout.Master" />
+    <Content Include="default_layout.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -188,6 +187,9 @@
       <Project>{e7ac1d6d-3bbc-4d95-8356-598e1bdb3a11}</Project>
       <Name>bll</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Andre\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

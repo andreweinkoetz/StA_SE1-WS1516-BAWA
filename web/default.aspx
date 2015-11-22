@@ -1,23 +1,34 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="web._default" Culture="de-DE" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="web.default_code" %>
 
-<!DOCTYPE html>
-
-<html lang="de-DE">
-<head runat="server">
-    <link rel="stylesheet" type="text/css" href="StyleSheet.css" />
-    <meta charset = "ISO-8859-1" />
-    <title>Pizza Pizza!</title>
-    </head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-
-        <h1>Willkommen bei Heigert's Pizza!</h1></div>
-    <p>
-        <a href="Beispiele/default.aspx">Hier</a> gehts weiter zu einigen Beispielprogrammen ... <br />
-        Hier gehts zu Andre's Testseiten: <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Andre/WebForm1.aspx">Klick!</asp:HyperLink>
-    </p> 
-        <p><i>Version: 1.10.2015</i></p>
-    </form>
-</body>
-</html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
+    <h1>Startseite</h1>
+    <h2>Einstieg für Dozent</h2>
+    <p>Hier befindet sich die Startseite von BAWA</p>
+    <p>Diese wird im weiteren Verlauf des Projekts durch eine Willkommensseite ersetzt.</p>
+    <p><u>Zugänge lauten:</u></p>
+    <table style="width:400px">
+        <tr>
+            <td><b>Username</b></td>
+            <td><b>Password</b></td>
+            <td><b>Role</b></td>
+        </tr>
+        <tr>
+            <td>admin@pizzapizza.de</td>
+            <td>admin</td>
+            <td>Administrator</td>
+        </tr>
+        <tr>
+            <td>service@pizzapizza.de</td>
+            <td>admin</td>
+            <td>Service-Mitarbeiter</td>
+        </tr>
+        <tr>
+            <td>kunde@pizzapizza.de</td>
+            <td>admin</td>
+            <td>Kunde</td>
+        </tr>
+    </table>
+    <p>Für den Gastzugang wählen Sie einfach die gewünschte Seite.</p>
+</asp:Content>
