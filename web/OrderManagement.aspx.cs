@@ -49,8 +49,7 @@ namespace web
 
         protected void btLogout_Click(object sender, EventArgs e)
         {
-            Session["userID"] = null;
-            Session["roleID"] = null;
+            Session.Abandon();
             Server.Transfer("LoginPage.aspx");
         }
 
