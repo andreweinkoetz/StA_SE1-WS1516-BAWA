@@ -51,7 +51,7 @@
                     </ul>
                 </div>
                 <div id="head_logo">
-                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Andre/img/pizza_logo.png" ImageAlign="Right" />
+                    <a href="default.aspx"><asp:Image ID="logo" runat="server" ImageUrl="img/pizza_logo.png" ImageAlign="Right" /></a>
                 </div>
             </div>
         </div>

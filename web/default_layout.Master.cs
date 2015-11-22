@@ -16,24 +16,7 @@ namespace web
             if (Session["selProducts"] == null)
             {
                 Session["selProducts"] = new List<clsProductExtended>();
-            }
-
-          
-        }
-
-        internal static GridViewRow cloneRow(GridViewRow toClone)
-        {
-            GridViewRow clonedRow = new GridViewRow(toClone.RowIndex, toClone.DataItemIndex, toClone.RowType, toClone.RowState);
-            TableCell[] clonedCells = new TableCell[9];
-
-            for (int i = 0; i < 9; i++)
-            {
-                clonedCells[i] = new TableCell();
-                clonedCells[i].Text = toClone.Cells[i].Text;
-            }
-
-            clonedRow.Cells.AddRange(clonedCells);
-            return clonedRow;
+            }  
         }
     }
 }
