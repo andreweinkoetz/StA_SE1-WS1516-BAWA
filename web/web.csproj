@@ -78,6 +78,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Impressum.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="default_layout.Master.cs">
@@ -171,6 +172,13 @@
     </Compile>
     <Compile Include="RegistryPage.aspx.designer.cs">
       <DependentUpon>RegistryPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Impressum.aspx.cs">
+      <DependentUpon>Impressum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Impressum.aspx.designer.cs">
+      <DependentUpon>Impressum.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
