@@ -27,14 +27,14 @@ Pflichtenheft) werden bei der Note gleich stark gewichtet.</li>
 </ul>
 
 <h2>Umfang Meilensteine</h2>
-<u>Version V1 (Minimalfunktionalität, zu implementieren für Meilenstein M1):</u>
+**Version V1 (Minimalfunktionalität, zu implementieren für Meilenstein M1):**
 <ul>
 <li>Homepage mit Produktliste, Registrierung, Login</li>
 <li>Navigation entsprechend Rolle,</li>
 <li>Bestellen (inklusive Preisberechnung) und eigene Bestellungen anschauen.</li>
 </ul>
 
-<u>Version V3 (Minimalfunktionalität, zusätzlich zu V1, zu implementieren für Meilenstein M3):</u>
+**Version V3 (Minimalfunktionalität, zusätzlich zu V1, zu implementieren für Meilenstein M3):**
 <ul>
 <li>Funktionen für Gast, Kunde, Service-Mitarbeiter. Ausnahmen:</li>
 <li>Ein sicheres Login-Verfahren mit Passwort ist nicht notwendig: Auswahl aus
@@ -52,7 +52,7 @@ notwendig.</li>
  <li>Die Optik der Anwendung kann einfach gehalten werden.</li>
 </ul>
 
-<u>Version VV (volle Funktionalität, zu spezifizieren in Lastenheft und Pflichtenheft):</u>
+**Version VV (volle Funktionalität, zu spezifizieren in Lastenheft und Pflichtenheft):**
 Im Pizzashop werden verschiedene Produkte angeboten (z.B. Pizza Margerita, Pizza Funghi,
 Cola, Tiramisu). Diese Produkte sind nach Kategorien eingeteilt (z.B. Pizza, Getränke,
 Desserts).<br />
