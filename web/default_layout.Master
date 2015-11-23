@@ -7,6 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="mainstyle.css" />
     <title>Pizza, Pizza!</title>
+    <link rel="shortcut icon" href="img/fav.ico" type="image/x-icon" />
+    <link rel="icon" href="img/fav.ico" type="image/x-icon" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

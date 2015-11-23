@@ -59,6 +59,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\fav.ico" />
     <Content Include="img\marker20-2.png" />
     <Content Include="img\marker20-3.png" />
     <Content Include="mainstyle.css" />
