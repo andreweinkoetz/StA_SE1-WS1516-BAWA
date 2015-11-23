@@ -19,7 +19,7 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         /// <summary>
@@ -45,14 +45,26 @@ namespace web
             }
             if (userCanBeInsertedInDB)
             {
-                userFacade.UserInsert(userToInsert);
-                Server.Transfer("LoginPage.aspx");
+                if (!userFacade.UserInsert(userToInsert))
+                {
+                    lblErrorEmail.Text = "Fehler beim Anlegen. E-Mail Adresse bereits vorhanden";
+                }
+                else
+                {
+                    Server.Transfer("LoginPage.aspx");
+                }
             }
         }
 
-        bool checkAndSetValidInput(TextBox stringToProve)
+        private bool checkAndSetValidInput(TextBox stringToProve)
         {
             bool errorOccured = false;
+
+            if(ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
+            {
+                lblTitleError.Text = "Bitte treffen Sie eine Auswahl.";
+                return !errorOccured;
+            }
 
             userToInsert.Title = ddlTitle.SelectedItem.Text;
             userToInsert.IsActive = true;
@@ -204,7 +216,7 @@ namespace web
         /// <param name="md5Hash"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        string createMD5Hash(MD5 md5Hash, string password)
+        private string createMD5Hash(MD5 md5Hash, string password)
         {
 
             // Converts the password to a byte array and computes the MD5 hash
@@ -226,7 +238,7 @@ namespace web
         /// </summary>
         /// <param name="wordToTest"></param>
         /// <returns></returns>
-        bool isAlphaNumericString(string wordToTest)
+        private bool isAlphaNumericString(string wordToTest)
         {
             System.Text.RegularExpressions.Regex template = new Regex(@"^[A-Za-z0-9]+$");
             return template.IsMatch(wordToTest);
@@ -237,7 +249,7 @@ namespace web
         /// </summary>
         /// <param name="wordToTest"></param>
         /// <returns></returns>
-        static bool isAlphaString(string wordToTest)
+        private static bool isAlphaString(string wordToTest)
         {
 
             System.Text.RegularExpressions.Regex template = new Regex(@"^[A-Za-z_äÄöÖüÜß\s]+$");
@@ -250,13 +262,13 @@ namespace web
         /// </summary>
         /// <param name="wordToTest"></param>
         /// <returns></returns>
-        bool isNumericString(string wordToTest)
+        private bool isNumericString(string wordToTest)
         {
             System.Text.RegularExpressions.Regex template = new Regex(@"^[0-9]+$");
             return template.IsMatch(wordToTest);
         }
 
-        bool isTelephoneNumber(string wordToTest)
+        private bool isTelephoneNumber(string wordToTest)
         {
             System.Text.RegularExpressions.Regex template = new Regex(@"^[0-9]+$");
             return template.IsMatch(wordToTest);
@@ -267,7 +279,7 @@ namespace web
         /// </summary>
         /// <param name="wordToTest"></param>
         /// <returns></returns>
-        int getLengthOfWord(string wordToTest)
+        private int getLengthOfWord(string wordToTest)
         {
             return wordToTest.Length;
         }

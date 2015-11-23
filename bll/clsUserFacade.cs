@@ -70,23 +70,18 @@ namespace bll
         /// <returns>true, wenn Insert erfolgreich</returns>
         public bool UserInsert(clsUser newUser)
         {
-            //List<clsUser> allUsers = UsersGetAll();
-            //
-            //foreach (clsUser user in allUsers)
-            //{
-            //    if (user.Equals(allUsers))
-            //    {
-            //        return false;
-            //  }
-            //}
+            List<clsUser> allUsers = UsersGetAll();
 
+            foreach (clsUser user in allUsers)
+            {
+                if (user.EMail.Equals(newUser.EMail))
+                {
+                    return false;
+                }
+            }
 
-            // hier könnte man checken ob es den User schon in der DB gibt !? Wollen wir doppelte Usernamen haben?
-
-            if (_usrCol.InsertUser(newUser) == 1)
-                return true;
-            else
-                return false;
+            return (_usrCol.InsertUser(newUser) == 1);
+      
         } // UserInsert()
 
         /// <summary>

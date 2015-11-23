@@ -9,6 +9,9 @@
     </p>
     <br />
     <hr />
+    <p>
+     Sie bestellen zum ersten Mal bei uns? Registrieren Sie sich <a href="RegistryPage.aspx">hier</a>!
+    </p>
     <br />
     <p>
         <asp:Label ID="loginData" runat="server" Text="Anmeldedaten" Font-Bold="true" Font-Size="Large"></asp:Label>

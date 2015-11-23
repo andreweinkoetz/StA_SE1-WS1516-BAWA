@@ -23,9 +23,10 @@
             <asp:TableCell>
                     <asp:DropDownList ID="ddlTitle" runat="server" Width="70">
                         <asp:ListItem> - </asp:ListItem>
-                        <asp:ListItem> Herrn </asp:ListItem>
-                        <asp:ListItem> Frau </asp:ListItem>
+                        <asp:ListItem>Herr</asp:ListItem>
+                        <asp:ListItem>Frau</asp:ListItem>
                     </asp:DropDownList>
+                <asp:Label ID="lblTitleError" runat="server" Text="" ForeColor="Red"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
