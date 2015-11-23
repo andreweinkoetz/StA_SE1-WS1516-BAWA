@@ -14,7 +14,7 @@ namespace bll
     {
         clsOrderCollection _orderCol;  // Objektvariable für Order-Collection, wird im Konstruktor instantiiert 
         /// <summary>
-        /// Konstruktor, instatiiert _orderCol
+        /// Konstruktor, instantiiert _orderCol
         /// </summary>
         public clsOrderFacade()
         {
@@ -31,11 +31,20 @@ namespace bll
         } // OrdersGetAll()
 
         /// <summary>
+        /// Alle Bestellungen die noch nicht geliefert wurden anzeigen.
+        /// </summary>
+        /// <returns></returns>
+        public List<clsOrderExtended> getOrdersNotDelivered()
+        {
+            return _orderCol.getOrdersNotDelivered();
+        }
+
+        /// <summary>
         /// OrderInsert
         /// </summary>
         /// <param name="_newOrder"></param>
-        /// <returns>true fals insert erfolgreich</returns>
-        public bool OrderInsert(clsOrder _newOrder)
+        /// <returns>true falls insert erfolgreich</returns>
+        public bool InsertOrder(clsOrderExtended _newOrder)
         {
             if (_orderCol.InsertOrder(_newOrder) == 1)
                 return true;
@@ -43,15 +52,77 @@ namespace bll
                 return false;
         } // OrderInsert()
 
+
         /// <summary>
-        /// Preisberechnung der Bestellung - noch nicht implementiert
+        /// Alle Bestellungen eines Users.
         /// </summary>
-        /// <param name="_newOrder"></param>
-        /// <returns>berechneter Preis</returns>
-        public double CalculateOrderPrice(clsOrder _newOrder)
+        /// <param name="_userID"></param>
+        /// <returns></returns>
+        public List<clsOrderExtended> getOrdersByUserID(int _userID)
         {
-            // hier müsste die Preisberechnungsroutine hin
-            return 100.0;
+            return _orderCol.getOrdersByUserID(_userID);
+        }
+
+        /// <summary>
+        /// Alle Produkte inkl. Extras einer Bestellung.
+        /// </summary>
+        /// <param name="_orderNumber"></param>
+        /// <returns></returns>
+        public List<clsProductExtended> getOrderedProductsByOrderNumber(int _orderNumber)
+        {
+            return _orderCol.getOrderedProductsByOrderNumber(_orderNumber);
+        }
+
+
+        /// <summary>
+        /// Preisberechnung.
+        /// </summary>
+        /// <param name="_pricePerProduct"></param>
+        /// <returns></returns>
+        public double CalculateOrderPrice(int[] _pricePerProduct)
+        {
+            int _orderPrice = 0;
+            foreach (int i in _pricePerProduct)
+            {
+                _orderPrice += i;
+            }
+
+            return _orderPrice;
+
         } // CalculateOrderPrice()
+
+        /// <summary>
+        /// Einfügen der Extras der Produkte einer Bestellung.
+        /// </summary>
+        /// <param name="_Product"></param>
+        /// <param name="_Extras"></param>
+        /// <returns></returns>
+        public bool InsertOrderedExtras(clsProductExtended _Product, List<clsExtra> _Extras)
+        {
+            return (_orderCol.InsertOrderedExtras(_Product, _Extras) > 0);
+        }
+
+        /// <summary>
+        /// Einfügen der Produkte einer Bestellung.
+        /// </summary>
+        /// <param name="_Order"></param>
+        /// <param name="_Product"></param>
+        /// <returns></returns>
+        public bool InsertOrderedProduct(clsOrderExtended _Order, clsProductExtended _Product)
+        {
+            return (_orderCol.InsertOrderedProduct(_Order, _Product) > 0);
+        }
+
+        /// <summary>
+        /// Bestellstatus aktualisieren.
+        /// </summary>
+        /// <param name="_myOrder"></param>
+        /// <returns></returns>
+        public bool updateOrderStatusByONumber(clsOrderExtended _myOrder)
+        {
+            return (_orderCol.updateOrderStatusByONumber(_myOrder) == 1);
+        }
+
+
     } // clsOrderFacade
 }

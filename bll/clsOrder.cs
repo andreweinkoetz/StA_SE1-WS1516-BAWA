@@ -22,14 +22,21 @@ namespace bll
             set { _id = value;  } 
         }
 
-        private int _productId; 
+        private int _orderNumber;
         /// <summary>
-        /// Produkt-ID des bestellten Produktes, Fremdschlüssel)
+        /// Bestellnummer - generiert für Anzeige.
         /// </summary>
-        public int ProductId
+        public int OrderNumber
         {
-            get { return _productId; }
-            set { _productId = value; }
+            get
+            {
+                return _orderNumber;
+            }
+
+            set
+            {
+                _orderNumber = value;
+            }
         }
 
         private int _userId; 
@@ -51,36 +58,6 @@ namespace bll
         {
             get { return _orderDate; }
             set { _orderDate = value; }
-        }
-
-        private int _orderSize;     
-        /// <summary>
-        /// Größe des bestellten Produkts,  in cm, litern, etc.
-        /// </summary>
-        public int OrderSize
-        {
-            get { return _orderSize; }
-            set { _orderSize = value; }
-        }
-
-        private int _orderExtras; 
-        /// <summary>
-        /// Anzahl der Extras, speziell bei Pizza
-        /// </summary>
-        public int OrderExtras
-        {
-            get { return _orderExtras; }
-            set { _orderExtras = value; }
-        }
-
-        private int _orderCount;    // nr of products ordered
-        /// <summary>
-        /// Anzahl der bestellten Produkte
-        /// </summary>
-        public int OrderCount
-        {
-            get { return _orderCount; }
-            set { _orderCount = value; }
         }
 
         private double _orderSum; 
@@ -121,14 +98,22 @@ namespace bll
         public clsOrder()
         {
             this._id = 0;
-            this._productId = 0;
             this._userId = 0;
             this._orderDate = DateTime.MinValue; // default
-            this._orderSize = 0;
-            this._orderExtras = 0;
             this._orderSum = 0.0;
             this._orderDelivery = false;
             this._orderStatus = 0;
+        }
+
+        /// <summary>
+        /// Generieren einer neuen Bestellnummer.
+        /// </summary>
+        /// <returns></returns>
+        public int generateOrderNumber()
+        {
+            Random rnd = new Random();
+            int _orderNumber = 2015 + rnd.Next() * 100 + UserId * rnd.Next();
+            return _orderNumber;
         }
 
     } // clsOrder
@@ -161,6 +146,63 @@ namespace bll
             set { _userName = value; }
         }
 
+
+        private int _OPId;
+
+        /// <summary>
+        /// Verknüpfungs-ID für Zuordnung zu bestellten Produkten.
+        /// </summary>
+        public int OPId
+        {
+            get
+            {
+                return _OPId;
+            }
+
+            set
+            {
+                _OPId = value;
+            }
+        }
+
+        private DateTime _orderDeliveryDate;
+
+        /// <summary>
+        /// Zeitpunkt wann Bestellung geliefert wurde.
+        /// </summary>
+        public DateTime OrderDeliveryDate
+        {
+            get
+            {
+                return _orderDeliveryDate;
+            }
+
+            set
+            {
+                _orderDeliveryDate = value;
+            }
+        }
+
+        private String _orderStatusDescription;
+
+        /// <summary>
+        /// Textuelle Beschreibung des Status.
+        /// </summary>
+        public string OrderStatusDescription
+        {
+            get
+            {
+                return _orderStatusDescription;
+            }
+
+            set
+            {
+                _orderStatusDescription = value;
+            }
+        }
+
+
+
         /// <summary>
         /// Constructor (mit Default-Werten)
         /// ruft zunächst Constructor der Oberklasse (clsOrder) auf und setzt dann die zusätzlichen Attribute
@@ -169,6 +211,9 @@ namespace bll
         {
             this._productName = "";
             this._userName = "";
+            this._OPId = 0;
+            this._orderDeliveryDate = DateTime.MaxValue;
+            this._orderStatusDescription = "";
         }
         
     } // clsOrderExtended

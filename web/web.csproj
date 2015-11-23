@@ -28,7 +28,8 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>2</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,123 +59,98 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Beispiele\default.aspx" />
-    <Content Include="Beispiele\order-insert.aspx" />
-    <Content Include="Beispiele\order-read.aspx" />
-    <Content Include="Beispiele\Seite1mitMaster.aspx" />
-    <Content Include="Beispiele\Seite2mitMaster.aspx" />
-    <Content Include="Beispiele\session1.aspx" />
-    <Content Include="Beispiele\session2.aspx" />
-    <Content Include="Beispiele\user-aendern.aspx" />
-    <Content Include="Beispiele\user-aendern1.aspx" />
-    <Content Include="Beispiele\user-insert.aspx" />
-    <Content Include="Beispiele\user-select.aspx" />
-    <Content Include="Beispiele\user-zaehlen.aspx" />
-    <Content Include="Beispiele\user-read.aspx" />
-    <Content Include="default.aspx" />
-    <Content Include="img\pizza_logo.png" />
+    <Content Include="img\fav.ico" />
+    <Content Include="img\marker20-2.png" />
+    <Content Include="img\marker20-3.png" />
     <Content Include="mainstyle.css" />
-    <Content Include="StyleSheet.css" />
-    <Content Include="Web.config" />
+    <Content Include="img\pizza_logo.png" />
+    <Content Include="Pizza.aspx" />
+    <Content Include="Orders.aspx" />
+    <Content Include="MyAccount.aspx" />
+    <Content Include="Desserts.aspx" />
+    <Content Include="Beverages.aspx" />
+    <Content Include="OrderDetail.aspx" />
+    <Content Include="OrderManagement.aspx" />
+    <Content Include="Administration.aspx" />
+    <Content Include="AdmData.aspx" />
+    <Content Include="default.aspx" />
+    <Content Include="LoginPage.aspx" />
+    <Content Include="RegistryPage.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Impressum.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Beispiele\beispiel.Master.cs">
-      <DependentUpon>beispiel.Master</DependentUpon>
+    <Compile Include="default_layout.Master.cs">
+      <DependentUpon>default_layout.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\beispiel.Master.designer.cs">
-      <DependentUpon>beispiel.Master</DependentUpon>
+    <Compile Include="default_layout.Master.designer.cs">
+      <DependentUpon>default_layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Pizza.aspx.cs">
+      <DependentUpon>Pizza.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
+    <Compile Include="Pizza.aspx.designer.cs">
+      <DependentUpon>Pizza.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\order-insert.aspx.cs">
-      <DependentUpon>order-insert.aspx</DependentUpon>
+    <Compile Include="Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\order-insert.aspx.designer.cs">
-      <DependentUpon>order-insert.aspx</DependentUpon>
+    <Compile Include="Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\order-read.aspx.cs">
-      <DependentUpon>order-read.aspx</DependentUpon>
+    <Compile Include="MyAccount.aspx.cs">
+      <DependentUpon>MyAccount.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\order-read.aspx.designer.cs">
-      <DependentUpon>order-read.aspx</DependentUpon>
+    <Compile Include="MyAccount.aspx.designer.cs">
+      <DependentUpon>MyAccount.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\Seite1mitMaster.aspx.cs">
-      <DependentUpon>Seite1mitMaster.aspx</DependentUpon>
+    <Compile Include="Desserts.aspx.cs">
+      <DependentUpon>Desserts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\Seite1mitMaster.aspx.designer.cs">
-      <DependentUpon>Seite1mitMaster.aspx</DependentUpon>
+    <Compile Include="Desserts.aspx.designer.cs">
+      <DependentUpon>Desserts.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\Seite2mitMaster.aspx.cs">
-      <DependentUpon>Seite2mitMaster.aspx</DependentUpon>
+    <Compile Include="Beverages.aspx.cs">
+      <DependentUpon>Beverages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\Seite2mitMaster.aspx.designer.cs">
-      <DependentUpon>Seite2mitMaster.aspx</DependentUpon>
+    <Compile Include="Beverages.aspx.designer.cs">
+      <DependentUpon>Beverages.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\session1.aspx.cs">
-      <DependentUpon>session1.aspx</DependentUpon>
+    <Compile Include="OrderDetail.aspx.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\session1.aspx.designer.cs">
-      <DependentUpon>session1.aspx</DependentUpon>
+    <Compile Include="OrderDetail.aspx.designer.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\session2.aspx.cs">
-      <DependentUpon>session2.aspx</DependentUpon>
+    <Compile Include="OrderManagement.aspx.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\session2.aspx.designer.cs">
-      <DependentUpon>session2.aspx</DependentUpon>
+    <Compile Include="OrderManagement.aspx.designer.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\user-aendern.aspx.cs">
-      <DependentUpon>user-aendern.aspx</DependentUpon>
+    <Compile Include="Administration.aspx.cs">
+      <DependentUpon>Administration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\user-aendern.aspx.designer.cs">
-      <DependentUpon>user-aendern.aspx</DependentUpon>
+    <Compile Include="Administration.aspx.designer.cs">
+      <DependentUpon>Administration.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beispiele\user-aendern1.aspx.cs">
-      <DependentUpon>user-aendern1.aspx</DependentUpon>
+    <Compile Include="AdmData.aspx.cs">
+      <DependentUpon>AdmData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beispiele\user-aendern1.aspx.designer.cs">
-      <DependentUpon>user-aendern1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-insert.aspx.cs">
-      <DependentUpon>user-insert.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-insert.aspx.designer.cs">
-      <DependentUpon>user-insert.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-select.aspx.cs">
-      <DependentUpon>user-select.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-select.aspx.designer.cs">
-      <DependentUpon>user-select.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-zaehlen.aspx.cs">
-      <DependentUpon>user-zaehlen.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-zaehlen.aspx.designer.cs">
-      <DependentUpon>user-zaehlen.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Beispiele\user-read.aspx.cs">
-      <DependentUpon>user-read.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Beispiele\user-read.aspx.designer.cs">
-      <DependentUpon>user-read.aspx</DependentUpon>
+    <Compile Include="AdmData.aspx.designer.cs">
+      <DependentUpon>AdmData.aspx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
@@ -183,17 +159,30 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="default_layout.Master.cs">
-      <DependentUpon>default_layout.Master</DependentUpon>
+    <Compile Include="LoginPage.aspx.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="default_layout.Master.designer.cs">
-      <DependentUpon>default_layout.Master</DependentUpon>
+    <Compile Include="LoginPage.aspx.designer.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistryPage.aspx.cs">
+      <DependentUpon>RegistryPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistryPage.aspx.designer.cs">
+      <DependentUpon>RegistryPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Impressum.aspx.cs">
+      <DependentUpon>Impressum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Impressum.aspx.designer.cs">
+      <DependentUpon>Impressum.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Beispiele\beispiel.Master" />
     <Content Include="default_layout.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -208,6 +197,7 @@
       <Name>bll</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
