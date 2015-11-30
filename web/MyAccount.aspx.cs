@@ -23,13 +23,13 @@ namespace web
         protected void btLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Server.Transfer("LoginPage.aspx");
+            Response.Redirect("LoginPage.aspx");
         }
 
         protected void gvMyOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["oNumber"] = Int32.Parse(gvMyOrders.SelectedRow.Cells[1].Text);
-            Server.Transfer("OrderDetail.aspx",false);
+            Response.Redirect("OrderDetail.aspx",false);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace web
         protected void btLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Server.Transfer("LoginPage.aspx");
+            Response.Redirect("LoginPage.aspx");
         }
 
         protected void gvOrderMgmt_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace web
             _updateOrder.OrderNumber = Int32.Parse(gvOrderMgmt.SelectedRow.Cells[1].Text);
             _updateOrder.OrderStatus = 3;
             _updateOrder.OrderDeliveryDate = DateTime.Now;
-            _myOrderFacade.updateOrderStatusByONumber(_updateOrder);
+            _myOrderFacade.UpdateOrderStatusByONumber(_updateOrder);
 
             refreshAfterUpdate();           
         }
@@ -75,7 +75,7 @@ namespace web
             clsOrderExtended _updateOrder = new clsOrderExtended();
             _updateOrder.OrderNumber = Int32.Parse(gvOrderMgmt.SelectedRow.Cells[1].Text);
             _updateOrder.OrderStatus = 2;
-            _myOrderFacade.updateOrderStatusByONumber(_updateOrder);
+            _myOrderFacade.UpdateOrderStatusByONumber(_updateOrder);
 
             refreshAfterUpdate();
         }

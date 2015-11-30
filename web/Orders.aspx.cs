@@ -16,11 +16,20 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack && (Session["selProducts"] != null))
             {
                 selectedProducts = (List<clsProductExtended>)Session["selProducts"];
-                initializeOrderView(selectedProducts);
-                lblSum.Text = "Gesamtsumme: " + String.Format("{0:C}",getTotalSum());
+                if (selectedProducts.Count != 0)
+                {
+                    initializeOrderView(selectedProducts);
+                    lblSum.Text = "Gesamtsumme: " + String.Format("{0:C}", getTotalSum());
+                    if (new clsUserFacade().GetDistanceByUser(Convert.ToInt32(Session["userID"])) > 20.0)
+                    {
+                        chkDelivery.Enabled = false;
+                        chkDelivery.Checked = false;
+                    }
+                }
             }
             else if (Session["selProducts"] != null)
             {

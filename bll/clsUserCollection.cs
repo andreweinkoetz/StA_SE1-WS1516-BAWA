@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Security.Cryptography;
+using System.Xml.Linq;
 
 namespace bll
 {
@@ -108,6 +109,7 @@ namespace bll
         /// <returns>1 falls Insert erfolgreich </returns>
         public int InsertUser(clsUser _User)
         {
+
             // die Übergabeparameter hinzufügen 
             // (Parameter in derselben Reihenfolge wie in der Access-Query)
             _myDAL.AddParam("Title", _User.Title, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -155,7 +157,7 @@ namespace bll
             }
         }
 
-        internal int getIDOfUser(string _email)
+        internal int GetIDOfUser(string _email)
         {
             _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QUGetIDOfUser");
@@ -165,10 +167,10 @@ namespace bll
                 DataRow _dr = _myDataSet.Tables[0].Rows[0];
                 return AddIntFieldValue(_dr, "UID");
             }
-            return -1; 
+            return -1;
         }
 
-        internal int getRoleOfUser(string _email)
+        internal int GetRoleOfUser(string _email)
         {
             _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QUGetRoleOfUser");
@@ -183,9 +185,9 @@ namespace bll
 
 
 
-        internal string getPasswordOfAUser(string _name)
+        internal string GetPasswordOfAUser(string _name)
         {
-
+            
             //Jetzt müssen wir erstmal den Übergabeparameter hinzufügen
             _myDAL.AddParam("EMail", _name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
 
@@ -204,7 +206,7 @@ namespace bll
             {
                 return null;
             }
-
+            
         }
 
         /// <summary>
@@ -233,5 +235,25 @@ namespace bll
             _myUser.Password = AddStringFieldValue(_dr, "UPassword");
             return _myUser;
         } //DatarowToClsUser()
+
+        internal double GetDistanceByUser(int _id)
+        {
+            clsUser _myUser = GetUserById(_id);
+            XDocument doc = XDocument.Load(String.Format(@"http://maps.google.com/maps/api/directions/xml?origin=Lothstraße 64, 80335 Muenchen&destination={0} {1},{2} {3}&sensor=false", _myUser.Street, _myUser.Nr, _myUser.Postcode, _myUser.Place));
+            XElement dirResp = doc.Element(XName.Get("DirectionsResponse"));
+            XElement eStatus = dirResp.Element(XName.Get("status"));
+            if (eStatus.Value == "OK")
+            {
+                XElement eRoute = dirResp.Element(XName.Get("route"));
+                XElement eLeg = eRoute.Element(XName.Get("leg"));
+                XElement eDistance = eLeg.Element(XName.Get("distance"));
+                return Convert.ToDouble(eDistance.Element(XName.Get("value")).Value) / 1000;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
     }
 }

@@ -118,11 +118,30 @@ namespace bll
         /// </summary>
         /// <param name="_myOrder"></param>
         /// <returns></returns>
-        public bool updateOrderStatusByONumber(clsOrderExtended _myOrder)
+        public bool UpdateOrderStatusByONumber(clsOrderExtended _myOrder)
         {
-            return (_orderCol.updateOrderStatusByONumber(_myOrder) == 1);
+            return (_orderCol.UpdateOrderStatusByONumber(_myOrder) == 1);
         }
 
+        /// <summary>
+        /// Gibt den Status einer Bestellung zurück.
+        /// </summary>
+        /// <param name="_orderNumber">Bestellnummer</param>
+        /// <returns>Status der Bestellung</returns>
+        public int GetOrderStatusByOrderNumber(int _orderNumber)
+        {
+            return _orderCol.GetOrderStatusByOrderNumber(_orderNumber);
+        }
+
+        /// <summary>
+        /// Storniert eine Bestellung.
+        /// </summary>
+        /// <param name="_oNumber">Bestellung die storniert werden soll</param>
+        /// <returns>true falls Stornierung erfolgreich war</returns>
+        public bool CancelOrderByONumber(int _oNumber)
+        {
+            return _orderCol.CancelOrderByONumber(_oNumber) == 1;
+        }
 
     } // clsOrderFacade
 }

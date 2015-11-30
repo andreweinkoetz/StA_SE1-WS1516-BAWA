@@ -34,8 +34,8 @@ namespace web
             if (isValid)
             {
                 Session["userID"] = userFacade.getIDOfUser(userToLogin.EMail);
-                Session["roleID"] = userFacade.getRoleOfUser(userToLogin.EMail);
-                Server.Transfer("Pizza.aspx");
+                Session["roleID"] = userFacade.GetRoleOfUser(userToLogin.EMail);
+                Response.Redirect("Pizza.aspx");
             }
             else
             {

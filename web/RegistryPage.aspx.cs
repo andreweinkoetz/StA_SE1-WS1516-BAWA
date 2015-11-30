@@ -43,15 +43,17 @@ namespace web
                     userCanBeInsertedInDB = false;
                 }
             }
+
             if (userCanBeInsertedInDB)
             {
+
                 if (!userFacade.UserInsert(userToInsert))
                 {
                     lblErrorEmail.Text = "Fehler beim Anlegen. E-Mail Adresse bereits vorhanden";
                 }
                 else
                 {
-                    Server.Transfer("LoginPage.aspx");
+                    Response.Redirect("LoginPage.aspx");
                 }
             }
         }
@@ -60,7 +62,7 @@ namespace web
         {
             bool errorOccured = false;
 
-            if(ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
+            if (ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
             {
                 lblTitleError.Text = "Bitte treffen Sie eine Auswahl.";
                 return !errorOccured;

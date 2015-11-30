@@ -49,7 +49,7 @@ namespace web
         protected void btLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
-            Server.Transfer("LoginPage.aspx");
+            Response.Redirect("LoginPage.aspx");
         }
 
         protected void btAdmData_Click(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace web
             if(ddlistData.SelectedIndex > 0)
             {
                 Session["selAdmData"] = Int32.Parse(ddlistData.SelectedValue);
-                Server.Transfer("AdmData.aspx");
+                Response.Redirect("AdmData.aspx");
             } else
             {
                 lblErrorMsg.Visible = true;
@@ -66,7 +66,7 @@ namespace web
 
         protected void btAdmOrders_Click(object sender, EventArgs e)
         {
-            Server.Transfer("OrderManagement.aspx");
+            Response.Redirect("OrderManagement.aspx");
         }
 
         protected void btAdmStat_Click(object sender, EventArgs e)

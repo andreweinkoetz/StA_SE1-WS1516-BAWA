@@ -46,7 +46,7 @@ namespace bll
         /// <returns></returns>
         public String getPassword(string _email)
         {
-            return _usrCol.getPasswordOfAUser(_email);
+            return _usrCol.GetPasswordOfAUser(_email);
         }
 
         /// <summary>
@@ -56,12 +56,17 @@ namespace bll
         /// <returns></returns>
         public int getIDOfUser(string _email)
         {
-            return _usrCol.getIDOfUser(_email);
+            return _usrCol.GetIDOfUser(_email);
         }
 
-        public int getRoleOfUser(string _email)
+        /// <summary>
+        /// Liefert die Rolle des Users zurück.
+        /// </summary>
+        /// <param name="_email">E-Mail (Username) des Users</param>
+        /// <returns>Rollen-ID</returns>
+        public int GetRoleOfUser(string _email)
         {
-            return _usrCol.getRoleOfUser(_email);
+            return _usrCol.GetRoleOfUser(_email);
         }
 
         /// <summary>
@@ -79,6 +84,8 @@ namespace bll
                     return false;
                 }
             }
+
+            _usrCol = new clsUserCollection();
 
             return (_usrCol.InsertUser(newUser) == 1);
       
@@ -139,5 +146,18 @@ namespace bll
             }
             return _count;
         } // CountUsers()
+
+        /// <summary>
+        /// Berechnet Distanz von Pizza-Shop zum Benutzer.
+        /// </summary>
+        /// <param name="_id">UserId</param>
+        /// <returns>Strecke in km</returns>
+        public double GetDistanceByUser(int _id)
+        {
+            return _usrCol.GetDistanceByUser(_id);
+        }
+
     } // clsUserFacade
+
+    
 }

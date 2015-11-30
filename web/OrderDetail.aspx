@@ -13,6 +13,9 @@
             <td style="text-align:left">
                 <asp:Button ID="btOrderOverview" runat="server" Text="Zurück zur Übersicht" OnClick="btOrderOverview_Click" Height="40px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
             </td>
+             <td style="text-align:center">
+                <asp:Button ID="btCancelOrder" runat="server" Text="Bestellung stornieren" OnClick="btCancelOrder_Click" Height="40px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
+            </td>
             <td style="text-align:right">
                 <asp:Label ID="lblTotalSum" runat="server" Text=""></asp:Label>
             </td>

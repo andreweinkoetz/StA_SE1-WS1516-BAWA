@@ -23,10 +23,13 @@ namespace web
                 lblTotalSum.Font.Underline = true;
                 lblTotalSum.Text = "Gesamtsumme: " + String.Format("{0:C}", getTotalSum(_orderedProducts));
 
+                btCancelOrder.Visible = _orderFacade.GetOrderStatusByOrderNumber((int)Session["oNumber"]) == 1;
+
                 initializeOrderDetailView(_orderedProducts);
             }
             else if (!IsPostBack)
             {
+                btCancelOrder.Visible = false;
                 lblOrderNumber.ForeColor = System.Drawing.Color.Red;
                 lblOrderNumber.Font.Size = 12;
                 lblOrderNumber.Text = "Fehler in der Übermittlung. Bitte wählen Sie eine Bestellung aus.";
@@ -115,7 +118,13 @@ namespace web
         protected void btOrderOverview_Click(object sender, EventArgs e)
         {
             Session["oNumber"] = null;
-            Server.Transfer("MyAccount.aspx");
+            Response.Redirect("MyAccount.aspx");
+        }
+
+        protected void btCancelOrder_Click(object sender, EventArgs e)
+        {
+            clsOrderFacade _myOrderFacade = new clsOrderFacade();
+            _myOrderFacade.CancelOrderByONumber((int)Session["oNumber"]);
         }
     }
 }

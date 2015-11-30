@@ -168,6 +168,27 @@ namespace bll
             return _myOrderList;
         }
 
+        /// <summary>
+        /// Gibt den Status einer Bestellung zurück.
+        /// </summary>
+        /// <param name="_orderNumber">Bestellnummer</param>
+        /// <returns>Status der Bestellung</returns>
+        internal int GetOrderStatusByOrderNumber(int _orderNumber)
+        {
+            _myDAL.AddParam("ONumber", _orderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrderStatusByONumber");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //die DataTable enthält nur eine DataRow
+            int _orderStatus = AddIntFieldValue(_myDataTable.Rows[0], "OStatus");
+
+            return _orderStatus;
+        }
+
 
         /// <summary>
         /// Liest alle Produkte inkl. Extras einer Bestellung aus der DB und gibt sie als Liste zurück
@@ -252,7 +273,7 @@ namespace bll
             return _myOrderList;
         } //getAllOrders() 
 
-        internal int updateOrderStatusByONumber(clsOrderExtended _myOrder)
+        internal int UpdateOrderStatusByONumber(clsOrderExtended _myOrder)
         {
             _myDAL.AddParam("Status", _myOrder.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
             _myDAL.AddParam("DeliveryDate", _myOrder.OrderDeliveryDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
@@ -260,6 +281,14 @@ namespace bll
             
 
             int changedSets = _myDAL.MakeStoredProcedureAction("QOUpdateOrderStatusByONumber");
+            return changedSets;
+        }
+
+        internal int CancelOrderByONumber(int _oNumber)
+        {
+            _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            int changedSets = _myDAL.MakeStoredProcedureAction("QOCancelOrderByONumber");
             return changedSets;
         }
 

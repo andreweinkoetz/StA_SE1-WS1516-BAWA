@@ -127,7 +127,7 @@ namespace web
         {
             Session["userID"] = null;
             Session["roleID"] = null;
-            Server.Transfer("LoginPage.aspx");
+            Response.Redirect("LoginPage.aspx");
         }
 
         protected void gvAdmData_RowUpdating(object sender, GridViewUpdateEventArgs e)
