@@ -30,7 +30,7 @@ namespace bll
         /// Liest alle Order aus der DB und gibt sie als Liste zurück
         /// </summary>
         /// <returns></returns>
-        public List<clsOrderExtended> getAllOrders()
+        public List<clsOrderExtended> GetAllOrders()
         {
             //Hier wird unser Dataset aus der DB befüllt
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetAllOrders");
@@ -118,35 +118,10 @@ namespace bll
         }
 
         /// <summary>
-        /// DatarowToclsOrder(): Transforms a DataRow into a OrderExtended Object
-        /// </summary>
-        /// <param name="_dr">DataRow</param>
-        /// <returns>OrderExtended-Objekt</returns>
-        private clsOrderExtended DatarowToclsOrderExtended(DataRow _dr)
-        {
-            clsOrderExtended _myOrder = new clsOrderExtended();
-            //und hier die Daten nach Index
-            _myOrder.ID = (int)_dr["OID"];
-            //_myOrder.ProductName = AddStringFieldValue(_dr, "PName");
-            _myOrder.OrderNumber = AddIntFieldValue(_dr, "ONumber");
-            _myOrder.UserId = AddIntFieldValue(_dr, "OFKUserId");
-            _myOrder.UserName = AddStringFieldValue(_dr, "UName");
-            _myOrder.OrderDate = AddDateTimeFieldValue(_dr, "ODate");
-            _myOrder.OrderDeliveryDate = AddDateTimeFieldValue(_dr, "ODeliveryDate");
-            _myOrder.OrderDelivery = AddBoolFieldValue(_dr, "ODelivery");
-            _myOrder.OrderStatus = AddIntFieldValue(_dr, "OStatus");
-            _myOrder.OrderSum = AddDoubleFieldValue(_dr, "OSum");
-            _myOrder.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
-
-            return _myOrder;
-        } //DatarowToclsOrder()
-
-
-        /// <summary>
         /// Liest alle Bestellungen eines Users aus der DB und gibt sie als Liste zurück
         /// </summary>
         /// <returns></returns>
-        internal List<clsOrderExtended> getOrdersByUserID(int _userID)
+        internal List<clsOrderExtended> GetOrdersByUserID(int _userID)
         {
             _myDAL.AddParam("UserID", _userID, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
@@ -194,7 +169,7 @@ namespace bll
         /// Liest alle Produkte inkl. Extras einer Bestellung aus der DB und gibt sie als Liste zurück
         /// </summary>
         /// <returns></returns>
-        internal List<clsProductExtended> getOrderedProductsByOrderNumber(int _orderNumber)
+        internal List<clsProductExtended> GetOrderedProductsByOrderNumber(int _orderNumber)
         {
             _myDAL.AddParam("ONumber", _orderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
@@ -216,14 +191,15 @@ namespace bll
                 _product.Name = AddStringFieldValue(_dr, "PName");
                 _product.PricePerUnit = AddDoubleFieldValue(_dr, "PPricePerUnit");
                 _product.Size = AddDoubleFieldValue(_dr, "OPSize");
-                _product.Category = AddIntFieldValue(_dr, "PFKCategory").ToString();
-                _product.ProductExtras = getExtrasByOPID(_product.OpID);
+                _product.CID = AddIntFieldValue(_dr, "PFKCategory");
+                _product.Category = AddStringFieldValue(_dr, "CName");
+                _product.ProductExtras = GetExtrasByOPID(_product.OpID);
                 _myProductList.Add(_product);
             }
             return _myProductList;
         }
 
-        private List<clsExtra> getExtrasByOPID(int _opID)
+        private List<clsExtra> GetExtrasByOPID(int _opID)
         {
             // Neuer Provider muss angelegt werden da die Abfrage sonst keinen Wert liefert wegen falschen Parametern!
             DAL.DALObjects.dDataProvider _myProvider = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
@@ -242,6 +218,7 @@ namespace bll
                 clsExtra _extra = new clsExtra();
                 _extra.ID = AddIntFieldValue(_dr, "EID");
                 _extra.Name = AddStringFieldValue(_dr, "EName");
+                _extra.Price = AddDoubleFieldValue(_dr, "EPrice");
 
                 _myExtrasList.Add(_extra);
             }
@@ -253,7 +230,7 @@ namespace bll
         /// Liest alle Order aus der DB und gibt sie als Liste zurück
         /// </summary>
         /// <returns></returns>
-        public List<clsOrderExtended> getOrdersNotDelivered()
+        internal List<clsOrderExtended> GetOrdersNotDelivered()
         {
             //Hier wird unser Dataset aus der DB befüllt
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrdersNotDelivered");
@@ -273,6 +250,21 @@ namespace bll
             return _myOrderList;
         } //getAllOrders() 
 
+        internal List<clsOrderExtended> GetFinishedOrders()
+        {
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetAllFinishedOrders");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            List<clsOrderExtended> _myOrderList = new List<clsOrderExtended>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _myOrderList.Add(DatarowToclsOrderExtended(_dr));                
+            }
+
+            return _myOrderList;
+        }
+
         internal int UpdateOrderStatusByONumber(clsOrderExtended _myOrder)
         {
             _myDAL.AddParam("Status", _myOrder.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -291,6 +283,62 @@ namespace bll
             int changedSets = _myDAL.MakeStoredProcedureAction("QOCancelOrderByONumber");
             return changedSets;
         }
+
+        internal clsOrderExtended GetOrderByOrderNumber(int _oNumber)
+        {
+            _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrderByOrderNumber");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+            if (_myDataTable.Rows.Count > 0)
+            {
+                return DatarowToclsOrderExtended(_myDataTable.Rows[0]);
+            } else
+            {
+                return null;
+            }
+        }
+
+        internal int DeleteOrderByOrderNumber(int _oNumber)
+        {
+            _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            int changedSets = _myDAL.MakeStoredProcedureAction("QOEDeleteOrderedExtrasByONumber");
+            
+            //Neues DAL-Objekt nötig, da Verbindung sonst gesperrt ist.
+            _myDAL = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
+            _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            changedSets += _myDAL.MakeStoredProcedureAction("QOPDeleteOrderedProductsByONumber");
+
+            //Neues DAL-Objekt nötig, da Verbindung sonst gesperrt ist.
+            _myDAL = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
+            _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            changedSets += _myDAL.MakeStoredProcedureAction("QODeleteOrderByONumber");
+
+            return changedSets;
+        }
+
+        /// <summary>
+        /// DatarowToclsOrder(): Transforms a DataRow into a OrderExtended Object
+        /// </summary>
+        /// <param name="_dr">DataRow</param>
+        /// <returns>OrderExtended-Objekt</returns>
+        private clsOrderExtended DatarowToclsOrderExtended(DataRow _dr)
+        {
+            clsOrderExtended _myOrder = new clsOrderExtended();
+            //und hier die Daten nach Index
+            _myOrder.ID = (int)_dr["OID"];
+            _myOrder.OrderNumber = AddIntFieldValue(_dr, "ONumber");
+            _myOrder.UserId = AddIntFieldValue(_dr, "OFKUserId");
+            _myOrder.UserName = AddStringFieldValue(_dr, "UName");
+            _myOrder.OrderDate = AddDateTimeFieldValue(_dr, "ODate");
+            _myOrder.OrderDeliveryDate = AddDateTimeFieldValue(_dr, "ODeliveryDate");
+            _myOrder.OrderDelivery = AddBoolFieldValue(_dr, "ODelivery");
+            _myOrder.OrderStatus = AddIntFieldValue(_dr, "OStatus");
+            _myOrder.OrderSum = AddDoubleFieldValue(_dr, "OSum");
+            _myOrder.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
+
+            return _myOrder;
+        } //DatarowToclsOrder()
 
     } //clsOrderCollection
 }

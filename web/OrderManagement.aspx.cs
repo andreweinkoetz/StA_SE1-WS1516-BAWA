@@ -20,9 +20,19 @@ namespace web
             {
                 if ((int)Session["roleID"] < 3)
                 {
+                    if ((int)Session["roleID"] == 1)
+                    {
+                        gvOrderMgmt.DataSource = getAllOrders;
+                    }
+                    else
+                    {
+                        gvOrderMgmt.DataSource = getOrdersNotDelivered;
+                    }
+
+                    gvOrderMgmt.DataBind();
                     enableUI();
                 }
-            } 
+            }
 
         }
 
@@ -55,8 +65,11 @@ namespace web
 
         protected void gvOrderMgmt_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btDelivered.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
+            btInProgress.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
             btDelivered.Enabled = true;
             btInProgress.Enabled = true;
+
         }
 
         protected void btDelivered_Click(object sender, EventArgs e)
@@ -67,7 +80,7 @@ namespace web
             _updateOrder.OrderDeliveryDate = DateTime.Now;
             _myOrderFacade.UpdateOrderStatusByONumber(_updateOrder);
 
-            refreshAfterUpdate();           
+            refreshAfterUpdate();
         }
 
         protected void btInProgress_Click(object sender, EventArgs e)
@@ -88,6 +101,9 @@ namespace web
             gvOrderMgmt.SelectedIndex = -1;
             btDelivered.Enabled = false;
             btInProgress.Enabled = false;
+            btDelivered.BackColor = System.Drawing.Color.Gray;
+            btInProgress.BackColor = System.Drawing.Color.Gray;
         }
+
     }
 }

@@ -38,5 +38,55 @@ namespace bll
         {
             return _extraCol.getPriceOfExtra(_eID);
         }
+
+        /// <summary>
+        /// Bestimmes Extra ermitteln.
+        /// </summary>
+        /// <param name="_eID">ID des Extras</param>
+        /// <returns>clsExtra</returns>
+        public clsExtra GetExtraById(int _eID)
+        {
+            return _extraCol.GetExtraById(_eID);
+        }
+
+        /// <summary>
+        /// Ermittelt Bestellnummern eines bestimmten Extras.
+        /// </summary>
+        /// <param name="_eID">ID des Extras</param>
+        /// <returns>Liste von Bestellnummern</returns>
+        public List<Int32> GetOrdersOfExtrasByEID(int _eID)
+        {
+            return _extraCol.GetOrdersOfExtrasByEID(_eID);
+        }
+
+        /// <summary>
+        /// Fügt ein neues Extra ein.
+        /// </summary>
+        /// <param name="_myExtra">einzufügendes Extra</param>
+        /// <returns>true wenn Einfügen erfolgreich.</returns>
+        public bool InsertExtra(clsExtra _myExtra)
+        {
+            return _extraCol.InsertExtra(_myExtra) == 1;
+        }
+
+        /// <summary>
+        /// Ändert ein bestehendes Extra in der DB.
+        /// </summary>
+        /// <param name="_myExtra">geändertes Extra</param>
+        /// <returns>true wenn Update erfolgreich</returns>
+        public bool UpdateExtra(clsExtra _myExtra)
+        {
+            return _extraCol.UpdateExtra(_myExtra) == 1;
+        }
+
+        /// <summary>
+        /// Löscht ein Extra aus der DB.
+        /// </summary>
+        /// <param name="_eID">Id des zu löschenden Extras.</param>
+        /// <returns>true wenn Löschung erfolgreich.</returns>
+        public bool DeleteExtraByID(int _eID)
+        {
+            return _extraCol.DeleteExtraByID(_eID) == 1;
+        }
     }
 }

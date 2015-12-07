@@ -191,7 +191,7 @@ namespace bll
 
         private int _role;
         /// <summary>
-        /// 0: Kunde; 1: Manager; 2: Service (z.B. Pizzabäcker)
+        /// 3: Kunde; 2: Service (z.B. Pizzabäcker); 1: Manager
         /// </summary>
         public int Role
         {

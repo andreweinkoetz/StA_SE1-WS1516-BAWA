@@ -44,7 +44,7 @@ namespace bll
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public clsProduct GetProductByID(int ID)
+        public clsProductExtended GetProductByID(int ID)
         {
             return _productCol.GetProductById(ID);
         }
@@ -67,6 +67,45 @@ namespace bll
         public bool UpdateProduct(clsProductExtended _product)
         {
             return _productCol.UpdateProduct(_product);
+        }
+
+        /// <summary>
+        /// Gibt eine Liste aller Kategorien inkl. zug. ID zurück.
+        /// </summary>
+        /// <returns>Liste der Kategorienamen mit ID</returns>
+        public Dictionary<Int32, String> GetAllProductCategories()
+        {
+            return _productCol.GetAllProductCategories();
+        }
+
+        /// <summary>
+        /// Einfügen eines neuen Produkts.
+        /// </summary>
+        /// <param name="_myProduct">einzufügendes Produkt</param>
+        /// <returns>true falls einfügen erfolgreich</returns>
+        public bool InsertNewProduct(clsProductExtended _myProduct)
+        {
+            return _productCol.InsertNewProduct(_myProduct) == 1;
+        }
+
+        /// <summary>
+        /// Erstellt eine Liste aller Bestellnummern, in denen das Produkt enthalten ist.
+        /// </summary>
+        /// <param name="_pid">Produkt-ID</param>
+        /// <returns>Liste aller Bestellnummern.</returns>
+        public List<Int32> GetOrdersOfProductByPid(int _pid)
+        {
+            return _productCol.GetOrdersOfProductByPid(_pid);
+        }
+
+        /// <summary>
+        /// Löscht Produkt aus Datenbank.
+        /// </summary>
+        /// <param name="_pid">Id des zu löschenden Produkts</param>
+        /// <returns>true wenn Produkt gelöscht</returns>
+        public bool DeleteProductByPid(int _pid)
+        {
+            return _productCol.DeleteProductByPid(_pid) == 1;
         }
 
     } // clsProductFacade

@@ -124,17 +124,7 @@ namespace bll
     /// </summary>
     public class clsOrderExtended : clsOrder
     {
-        private string _productName;    // Name of product ordered; not part of DB table, for viewing purposes, do not update
-
-        /// <summary>
-        /// Name des bestellten Produktes
-        /// </summary>
-        public string ProductName
-        {
-            get { return _productName; }
-            set { _productName = value; }
-        }
-
+        
         private string _userName;      // user name ordering; not part of DB table, do not update
 
         /// <summary>
@@ -209,7 +199,6 @@ namespace bll
         /// </summary>
         public clsOrderExtended() : base()
         {
-            this._productName = "";
             this._userName = "";
             this._OPId = 0;
             this._orderDeliveryDate = DateTime.MaxValue;

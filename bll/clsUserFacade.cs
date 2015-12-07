@@ -54,7 +54,7 @@ namespace bll
         /// </summary>
         /// <param name="_email"></param>
         /// <returns></returns>
-        public int getIDOfUser(string _email)
+        public int GetIDOfUser(string _email)
         {
             return _usrCol.GetIDOfUser(_email);
         }
@@ -99,7 +99,19 @@ namespace bll
         public bool UserUpdate(clsUser updUser)
         {
             return updUser.Update();
+
         } // UserUpdate()
+
+        /// <summary>
+        /// Kennwort eines Benutzers ändern.
+        /// </summary>
+        /// <param name="_userID">Benutzer dessen Passwort geändert wird.</param>
+        /// <param name="_password">Neues Passwort</param>
+        /// <returns>true wenn Änderung erfolgreich.</returns>
+        public bool ChangeUserPassword(int _userID, String _password)
+        {
+            return _usrCol.ChangeUserPassword(_userID, _password) == 1;
+        }
 
         /// <summary>
         /// Delete User Object
@@ -108,14 +120,18 @@ namespace bll
         /// <returns>true if successful</returns>
         public bool UserDelete(clsUser delUser)
         {
-            // hier müsste noch gecheckt werden, ob der User gelöscht werden darf!? z.B. wenn er schon bestellt hat!?
-
-            //if (_usrCol.InsertUser(delUser) == 1)
-            //    return true;
-            //else
-            //    return false;
             return delUser.Delete();
         } // UserDelete()
+
+        /// <summary>
+        /// Löschen eines Users anhand seiner Id.
+        /// </summary>
+        /// <param name="_userId">Id des zu löschenden Users</param>
+        /// <returns>true wenn erfolgreich</returns>
+        public bool UserDelete(int _userId)
+        {
+            return _usrCol.DeleteUser(_userId) == 1;
+        }
 
         /// <summary>
         /// Zählt Anzahl Users, indem erst alle eingelesen werden und dann Länge der Liste zurückgegeben wird
@@ -124,9 +140,9 @@ namespace bll
         public int CountUsers()
         {
             int _count;
-            List<clsUser> _UserList;
-            _UserList = _usrCol.GetAllUsers();
-            _count = _UserList.Count;
+            List<clsUser> _userList;
+            _userList = _usrCol.GetAllUsers();
+            _count = _userList.Count;
             return _count;
         } // CountUsers()
 
@@ -155,6 +171,26 @@ namespace bll
         public double GetDistanceByUser(int _id)
         {
             return _usrCol.GetDistanceByUser(_id);
+        }
+
+        /// <summary>
+        /// Gibt zurück ob User sich anmelden kann.
+        /// </summary>
+        /// <param name="_id">User-Id</param>
+        /// <returns>true wenn User sich anmelden darf</returns>
+        public bool GetUserActive(int _id)
+        {
+            return new clsUserCollection().GetUserActive(_id);
+        }
+
+        /// <summary>
+        /// Liefert alle Bestellungen eines bestimmten Benutzers.
+        /// </summary>
+        /// <param name="_userId">ID des Benutzers</param>
+        /// <returns>Liste aller Bestellnummern</returns>
+        public List<Int32> GetOrdersFromUserById(int _userId)
+        {
+            return _usrCol.GetOrdersFromUserById(_userId);
         }
 
     } // clsUserFacade

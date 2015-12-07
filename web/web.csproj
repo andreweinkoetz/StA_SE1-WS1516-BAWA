@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Impressum.aspx" />
+    <Content Include="EditProduct.aspx" />
+    <Content Include="EditExtra.aspx" />
+    <Content Include="EditUser.aspx" />
+    <Content Include="OrderArchive.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="default_layout.Master.cs">
@@ -180,6 +184,34 @@
     </Compile>
     <Compile Include="Impressum.aspx.designer.cs">
       <DependentUpon>Impressum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProduct.aspx.cs">
+      <DependentUpon>EditProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProduct.aspx.designer.cs">
+      <DependentUpon>EditProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditExtra.aspx.cs">
+      <DependentUpon>EditExtra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditExtra.aspx.designer.cs">
+      <DependentUpon>EditExtra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditUser.aspx.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditUser.aspx.designer.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderArchive.aspx.cs">
+      <DependentUpon>OrderArchive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrderArchive.aspx.designer.cs">
+      <DependentUpon>OrderArchive.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

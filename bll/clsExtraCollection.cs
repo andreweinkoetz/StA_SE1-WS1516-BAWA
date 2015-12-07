@@ -51,7 +51,58 @@ namespace bll
             }
         }
 
-        internal clsExtra DatarowToClsExtra(DataRow _dr)
+        internal clsExtra GetExtraById(int _eID)
+        {
+            _myDAL.AddParam("EID", _eID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QEGetExtraByEid");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            DataRow _dr = _myDataTable.Rows[0];
+            return DatarowToClsExtra(_dr);
+        }
+
+        internal List<Int32> GetOrdersOfExtrasByEID(int _eID)
+        {
+            List<Int32> _orderNumbers = new List<Int32>();
+            _myDAL.AddParam("EID", _eID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QEGetOrdersOfExtrasByEID");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _orderNumbers.Add(AddIntFieldValue(_dr, "ONumber"));
+            }
+
+            return _orderNumbers;
+        }
+
+        internal int InsertExtra(clsExtra _myExtra)
+        {
+            _myDAL.AddParam("EName", _myExtra.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+            _myDAL.AddParam("EPrice", _myExtra.Price, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+
+            return _myDAL.MakeStoredProcedureAction("QEInsertExtra");
+        }
+
+        internal int UpdateExtra(clsExtra _myExtra)
+        {
+            _myDAL.AddParam("EName", _myExtra.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+            _myDAL.AddParam("EPrice", _myExtra.Price, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+            _myDAL.AddParam("EID", _myExtra.ID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            return _myDAL.MakeStoredProcedureAction("QEUpdateExtraByID");
+        }
+
+        internal int DeleteExtraByID(int _eID)
+        {
+            _myDAL.AddParam("EID", _eID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            return _myDAL.MakeStoredProcedureAction("QEDeleteExtraById");
+        }
+
+        private clsExtra DatarowToClsExtra(DataRow _dr)
         {
             clsExtra _myExtra = new clsExtra();
             _myExtra.ID = AddIntFieldValue(_dr, "EID");

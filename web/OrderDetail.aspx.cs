@@ -17,7 +17,7 @@ namespace web
             {
                 lblOrderNumber.Text = "Bestellung #" + Session["oNumber"].ToString();
                 clsOrderFacade _orderFacade = new clsOrderFacade();
-                List<clsProductExtended> _orderedProducts = _orderFacade.getOrderedProductsByOrderNumber((int)Session["oNumber"]);
+                List<clsProductExtended> _orderedProducts = _orderFacade.GetOrderedProductsByOrderNumber((int)Session["oNumber"]);
 
                 lblTotalSum.Font.Bold = true;
                 lblTotalSum.Font.Underline = true;

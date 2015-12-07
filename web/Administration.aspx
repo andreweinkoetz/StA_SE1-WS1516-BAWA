@@ -33,10 +33,16 @@
                     <asp:ListItem Value="0" Text="- Daten wählen"></asp:ListItem>
                     <asp:ListItem Value="1" Text="Produktdaten"></asp:ListItem>
                     <asp:ListItem Value="2" Text="Extradaten"></asp:ListItem>
-                    <asp:ListItem Value="3" Text="Kundendaten"></asp:ListItem>
+                    <asp:ListItem Value="3" Text="Benutzerdaten"></asp:ListItem>
                 </asp:DropDownList>
             </asp:TableHeaderCell>
-            <asp:TableHeaderCell></asp:TableHeaderCell>
+            <asp:TableHeaderCell>
+                 <asp:DropDownList ID="ddlistOrders" runat="server" Width="200px">
+                    <asp:ListItem Value="0" Text="- Daten wählen"></asp:ListItem>
+                    <asp:ListItem Value="1" Text="Bestellungen verwalten"></asp:ListItem>
+                    <asp:ListItem Value="2" Text="Bestellungen archivieren"></asp:ListItem>
+                </asp:DropDownList>
+            </asp:TableHeaderCell>
             <asp:TableHeaderCell>
                 <asp:DropDownList ID="ddlistStat" runat="server" Width="200px">
                     <asp:ListItem Value="0" Text="- Daten wählen"></asp:ListItem>
@@ -44,9 +50,10 @@
                     <asp:ListItem Value="2" Text="Nach Produkt"></asp:ListItem>
                 </asp:DropDownList>
             </asp:TableHeaderCell>
+            <asp:TableHeaderCell></asp:TableHeaderCell>
         </asp:TableHeaderRow>
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="3">
+            <asp:TableCell ColumnSpan="4">
                 <asp:Label ID="lblErrorMsg" runat="server" Text="Bitte wählen Sie aus dem DropDown-Feld einen geeigneten Wert!" ForeColor="Red" Visible="false"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
@@ -60,6 +67,9 @@
             <asp:TableCell>
                 <asp:Button ID="btAdmStat" runat="server" Text="Auswertungen" Height="50px" Width="170px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" OnClick="btAdmStat_Click" />
             </asp:TableCell>
+            <asp:TableCell>
+                <asp:Button ID="btAdmCoupons" runat="server" Text="Gutscheine verwalten" Height="50px" Width="170px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" OnClick="btAdmCoupons_Click" />
+            </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell CssClass="tbl-td-Style">
@@ -70,6 +80,9 @@
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
                 <p>Text für statistische Auswertungen. Am Besten irgendwas betriebswirtschaftl. Tolles.</p>
+            </asp:TableCell>
+            <asp:TableCell CssClass="tbl-td-Style">
+                <p>Text für Gutscheine. Irgendwas dass man entweder % oder Rabatte in Form von - machen kann.</p>
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>

@@ -14,7 +14,7 @@ namespace web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblTest.ForeColor = System.Drawing.Color.Red; 
         }
 
         /// <summary>
@@ -33,9 +33,16 @@ namespace web
             bool isValid = VerifyPassword(md5Hash, txtBoxPassword.Text, userToLogin.Password);
             if (isValid)
             {
-                Session["userID"] = userFacade.getIDOfUser(userToLogin.EMail);
-                Session["roleID"] = userFacade.GetRoleOfUser(userToLogin.EMail);
-                Response.Redirect("Pizza.aspx");
+                int _userId = userFacade.GetIDOfUser(userToLogin.EMail);
+                if (userFacade.GetUserActive(_userId))
+                {
+                    Session["userID"] = _userId;
+                    Session["roleID"] = userFacade.GetRoleOfUser(userToLogin.EMail);
+                    Response.Redirect("Pizza.aspx");
+                } else
+                {
+                    lblTest.Text = "Ihr Konto wurde gesperrt. Bitte wenden Sie sich an support@pizzapizza.de";
+                }
             }
             else
             {

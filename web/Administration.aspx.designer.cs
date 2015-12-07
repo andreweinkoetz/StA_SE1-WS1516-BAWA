@@ -49,6 +49,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.DropDownList ddlistData;
         
         /// <summary>
+        /// ddlistOrders-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlistOrders;
+        
+        /// <summary>
         /// ddlistStat-Steuerelement
         /// </summary>
         /// <remarks>
@@ -92,5 +101,14 @@ namespace web {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btAdmStat;
+        
+        /// <summary>
+        /// btAdmCoupons-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btAdmCoupons;
     }
 }

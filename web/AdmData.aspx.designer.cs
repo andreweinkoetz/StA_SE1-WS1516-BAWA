@@ -22,22 +22,13 @@ namespace web {
         protected global::System.Web.UI.WebControls.Label lblAdmData;
         
         /// <summary>
-        /// ObjectDataSource1-Steuerelement
+        /// btBack-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
-        
-        /// <summary>
-        /// btLogout-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btLogout;
+        protected global::System.Web.UI.WebControls.Button btBack;
         
         /// <summary>
         /// gvAdmData-Steuerelement
@@ -47,5 +38,14 @@ namespace web {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAdmData;
+        
+        /// <summary>
+        /// btCreateNew-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btCreateNew;
     }
 }

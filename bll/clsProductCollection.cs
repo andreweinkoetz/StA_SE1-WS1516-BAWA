@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace bll
 {
-   internal class clsProductCollection : clsBLLCollections
+    internal class clsProductCollection : clsBLLCollections
     {
         string _databaseFile; // String zur Access-Datei
         DAL.DALObjects.dDataProvider _myDAL; // DAL: Zugriff auf die Datenbank
@@ -61,7 +61,7 @@ namespace bll
         /// </summary>
         /// <param name="_id">ID des gesuchten Produkts</param>
         /// <returns>Produkt-Objekt (oder NULL) </returns>
-        internal clsProduct GetProductById(int _id)
+        internal clsProductExtended GetProductById(int _id)
         {
             _myDAL.AddParam("ID", _id, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
@@ -91,15 +91,71 @@ namespace bll
             return affectedRow == 1;
         }
 
-        internal clsProduct DatarowToClsProduct(DataRow _dr)
+        internal Dictionary<Int32, String> GetAllProductCategories()
         {
-            clsProduct _myProduct = new clsProduct();
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QCGetAllCategories");
+
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            Dictionary<Int32, String> _myCategories = new Dictionary<int, string>();
+
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _myCategories.Add(AddIntFieldValue(_dr, "CID"), AddStringFieldValue(_dr, "CName"));
+            }
+
+            return _myCategories;
+
+        }
+
+        internal int InsertNewProduct(clsProductExtended _myProduct)
+        {
+            _myDAL.AddParam("PName", _myProduct.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+            _myDAL.AddParam("CategoryID", _myProduct.CID, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myDAL.AddParam("PPU", _myProduct.PricePerUnit, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+            _myDAL.AddParam("toSell", _myProduct.ToSell, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
+
+            return _myDAL.MakeStoredProcedureAction("QPInsertProduct");
+
+        }
+
+        internal List<Int32> GetOrdersOfProductByPid(int _pid)
+        {
+            _myDAL.AddParam("PID", _pid, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetOrdersOfProductbyPID");
+
+            List<Int32> _orderNumbers = new List<Int32>();
+
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _orderNumbers.Add(AddIntFieldValue(_dr, "ONumber"));
+            }
+
+            return _orderNumbers;
+
+        }
+
+        internal int DeleteProductByPid(int _pid)
+        {
+            _myDAL.AddParam("PID", _pid, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            return _myDAL.MakeStoredProcedureAction("QPDeleteProductById");
+        }
+
+        internal clsProductExtended DatarowToClsProduct(DataRow _dr)
+        {
+            clsProductExtended _myProduct = new clsProductExtended();
             _myProduct.Id = AddIntFieldValue(_dr, "PID");
             _myProduct.Name = AddStringFieldValue(_dr, "PName");
             _myProduct.PricePerUnit = AddDoubleFieldValue(_dr, "PPricePerUnit");
             _myProduct.CUnit = AddStringFieldValue(_dr, "CUnit");
             _myProduct.Category = AddStringFieldValue(_dr, "CName");
             _myProduct.ToSell = AddBoolFieldValue(_dr, "PSell");
+            _myProduct.CID = AddIntFieldValue(_dr, "PFKCategory");
             return _myProduct;
         }
     }

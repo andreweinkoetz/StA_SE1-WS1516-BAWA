@@ -49,6 +49,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.ObjectDataSource getOrdersNotDelivered;
         
         /// <summary>
+        /// getAllOrders-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource getAllOrders;
+        
+        /// <summary>
         /// btInProgress-Steuerelement
         /// </summary>
         /// <remarks>

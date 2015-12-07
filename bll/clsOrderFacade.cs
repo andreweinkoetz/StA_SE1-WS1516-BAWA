@@ -27,16 +27,16 @@ namespace bll
         /// <returns>Liste der Order</returns>
         public List<clsOrderExtended> OrdersGetAll()
         {
-            return _orderCol.getAllOrders();
+            return _orderCol.GetAllOrders();
         } // OrdersGetAll()
 
         /// <summary>
         /// Alle Bestellungen die noch nicht geliefert wurden anzeigen.
         /// </summary>
         /// <returns></returns>
-        public List<clsOrderExtended> getOrdersNotDelivered()
+        public List<clsOrderExtended> GetOrdersNotDelivered()
         {
-            return _orderCol.getOrdersNotDelivered();
+            return _orderCol.GetOrdersNotDelivered();
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace bll
         /// </summary>
         /// <param name="_userID"></param>
         /// <returns></returns>
-        public List<clsOrderExtended> getOrdersByUserID(int _userID)
+        public List<clsOrderExtended> GetOrdersByUserID(int _userID)
         {
-            return _orderCol.getOrdersByUserID(_userID);
+            return _orderCol.GetOrdersByUserID(_userID);
         }
 
         /// <summary>
@@ -68,11 +68,19 @@ namespace bll
         /// </summary>
         /// <param name="_orderNumber"></param>
         /// <returns></returns>
-        public List<clsProductExtended> getOrderedProductsByOrderNumber(int _orderNumber)
+        public List<clsProductExtended> GetOrderedProductsByOrderNumber(int _orderNumber)
         {
-            return _orderCol.getOrderedProductsByOrderNumber(_orderNumber);
+            return _orderCol.GetOrderedProductsByOrderNumber(_orderNumber);
         }
 
+        /// <summary>
+        /// Erstellt eine Liste aller abgeschlossenen Bestellungen.
+        /// </summary>
+        /// <returns>Liste aller abgeschlossenen Bestellungen.</returns>
+        public List<clsOrderExtended> GetFinishedOrders()
+        {
+            return _orderCol.GetFinishedOrders();
+        }
 
         /// <summary>
         /// Preisberechnung.
@@ -134,6 +142,16 @@ namespace bll
         }
 
         /// <summary>
+        /// Liefert eine Bestellung anhand ihrer Bestellnummer.
+        /// </summary>
+        /// <param name="_oNumber">Nummer der Bestellung</param>
+        /// <returns>Bestellung</returns>
+        public clsOrderExtended GetOrderByOrderNumber(int _oNumber)
+        {
+            return _orderCol.GetOrderByOrderNumber(_oNumber);
+        }
+
+        /// <summary>
         /// Storniert eine Bestellung.
         /// </summary>
         /// <param name="_oNumber">Bestellung die storniert werden soll</param>
@@ -141,6 +159,17 @@ namespace bll
         public bool CancelOrderByONumber(int _oNumber)
         {
             return _orderCol.CancelOrderByONumber(_oNumber) == 1;
+        }
+
+        /// <summary>
+        /// Löscht eine Bestellung inkl. aller Inhalte.
+        /// Nur nach erfolgreichem Export verwenden!
+        /// </summary>
+        /// <param name="_oNumber">Bestellnummer der zu löschenden Bestellungen.</param>
+        /// <returns>Anzahl der gelöschten Datensätze.</returns>
+        public int DeleteOrderByOrderNumber(int _oNumber)
+        {
+            return _orderCol.DeleteOrderByOrderNumber(_oNumber);
         }
 
     } // clsOrderFacade

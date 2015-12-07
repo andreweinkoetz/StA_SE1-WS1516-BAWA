@@ -166,6 +166,23 @@ namespace bll
             }
         }
 
+        private int _cID;
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CID
+        {
+            get
+            {
+                return _cID;
+            }
+
+            set
+            {
+                _cID = value;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

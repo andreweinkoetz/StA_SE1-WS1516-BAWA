@@ -54,11 +54,12 @@ namespace web
 
         protected void btAdmData_Click(object sender, EventArgs e)
         {
-            if(ddlistData.SelectedIndex > 0)
+            if (ddlistData.SelectedIndex > 0)
             {
                 Session["selAdmData"] = Int32.Parse(ddlistData.SelectedValue);
                 Response.Redirect("AdmData.aspx");
-            } else
+            }
+            else
             {
                 lblErrorMsg.Visible = true;
             }
@@ -66,10 +67,27 @@ namespace web
 
         protected void btAdmOrders_Click(object sender, EventArgs e)
         {
-            Response.Redirect("OrderManagement.aspx");
+            switch (ddlistOrders.SelectedIndex)
+            {
+                case 1:
+                    Response.Redirect("OrderManagement.aspx");
+                    break;
+                case 2:
+                    Response.Redirect("OrderArchive.aspx");
+                    break;
+                default:
+                    lblErrorMsg.Visible = true;
+                    break;
+            }
+            
         }
 
         protected void btAdmStat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btAdmCoupons_Click(object sender, EventArgs e)
         {
 
         }

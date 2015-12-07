@@ -17,7 +17,7 @@
     <hr />
 
     <p>
-        <asp:GridView ID="gvOrderMgmt" runat="server" AutoGenerateColumns="False" DataSourceID="getOrdersNotDelivered" Width="100%" OnSelectedIndexChanged="gvOrderMgmt_SelectedIndexChanged">
+        <asp:GridView ID="gvOrderMgmt" runat="server" AutoGenerateColumns="False" Width="100%" OnSelectedIndexChanged="gvOrderMgmt_SelectedIndexChanged">
             <SelectedRowStyle BorderColor="Red" BorderStyle="Solid" BorderWidth="3px" />
             <RowStyle BorderStyle="None" />
             <Columns>
@@ -32,10 +32,11 @@
             </Columns>
         </asp:GridView>
         <asp:ObjectDataSource ID="getOrdersNotDelivered" runat="server" SelectMethod="getOrdersNotDelivered" TypeName="bll.clsOrderFacade"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="getAllOrders" runat="server" SelectMethod="OrdersGetAll" TypeName="bll.clsOrderFacade"></asp:ObjectDataSource>
     </p>
     <p style="width:100%; text-align:center">
-        <asp:Button ID="btInProgress" runat="server" Text="Bestellung in Arbeit" Enabled="false" OnClick="btInProgress_Click" Visible="False" Height="30px" Width="150px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
-        <asp:Button ID="btDelivered" runat="server" Text="Bestellung geliefert" Enabled="false" OnClick="btDelivered_Click" Visible="False" Height="30px" Width="150px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
+        <asp:Button ID="btInProgress" runat="server" Text="Bestellung in Arbeit" Enabled="false" OnClick="btInProgress_Click" Visible="False" Height="30px" Width="150px" BackColor="Gray" ForeColor="White" Font-Bold="true" />
+        <asp:Button ID="btDelivered" runat="server" Text="Bestellung geliefert" Enabled="false" OnClick="btDelivered_Click" Visible="False" Height="30px" Width="150px" BackColor="Gray" ForeColor="White" Font-Bold="true" />
     </p>
    
 </asp:Content>
