@@ -40,7 +40,7 @@
                     <ItemTemplate>
                         <asp:CheckBoxList ID="ExtrasCheckBoxList" runat="server" AutoPostBack="False" DataSourceID="ExtrasDataSource" DataTextField="Name" DataValueField="ID">
                         </asp:CheckBoxList>
-                        <asp:ObjectDataSource ID="ExtrasDataSource" runat="server" SelectMethod="ExtrasGetAll" TypeName="bll.clsExtraFacade"></asp:ObjectDataSource>
+                        <asp:ObjectDataSource ID="ExtrasDataSource" runat="server" SelectMethod="GetAllActiveExtras" TypeName="bll.clsExtraFacade"></asp:ObjectDataSource>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

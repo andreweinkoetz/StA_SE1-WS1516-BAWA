@@ -42,6 +42,7 @@ namespace web
                     txtEid.Text = _myExtra.ID.ToString();
                     txtEname.Text = _myExtra.Name;
                     txtPpE.Text = _myExtra.Price.ToString();
+                    chkSell.Checked = _myExtra.ToSell;
                     lblExtraEdit.Text = "Extra \"" + _myExtra.Name + "\" bearbeiten";
                     btEnter.Text = "Extra ändern";
                 }
@@ -75,6 +76,7 @@ namespace web
                 _myExtra.ID = Int32.Parse(txtEid.Text);
             }
             _myExtra.Name = txtEname.Text;
+            _myExtra.ToSell = chkSell.Checked;
             double price;
             if (!Double.TryParse(txtPpE.Text, out price))
             {

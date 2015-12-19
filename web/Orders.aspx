@@ -21,9 +21,11 @@
         <table style="width: 100%;">
             <tr>
                 <td style="text-align:left"><asp:Button ID="clearCart" runat="server" Text="Warenkorb leeren" OnClick="clearCart_Click" /></td>
-                <td style="text-align:right"><asp:CheckBox ID="chkDelivery" runat="server" Text="Liefern?" Checked="true" TextAlign="Right" /><asp:Button ID="btOrder" runat="server" Text="Bestellung aufgeben" OnClick="btOrder_Click" /></td>
+                <td style="text-align:right"><asp:CheckBox ID="chkDelivery" runat="server" Text="Liefern?" Checked="true" TextAlign="Right" OnCheckedChanged="chkDelivery_CheckedChanged" AutoPostBack="true" /><asp:Button ID="btOrder" runat="server" Text="Bestellung aufgeben" OnClick="btOrder_Click" /></td>
             </tr>
-        </table>  
+        </table>
+    
+    <asp:Label ID="lblStatus" ForeColor="Red" runat="server" Text=""></asp:Label> 
     <%} else { %>
     
     <asp:Label ID="lblEmptyCart" runat="server" Text="Warenkorb ist leer."></asp:Label>

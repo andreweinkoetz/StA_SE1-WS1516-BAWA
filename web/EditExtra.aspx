@@ -20,6 +20,7 @@
                 <asp:TableHeaderCell>EID</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Name des Extras</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Preis pro Extra</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Aktiv</asp:TableHeaderCell>
             </asp:TableHeaderRow>
             <asp:TableRow>
                 <asp:TableCell ID="eid">
@@ -31,9 +32,12 @@
                 <asp:TableCell ID="pricePerExtra">
                     <asp:TextBox ID="txtPpE" runat="server"></asp:TextBox>
                 </asp:TableCell>
+                <asp:TableCell ID="sell">
+                    <asp:CheckBox ID="chkSell" runat="server" />
+                </asp:TableCell>
             </asp:TableRow>
             <asp:TableRow>
-                <asp:TableCell ColumnSpan="3">
+                <asp:TableCell ColumnSpan="4">
                     <asp:Label ID="lblError" runat="server" Text="" ForeColor="Red"></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>

@@ -82,9 +82,9 @@ namespace bll
         internal bool UpdateProduct(clsProductExtended _product)
         {
             _myDAL.AddParam("PName", _product.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+            _myDAL.AddParam("CID", _product.CID, DAL.DataDefinition.enumerators.SQLDataType.INT);
             _myDAL.AddParam("PPricePerUnit", _product.PricePerUnit, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
             _myDAL.AddParam("PSell", _product.ToSell, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
-            _myDAL.AddParam("CName", _product.Category, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("PID", _product.Id, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
             int affectedRow = _myDAL.MakeStoredProcedureAction("QPUpdateProductByID");

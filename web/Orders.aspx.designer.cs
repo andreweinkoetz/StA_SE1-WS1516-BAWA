@@ -67,6 +67,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.Button btOrder;
         
         /// <summary>
+        /// lblStatus-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatus;
+        
+        /// <summary>
         /// lblEmptyCart-Steuerelement
         /// </summary>
         /// <remarks>

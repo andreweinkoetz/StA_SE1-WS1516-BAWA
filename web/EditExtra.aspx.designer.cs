@@ -94,6 +94,24 @@ namespace web {
         protected global::System.Web.UI.WebControls.TextBox txtPpE;
         
         /// <summary>
+        /// sell-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableCell sell;
+        
+        /// <summary>
+        /// chkSell-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSell;
+        
+        /// <summary>
         /// lblError-Steuerelement
         /// </summary>
         /// <remarks>

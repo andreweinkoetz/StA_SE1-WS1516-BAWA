@@ -18,9 +18,24 @@ namespace bll
             _myDAL = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
         }
 
-        internal List<clsExtra> getAllExtras()
+        internal List<clsExtra> GetAllExtras()
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QEGetAllExtras");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+            List<clsExtra> _myExtrasList = new List<clsExtra>();
+            
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                clsExtra _myExtra = DatarowToClsExtra(_dr);
+                _myExtrasList.Add(_myExtra);
+            }
+
+            return _myExtrasList;
+        }
+
+        internal List<clsExtra> GetAllActiveExtras()
+        {
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QEGetAllActiveExtras");
             DataTable _myDataTable = _myDataSet.Tables[0];
             List<clsExtra> _myExtrasList = new List<clsExtra>();
 
@@ -33,7 +48,7 @@ namespace bll
             return _myExtrasList;
         }
 
-        internal double getPriceOfExtra(int _eID)
+        internal double GetPriceOfExtra(int _eID)
         {
             _myDAL.AddParam("EID", _eID, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
@@ -82,6 +97,7 @@ namespace bll
         {
             _myDAL.AddParam("EName", _myExtra.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("EPrice", _myExtra.Price, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+            _myDAL.AddParam("ESell", _myExtra.ToSell, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
 
             return _myDAL.MakeStoredProcedureAction("QEInsertExtra");
         }
@@ -90,6 +106,7 @@ namespace bll
         {
             _myDAL.AddParam("EName", _myExtra.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("EPrice", _myExtra.Price, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+            _myDAL.AddParam("ESell", _myExtra.ToSell, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
             _myDAL.AddParam("EID", _myExtra.ID, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
             return _myDAL.MakeStoredProcedureAction("QEUpdateExtraByID");
@@ -108,6 +125,7 @@ namespace bll
             _myExtra.ID = AddIntFieldValue(_dr, "EID");
             _myExtra.Name = AddStringFieldValue(_dr, "EName");
             _myExtra.Price = AddDoubleFieldValue(_dr, "EPrice");
+            _myExtra.ToSell = AddBoolFieldValue(_dr, "ESell");
 
             return _myExtra;
         }

@@ -46,14 +46,19 @@
                                 }
                             %>
                         </li>
-                        <li style="padding-bottom: 0px">
-                            <a href="Orders.aspx">
-                                <img alt="cart" src="img/marker20-3.png" /></a>
-                        </li>
+                        <% if (Session["roleID"] != null)
+                            {
+                                Response.Write("<li style=\"padding-bottom: 0px\">"
+                                    + "<a href=\"Orders.aspx\">"
+                                    + "<img alt=\"cart\" src=\"img/marker20-3.png\" />"
+                                    + "</a>"
+                                    + "</li>");
+                            } %>
                     </ul>
                 </div>
                 <div id="head_logo">
-                    <a href="default.aspx"><asp:Image ID="logo" runat="server" ImageUrl="img/pizza_logo.png" ImageAlign="Right" /></a>
+                    <a href="default.aspx">
+                        <asp:Image ID="logo" runat="server" ImageUrl="img/pizza_logo.png" ImageAlign="Right" /></a>
                 </div>
             </div>
         </div>

@@ -41,7 +41,7 @@ namespace web
                     lblAdmData.Text = "Extraverwaltung";
                     btCreateNew.Text = "Neues Extra anlegen";
                     clsExtraFacade _extraFacade = new clsExtraFacade();
-                    initializeGvAdmData(_extraFacade.ExtrasGetAll(), 2);
+                    initializeGvAdmData(_extraFacade.GetAllExtras(), 2);
                     break;
                 case 3:
                     lblAdmData.Text = "Benutzerverwaltung";
@@ -135,10 +135,15 @@ namespace web
                     _ePrice.DataField = "EPrice";
                     _ePrice.HeaderText = "Preis pro Extra";
 
+                    CheckBoxField _etoSell = new CheckBoxField();
+                    _etoSell.DataField = "ToSell";
+                    _etoSell.HeaderText = "Zum Verkauf?";
+
                     gvAdmData.Columns.Add(_cmdFieldExtra);
                     gvAdmData.Columns.Add(_eid);
                     gvAdmData.Columns.Add(_eName);
                     gvAdmData.Columns.Add(_ePrice);
+                    gvAdmData.Columns.Add(_etoSell);
 
                     dtExtra.Columns.Add("EID");
 
@@ -146,9 +151,11 @@ namespace web
 
                     dtExtra.Columns.Add("EPrice");
 
+                    dtExtra.Columns.Add("ToSell");
+
                     foreach (clsExtra _extra in ((List<clsExtra>)_list))
                     {
-                        dtExtra.LoadDataRow(new object[] { _extra.ID, _extra.Name, _extra.Price }, true);
+                        dtExtra.LoadDataRow(new object[] { _extra.ID, _extra.Name, _extra.Price, _extra.ToSell }, true);
                     }
                     gvAdmData.DataSource = dtExtra;
                     gvAdmData.DataBind();

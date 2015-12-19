@@ -29,10 +29,7 @@ namespace web
             }
             else if (!IsPostBack)
             {
-                btCancelOrder.Visible = false;
-                lblOrderNumber.ForeColor = System.Drawing.Color.Red;
-                lblOrderNumber.Font.Size = 12;
-                lblOrderNumber.Text = "Fehler in der Übermittlung. Bitte wählen Sie eine Bestellung aus.";
+                redirectOverview();
             }
         }
 
@@ -63,7 +60,7 @@ namespace web
                     }
                 }
                 _sizeText = setSizeText(_product);
-                dt.LoadDataRow(new object[] { _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5)) }, true);
+                dt.LoadDataRow(new object[] { _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + GetPriceOfExtrasFromProduct(_product))) }, true);
             }
 
             gvOrderDetail.DataSource = dt;
@@ -84,23 +81,16 @@ namespace web
             return null;
         }
 
-        private int getNumberOfExtras(clsProductExtended _product)
+        private double GetPriceOfExtrasFromProduct(clsProductExtended _myProduct)
         {
+            double price = 0.0;
 
-            int numberOfExtras = 0;
-
-            if (_product.ProductExtras == null)
+            foreach(clsExtra _myExtra in _myProduct.ProductExtras)
             {
-                return numberOfExtras;
+                price += _myExtra.Price;
             }
 
-            foreach (clsExtra _extra in _product.ProductExtras)
-            {
-                numberOfExtras++;
-            }
-
-            return numberOfExtras;
-
+            return price;
         }
 
         private double getTotalSum(List<clsProductExtended> _orderedProducts)
@@ -109,13 +99,18 @@ namespace web
 
             foreach (clsProductExtended _product in _orderedProducts)
             {
-                _sum += _product.PricePerUnit * _product.Size + getNumberOfExtras(_product) * 0.5;
+                _sum += _product.PricePerUnit * _product.Size + GetPriceOfExtrasFromProduct(_product);
             }
 
             return _sum;
         }
 
         protected void btOrderOverview_Click(object sender, EventArgs e)
+        {
+            redirectOverview();
+        }
+
+        private void redirectOverview()
         {
             Session["oNumber"] = null;
             Response.Redirect("MyAccount.aspx");
@@ -125,6 +120,7 @@ namespace web
         {
             clsOrderFacade _myOrderFacade = new clsOrderFacade();
             _myOrderFacade.CancelOrderByONumber((int)Session["oNumber"]);
+            redirectOverview();
         }
     }
 }

@@ -65,7 +65,7 @@ namespace web
                     {
                         clsExtraFacade _myExtraFacade = new clsExtraFacade();
                         int _eID = Int32.Parse(item.Value);
-                        double _priceOfExtra = _myExtraFacade.getPriceOfExtra(_eID);
+                        double _priceOfExtra = _myExtraFacade.GetPriceOfExtra(_eID);
                         _myExtraList.Add(new clsExtra(_eID, item.Text,_priceOfExtra));
                         item.Selected = false;
                     }
@@ -76,7 +76,7 @@ namespace web
                 _myProduct.Name = selectedRow.Cells[2].Text;
                 _myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
                 _myProduct.Size = Double.Parse(selectedSize);
-                _myProduct.Category = Session["category"].ToString();
+                _myProduct.CID = (int)Session["category"];
 
                 lblChooseSize.Text = "";
 

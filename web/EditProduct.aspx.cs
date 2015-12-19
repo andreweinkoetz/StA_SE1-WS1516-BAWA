@@ -39,8 +39,9 @@ namespace web
                     }
                     else
                     {
+                        ddlCategory.Enabled = false;
                         btDelete.BackColor = System.Drawing.Color.Gray;
-                        String _openOrders = "Produkt kann nicht gelöscht werden, da es in folgenden Bestellungen hinterlegt ist: <br />{<br />";
+                        String _openOrders = "Produkt kann weder gelöscht, noch dessen Kategorie verändert werden, da es in folgenden Bestellungen hinterlegt ist: <br />{<br />";
 
                         foreach (int _oNumber in _ordersOfProduct)
                         {
@@ -73,7 +74,6 @@ namespace web
             if (Session["pCategory"] != null)
             {
                 ddlCategory.SelectedValue = Session["pCategory"].ToString();
-                ddlCategory.Enabled = false;
             }
         }
 

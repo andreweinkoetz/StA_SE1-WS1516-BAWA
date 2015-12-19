@@ -24,19 +24,28 @@ namespace bll
         /// <summary>
         /// Alle Extras lesen.
         /// </summary>
-        public List<clsExtra> ExtrasGetAll()
+        public List<clsExtra> GetAllExtras()
         {
-            return _extraCol.getAllExtras();
+            return _extraCol.GetAllExtras();
         } //ExtrasGetAll()
+
+        /// <summary>
+        /// Alle aktiven Extras lesen.
+        /// </summary>
+        /// <returns></returns>
+        public List<clsExtra> GetAllActiveExtras()
+        {
+            return _extraCol.GetAllActiveExtras();
+        }
 
        /// <summary>
        /// Preis eines bestimmten Extras ermitteln.
        /// </summary>
        /// <param name="_eID"></param>
        /// <returns></returns>
-       public double getPriceOfExtra(int _eID)
+        public double GetPriceOfExtra(int _eID)
         {
-            return _extraCol.getPriceOfExtra(_eID);
+            return _extraCol.GetPriceOfExtra(_eID);
         }
 
         /// <summary>

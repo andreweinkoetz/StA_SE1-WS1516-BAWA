@@ -16,19 +16,22 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            selectedProducts = (List<clsProductExtended>)Session["selProducts"];
 
             if (!IsPostBack && (Session["selProducts"] != null))
             {
-                selectedProducts = (List<clsProductExtended>)Session["selProducts"];
                 if (selectedProducts.Count != 0)
                 {
                     initializeOrderView(selectedProducts);
-                    lblSum.Text = "Gesamtsumme: " + String.Format("{0:C}", getTotalSum());
-                    if (new clsUserFacade().GetDistanceByUser(Convert.ToInt32(Session["userID"])) > 20.0)
+                    double _sum = getTotalSum();
+                    lblSum.Text = "Gesamtsumme: " + String.Format("{0:C}", _sum);
+                    if (GetDistance() > 20.0)
                     {
                         chkDelivery.Enabled = false;
                         chkDelivery.Checked = false;
                     }
+
+                    checkMinimumOrder(_sum);
                 }
             }
             else if (Session["selProducts"] != null)
@@ -36,6 +39,31 @@ namespace web
                 selectedProducts = (List<clsProductExtended>)Session["selProducts"];
             }
 
+        }
+
+        private void checkMinimumOrder(double _sum)
+        {
+            double _diff = 20 - _sum;
+            _diff *= 100;
+            _diff = (int)_diff;
+            _diff /= 100;
+
+            if (_sum <= 20 && chkDelivery.Checked)
+            {
+                lblStatus.Text = "Mindestbestellwert nicht erreicht. <br />"
+                    + "Bitte bestellen Sie für mindestens 20,00 EUR wenn Sie eine Lieferung wünschen.<br />"
+                    + "\n Es fehlen noch " + String.Format("{0:F}",_diff) + " EUR.";
+                btOrder.Enabled = false;
+            } else
+            {
+                lblStatus.Text = "";
+                btOrder.Enabled = true;
+            }
+        }
+
+        private double GetDistance()
+        {
+            return new clsUserFacade().GetDistanceByUser(Convert.ToInt32(Session["userID"]));
         }
 
         private void initializeOrderView(List<clsProductExtended> _selectedProducts)
@@ -123,6 +151,8 @@ namespace web
             {
                 lblOrder.ForeColor = System.Drawing.Color.Red;
                 lblOrder.Text = "Ihre Bestellung war erfolgreich. Bestellnummer: #" + _myOrder.OrderNumber;
+                lblEmptyCart.Text = "";
+                setEstimatedTime();
                 Session["selProducts"] = null;
             }
 
@@ -157,6 +187,30 @@ namespace web
             }
 
             return _sum;
+        }
+
+        private void setEstimatedTime()
+        {
+            double _minutes = 0;
+
+            if (chkDelivery.Checked)
+            {
+                _minutes += GetDistance() * 2;
+            }
+
+            foreach (clsProductExtended _myProduct in selectedProducts)
+            {
+                if (_myProduct.CID == 1)
+                {
+                    _minutes += 10.0;
+                }
+            }
+            lblStatus.Text = "Die Wartezeit beträgt vorraussichtlich " + Math.Round(_minutes) + " Minuten.";
+        }
+
+        protected void chkDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            checkMinimumOrder(getTotalSum());
         }
     }
 }
