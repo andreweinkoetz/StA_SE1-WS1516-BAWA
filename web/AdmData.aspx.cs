@@ -28,7 +28,7 @@ namespace web
 
         private void chooseSelection()
         {
-          
+
             switch ((int)Session["selAdmData"])
             {
                 case 1:
@@ -48,6 +48,12 @@ namespace web
                     btCreateNew.Text = "Neuen Benutzer anlegen";
                     clsUserFacade _userFacade = new clsUserFacade();
                     initializeGvAdmData(_userFacade.UsersGetAll(), 3);
+                    break;
+                case 4:
+                    lblAdmData.Text = "Größenverwaltung";
+                    btCreateNew.Text = "Neue Größe anlegen";
+                    clsSizeFacade _sizeFacade = new clsSizeFacade();
+                    initializeGvAdmData(_sizeFacade.GetAllSizes(), 4);
                     break;
             }
         }
@@ -250,6 +256,48 @@ namespace web
                     gvAdmData.DataBind();
 
                     break;
+                case 4:
+                    DataTable dtSizes = new DataTable("Sizes");
+
+                    CommandField _cmdFieldSize = new CommandField();
+                    _cmdFieldSize.ShowSelectButton = true;
+                    _cmdFieldSize.ButtonType = ButtonType.Button;
+
+                    BoundField _sid = new BoundField();
+                    _sid.DataField = "SID";
+                    _sid.HeaderText = "SID";
+
+                    BoundField _sName = new BoundField();
+                    _sName.DataField = "SName";
+                    _sName.HeaderText = "Name der Größe";
+
+                    BoundField _sValue = new BoundField();
+                    _sValue.DataField = "SValue";
+                    _sValue.HeaderText = "Wert einer Größe";
+
+                    BoundField _sCategory = new BoundField();
+                    _sCategory.DataField = "SCategory";
+                    _sCategory.HeaderText = "Kategorie";
+
+                    gvAdmData.Columns.Add(_cmdFieldSize);
+                    gvAdmData.Columns.Add(_sid);
+                    gvAdmData.Columns.Add(_sName);
+                    gvAdmData.Columns.Add(_sValue);
+                    gvAdmData.Columns.Add(_sCategory);
+
+                    dtSizes.Columns.Add("SID");
+                    dtSizes.Columns.Add("SName");
+                    dtSizes.Columns.Add("SValue");
+                    dtSizes.Columns.Add("SCategory");
+
+                    foreach (clsSize _size in ((List<clsSize>)_list))
+                    {
+                        dtSizes.LoadDataRow(new object[] { _size.Id, _size.Name, _size.Value, _size.Category }, true);
+                    }
+                    gvAdmData.DataSource = dtSizes;
+                    gvAdmData.DataBind();
+
+                    break;
             }
 
 
@@ -287,6 +335,9 @@ namespace web
                     break;
                 case 3:
                     Server.Transfer("EditUser.aspx");
+                    break;
+                case 4:
+                    Server.Transfer("EditSize.aspx");
                     break;
             }
         }

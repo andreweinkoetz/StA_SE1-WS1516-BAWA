@@ -44,9 +44,9 @@ namespace web
         private void checkMinimumOrder(double _sum)
         {
             double _diff = 20 - _sum;
-            _diff *= 100;
-            _diff = (int)_diff;
-            _diff /= 100;
+            //_diff *= 100;
+            //_diff = (int)_diff;
+            //_diff /= 100;
 
             if (_sum <= 20 && chkDelivery.Checked)
             {
@@ -104,16 +104,16 @@ namespace web
 
         private String setSizeText(clsProductExtended _product)
         {
-            switch (_product.Category)
+            switch (_product.CID)
             {
-                case "1":
+                case 1:
                     return _product.Size + " cm";
-                case "2":
+                case 2:
                     return _product.Size + " Liter";
-                case "3":
+                case 3:
                     return _product.Size + " Stück";
             }
-            return null;
+            return "Fehler in der Verarbeitung";
         }
 
         protected void clearCart_Click(object sender, EventArgs e)

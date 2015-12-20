@@ -91,7 +91,7 @@ namespace web
             clsExtraFacade _extraFacade = new clsExtraFacade();
             if (readyForDB)
             {
-                if (String.IsNullOrEmpty(txtEid.Text))
+                if (_myExtra.ID == 0)
                 {
                     insertSuccessful = _extraFacade.InsertExtra(_myExtra);
                 }

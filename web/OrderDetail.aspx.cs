@@ -71,14 +71,14 @@ namespace web
         {
             switch (_product.Category)
             {
-                case "1":
+                case "Pizza":
                     return _product.Size + " cm";
-                case "2":
+                case "Getränk":
                     return _product.Size + " Liter";
-                case "3":
+                case "Dessert":
                     return _product.Size + " Stück";
             }
-            return null;
+            return "Fehler in der Verarbeitung";
         }
 
         private double GetPriceOfExtrasFromProduct(clsProductExtended _myProduct)

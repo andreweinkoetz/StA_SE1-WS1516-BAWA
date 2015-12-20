@@ -34,6 +34,7 @@
                     <asp:ListItem Value="1" Text="Produktdaten"></asp:ListItem>
                     <asp:ListItem Value="2" Text="Extradaten"></asp:ListItem>
                     <asp:ListItem Value="3" Text="Benutzerdaten"></asp:ListItem>
+                    <asp:ListItem Value="4" Text="Größen"></asp:ListItem>
                 </asp:DropDownList>
             </asp:TableHeaderCell>
             <asp:TableHeaderCell>

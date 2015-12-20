@@ -49,7 +49,7 @@ namespace web
             _myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
             //Desserts werden ausschließlich in Stück verkauft. Daher ist die Größe = 1!
             _myProduct.Size = 1.0;
-            _myProduct.Category = Session["category"].ToString();
+            _myProduct.CID = (int)Session["category"];
 
             ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
         }

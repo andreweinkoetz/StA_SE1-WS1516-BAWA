@@ -84,6 +84,7 @@
     <Content Include="EditExtra.aspx" />
     <Content Include="EditUser.aspx" />
     <Content Include="OrderArchive.aspx" />
+    <Content Include="EditSize.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="default_layout.Master.cs">
@@ -212,6 +213,13 @@
     </Compile>
     <Compile Include="OrderArchive.aspx.designer.cs">
       <DependentUpon>OrderArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditSize.aspx.cs">
+      <DependentUpon>EditSize.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditSize.aspx.designer.cs">
+      <DependentUpon>EditSize.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
