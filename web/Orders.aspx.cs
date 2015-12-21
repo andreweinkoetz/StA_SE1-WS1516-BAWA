@@ -18,12 +18,17 @@ namespace web
         {
             selectedProducts = (List<clsProductExtended>)Session["selProducts"];
 
-            if (!IsPostBack && (Session["selProducts"] != null))
+            if (!IsPostBack)
+            {
+                Session["coupon"] = null;
+            }
+
+            if (!IsPostBack && (Session["selProducts"] != null) && Session["coupon"] == null)
             {
                 if (selectedProducts.Count != 0)
                 {
                     initializeOrderView(selectedProducts);
-                    double _sum = getTotalSum();
+                    double _sum = GetTotalSum(null);
                     lblSum.Text = "Gesamtsumme: " + String.Format("{0:C}", _sum);
                     if (GetDistance() > 20.0)
                     {
@@ -31,7 +36,7 @@ namespace web
                         chkDelivery.Checked = false;
                     }
 
-                    checkMinimumOrder(_sum);
+                    CheckMinimumOrder(_sum);
                 }
             }
             else if (Session["selProducts"] != null)
@@ -41,20 +46,18 @@ namespace web
 
         }
 
-        private void checkMinimumOrder(double _sum)
+        private void CheckMinimumOrder(double _sum)
         {
             double _diff = 20 - _sum;
-            //_diff *= 100;
-            //_diff = (int)_diff;
-            //_diff /= 100;
 
             if (_sum <= 20 && chkDelivery.Checked)
             {
                 lblStatus.Text = "Mindestbestellwert nicht erreicht. <br />"
                     + "Bitte bestellen Sie für mindestens 20,00 EUR wenn Sie eine Lieferung wünschen.<br />"
-                    + "\n Es fehlen noch " + String.Format("{0:F}",_diff) + " EUR.";
+                    + "\n Es fehlen noch " + String.Format("{0:F}", _diff) + " EUR.";
                 btOrder.Enabled = false;
-            } else
+            }
+            else
             {
                 lblStatus.Text = "";
                 btOrder.Enabled = true;
@@ -95,7 +98,7 @@ namespace web
                     }
                 }
                 _sizeText = setSizeText(_product);
-                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + getCostsOfExtras(_product))) }, true);
+                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + GetCostsOfExtras(_product))) }, true);
             }
 
             gvOrder.DataSource = dt;
@@ -131,7 +134,17 @@ namespace web
             _myOrder.OrderDate = DateTime.Now;
             _myOrder.OrderStatus = 1; // Bestellung eingangen!
             _myOrder.OrderDelivery = chkDelivery.Checked;
-            _myOrder.OrderSum = getTotalSum();
+            
+            if(Session["coupon"] != null)
+            {
+                _myOrder.MyCoupon = (clsCoupon)Session["coupon"];
+                _myOrder.CouponId = _myOrder.MyCoupon.Id;
+            } else
+            {
+                _myOrder.CouponId = 0;
+            }
+
+            _myOrder.OrderSum = GetTotalSum(_myOrder.MyCoupon);
 
             foreach (clsProductExtended _product in selectedProducts)
             {
@@ -149,6 +162,10 @@ namespace web
 
             if (orderIsCorrect)
             {
+                if(_myOrder.CouponId != 0)
+                {
+                    new clsCouponFacade().ToggleCoupon(_myOrder.CouponId);
+                }
                 lblOrder.ForeColor = System.Drawing.Color.Red;
                 lblOrder.Text = "Ihre Bestellung war erfolgreich. Bestellnummer: #" + _myOrder.OrderNumber;
                 lblEmptyCart.Text = "";
@@ -156,9 +173,10 @@ namespace web
                 Session["selProducts"] = null;
             }
 
+
         }
 
-        private double getCostsOfExtras(clsProductExtended _product)
+        private double GetCostsOfExtras(clsProductExtended _product)
         {
 
             double _costsOfExtras = 0;
@@ -177,13 +195,24 @@ namespace web
 
         }
 
-        private double getTotalSum()
+        private double GetTotalSum(clsCoupon _myCoupon)
         {
             double _sum = 0;
 
             foreach (clsProductExtended _product in selectedProducts)
             {
-                _sum += _product.PricePerUnit * _product.Size + getCostsOfExtras(_product);
+                _sum += _product.PricePerUnit * _product.Size + GetCostsOfExtras(_product);
+            }
+
+            if(_myCoupon != null)
+            {
+                double _newSum;
+                _newSum =_sum - (_sum * (_myCoupon.Discount / 100.0));
+                lblSum.Font.Bold = false;
+                lblSum.Font.Underline = false;
+                lblSum.Font.Strikeout = true;
+                lblCouponValid.Text = "Neue Gesamtsumme: " + String.Format("{0:C}", _newSum);
+                _sum = _newSum;
             }
 
             return _sum;
@@ -208,9 +237,32 @@ namespace web
             lblStatus.Text = "Die Wartezeit beträgt vorraussichtlich " + Math.Round(_minutes) + " Minuten.";
         }
 
+        private bool ValidateCoupon(String _couponCode, int _uid, out clsCoupon _myCoupon)
+        {
+            clsCouponFacade _couponFacade = new clsCouponFacade();
+            return _couponFacade.CheckCouponValid(_couponCode, _uid, out _myCoupon);
+        }
+
         protected void chkDelivery_CheckedChanged(object sender, EventArgs e)
         {
-            checkMinimumOrder(getTotalSum());
+            CheckMinimumOrder(GetTotalSum((clsCoupon)Session["coupon"]));
+        }
+
+        protected void btCoupon_Click(object sender, EventArgs e)
+        {
+            clsCoupon _myCoupon;
+            if (!String.IsNullOrEmpty(txtCouponCode.Text))
+            {
+                if(ValidateCoupon(txtCouponCode.Text, (int)Session["userID"], out _myCoupon))
+                {
+                    txtCouponCode.Enabled = false;
+                    Session["coupon"] = _myCoupon;
+                    CheckMinimumOrder(GetTotalSum(_myCoupon));
+                } else
+                {
+                    lblErrorCoupon.Text = "Gutschein ist fehlerhaft bzw. passt nicht zu angemeldetem Benutzer.";
+                }
+            }
         }
     }
 }

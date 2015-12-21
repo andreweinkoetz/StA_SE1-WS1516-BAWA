@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsBLLCollections.cs" />
+    <Compile Include="clsCoupon.cs" />
+    <Compile Include="clsCouponCollection.cs" />
+    <Compile Include="clsCouponFacade.cs" />
     <Compile Include="clsExtra.cs" />
     <Compile Include="clsExtraCollection.cs" />
     <Compile Include="clsExtraFacade.cs" />

@@ -79,7 +79,6 @@ namespace web
                     lblErrorMsg.Visible = true;
                     break;
             }
-            
         }
 
         protected void btAdmStat_Click(object sender, EventArgs e)

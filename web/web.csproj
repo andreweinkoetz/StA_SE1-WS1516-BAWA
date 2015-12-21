@@ -85,6 +85,7 @@
     <Content Include="EditUser.aspx" />
     <Content Include="OrderArchive.aspx" />
     <Content Include="EditSize.aspx" />
+    <Content Include="AdmCoupon.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="default_layout.Master.cs">
@@ -220,6 +221,13 @@
     </Compile>
     <Compile Include="EditSize.aspx.designer.cs">
       <DependentUpon>EditSize.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdmCoupon.aspx.cs">
+      <DependentUpon>AdmCoupon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdmCoupon.aspx.designer.cs">
+      <DependentUpon>AdmCoupon.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

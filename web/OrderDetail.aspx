@@ -29,5 +29,15 @@
                 <asp:Label ID="lblTotalSum" runat="server" Text=""></asp:Label>
             </td>
         </tr>
+        <tr>
+            <td colspan="2" style="text-align:right">
+                <asp:Label ID="lblCoupon" runat="server" Text=""></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:right">
+                <asp:Label ID="lblNewSum" Font-Bold="true" Font-Underline="true" runat="server" Text=""></asp:Label>
+            </td>
+        </tr>
     </table>
 </asp:Content>

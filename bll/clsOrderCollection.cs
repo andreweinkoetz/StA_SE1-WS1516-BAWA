@@ -70,6 +70,7 @@ namespace bll
             _myProvider.AddParam("Delivery", _Order.OrderDelivery, DAL.DataDefinition.enumerators.SQLDataType.BOOL);
             _myProvider.AddParam("Status", _Order.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
             _myProvider.AddParam("Sum", _Order.OrderSum, DAL.DataDefinition.enumerators.SQLDataType.DOUBLE);
+            _myProvider.AddParam("FKCouponId", _Order.CouponId, DAL.DataDefinition.enumerators.SQLDataType.INT);
             //Ausführen und veränderte Zeilen zurückgeben
             int _changedSets = _myProvider.MakeStoredProcedureAction("QOInsertOrder");
 
@@ -259,7 +260,7 @@ namespace bll
 
             foreach (DataRow _dr in _myDataTable.Rows)
             {
-                _myOrderList.Add(DatarowToclsOrderExtended(_dr));                
+                _myOrderList.Add(DatarowToclsOrderExtended(_dr));
             }
 
             return _myOrderList;
@@ -270,7 +271,7 @@ namespace bll
             _myDAL.AddParam("Status", _myOrder.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
             _myDAL.AddParam("DeliveryDate", _myOrder.OrderDeliveryDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
             _myDAL.AddParam("ONumber", _myOrder.OrderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            
+
 
             int changedSets = _myDAL.MakeStoredProcedureAction("QOUpdateOrderStatusByONumber");
             return changedSets;
@@ -292,8 +293,16 @@ namespace bll
             DataTable _myDataTable = _myDataSet.Tables[0];
             if (_myDataTable.Rows.Count > 0)
             {
-                return DatarowToclsOrderExtended(_myDataTable.Rows[0]);
-            } else
+                clsOrderExtended _myOrder = DatarowToclsOrderExtended(_myDataTable.Rows[0]);
+                if (_myOrder.CouponId != 0)
+                {
+                    clsCoupon _myCoupon = new clsCouponFacade().GetCouponById(_myOrder.CouponId);
+                    _myOrder.MyCoupon = _myCoupon;
+                }
+                return _myOrder;
+                
+            }
+            else
             {
                 return null;
             }
@@ -303,7 +312,7 @@ namespace bll
         {
             _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
             int changedSets = _myDAL.MakeStoredProcedureAction("QOEDeleteOrderedExtrasByONumber");
-            
+
             //Neues DAL-Objekt nötig, da Verbindung sonst gesperrt ist.
             _myDAL = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
             _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -336,6 +345,7 @@ namespace bll
             _myOrder.OrderStatus = AddIntFieldValue(_dr, "OStatus");
             _myOrder.OrderSum = AddDoubleFieldValue(_dr, "OSum");
             _myOrder.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
+            _myOrder.CouponId = AddIntFieldValue(_dr, "OFKCouponId");
 
             return _myOrder;
         } //DatarowToclsOrder()

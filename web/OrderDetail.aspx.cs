@@ -15,21 +15,44 @@ namespace web
         {
             if (!IsPostBack && Session["oNumber"] != null)
             {
-                lblOrderNumber.Text = "Bestellung #" + Session["oNumber"].ToString();
+                int _orderNumber = (int)Session["oNumber"];
+                lblOrderNumber.Text = "Bestellung #" + _orderNumber;
                 clsOrderFacade _orderFacade = new clsOrderFacade();
-                List<clsProductExtended> _orderedProducts = _orderFacade.GetOrderedProductsByOrderNumber((int)Session["oNumber"]);
+                List<clsProductExtended> _orderedProducts = _orderFacade.GetOrderedProductsByOrderNumber(_orderNumber);
+
+                double _sum = getTotalSum(_orderedProducts);
 
                 lblTotalSum.Font.Bold = true;
                 lblTotalSum.Font.Underline = true;
-                lblTotalSum.Text = "Gesamtsumme: " + String.Format("{0:C}", getTotalSum(_orderedProducts));
+                lblTotalSum.Text = "Gesamtsumme: " + String.Format("{0:C}", _sum);
 
-                btCancelOrder.Visible = _orderFacade.GetOrderStatusByOrderNumber((int)Session["oNumber"]) == 1;
+                FillCouponLabel(_orderNumber, _sum);
+
+                btCancelOrder.Visible = _orderFacade.GetOrderStatusByOrderNumber(_orderNumber) == 1;
 
                 initializeOrderDetailView(_orderedProducts);
             }
             else if (!IsPostBack)
             {
                 redirectOverview();
+            }
+        }
+
+        private void FillCouponLabel(int _orderNumber, double _sum)
+        {
+            clsOrderExtended _myOrder = new clsOrderFacade().GetOrderByOrderNumber(_orderNumber);
+            if (_myOrder.MyCoupon != null)
+            {
+                clsCoupon _myCoupon = _myOrder.MyCoupon;
+                double _saving = (_sum * ((double)_myCoupon.Discount / 100.0));
+                double _newSum = _sum - _saving;
+                lblCoupon.Text = "Eingelöster Gutschein: \"" + _myCoupon.Code + "\"<br />";
+                lblCoupon.Text += "Wert des Gutscheins: " + _myCoupon.Discount + "%.<br />";
+                lblCoupon.Text += "Ersparnis: " + String.Format("{0:C}", _saving) + "<br/>";
+                lblNewSum.Text = "Neue Gesamtsumme: " + String.Format("{0:C}", _newSum);
+                lblTotalSum.Font.Bold = false;
+                lblTotalSum.Font.Underline = false;
+                lblTotalSum.Font.Strikeout = true;
             }
         }
 
@@ -85,7 +108,7 @@ namespace web
         {
             double price = 0.0;
 
-            foreach(clsExtra _myExtra in _myProduct.ProductExtras)
+            foreach (clsExtra _myExtra in _myProduct.ProductExtras)
             {
                 price += _myExtra.Price;
             }

@@ -26,6 +26,7 @@
                 <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status der Bestellung" SortExpression="OrderStatusDescription" />
                 <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Datum der Lieferung" SortExpression="OrderDeliveryDate" />
                 <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}" />
+                <asp:BoundField DataField="CouponId" HeaderText="Gutschein#" />
             </Columns>
             <FooterStyle BackColor="#CCCCCC" />
             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />

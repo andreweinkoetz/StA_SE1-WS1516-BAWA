@@ -191,7 +191,41 @@ namespace bll
             }
         }
 
+        private int _couponId;
 
+        /// <summary>
+        /// Id des Gutscheins, der verwendet wurde.
+        /// </summary>
+        public int CouponId
+        {
+            get
+            {
+                return _couponId;
+            }
+
+            set
+            {
+                _couponId = value;
+            }
+        }
+
+        private clsCoupon _myCoupon;
+
+        /// <summary>
+        /// Gutschein-Objekt, eingelöst in Bestellung.
+        /// </summary>
+        public clsCoupon MyCoupon
+        {
+            get
+            {
+                return _myCoupon;
+            }
+
+            set
+            {
+                _myCoupon = value;
+            }
+        }
 
         /// <summary>
         /// Constructor (mit Default-Werten)
@@ -203,6 +237,8 @@ namespace bll
             this._OPId = 0;
             this._orderDeliveryDate = DateTime.MaxValue;
             this._orderStatusDescription = "";
+            this._couponId = 0;
+            this._myCoupon = null;
         }
         
     } // clsOrderExtended

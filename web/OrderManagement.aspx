@@ -29,6 +29,7 @@
                 <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status" SortExpression="OrderStatusDescription" />
                 <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Lieferzeitpunkt" SortExpression="OrderDeliveryDate" />
                 <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}" />
+                <asp:BoundField DataField="CouponId" HeaderText="Gutschein#" SortExpression="CouponId" />
             </Columns>
         </asp:GridView>
         <asp:ObjectDataSource ID="getOrdersNotDelivered" runat="server" SelectMethod="getOrdersNotDelivered" TypeName="bll.clsOrderFacade"></asp:ObjectDataSource>

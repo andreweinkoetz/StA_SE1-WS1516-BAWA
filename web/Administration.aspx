@@ -83,7 +83,7 @@
                 <p>Text für statistische Auswertungen. Am Besten irgendwas betriebswirtschaftl. Tolles.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
-                <p>Text für Gutscheine. Irgendwas dass man entweder % oder Rabatte in Form von - machen kann.</p>
+                <p>Text für Gutscheine. Gutscheine anlegen (Rabattcoupons um genau zu sein) und welche widerrufen.</p>
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
