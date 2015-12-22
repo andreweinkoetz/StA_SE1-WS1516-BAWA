@@ -21,7 +21,8 @@
     </asp:GridView>
     <p style="text-align: right">
         <asp:Label ID="lblSum" runat="server" Text=""></asp:Label><br />
-        <asp:Label ID="lblCouponValid" Font-Bold="true" Font-Underline="true" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblCouponValid" runat="server" Text=""></asp:Label><br />
+        <asp:Label ID="lblNewSum" Font-Bold="true" Font-Underline="true" runat="server" Text=""></asp:Label>
     </p>
     <br />
     <p style="text-align: right">

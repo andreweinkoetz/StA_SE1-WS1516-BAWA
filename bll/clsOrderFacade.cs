@@ -82,22 +82,76 @@ namespace bll
             return _orderCol.GetFinishedOrders();
         }
 
+
         /// <summary>
-        /// Preisberechnung.
+        /// Errechnet auf Basis eines Gutscheins die neue Gesamtsumme und liefert einen passenden Text zurück.
         /// </summary>
-        /// <param name="_pricePerProduct"></param>
-        /// <returns></returns>
-        public double CalculateOrderPrice(int[] _pricePerProduct)
+        /// <param name="_sum">Summe der Bestellung.</param>
+        /// <param name="_newSum">Summe der Bestellung.</param>
+        /// <param name="_myCoupon">Coupon der Bestellung.</param>
+        /// <returns>Gutscheinbasierter Text.</returns>
+        public static String GetMsgCoupon(double _sum, out double _newSum, clsCoupon _myCoupon)
         {
-            int _orderPrice = 0;
-            foreach (int i in _pricePerProduct)
+            String _msgCoupon = "";
+            _newSum = _sum;
+            if (_myCoupon != null)
             {
-                _orderPrice += i;
+                _newSum = _sum - (_sum * (_myCoupon.Discount / 100.0));
+                double _saving = _sum - _newSum;
+                _msgCoupon = "Wert des Gutscheins: " + _myCoupon.Discount + "%.<br />";
+                _msgCoupon += "Ersparnis: " + String.Format("{0:C}", _saving);
             }
 
-            return _orderPrice;
+            return _msgCoupon;
+        }
 
-        } // CalculateOrderPrice()
+        /// <summary>
+        /// Preisberechnung einer Bestellung mit Coupon.
+        /// Wird nur beim Aufgeben einer Bestellung benötigt.
+        /// </summary>
+        /// <param name="_myProductList">Liste der bestellten Produkte.</param>
+        /// <param name="_myCoupon">Coupon, der auf Bestellung eingelöst wurde.</param>
+        /// <param name="_msgCoupon">Meldung über Vorteile des Gutscheins.</param>
+        /// <returns>Gesamtsumme der Bestellung.</returns>
+        public static double GetOrderSum(List<clsProductExtended> _myProductList, clsCoupon _myCoupon, out string _msgCoupon)
+        {
+            double _sum = GetOrderSum(_myProductList);
+
+            _msgCoupon = GetMsgCoupon(_sum, out _sum, _myCoupon);
+
+            return _sum;
+        }
+
+        /// <summary>
+        /// Preisberechnung einer Bestellung mit Coupon.
+        /// Wird nur beim Aufgeben einer Bestellung benötigt.
+        /// </summary>
+        /// <param name="_myProductList">Liste der bestellten Produkte.</param>
+        /// <param name="_myCoupon">Coupon, der auf Bestellung eingelöst wurde.</param>
+        /// <returns>Gesamtsumme der Bestellung.</returns>
+        public static double GetOrderSum(List<clsProductExtended> _myProductList, clsCoupon _myCoupon)
+        {
+            String s;
+            return GetOrderSum(_myProductList, _myCoupon, out s);
+        }
+
+        /// <summary>
+        /// Preisberechnung einer Bestellung.
+        /// </summary>
+        /// <param name="_myProductList">Liste der bestellten Produkte.</param>
+        /// <returns>Gesamtsumme der Bestellung.</returns>
+        public static double GetOrderSum(List<clsProductExtended> _myProductList)
+        {
+            double _sum = 0.0;
+
+            foreach (clsProductExtended _product in _myProductList)
+            {
+                _sum += _product.PricePerUnit * _product.Size + clsProductFacade.GetCostsOfExtras(_product);
+            }
+
+            return _sum;
+
+        }
 
         /// <summary>
         /// Einfügen der Extras der Produkte einer Bestellung.
@@ -170,6 +224,31 @@ namespace bll
         public int DeleteOrderByOrderNumber(int _oNumber)
         {
             return _orderCol.DeleteOrderByOrderNumber(_oNumber);
+        }
+
+        /// <summary>
+        /// Prüft, ob eine Bestellsumme den Mindestbestellwert (zum Liefern) erreicht.
+        /// </summary>
+        /// <param name="_sum">Summe der Bestellung.</param>
+        /// <param name="_delivery">true wenn geliefert werden soll.</param>
+        /// <param name="_msg">Fehlermeldung falls nicht erreicht.</param>
+        /// <returns>true wenn Mindestbestellwert erreicht.</returns>
+        public static bool CheckMinimumOrder(double _sum, bool _delivery, out string _msg)
+        {
+            double _diff = 20 - _sum;
+
+            if (_sum <= 20 && _delivery)
+            {
+                _msg = "Mindestbestellwert nicht erreicht. <br />"
+                    + "Bitte bestellen Sie für mindestens 20,00 EUR wenn Sie eine Lieferung wünschen.<br />"
+                    + "\n Es fehlen noch " + String.Format("{0:F}", _diff) + " EUR.";
+                return false;
+            }
+            else
+            {
+                _msg = "";
+                return true;
+            }
         }
 
     } // clsOrderFacade

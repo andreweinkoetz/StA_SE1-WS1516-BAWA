@@ -74,7 +74,7 @@ namespace bll
         internal clsCoupon GetCouponById(int _cuid)
         {
             _myDAL.AddParam("Id", _cuid, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QCUGetAllCoupons");
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QCUGetCouponById");
             DataTable _myDataTable = _myDataSet.Tables[0];
             clsCoupon _myCoupon = DataRowToClsCoupon(_myDataTable.Rows[0]);
 

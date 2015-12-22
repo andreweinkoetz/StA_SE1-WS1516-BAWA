@@ -108,6 +108,25 @@ namespace bll
             return _productCol.DeleteProductByPid(_pid) == 1;
         }
 
+        public static double GetCostsOfExtras(clsProductExtended _product)
+        {
+
+            double _costsOfExtras = 0;
+
+            if (_product.ProductExtras == null)
+            {
+                return _costsOfExtras;
+            }
+
+            foreach (clsExtra _extra in _product.ProductExtras)
+            {
+                _costsOfExtras += _extra.Price;
+            }
+
+            return _costsOfExtras;
+
+        }
+
     } // clsProductFacade
 
 }

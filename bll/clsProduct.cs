@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace bll
 {
     /// <summary>
@@ -118,9 +114,9 @@ namespace bll
             }
         }
 
-      
 
-       
+
+
 
 
 
@@ -202,7 +198,33 @@ namespace bll
             this._productExtras = _productExtras;
         }
 
-      
+        /// <summary>
+        /// Statische Methode zur Erstellung einer neuen Pizza.
+        /// Abgestützt auf generelle Produktfabrik.
+        /// </summary>
+        /// <param name="_id">ID der Pizza</param>
+        /// <param name="_size">gewählte Größe der Pizza.</param>
+        /// <param name="_myExtraList">gewählte Extras der Pizza.</param>
+        /// <returns>Neues Produkt-Objekt (Pizza).</returns>
+        public static clsProductExtended PizzaFactory(int _id, double _size, List<clsExtra> _myExtraList)
+        {
+            clsProductExtended _myProduct = ProductFactory(_id, _size);
+            _myProduct.ProductExtras = _myExtraList;
+            return _myProduct;
+        }
+
+        /// <summary>
+        /// Statische Methode zur Erstellung eines neuen Produkts.
+        /// </summary>
+        /// <param name="_id">ID des Produkts</param>
+        /// <param name="_size">gewählte Größe des Produkts.</param>
+        /// <returns>Neues Produkt-Objekt.</returns>
+        public static clsProductExtended ProductFactory(int _id, double _size)
+        {
+            clsProductExtended _myProduct = new clsProductCollection().GetProductById(_id);
+            _myProduct.Size = _size;
+            return _myProduct;
+        }
 
     }
 }

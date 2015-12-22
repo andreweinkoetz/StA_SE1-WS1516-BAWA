@@ -27,15 +27,10 @@ namespace web
             {
                 if (selectedProducts.Count != 0)
                 {
-                    initializeOrderView(selectedProducts);
-                    double _sum = GetTotalSum(null);
+                    InitializeOrderView(selectedProducts);
+                    double _sum = clsOrderFacade.GetOrderSum(selectedProducts);
                     lblSum.Text = "Gesamtsumme: " + String.Format("{0:C}", _sum);
-                    if (GetDistance() > 20.0)
-                    {
-                        chkDelivery.Enabled = false;
-                        chkDelivery.Checked = false;
-                    }
-
+                    CheckDelivery();
                     CheckMinimumOrder(_sum);
                 }
             }
@@ -46,22 +41,20 @@ namespace web
 
         }
 
+        private void CheckDelivery()
+        {
+            if (GetDistance() > 20.0)
+            {
+                chkDelivery.Enabled = false;
+                chkDelivery.Checked = false;
+            }
+        }
+
         private void CheckMinimumOrder(double _sum)
         {
-            double _diff = 20 - _sum;
-
-            if (_sum <= 20 && chkDelivery.Checked)
-            {
-                lblStatus.Text = "Mindestbestellwert nicht erreicht. <br />"
-                    + "Bitte bestellen Sie für mindestens 20,00 EUR wenn Sie eine Lieferung wünschen.<br />"
-                    + "\n Es fehlen noch " + String.Format("{0:F}", _diff) + " EUR.";
-                btOrder.Enabled = false;
-            }
-            else
-            {
-                lblStatus.Text = "";
-                btOrder.Enabled = true;
-            }
+            String _msg;
+            btOrder.Enabled = clsOrderFacade.CheckMinimumOrder(_sum, chkDelivery.Checked, out _msg);
+            lblStatus.Text = _msg;
         }
 
         private double GetDistance()
@@ -69,54 +62,12 @@ namespace web
             return new clsUserFacade().GetDistanceByUser(Convert.ToInt32(Session["userID"]));
         }
 
-        private void initializeOrderView(List<clsProductExtended> _selectedProducts)
+        private void InitializeOrderView(List<clsProductExtended> _selectedProducts)
         {
-
-            DataTable dt = new DataTable();
-
-            dt = new DataTable("MyOrder");
-
-            dt.Columns.Add("ID");
-
-            dt.Columns.Add("Name");
-
-            dt.Columns.Add("Größe");
-
-            dt.Columns.Add("Extras");
-
-            dt.Columns.Add("Preis Gesamt");
-
-            foreach (clsProductExtended _product in _selectedProducts)
-            {
-                String _extraText = "";
-                String _sizeText = "";
-                if (_product.ProductExtras != null)
-                {
-                    foreach (clsExtra _extra in _product.ProductExtras)
-                    {
-                        _extraText += _extra.Name + "\n";
-                    }
-                }
-                _sizeText = setSizeText(_product);
-                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + GetCostsOfExtras(_product))) }, true);
-            }
+            DataTable dt = new clsOrderExtended().CreateDataTableOfOrder(_selectedProducts);
 
             gvOrder.DataSource = dt;
             gvOrder.DataBind();
-        }
-
-        private String setSizeText(clsProductExtended _product)
-        {
-            switch (_product.CID)
-            {
-                case 1:
-                    return _product.Size + " cm";
-                case 2:
-                    return _product.Size + " Liter";
-                case 3:
-                    return _product.Size + " Stück";
-            }
-            return "Fehler in der Verarbeitung";
         }
 
         protected void clearCart_Click(object sender, EventArgs e)
@@ -144,7 +95,7 @@ namespace web
                 _myOrder.CouponId = 0;
             }
 
-            _myOrder.OrderSum = GetTotalSum(_myOrder.MyCoupon);
+            _myOrder.OrderSum = clsOrderFacade.GetOrderSum(selectedProducts,_myOrder.MyCoupon);
 
             foreach (clsProductExtended _product in selectedProducts)
             {
@@ -176,47 +127,31 @@ namespace web
 
         }
 
-        private double GetCostsOfExtras(clsProductExtended _product)
-        {
+        //private double GetTotalSum(clsCoupon _myCoupon)
+        //{
+        //    double _sum = 0;
 
-            double _costsOfExtras = 0;
+        //    foreach (clsProductExtended _product in selectedProducts)
+        //    {
+        //        _sum += _product.PricePerUnit * _product.Size + clsProductFacade.GetCostsOfExtras(_product);
+        //    }
 
-            if (_product.ProductExtras == null)
-            {
-                return _costsOfExtras;
-            }
+        //    if(_myCoupon != null)
+        //    {
+        //        double _newSum;
+        //        _newSum =_sum - (_sum * (_myCoupon.Discount / 100.0));
+        //        double _saving = _sum - _newSum;
+        //        lblSum.Font.Bold = false;
+        //        lblSum.Font.Underline = false;
+        //        lblSum.Font.Strikeout = true;
+        //        lblCouponValid.Text = "Wert des Gutscheins: " + _myCoupon.Discount + "%.<br />";
+        //        lblCouponValid.Text += "Ersparnis: " + String.Format("{0:C}", _saving);
+        //        lblNewSum.Text = "Neue Gesamtsumme: " + String.Format("{0:C}", _newSum);
+        //        _sum = _newSum;
+        //    }
 
-            foreach (clsExtra _extra in _product.ProductExtras)
-            {
-                _costsOfExtras += _extra.Price;
-            }
-
-            return _costsOfExtras;
-
-        }
-
-        private double GetTotalSum(clsCoupon _myCoupon)
-        {
-            double _sum = 0;
-
-            foreach (clsProductExtended _product in selectedProducts)
-            {
-                _sum += _product.PricePerUnit * _product.Size + GetCostsOfExtras(_product);
-            }
-
-            if(_myCoupon != null)
-            {
-                double _newSum;
-                _newSum =_sum - (_sum * (_myCoupon.Discount / 100.0));
-                lblSum.Font.Bold = false;
-                lblSum.Font.Underline = false;
-                lblSum.Font.Strikeout = true;
-                lblCouponValid.Text = "Neue Gesamtsumme: " + String.Format("{0:C}", _newSum);
-                _sum = _newSum;
-            }
-
-            return _sum;
-        }
+        //    return _sum;
+        //}
 
         private void setEstimatedTime()
         {
@@ -245,7 +180,7 @@ namespace web
 
         protected void chkDelivery_CheckedChanged(object sender, EventArgs e)
         {
-            CheckMinimumOrder(GetTotalSum((clsCoupon)Session["coupon"]));
+            CheckMinimumOrder(clsOrderFacade.GetOrderSum(selectedProducts,(clsCoupon)Session["coupon"]));
         }
 
         protected void btCoupon_Click(object sender, EventArgs e)
@@ -255,9 +190,13 @@ namespace web
             {
                 if(ValidateCoupon(txtCouponCode.Text, (int)Session["userID"], out _myCoupon))
                 {
+                    string _msg;
+                    double _newSum = clsOrderFacade.GetOrderSum(selectedProducts, _myCoupon, out _msg);
                     txtCouponCode.Enabled = false;
                     Session["coupon"] = _myCoupon;
-                    CheckMinimumOrder(GetTotalSum(_myCoupon));
+                    CheckMinimumOrder(_newSum);
+                    lblCouponValid.Text = _msg;
+                    lblNewSum.Text = "Neue Gesamtsumme: " + String.Format("{0:C}", _newSum);
                 } else
                 {
                     lblErrorCoupon.Text = "Gutschein ist fehlerhaft bzw. passt nicht zu angemeldetem Benutzer.";

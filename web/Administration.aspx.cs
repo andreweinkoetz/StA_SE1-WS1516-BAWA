@@ -88,7 +88,7 @@ namespace web
 
         protected void btAdmCoupons_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("AdmCoupon.aspx");
         }
     }
 }

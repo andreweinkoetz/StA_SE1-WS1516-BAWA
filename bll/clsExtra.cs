@@ -108,5 +108,23 @@ namespace bll
             this._price = 0;
             this._toSell = false;
         }
+
+        /// <summary>
+        /// Statische Methode zur Erstellung einer Liste von Extras für Pizzen.
+        /// </summary>
+        /// <param name="_idOfExtras">Ids gewählter Extras.</param>
+        /// <returns>Liste von Extras für Pizzen.</returns>
+        public static List<clsExtra> ExtraListFactory(params int[] _idOfExtras)
+        {
+            List<clsExtra> _myExtraList = new List<clsExtra>();
+
+            foreach (int _id in _idOfExtras)
+            {
+                clsExtraFacade _myExtraFacade = new clsExtraFacade();
+                _myExtraList.Add(_myExtraFacade.GetExtraById(_id));
+            }
+
+            return _myExtraList;
+        }
     }
 }

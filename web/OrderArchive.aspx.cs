@@ -50,11 +50,13 @@ namespace web
             {
                 lblError.Text = "Es konnten keine Datensätze gelöscht werden. Fehler bei DB-DELETE.";
             }
-            
+
         }
 
         private void CreateCSV(clsOrderExtended _myOrder, List<clsProductExtended> _myProductList)
         {
+            double _sum = 0.0;
+
             StringBuilder _toCSV = new StringBuilder();
 
             _toCSV.Append("Bestellung: #" + _myOrder.OrderNumber);
@@ -101,11 +103,33 @@ namespace web
                 }
                 _toCSV.Append(';');
                 _productPrice += _extrasPrice;
+                _sum += _productPrice;
                 _toCSV.Append(String.Format("{0:N}", _productPrice));
                 _toCSV.Append(" EUR");
                 _toCSV.AppendLine();
             }
             _toCSV.AppendLine();
+            if (_myOrder.MyCoupon != null)
+            {
+                double _discount = _sum - _myOrder.OrderSum;
+                _toCSV.Append("Gutschein# " + _myOrder.CouponId + " (" + _myOrder.MyCoupon.Code + ") eingelöst.");
+                _toCSV.Append(";;;;");
+                _toCSV.Append("Wert: ");
+                _toCSV.Append(';');
+                _toCSV.Append("-" +_myOrder.MyCoupon.Discount + "%");
+                _toCSV.AppendLine();
+                _toCSV.Append(";;;;");
+                _toCSV.Append("Rabatt: ");
+                _toCSV.Append(';');
+                _toCSV.Append(String.Format("{0:0.00}", _discount) + " EUR");
+                _toCSV.AppendLine();
+                _toCSV.Append(";;;;");
+                _toCSV.Append("Alte Gesamtsumme: ");
+                _toCSV.Append(';');
+                _toCSV.Append(String.Format("{0:0.00}", _sum) + " EUR");
+                _toCSV.AppendLine();
+            }
+
             _toCSV.Append("Exportiert am " + DateTime.Now + " Uhr");
 
             Session["Report"] = _toCSV;

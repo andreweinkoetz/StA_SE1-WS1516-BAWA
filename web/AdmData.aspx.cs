@@ -35,30 +35,30 @@ namespace web
                     lblAdmData.Text = "Produktverwaltung";
                     btCreateNew.Text = "Neues Produkt anlegen";
                     clsProductFacade _productFacade = new clsProductFacade();
-                    initializeGvAdmData(_productFacade.ProductsGetAll(), 1);
+                    InitializeGvAdmData(_productFacade.ProductsGetAll(), 1);
                     break;
                 case 2:
                     lblAdmData.Text = "Extraverwaltung";
                     btCreateNew.Text = "Neues Extra anlegen";
                     clsExtraFacade _extraFacade = new clsExtraFacade();
-                    initializeGvAdmData(_extraFacade.GetAllExtras(), 2);
+                    InitializeGvAdmData(_extraFacade.GetAllExtras(), 2);
                     break;
                 case 3:
                     lblAdmData.Text = "Benutzerverwaltung";
                     btCreateNew.Text = "Neuen Benutzer anlegen";
                     clsUserFacade _userFacade = new clsUserFacade();
-                    initializeGvAdmData(_userFacade.UsersGetAll(), 3);
+                    InitializeGvAdmData(_userFacade.UsersGetAll(), 3);
                     break;
                 case 4:
                     lblAdmData.Text = "Größenverwaltung";
                     btCreateNew.Text = "Neue Größe anlegen";
                     clsSizeFacade _sizeFacade = new clsSizeFacade();
-                    initializeGvAdmData(_sizeFacade.GetAllSizes(), 4);
+                    InitializeGvAdmData(_sizeFacade.GetAllSizes(), 4);
                     break;
             }
         }
 
-        private void initializeGvAdmData(object _list, int _selection)
+        private void InitializeGvAdmData(object _list, int _selection)
         {
 
 

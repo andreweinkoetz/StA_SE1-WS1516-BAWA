@@ -26,7 +26,7 @@
             </td>
 
             <td style="text-align: right">
-                <asp:Label ID="lblTotalSum" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lblTotalSum" Font-Bold="true" Font-Underline="true" runat="server" Text=""></asp:Label>
             </td>
         </tr>
         <tr>

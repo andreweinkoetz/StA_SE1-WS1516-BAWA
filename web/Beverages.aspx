@@ -6,7 +6,7 @@
     <p style="font-family: 'Segoe UI'; font-weight: bold">Unsere Getränke</p>
 
     <p style="font-family: 'Segoe UI'; font-weight: bold; text-align: left">
-        <asp:GridView ID="gvBeverages" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvBeverage_SelectedIndexChanged">
+        <asp:GridView ID="gvBeverages" OnDataBound="gvBeverages_DataBound" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvBeverage_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/marker20-2.png" />
@@ -51,10 +51,10 @@
     <table style="width: 100%">
         <tr>
             <td style="text-align: left">
-                <a href="Orders.aspx">Zum Warenkorb</a>
+                &nbsp;
             </td>
             <td style="text-align: right">
-                <asp:Label ID="lblChooseSize" runat="server"></asp:Label>
+                <asp:Label ID="lblChooseSize" ForeColor="Red" runat="server"></asp:Label>
             </td>
         </tr>
     </table>

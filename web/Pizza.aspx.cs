@@ -14,11 +14,6 @@ namespace web
 
         protected override void OnInit(EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                lblChooseSize.ForeColor = System.Drawing.Color.Red;
-            }
-
             Session["category"] = 1;
         }
 
@@ -27,13 +22,7 @@ namespace web
             
         }
 
-        protected override void OnLoadComplete(EventArgs e)
-        {
-            enableUI();
-            base.OnLoadComplete(e);
-        }
-
-        private void enableUI()
+        private void EnableSelection()
         {
             if (Session["roleID"] == null)
             {
@@ -55,28 +44,39 @@ namespace web
 
             if (!String.IsNullOrEmpty(selectedSize))
             {
-                clsProductExtended _myProduct = new clsProductExtended();
-                List<clsExtra> _myExtraList = new List<clsExtra>();
                 GridViewRow selectedRow = gvPizza.SelectedRow;
+
+                int _id = Int32.Parse(selectedRow.Cells[1].Text);
+                double _size = Double.Parse(selectedSize);
+
+                clsProductExtended _myProduct;
+                List<clsExtra> _myExtraList;
+
+                List<int> _extraIds = new List<int>();
                 CheckBoxList extraCheckList =  (CheckBoxList)selectedRow.FindControl("ExtrasCheckBoxList");
+
                 foreach (ListItem item in extraCheckList.Items)
                 {
                     if (item.Selected)
                     {
-                        clsExtraFacade _myExtraFacade = new clsExtraFacade();
-                        int _eID = Int32.Parse(item.Value);
-                        double _priceOfExtra = _myExtraFacade.GetPriceOfExtra(_eID);
-                        _myExtraList.Add(new clsExtra(_eID, item.Text,_priceOfExtra));
+                        //clsExtraFacade _myExtraFacade = new clsExtraFacade();
+                        //int _eID = Int32.Parse(item.Value);
+                        //double _priceOfExtra = _myExtraFacade.GetPriceOfExtra(_eID);
+                        //_myExtraList.Add(new clsExtra(_eID, item.Text,_priceOfExtra));
+                        _extraIds.Add(Int32.Parse(item.Value));
                         item.Selected = false;
                     }
                 }
 
-                _myProduct.ProductExtras = _myExtraList;
-                _myProduct.Id = Int32.Parse(selectedRow.Cells[1].Text);
-                _myProduct.Name = selectedRow.Cells[2].Text;
-                _myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
-                _myProduct.Size = Double.Parse(selectedSize);
-                _myProduct.CID = (int)Session["category"];
+                _myExtraList = clsExtra.ExtraListFactory(_extraIds.ToArray());
+                _myProduct = clsProductExtended.PizzaFactory(_id, _size, _myExtraList);
+
+                //_myProduct.ProductExtras = _myExtraList;
+                //_myProduct.Id = Int32.Parse(selectedRow.Cells[1].Text);
+                //_myProduct.Name = selectedRow.Cells[2].Text;
+                //_myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
+                //_myProduct.Size = Double.Parse(selectedSize);
+                //_myProduct.CID = (int)Session["category"];
 
                 lblChooseSize.Text = "";
 
@@ -91,20 +91,6 @@ namespace web
             }
         }
 
-        
-
-        private double countExtrasOfPizza(GridViewRow selRow)
-        {
-            CheckBoxList extraCheckList = (CheckBoxList)selRow.FindControl("ExtrasCheckBoxList");
-            double extrasOfPizza = 0.0;
-            foreach (ListItem item in extraCheckList.Items)
-            {
-                if (item.Selected)
-                    extrasOfPizza++;
-            }
-            return extrasOfPizza;
-        }
-
         protected void sizeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList sizeSelect = (DropDownList)sender;
@@ -113,10 +99,9 @@ namespace web
             Session["lastSelectedSize"] = sizeSelect.SelectedItem.Value;
         }
 
-        protected void lnkBtCart_Click(object sender, EventArgs e)
+        protected void gvPizza_DataBound(object sender, EventArgs e)
         {
-            Session["roleID"] = 2;
-            Session["userID"] = 1;
+            EnableSelection();
         }
     }
 }

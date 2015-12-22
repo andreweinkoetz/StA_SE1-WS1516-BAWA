@@ -187,7 +187,7 @@ namespace bll
             foreach (DataRow _dr in _myDataTable.Rows)
             {
                 clsProductExtended _product = new clsProductExtended();
-
+                _product.Id = AddIntFieldValue(_dr, "PID");
                 _product.OpID = AddIntFieldValue(_dr, "OPID");
                 _product.Name = AddStringFieldValue(_dr, "PName");
                 _product.PricePerUnit = AddDoubleFieldValue(_dr, "PPricePerUnit");

@@ -12,12 +12,21 @@ namespace web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if(Session["roleID"] != null)
+            {
+                if((int)Session["roleID"] > 1)
+                {
+                    Response.Redirect("Administration.aspx");
+                }
+            } else
+            {
+                Response.Redirect("LoginPage.aspx");
+            }
         }
 
         protected void btBack_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("Administration.aspx");
         }
 
         protected void gvAdmCoupon_SelectedIndexChanged(object sender, EventArgs e)

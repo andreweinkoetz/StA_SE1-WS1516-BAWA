@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,7 +110,7 @@ namespace bll
         /// Generieren einer neuen Bestellnummer.
         /// </summary>
         /// <returns></returns>
-        public int generateOrderNumber()
+        public int GenerateOrderNumber()
         {
             Random rnd = new Random();
             int _orderNumber = 2015 + rnd.Next() * 100 + UserId * rnd.Next();
@@ -240,6 +241,69 @@ namespace bll
             this._couponId = 0;
             this._myCoupon = null;
         }
-        
+
+        /// <summary>
+        /// Erstellt eine Tabelle aus Produkten um GridView-Elemente zu füllen.
+        /// </summary>
+        /// <param name="_selectedProducts">Produktliste die in GridView angezeigt werden soll.</param>
+        /// <returns>DataTable für GridView-Integration.</returns>
+        public DataTable CreateDataTableOfOrder(List<clsProductExtended> _selectedProducts)
+        {
+            DataTable dt = new DataTable();
+
+            dt = new DataTable("MyOrder");
+
+            dt.Columns.Add("ID");
+
+            dt.Columns.Add("Name");
+
+            dt.Columns.Add("Größe");
+
+            dt.Columns.Add("Extras");
+
+            dt.Columns.Add("Preis Gesamt");
+
+            foreach (clsProductExtended _product in _selectedProducts)
+            {
+                String _extraText = "";
+                String _sizeText = "";
+                if (_product.ProductExtras != null)
+                {
+                    foreach (clsExtra _extra in _product.ProductExtras)
+                    {
+                        _extraText += _extra.Name + "\n";
+                    }
+                }
+                _sizeText = setSizeText(_product);
+                dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + clsProductFacade.GetCostsOfExtras(_product))) }, true);
+            }
+
+            return dt;
+        }
+
+        private String setSizeText(clsProductExtended _product)
+        {
+            switch (_product.CID)
+            {
+                case 1:
+                    return _product.Size + " cm";
+                case 2:
+                    return _product.Size + " Liter";
+                case 3:
+                    return _product.Size + " Stück";
+            }
+
+            switch (_product.Category)
+            {
+                case "Pizza":
+                    return _product.Size + " cm";
+                case "Getränk":
+                    return _product.Size + " Liter";
+                case "Dessert":
+                    return _product.Size + " Stück";
+            }
+            return "Fehler in der Verarbeitung";
+        }
+
     } // clsOrderExtended
 }

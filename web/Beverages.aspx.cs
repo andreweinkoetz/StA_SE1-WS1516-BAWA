@@ -13,11 +13,6 @@ namespace web
 
         protected override void OnInit(EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                lblChooseSize.ForeColor = System.Drawing.Color.Red;
-            }
-
             Session["category"] = 2;
         }
 
@@ -26,13 +21,7 @@ namespace web
 
         }
 
-        protected override void OnLoadComplete(EventArgs e)
-        {
-            enableUI();
-            base.OnLoadComplete(e);
-        }
-
-        private void enableUI()
+        private void EnableSelection()
         {
             if (Session["roleID"] == null)
             {
@@ -52,14 +41,19 @@ namespace web
 
             if (!String.IsNullOrEmpty(selectedSize))
             {
-                clsProductExtended _myProduct = new clsProductExtended();
                 GridViewRow selectedRow = gvBeverages.SelectedRow;
 
-                _myProduct.Id = Int32.Parse(selectedRow.Cells[1].Text);
-                _myProduct.Name = selectedRow.Cells[2].Text;
-                _myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
-                _myProduct.Size = Double.Parse(selectedSize);
-                _myProduct.CID = (int)Session["category"];
+                clsProductExtended _myProduct;
+                int _id = Int32.Parse(selectedRow.Cells[1].Text);
+                double _size = Double.Parse(selectedSize);
+
+                _myProduct = clsProductExtended.ProductFactory(_id,_size);
+
+                //_myProduct.Id = Int32.Parse(selectedRow.Cells[1].Text);
+                //_myProduct.Name = selectedRow.Cells[2].Text;
+                //_myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
+                //_myProduct.Size = Double.Parse(selectedSize);
+                //_myProduct.CID = (int)Session["category"];
 
                 lblChooseSize.Text = "";
 
@@ -88,6 +82,11 @@ namespace web
         {
             Session["roleID"] = 2;
             Session["userID"] = 1;
+        }
+
+        protected void gvBeverages_DataBound(object sender, EventArgs e)
+        {
+            EnableSelection();
         }
     }
 }
