@@ -108,6 +108,11 @@ namespace bll
             return _productCol.DeleteProductByPid(_pid) == 1;
         }
 
+        /// <summary>
+        /// Liefert zu einem angegebenen Produkt die Kosten aller inkludierten Extras.
+        /// </summary>
+        /// <param name="_product">Produkt dessen Extra-Kosten summiert werden soll.</param>
+        /// <returns>Kosten für Extras des Produkts.</returns>
         public static double GetCostsOfExtras(clsProductExtended _product)
         {
 
