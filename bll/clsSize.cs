@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace bll
 {
+    /// <summary>
+    /// Größe eines Produkts.
+    /// </summary>
     public class clsSize
     {
         private double _value;
+
+        /// <summary>
+        /// Wert der Größe eines Proukts.
+        /// </summary>
         public double Value
         {
             get
@@ -23,6 +30,10 @@ namespace bll
         }
 
         private String _name;
+
+        /// <summary>
+        /// Name der Größe eines Produkts.
+        /// </summary>
         public string Name
         {
             get

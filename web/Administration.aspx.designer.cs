@@ -49,15 +49,6 @@ namespace web {
         protected global::System.Web.UI.WebControls.DropDownList ddlistData;
         
         /// <summary>
-        /// ddlistStat-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlistStat;
-        
-        /// <summary>
         /// lblErrorMsg-Steuerelement
         /// </summary>
         /// <remarks>

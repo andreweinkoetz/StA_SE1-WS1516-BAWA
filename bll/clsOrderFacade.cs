@@ -64,6 +64,25 @@ namespace bll
         }
 
         /// <summary>
+        /// Alle Bestellungen sortiert nach Datum.
+        /// </summary>
+        /// <returns></returns>
+        public List<clsOrderExtended> getOrdersOrderedByDate()
+        {
+            return _orderCol.getOrdersOrderedByDate();
+        }
+
+        /// <summary>
+        /// Alle Bestellungen eines bestimmten Nutzers.
+        /// </summary>
+        /// <param name="_email"></param>
+        /// <returns></returns>
+        public List<clsOrderExtended> getOrdersByEmail(String _email)
+        {
+            return _orderCol.getOrdersByEmail(_email);
+        }
+
+        /// <summary>
         /// Alle Produkte inkl. Extras einer Bestellung.
         /// </summary>
         /// <param name="_orderNumber"></param>

@@ -3,15 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
         .p-style {
-            margin-top:20px;
+            margin-top: 20px;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
-    <h1><u>Anbieterkennzeichnung nach &sect;5 TMG</u></h1>
+    <h1><u>Impressum</u></h1>
 
 
     <p class="p-style">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2661.673100174345!2d11.554554074943006!3d48.155107197365275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e760a9d3b9c0b%3A0x82a9dcfdbdd4fbdc!2sLothstra%C3%9Fe+64%2C+80335+M%C3%BCnchen!5e0!3m2!1sde!2sde!4v1448545873607" style="border-style: ridge; border-color: inherit; border-width: medium; position: relative; float: right; height: 264px; width: 404px; top: -2px; left: -297px;" draggable="true"></iframe>
         <b>Name und Anschrift:</b><br />
         Pizza Pizza M&uuml;nchen GmbH<br />
         Lothstra&szlig;e 64<br />
@@ -44,7 +45,7 @@
     <p class="p-style">
         <b>Lizenzverweise nach CC BY 3.0</b><br />
         <a href="img/marker20-2.png">Cart-Icons:</a><br />
-        Icons made by <a href="http://www.flaticon.com/authors/stephen-hutchings" title="Stephen Hutchings">Stephen Hutchings</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> 
+        Icons made by <a href="http://www.flaticon.com/authors/stephen-hutchings" title="Stephen Hutchings">Stephen Hutchings</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>
         is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
     </p>
 
@@ -67,7 +68,7 @@
 
 
 
-    
 
-    
+
+
 </asp:Content>

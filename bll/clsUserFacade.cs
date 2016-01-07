@@ -25,7 +25,7 @@ namespace bll
         /// Alle User lesen
         /// </summary>
         /// <returns>Liste der User</returns>
-        public List<clsUser> UsersGetAll()
+        public List<clsUser> getAllUsers()
         {
             return _usrCol.GetAllUsers();
         } // UsersGetAll()
@@ -59,6 +59,11 @@ namespace bll
             return _usrCol.getIDOfUser(_email);
         }
 
+        /// <summary>
+        /// Gibt die Rolle eines Users zurück.
+        /// </summary>
+        /// <param name="_email"></param>
+        /// <returns></returns>
         public int getRoleOfUser(string _email)
         {
             return _usrCol.getRoleOfUser(_email);
@@ -70,7 +75,7 @@ namespace bll
         /// <returns>true, wenn Insert erfolgreich</returns>
         public bool UserInsert(clsUser newUser)
         {
-            List<clsUser> allUsers = UsersGetAll();
+            List<clsUser> allUsers = getAllUsers();
 
             foreach (clsUser user in allUsers)
             {

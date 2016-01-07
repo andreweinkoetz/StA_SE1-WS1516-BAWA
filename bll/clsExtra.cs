@@ -64,6 +64,12 @@ namespace bll
             }
         }
 
+        /// <summary>
+        /// Custom Konstruktor für ein Extra
+        /// </summary>
+        /// <param name="_id"></param>
+        /// <param name="_name"></param>
+        /// <param name="_price"></param>
         public clsExtra(int _id, String _name, double _price)
         {
             this._id = _id;
@@ -71,6 +77,9 @@ namespace bll
             this._price = _price;
         }
 
+        /// <summary>
+        /// Standardkonstruktor für ein Extra
+        /// </summary>
         public clsExtra()
         {
             this._id = 0;

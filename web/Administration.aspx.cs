@@ -71,7 +71,7 @@ namespace web
 
         protected void btAdmStat_Click(object sender, EventArgs e)
         {
-
+            Server.Transfer("Stats.aspx");
         }
     }
 }

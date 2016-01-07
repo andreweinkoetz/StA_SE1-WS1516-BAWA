@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace bll
 {
-   internal class clsProductCollection : clsBLLCollections
+    internal class clsProductCollection : clsBLLCollections
     {
         string _databaseFile; // String zur Access-Datei
         DAL.DALObjects.dDataProvider _myDAL; // DAL: Zugriff auf die Datenbank
@@ -54,6 +55,50 @@ namespace bll
             }
 
             return _myProductList;
+        }
+
+        internal OrderedDictionary getMostFanciedProduct()
+        {
+
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetProductsOrderedByFanciness");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            OrderedDictionary amountOfProducts = new OrderedDictionary();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                amountOfProducts.Add(AddStringFieldValue(_dr, "PName"), AddIntFieldValue(_dr, "Anzahl"));
+            }
+
+            return amountOfProducts;
+        }
+
+        internal double getProductPricePerUnit(String _name)
+        {
+            _myDAL.AddParam("Name", _name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetProductPricePerUnit");
+
+            if (_myDataSet.Tables[0].Rows.Count != 0)
+            {
+                DataRow _dr = _myDataSet.Tables[0].Rows[0];
+                return AddDoubleFieldValue(_dr, "PPricePerUnit");
+            }
+            return 0;
+        }
+
+        internal String getCategory(int _category)
+        {
+            _myDAL.AddParam("Category", _category, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetCategoryByCategoryID");
+
+            if (_myDataSet.Tables[0].Rows.Count != 0)
+            {
+                DataRow _dr = _myDataSet.Tables[0].Rows[0];
+                return AddStringFieldValue(_dr, "CName");
+            }
+            return null;
+
         }
 
         /// <summary>

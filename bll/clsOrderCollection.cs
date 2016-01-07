@@ -168,6 +168,66 @@ namespace bll
             return _myOrderList;
         }
 
+        /// <summary>
+        /// Gibt alle Bestellungen geordnet nach Datum zurück.
+        /// </summary>
+        /// <returns></returns>
+        internal List<clsOrderExtended> getOrdersOrderedByDate()
+        {
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrdersOrderedByDate");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //Instantiieren eine Liste von Order-Objekten
+            List<clsOrderExtended> _myOrderList = new List<clsOrderExtended>();
+
+            //Lesen wir jetzt Zeile (DataRow) für Zeile
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                clsOrderExtended _order = new clsOrderExtended();
+
+                _order.OrderDate = AddDateTimeFieldValue(_dr, "ODate");
+                _order.UserName = AddStringFieldValue(_dr, "UEmail");
+                _order.OrderNumber = AddIntFieldValue(_dr, "ONumber");
+                _order.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
+                _order.OrderDeliveryDate = AddDateTimeFieldValue(_dr, "ODeliveryDate");
+                _order.OrderSum = AddDoubleFieldValue(_dr, "OSum");
+                _myOrderList.Add(_order);
+            }
+            return _myOrderList;
+        }
+
+        internal List<clsOrderExtended> getOrdersByEmail(String _email)
+        {
+            _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrdersByUserEmail");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //Instantiieren eine Liste von Order-Objekten
+            List<clsOrderExtended> _myOrderList = new List<clsOrderExtended>();
+
+            //Lesen wir jetzt Zeile (DataRow) für Zeile
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                clsOrderExtended _order = new clsOrderExtended();
+
+                _order.OrderDate = AddDateTimeFieldValue(_dr, "ODate");
+                _order.UserName = AddStringFieldValue(_dr, "UEmail");
+                _order.OrderNumber = AddIntFieldValue(_dr, "ONumber");
+                _order.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
+                _order.OrderDeliveryDate = AddDateTimeFieldValue(_dr, "ODeliveryDate");
+                _order.OrderSum = AddDoubleFieldValue(_dr, "OSum");
+                _myOrderList.Add(_order);
+            }
+            return _myOrderList;
+        }
+
 
         /// <summary>
         /// Liest alle Produkte inkl. Extras einer Bestellung aus der DB und gibt sie als Liste zurück

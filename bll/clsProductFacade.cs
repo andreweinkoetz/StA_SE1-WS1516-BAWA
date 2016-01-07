@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,35 @@ namespace bll
         {
             return _productCol.getAllProducts();
         } //ProductsGetAll()
+
+        /// <summary>
+        /// Zeigt die Beliebtheit der verschiedenen Produkte an.
+        /// </summary>
+        /// <returns></returns>
+        public OrderedDictionary getMostFanciedProduct()
+        {
+            return _productCol.getMostFanciedProduct();
+        }
+
+        /// <summary>
+        /// Liefert den Preis pro Unit eines Produkts zurück.
+        /// </summary>
+        /// <param name="_name"></param>
+        /// <returns></returns>
+        public double getProductPricePerUnit(String _name)
+        {
+            return _productCol.getProductPricePerUnit(_name);
+        }
+
+        /// <summary>
+        /// Liefert die Kategorie eines Produkts zurück.
+        /// </summary>
+        /// <param name="_category"></param>
+        /// <returns></returns>
+        public String getCategory(int _category)
+        {
+            return _productCol.getCategory(_category);
+        }
 
 
         /// <summary>

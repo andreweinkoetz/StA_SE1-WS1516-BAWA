@@ -37,13 +37,7 @@
                 </asp:DropDownList>
             </asp:TableHeaderCell>
             <asp:TableHeaderCell></asp:TableHeaderCell>
-            <asp:TableHeaderCell>
-                <asp:DropDownList ID="ddlistStat" runat="server" Width="200px">
-                    <asp:ListItem Value="0" Text="- Daten wählen"></asp:ListItem>
-                    <asp:ListItem Value="1" Text="Nach Kunde"></asp:ListItem>
-                    <asp:ListItem Value="2" Text="Nach Produkt"></asp:ListItem>
-                </asp:DropDownList>
-            </asp:TableHeaderCell>
+            <asp:TableHeaderCell></asp:TableHeaderCell>
         </asp:TableHeaderRow>
         <asp:TableRow>
             <asp:TableCell ColumnSpan="3">
@@ -68,10 +62,9 @@
             <asp:TableCell CssClass="tbl-td-Style">
                 <p>Text für Bestellverwaltung kurze Beschreibung. Sollte auch in OrderManagement stehen.</p>
             </asp:TableCell>
-            <asp:TableCell CssClass="tbl-td-Style">
-                <p>Text für statistische Auswertungen. Am Besten irgendwas betriebswirtschaftl. Tolles.</p>
+            <asp:TableCell CssClass="tbl-td-Style" BorderStyle="Groove">
+                <p >Über die statistischen Auswertungen können Erkenntnisse über bisherige Bestellungen, Produkte und Kunden gewonnen werden.
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
-
 </asp:Content>
