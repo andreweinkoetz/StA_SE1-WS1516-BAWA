@@ -14,7 +14,7 @@ namespace web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblTest.ForeColor = System.Drawing.Color.Red; 
+            lblInactiveUser.ForeColor = System.Drawing.Color.Red; 
         }
 
         /// <summary>
@@ -38,15 +38,15 @@ namespace web
                 {
                     Session["userID"] = _userId;
                     Session["roleID"] = userFacade.GetRoleOfUser(userToLogin.EMail);
-                    Response.Redirect("Pizza.aspx");
+                    Response.Redirect("pizza.aspx");
                 } else
                 {
-                    lblTest.Text = "Ihr Konto wurde gesperrt. Bitte wenden Sie sich an support@pizzapizza.de";
+                    lblInactiveUser.Text = "Ihr Konto wurde gesperrt. Bitte wenden Sie sich an support@pizzapizza.de";
                 }
             }
             else
             {
-                lblTest.Text = "Die Validierung war nicht erfolgreich!";
+                lblInactiveUser.Text = "Die Validierung war nicht erfolgreich!";
             }
         }
 

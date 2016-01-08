@@ -94,12 +94,12 @@ namespace web {
         protected global::System.Web.UI.WebControls.Button btnLogin;
         
         /// <summary>
-        /// lblTest-Steuerelement
+        /// lblInactiveUser-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTest;
+        protected global::System.Web.UI.WebControls.Label lblInactiveUser;
     }
 }

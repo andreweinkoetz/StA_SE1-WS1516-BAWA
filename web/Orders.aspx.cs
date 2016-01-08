@@ -124,34 +124,7 @@ namespace web
                 Session["selProducts"] = null;
             }
 
-
         }
-
-        //private double GetTotalSum(clsCoupon _myCoupon)
-        //{
-        //    double _sum = 0;
-
-        //    foreach (clsProductExtended _product in selectedProducts)
-        //    {
-        //        _sum += _product.PricePerUnit * _product.Size + clsProductFacade.GetCostsOfExtras(_product);
-        //    }
-
-        //    if(_myCoupon != null)
-        //    {
-        //        double _newSum;
-        //        _newSum =_sum - (_sum * (_myCoupon.Discount / 100.0));
-        //        double _saving = _sum - _newSum;
-        //        lblSum.Font.Bold = false;
-        //        lblSum.Font.Underline = false;
-        //        lblSum.Font.Strikeout = true;
-        //        lblCouponValid.Text = "Wert des Gutscheins: " + _myCoupon.Discount + "%.<br />";
-        //        lblCouponValid.Text += "Ersparnis: " + String.Format("{0:C}", _saving);
-        //        lblNewSum.Text = "Neue Gesamtsumme: " + String.Format("{0:C}", _newSum);
-        //        _sum = _newSum;
-        //    }
-
-        //    return _sum;
-        //}
 
         private void setEstimatedTime()
         {

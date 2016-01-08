@@ -14,7 +14,7 @@ namespace web
         {
             if (Session["roleID"] == null)
             {
-                Response.Redirect("LoginPage.aspx");
+                Response.Redirect("login_page.aspx");
             }
 
             if ((int)Session["roleID"] < 2)
@@ -55,7 +55,7 @@ namespace web
             }
             else
             {
-                Response.Redirect("Administration.aspx");
+                Response.Redirect("administration.aspx");
             }
         }
 
@@ -63,7 +63,7 @@ namespace web
         {
             Session["toEdit"] = null;
             Session["pCategory"] = null;
-            Response.Redirect("AdmData.aspx");
+            Response.Redirect("adm_data.aspx");
         }
 
         protected void btEnter_Click(object sender, EventArgs e)
