@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="LoginPage.aspx.cs" Inherits="web.LoginPage" %>
+﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="login_page.aspx.cs" Inherits="web.LoginPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">

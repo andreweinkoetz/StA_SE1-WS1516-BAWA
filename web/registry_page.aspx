@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="RegistryPage.aspx.cs" Inherits="web.RegistryPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="registry_page.aspx.cs" Inherits="web.RegistryPage" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p>

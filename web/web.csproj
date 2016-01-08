@@ -64,29 +64,29 @@
     <Content Include="img\marker20-3.png" />
     <Content Include="mainstyle.css" />
     <Content Include="img\pizza_logo.png" />
-    <Content Include="Pizza.aspx" />
-    <Content Include="Orders.aspx" />
-    <Content Include="MyAccount.aspx" />
-    <Content Include="Desserts.aspx" />
-    <Content Include="Beverages.aspx" />
-    <Content Include="OrderDetail.aspx" />
-    <Content Include="OrderManagement.aspx" />
-    <Content Include="Administration.aspx" />
-    <Content Include="AdmData.aspx" />
+    <Content Include="pizza.aspx" />
+    <Content Include="orders.aspx" />
+    <Content Include="my_account.aspx" />
+    <Content Include="desserts.aspx" />
+    <Content Include="beverages.aspx" />
+    <Content Include="order_detail.aspx" />
+    <Content Include="order_management.aspx" />
+    <Content Include="administration.aspx" />
+    <Content Include="adm_data.aspx" />
     <Content Include="default.aspx" />
-    <Content Include="LoginPage.aspx" />
-    <Content Include="RegistryPage.aspx" />
-    <Content Include="Stats.aspx" />
+    <Content Include="login_page.aspx" />
+    <Content Include="registry_page.aspx" />
+    <Content Include="stats.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Impressum.aspx" />
-    <Content Include="EditProduct.aspx" />
-    <Content Include="EditExtra.aspx" />
-    <Content Include="EditUser.aspx" />
-    <Content Include="OrderArchive.aspx" />
-    <Content Include="EditSize.aspx" />
-    <Content Include="AdmCoupon.aspx" />
+    <Content Include="impressum.aspx" />
+    <Content Include="edit_product.aspx" />
+    <Content Include="edit_extra.aspx" />
+    <Content Include="edit_user.aspx" />
+    <Content Include="order_archive.aspx" />
+    <Content Include="edit_size.aspx" />
+    <Content Include="adm_coupon.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="default_layout.Master.cs">
@@ -96,68 +96,68 @@
     <Compile Include="default_layout.Master.designer.cs">
       <DependentUpon>default_layout.Master</DependentUpon>
     </Compile>
-    <Compile Include="Pizza.aspx.cs">
-      <DependentUpon>Pizza.aspx</DependentUpon>
+    <Compile Include="pizza.aspx.cs">
+      <DependentUpon>pizza.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pizza.aspx.designer.cs">
-      <DependentUpon>Pizza.aspx</DependentUpon>
+    <Compile Include="pizza.aspx.designer.cs">
+      <DependentUpon>pizza.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Orders.aspx.cs">
-      <DependentUpon>Orders.aspx</DependentUpon>
+    <Compile Include="orders.aspx.cs">
+      <DependentUpon>orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Orders.aspx.designer.cs">
-      <DependentUpon>Orders.aspx</DependentUpon>
+    <Compile Include="orders.aspx.designer.cs">
+      <DependentUpon>orders.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MyAccount.aspx.cs">
-      <DependentUpon>MyAccount.aspx</DependentUpon>
+    <Compile Include="my_account.aspx.cs">
+      <DependentUpon>my_account.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MyAccount.aspx.designer.cs">
-      <DependentUpon>MyAccount.aspx</DependentUpon>
+    <Compile Include="my_account.aspx.designer.cs">
+      <DependentUpon>my_account.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Desserts.aspx.cs">
-      <DependentUpon>Desserts.aspx</DependentUpon>
+    <Compile Include="desserts.aspx.cs">
+      <DependentUpon>desserts.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Desserts.aspx.designer.cs">
-      <DependentUpon>Desserts.aspx</DependentUpon>
+    <Compile Include="desserts.aspx.designer.cs">
+      <DependentUpon>desserts.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Beverages.aspx.cs">
-      <DependentUpon>Beverages.aspx</DependentUpon>
+    <Compile Include="beverages.aspx.cs">
+      <DependentUpon>beverages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Beverages.aspx.designer.cs">
-      <DependentUpon>Beverages.aspx</DependentUpon>
+    <Compile Include="beverages.aspx.designer.cs">
+      <DependentUpon>beverages.aspx</DependentUpon>
     </Compile>
-    <Compile Include="OrderDetail.aspx.cs">
-      <DependentUpon>OrderDetail.aspx</DependentUpon>
+    <Compile Include="order_detail.aspx.cs">
+      <DependentUpon>order_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OrderDetail.aspx.designer.cs">
-      <DependentUpon>OrderDetail.aspx</DependentUpon>
+    <Compile Include="order_detail.aspx.designer.cs">
+      <DependentUpon>order_detail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="OrderManagement.aspx.cs">
-      <DependentUpon>OrderManagement.aspx</DependentUpon>
+    <Compile Include="order_management.aspx.cs">
+      <DependentUpon>order_management.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OrderManagement.aspx.designer.cs">
-      <DependentUpon>OrderManagement.aspx</DependentUpon>
+    <Compile Include="order_management.aspx.designer.cs">
+      <DependentUpon>order_management.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Administration.aspx.cs">
-      <DependentUpon>Administration.aspx</DependentUpon>
+    <Compile Include="administration.aspx.cs">
+      <DependentUpon>administration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Administration.aspx.designer.cs">
-      <DependentUpon>Administration.aspx</DependentUpon>
+    <Compile Include="administration.aspx.designer.cs">
+      <DependentUpon>administration.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdmData.aspx.cs">
-      <DependentUpon>AdmData.aspx</DependentUpon>
+    <Compile Include="adm_data.aspx.cs">
+      <DependentUpon>adm_data.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdmData.aspx.designer.cs">
-      <DependentUpon>AdmData.aspx</DependentUpon>
+    <Compile Include="adm_data.aspx.designer.cs">
+      <DependentUpon>adm_data.aspx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
@@ -166,76 +166,76 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="LoginPage.aspx.cs">
-      <DependentUpon>LoginPage.aspx</DependentUpon>
+    <Compile Include="login_page.aspx.cs">
+      <DependentUpon>login_page.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LoginPage.aspx.designer.cs">
-      <DependentUpon>LoginPage.aspx</DependentUpon>
+    <Compile Include="login_page.aspx.designer.cs">
+      <DependentUpon>login_page.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistryPage.aspx.cs">
-      <DependentUpon>RegistryPage.aspx</DependentUpon>
+    <Compile Include="registry_page.aspx.cs">
+      <DependentUpon>registry_page.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="RegistryPage.aspx.designer.cs">
-      <DependentUpon>RegistryPage.aspx</DependentUpon>
+    <Compile Include="registry_page.aspx.designer.cs">
+      <DependentUpon>registry_page.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Impressum.aspx.cs">
-      <DependentUpon>Impressum.aspx</DependentUpon>
+    <Compile Include="impressum.aspx.cs">
+      <DependentUpon>impressum.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Impressum.aspx.designer.cs">
-      <DependentUpon>Impressum.aspx</DependentUpon>
+    <Compile Include="impressum.aspx.designer.cs">
+      <DependentUpon>impressum.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EditProduct.aspx.cs">
-      <DependentUpon>EditProduct.aspx</DependentUpon>
+    <Compile Include="edit_product.aspx.cs">
+      <DependentUpon>edit_product.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EditProduct.aspx.designer.cs">
-      <DependentUpon>EditProduct.aspx</DependentUpon>
+    <Compile Include="edit_product.aspx.designer.cs">
+      <DependentUpon>edit_product.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EditExtra.aspx.cs">
-      <DependentUpon>EditExtra.aspx</DependentUpon>
+    <Compile Include="edit_extra.aspx.cs">
+      <DependentUpon>edit_extra.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EditExtra.aspx.designer.cs">
-      <DependentUpon>EditExtra.aspx</DependentUpon>
+    <Compile Include="edit_extra.aspx.designer.cs">
+      <DependentUpon>edit_extra.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EditUser.aspx.cs">
-      <DependentUpon>EditUser.aspx</DependentUpon>
+    <Compile Include="edit_user.aspx.cs">
+      <DependentUpon>edit_user.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EditUser.aspx.designer.cs">
-      <DependentUpon>EditUser.aspx</DependentUpon>
+    <Compile Include="edit_user.aspx.designer.cs">
+      <DependentUpon>edit_user.aspx</DependentUpon>
     </Compile>
-    <Compile Include="OrderArchive.aspx.cs">
-      <DependentUpon>OrderArchive.aspx</DependentUpon>
+    <Compile Include="order_archive.aspx.cs">
+      <DependentUpon>order_archive.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OrderArchive.aspx.designer.cs">
-      <DependentUpon>OrderArchive.aspx</DependentUpon>
+    <Compile Include="order_archive.aspx.designer.cs">
+      <DependentUpon>order_archive.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EditSize.aspx.cs">
-      <DependentUpon>EditSize.aspx</DependentUpon>
+    <Compile Include="edit_size.aspx.cs">
+      <DependentUpon>edit_size.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EditSize.aspx.designer.cs">
-      <DependentUpon>EditSize.aspx</DependentUpon>
+    <Compile Include="edit_size.aspx.designer.cs">
+      <DependentUpon>edit_size.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdmCoupon.aspx.cs">
-      <DependentUpon>AdmCoupon.aspx</DependentUpon>
+    <Compile Include="adm_coupon.aspx.cs">
+      <DependentUpon>adm_coupon.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdmCoupon.aspx.designer.cs">
-      <DependentUpon>AdmCoupon.aspx</DependentUpon>
+    <Compile Include="adm_coupon.aspx.designer.cs">
+      <DependentUpon>adm_coupon.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Stats.aspx.cs">
-      <DependentUpon>Stats.aspx</DependentUpon>
+    <Compile Include="stats.aspx.cs">
+      <DependentUpon>stats.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Stats.aspx.designer.cs">
-      <DependentUpon>Stats.aspx</DependentUpon>
+    <Compile Include="stats.aspx.designer.cs">
+      <DependentUpon>stats.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
