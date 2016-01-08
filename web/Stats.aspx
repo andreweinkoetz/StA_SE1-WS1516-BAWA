@@ -65,6 +65,7 @@
                         </asp:TableCell>
                     </asp:TableRow>
                 </asp:Table>
+                <asp:Label ID="lblAnnotation" runat="server" Text="Merke: Hier werden Gutscheine und Extras nicht berücksichtigt." Visible="false"></asp:Label>
             </asp:TableHeaderCell>
         </asp:TableHeaderRow>
     </asp:Table>

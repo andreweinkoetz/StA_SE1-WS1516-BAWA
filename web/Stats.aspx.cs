@@ -50,6 +50,7 @@ namespace web
 
             gvStats.Visible = false;
             stats.Visible = false;
+            lblAnnotation.Visible = false;
         }
 
         protected void ddlStats_SelectedIndexChanged(object sender, EventArgs e)
@@ -220,6 +221,7 @@ namespace web
 
             MalculateTotalAndAverageRevenue(revenueResult, productList.Count);
             ManageVisibliityAndDataBinding(dt);
+            lblAnnotation.Visible = true;
         }
 
         protected void GetFanciestProduct()

@@ -121,6 +121,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.Label lblAverageResult;
         
         /// <summary>
+        /// lblAnnotation-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAnnotation;
+        
+        /// <summary>
         /// gvStats-Steuerelement
         /// </summary>
         /// <remarks>
