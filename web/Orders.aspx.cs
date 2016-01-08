@@ -155,21 +155,8 @@ namespace web
 
         private void setEstimatedTime()
         {
-            double _minutes = 0;
-
-            if (chkDelivery.Checked)
-            {
-                _minutes += GetDistance() * 2;
-            }
-
-            foreach (clsProductExtended _myProduct in selectedProducts)
-            {
-                if (_myProduct.CID == 1)
-                {
-                    _minutes += 10.0;
-                }
-            }
-            lblStatus.Text = "Die Wartezeit beträgt vorraussichtlich " + Math.Round(_minutes) + " Minuten.";
+            lblEmptyCart.Text = clsOrderFacade.GetEstimatedTime(selectedProducts,GetDistance(),chkDelivery.Checked);
+            lblEmptyCart.Visible = true;
         }
 
         private bool ValidateCoupon(String _couponCode, int _uid, out clsCoupon _myCoupon)

@@ -153,6 +153,25 @@ namespace bll
 
         }
 
+        public static String GetEstimatedTime(List<clsProductExtended> _selectedProducts, double _distance, bool _toDeliver)
+        {
+            double _minutes = 0;
+
+            if (_toDeliver)
+            {
+                _minutes += _distance * 2;
+            }
+
+            foreach (clsProductExtended _myProduct in _selectedProducts)
+            {
+                if (_myProduct.CID == 1)
+                {
+                    _minutes += 10.0;
+                }
+            }
+            return "Die Wartezeit beträgt vorraussichtlich " + Math.Round(_minutes) + " Minuten.";
+        }
+
         /// <summary>
         /// Einfügen der Extras der Produkte einer Bestellung.
         /// </summary>
@@ -204,6 +223,37 @@ namespace bll
         {
             return _orderCol.GetOrderByOrderNumber(_oNumber);
         }
+
+        /// <summary>
+        /// Alle Bestellungen sortiert nach Datum.
+        /// </summary>
+        /// <returns></returns>
+        public List<clsOrderExtended> GetOrdersOrderedByDate()
+        {
+            return _orderCol.GetOrdersOrderedByDate();
+        }
+
+        /// <summary>
+        /// Alle Bestellungen eines bestimmten Nutzers.
+        /// </summary>
+        /// <param name="_email"></param>
+        /// <returns></returns>
+        public List<clsOrderExtended> GetOrdersByEmail(String _email)
+        {
+            return _orderCol.GetOrdersByEmail(_email);
+        }
+
+
+        /// <summary>
+        /// Liefert die Produkte pro Kategorie zurück.
+        /// </summary>
+        /// <param name="_category"></param>
+        /// <returns></returns>
+        public List<Tuple<int, string, double>> GetOrderedProductsSortByCategory(String _category)
+        {
+            return _orderCol.GetOrderedProductsSortByCategory(_category);
+        }
+
 
         /// <summary>
         /// Storniert eine Bestellung.

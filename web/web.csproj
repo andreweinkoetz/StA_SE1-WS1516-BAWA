@@ -76,6 +76,7 @@
     <Content Include="default.aspx" />
     <Content Include="LoginPage.aspx" />
     <Content Include="RegistryPage.aspx" />
+    <Content Include="Stats.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -228,6 +229,13 @@
     </Compile>
     <Compile Include="AdmCoupon.aspx.designer.cs">
       <DependentUpon>AdmCoupon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Stats.aspx.cs">
+      <DependentUpon>Stats.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Stats.aspx.designer.cs">
+      <DependentUpon>Stats.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

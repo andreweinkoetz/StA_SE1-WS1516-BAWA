@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -136,8 +137,40 @@ namespace bll
             }
 
             return _orderNumbers;
-
         }
+
+
+        internal OrderedDictionary GetMostFanciestProduct()
+        {
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetProductsOrderedByFanciness");
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            OrderedDictionary amountOfProducts = new OrderedDictionary();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                amountOfProducts.Add(AddStringFieldValue(_dr, "PName"), AddIntFieldValue(_dr, "Anzahl"));
+            }
+
+            return amountOfProducts;
+        }
+
+        internal Dictionary<string, double> GetProductsOrderedByTotalRevenue()
+        {
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOPGetProductsOrderedByTotalRevenue");
+
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            Dictionary<string, double> _myProducts = new Dictionary<string, double>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _myProducts.Add(AddStringFieldValue(_dr, "PName"), AddDoubleFieldValue(_dr, "Gesamtumsatz"));
+            }
+            return _myProducts;
+        }
+
 
         internal int DeleteProductByPid(int _pid)
         {

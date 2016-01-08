@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +77,24 @@ namespace bll
         public Dictionary<Int32, String> GetAllProductCategories()
         {
             return _productCol.GetAllProductCategories();
+        }
+
+        /// <summary>
+        /// Zeigt die Beliebtheit der verschiedenen Produkte an.
+        /// </summary>
+        /// <returns></returns>
+        public OrderedDictionary GetMostFanciestProduct()
+        {
+            return _productCol.GetMostFanciestProduct();
+        }
+
+        /// <summary>
+        /// Liefert die Umsätze aller Produkte zurück.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, double> GetProductsOrderedByTotalRevenue()
+        {
+            return _productCol.GetProductsOrderedByTotalRevenue();
         }
 
         /// <summary>

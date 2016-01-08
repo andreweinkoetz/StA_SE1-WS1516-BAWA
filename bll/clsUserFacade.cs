@@ -31,6 +31,15 @@ namespace bll
         } // UsersGetAll()
 
         /// <summary>
+        /// Liefert die Kunden sortiert nach Umsatz zurück.
+        /// </summary>
+        /// <returns></returns>
+        public List<Tuple<string, double, int>> GetUsersOrderedByTotalRevenue()
+        {
+            return _usrCol.GetUsersOrderedByTotalRevenue();
+        }
+
+        /// <summary>
         /// UserGetById: Read User with given Id
         /// </summary>
         /// <param name="id">User-Id</param>

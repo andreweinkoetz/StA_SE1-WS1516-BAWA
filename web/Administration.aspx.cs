@@ -83,7 +83,7 @@ namespace web
 
         protected void btAdmStat_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("Stats.aspx");
         }
 
         protected void btAdmCoupons_Click(object sender, EventArgs e)

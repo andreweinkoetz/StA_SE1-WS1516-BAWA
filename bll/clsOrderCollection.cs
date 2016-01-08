@@ -200,6 +200,94 @@ namespace bll
             return _myProductList;
         }
 
+        /// <summary>
+        /// Gibt alle Bestellungen geordnet nach Datum zurück.
+        /// </summary>
+        /// <returns></returns>
+        internal List<clsOrderExtended> GetOrdersOrderedByDate()
+        {
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrdersOrderedByDate");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //Instantiieren eine Liste von Order-Objekten
+            List<clsOrderExtended> _myOrderList = new List<clsOrderExtended>();
+
+            //Lesen wir jetzt Zeile (DataRow) für Zeile
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                clsOrderExtended _order = new clsOrderExtended();
+
+                _order.OrderDate = AddDateTimeFieldValue(_dr, "ODate");
+                _order.UserName = AddStringFieldValue(_dr, "UEmail");
+                _order.OrderNumber = AddIntFieldValue(_dr, "ONumber");
+                _order.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
+                _order.OrderDeliveryDate = AddDateTimeFieldValue(_dr, "ODeliveryDate");
+                _order.OrderSum = AddDoubleFieldValue(_dr, "OSum");
+                _myOrderList.Add(_order);
+            }
+            return _myOrderList;
+        }
+
+        internal List<Tuple<int, String, double>> GetOrderedProductsSortByCategory(String _category)
+        {
+
+            //Parameter definieren
+            _myDAL.AddParam("CName", _category, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOPGetOrderedProductsSortByCategory");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            List<Tuple<int, string, double>> _productList = new List<Tuple<int, string, double>>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                int orderNumber = AddIntFieldValue(_dr, "OPOrderNumber");
+                string name = AddStringFieldValue(_dr, "PName");
+                double price = AddDoubleFieldValue(_dr, "Preis");
+
+                //Instantiieren eine Liste von Order-Objekten
+                Tuple<int, string, double> _productByCategory = new Tuple<int, string, double>(orderNumber, name, price);
+                _productList.Add(_productByCategory);
+            }
+
+            return _productList;
+        }
+
+        internal List<clsOrderExtended> GetOrdersByEmail(String _email)
+        {
+            _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrdersByUserEmail");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //Instantiieren eine Liste von Order-Objekten
+            List<clsOrderExtended> _myOrderList = new List<clsOrderExtended>();
+
+            //Lesen wir jetzt Zeile (DataRow) für Zeile
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                clsOrderExtended _order = new clsOrderExtended();
+
+                _order.OrderDate = AddDateTimeFieldValue(_dr, "ODate");
+                _order.UserName = AddStringFieldValue(_dr, "UEmail");
+                _order.OrderNumber = AddIntFieldValue(_dr, "ONumber");
+                _order.OrderStatusDescription = AddStringFieldValue(_dr, "STDescription");
+                _order.OrderDeliveryDate = AddDateTimeFieldValue(_dr, "ODeliveryDate");
+                _order.OrderSum = AddDoubleFieldValue(_dr, "OSum");
+                _myOrderList.Add(_order);
+            }
+            return _myOrderList;
+        }
+
         private List<clsExtra> GetExtrasByOPID(int _opID)
         {
             // Neuer Provider muss angelegt werden da die Abfrage sonst keinen Wert liefert wegen falschen Parametern!

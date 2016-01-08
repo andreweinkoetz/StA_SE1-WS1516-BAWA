@@ -45,11 +45,6 @@
                 </asp:DropDownList>
             </asp:TableHeaderCell>
             <asp:TableHeaderCell>
-                <asp:DropDownList ID="ddlistStat" runat="server" Width="200px">
-                    <asp:ListItem Value="0" Text="- Daten wählen"></asp:ListItem>
-                    <asp:ListItem Value="1" Text="Nach Kunde"></asp:ListItem>
-                    <asp:ListItem Value="2" Text="Nach Produkt"></asp:ListItem>
-                </asp:DropDownList>
             </asp:TableHeaderCell>
             <asp:TableHeaderCell></asp:TableHeaderCell>
         </asp:TableHeaderRow>
