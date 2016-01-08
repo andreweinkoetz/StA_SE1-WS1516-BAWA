@@ -13,10 +13,13 @@ namespace web
 {
     public partial class Stats : System.Web.UI.Page
     {
-        public static int previousIndex;
-
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Session["roleID"] == null || (int)Session["roleID"] != 1)
+            {
+                Response.Redirect("login_page.aspx");
+            }
+
             if (!IsPostBack)
             {
                 //Anfängliches Initialisieren der Komponenten
@@ -31,7 +34,7 @@ namespace web
             ShowCategoriesForOrdersByCategory();
 
             //Management der dritten Dropdown-Liste bzgl. der ersten Dropdown-Liste
-            if (ddlStats.SelectedIndex != previousIndex)
+            if (Session["stats"] != null && ddlStats.SelectedIndex != (int)Session["stats"])
             {
                 SetFurtherPossibilitiesDependingOnSelectedStatistic(sender, e);
                 ddlUser.Visible = false;
@@ -39,15 +42,10 @@ namespace web
             }
 
             //Aktivieren bzw. Deaktivieren des Buttons
-            if (ddlStatsExtended.SelectedIndex == 0)
-            {
-                btnCreateStats.Enabled = false;
-                btnCreateStats.BackColor = System.Drawing.Color.Gray;
-            }
-            else if (IsPostBack)
+            if (IsPostBack)
             {
                 btnCreateStats.Enabled = true;
-                btnCreateStats.BackColor = System.Drawing.Color.Red;
+                btnCreateStats.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
             }
 
             //"Zurücksetzen" der Tabellen bei Postbacks
@@ -56,27 +54,12 @@ namespace web
             lblAnnotation.Visible = false;
         }
 
-        private void enableUI()
-        {
-            lblHeader.Visible = true;
-            lblStatsRequired.Visible = true;
-            tblStatistic.Visible = true;
-            btnCreateStats.Visible = true;
-        }
-
-        private void disableUI()
-        {
-            lblHeader.ForeColor = System.Drawing.Color.Red;
-            lblHeader.Font.Size = 16;
-            lblHeader.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. \nBitte melden Sie sich an.";
-            lblStatsRequired.Visible = false;
-            tblStatistic.Visible = false;
-            btnCreateStats.Visible = false;
-        }
-
         protected void ddlStats_SelectedIndexChanged(object sender, EventArgs e)
         {
-            previousIndex = ddlStats.SelectedIndex;
+            if (ddlStats.SelectedIndex != -1)
+                Session["stats"] = ddlStats.SelectedIndex;
+            else
+                Session["stats"] = null;
         }
 
         protected void InitializeUserAndCategoryDropDownList()

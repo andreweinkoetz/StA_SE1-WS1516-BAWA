@@ -61,6 +61,12 @@ namespace web
         private void InitializeGvAdmData(object _list, int _selection)
         {
 
+            CommandField _cmdField = new CommandField();
+            _cmdField.ShowSelectButton = true;
+            _cmdField.ButtonType = ButtonType.Image;
+            _cmdField.SelectImageUrl = "~/img/edit_icon.png";
+
+            gvAdmData.Columns.Add(_cmdField);
 
             switch (_selection)
             {
@@ -68,11 +74,6 @@ namespace web
                 case 1:
 
                     DataTable dtProduct = new DataTable("Products");
-
-                    CommandField _cmdFieldProduct = new CommandField();
-                    _cmdFieldProduct.ShowSelectButton = true;
-                    _cmdFieldProduct.ButtonType = ButtonType.Button;
-
 
                     dtProduct.Columns.Add("PID");
 
@@ -104,7 +105,6 @@ namespace web
                     _toSell.DataField = "ToSell";
                     _toSell.HeaderText = "Zum Verkauf?";
 
-                    gvAdmData.Columns.Add(_cmdFieldProduct);
                     gvAdmData.Columns.Add(_pid);
                     gvAdmData.Columns.Add(_pName);
                     gvAdmData.Columns.Add(_pCategory);
@@ -125,10 +125,6 @@ namespace web
 
                     DataTable dtExtra = new DataTable("Extras");
 
-                    CommandField _cmdFieldExtra = new CommandField();
-                    _cmdFieldExtra.ShowSelectButton = true;
-                    _cmdFieldExtra.ButtonType = ButtonType.Button;
-
                     BoundField _eid = new BoundField();
                     _eid.DataField = "EID";
                     _eid.HeaderText = "EID";
@@ -145,7 +141,6 @@ namespace web
                     _etoSell.DataField = "ToSell";
                     _etoSell.HeaderText = "Zum Verkauf?";
 
-                    gvAdmData.Columns.Add(_cmdFieldExtra);
                     gvAdmData.Columns.Add(_eid);
                     gvAdmData.Columns.Add(_eName);
                     gvAdmData.Columns.Add(_ePrice);
@@ -169,10 +164,6 @@ namespace web
                     break;
                 case 3:
                     DataTable dtUser = new DataTable("Users");
-
-                    CommandField _cmdFieldUser = new CommandField();
-                    _cmdFieldUser.ShowSelectButton = true;
-                    _cmdFieldUser.ButtonType = ButtonType.Button;
 
                     BoundField _uid = new BoundField();
                     _uid.HeaderText = "UID";
@@ -222,7 +213,6 @@ namespace web
                     _uEmail.HeaderText = "Email/Login";
                     _uEmail.DataField = "UEmail";
 
-                    gvAdmData.Columns.Add(_cmdFieldUser);
                     gvAdmData.Columns.Add(_uid);
                     gvAdmData.Columns.Add(_uTitle);
                     gvAdmData.Columns.Add(_uPrename);
@@ -259,10 +249,6 @@ namespace web
                 case 4:
                     DataTable dtSizes = new DataTable("Sizes");
 
-                    CommandField _cmdFieldSize = new CommandField();
-                    _cmdFieldSize.ShowSelectButton = true;
-                    _cmdFieldSize.ButtonType = ButtonType.Button;
-
                     BoundField _sid = new BoundField();
                     _sid.DataField = "SID";
                     _sid.HeaderText = "SID";
@@ -279,7 +265,6 @@ namespace web
                     _sCategory.DataField = "SCategory";
                     _sCategory.HeaderText = "Kategorie";
 
-                    gvAdmData.Columns.Add(_cmdFieldSize);
                     gvAdmData.Columns.Add(_sid);
                     gvAdmData.Columns.Add(_sName);
                     gvAdmData.Columns.Add(_sValue);

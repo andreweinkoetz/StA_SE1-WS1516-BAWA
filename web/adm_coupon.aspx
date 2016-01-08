@@ -21,7 +21,7 @@
             <SelectedRowStyle BorderColor="Red" BorderStyle="Solid" BorderWidth="3px" />
             <RowStyle BorderStyle="None" />
             <Columns>
-                <asp:CommandField ShowSelectButton="True" ButtonType="Button" />
+                <asp:CommandField ShowSelectButton="True" ButtonType="Image" SelectImageUrl="~/img/select_icon.png"/>
                 <asp:BoundField DataField="Id" HeaderText="CUID" SortExpression="Id" />
                 <asp:BoundField DataField="Discount" HeaderText="Rabatt in %" SortExpression="Discount" />
                 <asp:BoundField DataField="Code" HeaderText="Gutschein-Code" SortExpression="Code" />

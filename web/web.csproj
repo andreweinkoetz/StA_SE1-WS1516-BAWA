@@ -59,9 +59,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\detail_icon.png" />
+    <Content Include="img\select_icon.png" />
+    <Content Include="img\edit_icon.png" />
     <Content Include="img\fav.ico" />
     <Content Include="img\marker20-2.png" />
     <Content Include="img\marker20-3.png" />
+    <Content Include="img\archive_icon.png" />
     <Content Include="mainstyle.css" />
     <Content Include="img\pizza_logo.png" />
     <Content Include="pizza.aspx" />

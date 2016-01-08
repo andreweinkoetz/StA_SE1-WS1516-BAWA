@@ -41,7 +41,7 @@
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
-                            <asp:Button ID="btnCreateStats" runat="server" Text="Auswertung erstellen" Height="50px" Width="170px" ForeColor="White" Font-Bold="true" OnClick="btnCreateStats_Click" />
+                            <asp:Button ID="btnCreateStats" runat="server" Text="Auswertung erstellen" Height="50px" Width="170px" ForeColor="White" Enabled="false" BackColor="Gray" Font-Bold="true" OnClick="btnCreateStats_Click" />
                         </asp:TableCell>
                     </asp:TableRow>
                 </asp:Table>
@@ -73,7 +73,7 @@
     <asp:GridView ID="gvStats" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="#CCCCCC" />
         <FooterStyle BackColor="#CCCCCC" />
-        <HeaderStyle BackColor="Red" Font-Bold="True" ForeColor="Black" />
+        <HeaderStyle BackColor="#CF323D" Font-Bold="True" ForeColor="White" />
         <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
         <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
         <SortedAscendingCellStyle BackColor="#F1F1F1" />

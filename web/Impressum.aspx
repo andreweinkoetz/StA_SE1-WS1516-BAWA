@@ -46,6 +46,11 @@
         <a href="img/marker20-2.png">Cart-Icons:</a><br />
         Icons made by <a href="http://www.flaticon.com/authors/stephen-hutchings" title="Stephen Hutchings">Stephen Hutchings</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> 
         is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
+        <br />
+        <a href="img/edit_icon.png">Edit-Icons</a>,<a href="img/select_icon.png">Select-Icons</a>,<a href="img/archive_icon.png">Archiv-Icons</a>,<a href="img/detail_icon.png">Detail-Icons:</a>
+        <br />
+        <a href="https://icons8.com">Icon pack by Icons8</a>
+
     </p>
 
     <p class="p-style">

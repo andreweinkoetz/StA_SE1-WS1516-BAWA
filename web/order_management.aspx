@@ -21,7 +21,7 @@
             <SelectedRowStyle BorderColor="Red" BorderStyle="Solid" BorderWidth="3px" />
             <RowStyle BorderStyle="None" />
             <Columns>
-                <asp:CommandField ShowSelectButton="True" ButtonType="Button" SelectText="Wählen" />
+                <asp:CommandField ShowSelectButton="True" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" />
                 <asp:BoundField DataField="OrderNumber" HeaderText="Bestellung#" SortExpression="OrderNumber" />
                 <asp:BoundField DataField="UserName" HeaderText="Kunde" SortExpression="UserName" />
                 <asp:BoundField DataField="OrderDate" HeaderText="Bestelldatum" SortExpression="OrderDate" />
