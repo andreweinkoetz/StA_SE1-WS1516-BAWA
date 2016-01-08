@@ -99,6 +99,24 @@ namespace bll
             return _productCol.UpdateProduct(_product);
         }
 
-    } // clsProductFacade
+        /// <summary>
+        /// Gibt eine Liste aller Kategorien inkl. zug. ID zurück.
+        /// </summary>
+        /// <returns>Liste der Kategorienamen mit ID</returns>
+        public Dictionary<Int32, String> GetAllProductCategories()
+        {
+            return _productCol.GetAllProductCategories();
 
+        }
+
+        /// <summary>
+        /// Liefert die Umsätze aller Produkte zurück.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, double> GetProductsOrderedByTotalRevenue()
+        {
+            return _productCol.GetProductsOrderedByTotalRevenue();
+        }
+
+    } // clsProductFacade
 }

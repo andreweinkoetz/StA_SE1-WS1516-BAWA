@@ -36,6 +36,7 @@
                     <asp:TableRow>
                         <asp:TableCell>
                             <asp:DropDownList ID="ddlUser" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlCategory" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList>
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
@@ -46,10 +47,21 @@
                 </asp:Table>
             </asp:TableHeaderCell>
             <asp:TableHeaderCell>
-                <asp:Table runat="server" CellSpacing="10">
+                <asp:Table ID="stats" runat="server" BorderStyle="Groove" CellSpacing="10" Visible="false" AutoPostBack="true">
                     <asp:TableRow>
                         <asp:TableCell>
-
+                            <asp:Label ID="lblRevenue" runat="server" Text="Gesamtumsatz:"></asp:Label>
+                        </asp:TableCell>
+                        <asp:TableCell>
+                            <asp:Label ID="lblRevenueResult" runat="server" Text=""></asp:Label>
+                        </asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow>
+                        <asp:TableCell>
+                            <asp:Label ID="lblAverage" runat="server" Text="Durchschnittsbestellwert:"></asp:Label>
+                        </asp:TableCell>
+                        <asp:TableCell>
+                            <asp:Label ID="lblAverageResult" runat="server" Text=""></asp:Label>
                         </asp:TableCell>
                     </asp:TableRow>
                 </asp:Table>
@@ -60,7 +72,7 @@
     <asp:GridView ID="gvStats" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="#CCCCCC" />
         <FooterStyle BackColor="#CCCCCC" />
-        <HeaderStyle BackColor="Red" Font-Bold="True" ForeColor="Black"/>
+        <HeaderStyle BackColor="Red" Font-Bold="True" ForeColor="Black" />
         <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
         <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
         <SortedAscendingCellStyle BackColor="#F1F1F1" />

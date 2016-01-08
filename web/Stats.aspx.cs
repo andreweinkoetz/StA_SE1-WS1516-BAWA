@@ -22,17 +22,19 @@ namespace web
         {
             if (!IsPostBack)
             {
-                fillUserDropDownList();
+                fillUserAndCategoryDropDownList();
                 btnCreateStats.Enabled = false;
                 btnCreateStats.BackColor = System.Drawing.Color.Gray;
             }
 
             manageExtendedStats();
             manageUser();
+            manageCategories();
             if (ddlStats.SelectedIndex != previousIndex)
             {
                 fillExtendedStatsDropDownList(sender, e);
                 ddlUser.Visible = false;
+                ddlCategory.Visible = false;
             }
 
             if (ddlStatsExtended.SelectedIndex == 0)
@@ -45,6 +47,9 @@ namespace web
                 btnCreateStats.Enabled = true;
                 btnCreateStats.BackColor = System.Drawing.Color.Red;
             }
+
+            gvStats.Visible = false;
+            stats.Visible = false;
         }
 
         protected void ddlStats_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,7 +57,7 @@ namespace web
             previousIndex = ddlStats.SelectedIndex;
         }
 
-        protected void fillUserDropDownList()
+        protected void fillUserAndCategoryDropDownList()
         {
             clsUserFacade userFacade = new clsUserFacade();
 
@@ -61,7 +66,15 @@ namespace web
             ddlUser.DataTextField = "Email";
             ddlUser.DataValueField = "Email";
             ddlUser.DataBind();
+
+            Dictionary<Int32, String> categories = productFacade.GetAllProductCategories();
+            ddlCategory.DataSource = categories;
+            ddlCategory.DataTextField = "Value";
+            ddlCategory.DataValueField = "Value";
+            ddlCategory.DataBind();
+
             ddlStatsExtended.Visible = false;
+            ddlCategory.Visible = false;
             ddlUser.Visible = false;
         }
 
@@ -102,6 +115,18 @@ namespace web
             }
         }
 
+        protected void manageCategories()
+        {
+            if (ddlStats.SelectedIndex == 1 && ddlStatsExtended.SelectedIndex == 2)
+            {
+                ddlCategory.Visible = true;
+            }
+            else
+            {
+                ddlCategory.Visible = false;
+            }
+        }
+
         protected void manageUser()
         {
             if (ddlStatsExtended.SelectedIndex != 3)
@@ -114,112 +139,127 @@ namespace web
             }
         }
 
-        protected void getAllOrdersOrderedByDate()
+        protected void GetAllOrdersOrderedByDate()
         {
             DataTable dt = new DataTable("OrderStats");
-
-            dt.Columns.Add("Bestelldatum");
-            dt.Columns.Add("Kunde");
-            dt.Columns.Add("Bestellnummer");
-            dt.Columns.Add("Bestellstatus");
-            dt.Columns.Add("Lieferdatum");
-            dt.Columns.Add("Summe");
+            CreateDataTable(dt, new List<String> { "Bestelldatum", "Kunde", "Bestellnummer", "Bestellstatus", "Lieferdatum", "Summe" });
 
             List<clsOrderExtended> orderList = orderFacade.getOrdersOrderedByDate();
-
+            double revenueResult = 0;
             foreach (clsOrderExtended _order in orderList)
             {
                 dt.LoadDataRow(new object[] { _order.OrderDate, _order.UserName, _order.OrderNumber,
-              _order.OrderStatusDescription, _order.OrderDeliveryDate, _order.OrderSum }, true);
+              _order.OrderStatusDescription, _order.OrderDeliveryDate, String.Format("{0:C}",_order.OrderSum) }, true);
+
+                revenueResult += _order.OrderSum;
             }
-
-            gvStats.DataSource = dt;
-            gvStats.DataBind();
-
+            MalculateTotalAndAverageRevenue(revenueResult, orderList.Count);
+            ManageVisibliityAndDataBinding(dt);
         }
 
-        protected void getOrdersFromASpecificUser()
+        protected void MalculateTotalAndAverageRevenue(double totalRevenue, int amount)
         {
+            lblRevenueResult.Text = String.Format("{0:C}", totalRevenue);
+            if (amount > 0)
+            {
+                lblAverageResult.Text = String.Format("{0:C}", (totalRevenue / amount));
+            }
+            else
+            {
+                lblAverageResult.Text = String.Format("{0:C}", 0);
+            }
+        }
 
+        protected void CreateDataTable(DataTable dt, List<String> args)
+        {
+            foreach (String name in args)
+            {
+                dt.Columns.Add(name);
+            }
+        }
+
+        protected void ManageVisibliityAndDataBinding(DataTable dt)
+        {
+            gvStats.DataSource = dt;
+            gvStats.DataBind();
+            gvStats.Visible = true;
+            stats.Visible = true;
+        }
+
+        protected void GetOrdersFromASpecificUser()
+        {
             DataTable dt = new DataTable("OrderStats");
-
-            dt.Columns.Add("Bestelldatum");
-            dt.Columns.Add("Kunde");
-            dt.Columns.Add("Bestellnummer");
-            dt.Columns.Add("Bestellstatus");
-            dt.Columns.Add("Lieferdatum");
-            dt.Columns.Add("Summe");
+            CreateDataTable(dt, new List<String> { "Bestelldatum", "Kunde", "Bestellnummer", "Bestellstatus", "Lieferdatum", "Summe" });
 
             List<clsOrderExtended> orderList = orderFacade.getOrdersByEmail(ddlUser.SelectedValue);
-
+            double revenueResult = 0;
             foreach (clsOrderExtended _order in orderList)
             {
                 dt.LoadDataRow(new object[] { _order.OrderDate, _order.UserName, _order.OrderNumber,
-              _order.OrderStatusDescription, _order.OrderDeliveryDate, _order.OrderSum }, true);
+              _order.OrderStatusDescription, _order.OrderDeliveryDate, String.Format("{0:C}",_order.OrderSum) }, true);
+
+                revenueResult += _order.OrderSum;
             }
-            gvStats.DataSource = dt;
-            gvStats.DataBind();
+
+            MalculateTotalAndAverageRevenue(revenueResult, orderList.Count);
+            ManageVisibliityAndDataBinding(dt);
         }
 
-        protected void getOrdersOrderedByCategory()
-        {
-
-        }
-
-        protected void getFanciestProduct()
+        protected void GetOrdersOrderedByCategory()
         {
             DataTable dt = new DataTable("OrderStats");
+            CreateDataTable(dt, new List<String> { "Bestellnummer", "Produktname", "Preis" });
 
-            dt.Columns.Add("Name des Produkts");
-            dt.Columns.Add("Anzahl der Käufe");
+            List<Tuple<int, string, double>> productList = orderFacade.GetOrderedProductsSortByCategory(ddlCategory.SelectedValue);
+            double revenueResult = 0;
+            foreach (Tuple<int, string, double> _product in productList)
+            {
+                dt.LoadDataRow(new object[] { _product.Item1, _product.Item2, String.Format("{0:C}", _product.Item3) }, true);
+                revenueResult += _product.Item3;
+            }
+
+            MalculateTotalAndAverageRevenue(revenueResult, productList.Count);
+            ManageVisibliityAndDataBinding(dt);
+        }
+
+        protected void GetFanciestProduct()
+        {
+            DataTable dt = new DataTable("OrderStats");
+            CreateDataTable(dt, new List<String> { "Name des Produkts", "Anzahl der Käufe" });
+
 
             OrderedDictionary favoriteProduct = productFacade.getMostFanciedProduct();
-
             foreach (DictionaryEntry entry in favoriteProduct)
             {
                 dt.LoadDataRow(new object[] { entry.Key, entry.Value }, true);
             }
-
-            gvStats.DataSource = dt;
-            gvStats.DataBind();
+            ManageVisibliityAndDataBinding(dt);
         }
 
-        protected void getProductsOrderedBySales()
+        protected void GetProductsOrderedByRevenue()
         {
             DataTable dt = new DataTable("ProductSales");
+            CreateDataTable(dt, new List<String> { "Name des Produkts", "Höhe des Umsatzes" });
 
-            dt.Columns.Add("Name des Produkts");
-            dt.Columns.Add("Höhe des Umsatzes");
-
-            OrderedDictionary amountOfProducts = productFacade.getMostFanciedProduct();
-
-            //Namen der Produkte
-            List<string> dictionaryKeysToString = new List<string>(amountOfProducts.Count);
-            foreach (string key in amountOfProducts.Keys)
+            Dictionary<string, double> products = productFacade.GetProductsOrderedByTotalRevenue();
+            foreach (KeyValuePair<string, double> _entry in products)
             {
-                dictionaryKeysToString.Add("" + key);
+                dt.LoadDataRow(new object[] { _entry.Key, String.Format("{0:C}", _entry.Value) }, true);
             }
-
-            //Anzahl der Käufe der Produkte
-            List<int> dictionaryValuesToString = new List<int>(amountOfProducts.Count);
-            foreach (int value in amountOfProducts.Values)
-            {
-                dictionaryValuesToString.Add(value);
-            }
-
-            // Befüllen der Tabelle mit Produktnamen + zugehörigen Umsatz
-            for (int i = 0; i < amountOfProducts.Count; i++)
-            {
-                dt.LoadDataRow(new object[] { dictionaryKeysToString[i], dictionaryValuesToString[i] * productFacade.getProductPricePerUnit(dictionaryKeysToString[i]) }, true);
-            }
-
-            gvStats.DataSource = dt;
-            gvStats.DataBind();
+            ManageVisibliityAndDataBinding(dt);
         }
 
-        protected void getCustomersOrderedBySales()
+        protected void GetCustomersOrderedByRevenue()
         {
+            DataTable dt = new DataTable("CustomerStats");
+            CreateDataTable(dt, new List<String> { "Kunde", "Gesamtumsatz", "Anzahl der Bestellungen" });
 
+            List<Tuple<string, double, int>> userList = userFacade.GetUsersOrderedByTotalRevenue();
+            foreach (Tuple<string, double, int> _user in userList)
+            {
+                dt.LoadDataRow(new object[] { _user.Item1, String.Format("{0:C}", _user.Item2), _user.Item3 }, true);
+            }
+            ManageVisibliityAndDataBinding(dt);
         }
 
         protected void btnCreateStats_Click(object sender, EventArgs e)
@@ -242,13 +282,13 @@ namespace web
                     switch (secondIndex)
                     {
                         case "sortiert nach Datum":
-                            getAllOrdersOrderedByDate();
+                            GetAllOrdersOrderedByDate();
                             break;
                         case "pro Kategorie":
-                            getOrdersOrderedByCategory();
+                            GetOrdersOrderedByCategory();
                             break;
                         case "des Kunden:":
-                            getOrdersFromASpecificUser();
+                            GetOrdersFromASpecificUser();
                             break;
                     }
                     break;
@@ -258,10 +298,10 @@ namespace web
                     switch (secondIndex)
                     {
                         case "sortiert nach Beliebtheit":
-                            getFanciestProduct();
+                            GetFanciestProduct();
                             break;
                         case "sortiert nach Umsatz":
-                            getProductsOrderedBySales();
+                            GetProductsOrderedByRevenue();
                             break;
                     }
                     break;
@@ -271,7 +311,7 @@ namespace web
                     switch (secondIndex)
                     {
                         case "sortiert nach Umsatz":
-                            getCustomersOrderedBySales();
+                            GetCustomersOrderedByRevenue();
                             break;
                     }
                     break;

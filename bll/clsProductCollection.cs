@@ -147,5 +147,35 @@ namespace bll
             _myProduct.ToSell = AddBoolFieldValue(_dr, "PSell");
             return _myProduct;
         }
+
+        internal Dictionary<Int32, String> GetAllProductCategories()
+        {
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QCGetAllCategories");
+
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            Dictionary<Int32, String> _myCategories = new Dictionary<int, string>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _myCategories.Add(AddIntFieldValue(_dr, "CID"), AddStringFieldValue(_dr, "CName"));
+            }
+            return _myCategories;
+        }
+
+        internal Dictionary<string, double> GetProductsOrderedByTotalRevenue()
+        {
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOPGetProductsOrderedByTotalRevenue");
+
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            Dictionary<string, double> _myProducts = new Dictionary<string, double>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _myProducts.Add(AddStringFieldValue(_dr, "PName"), AddDoubleFieldValue(_dr, "Gesamtumsatz"));
+            }
+            return _myProducts;
+        }
     }
 }

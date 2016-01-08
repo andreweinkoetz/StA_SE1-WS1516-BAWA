@@ -60,6 +60,15 @@ namespace bll
         }
 
         /// <summary>
+        /// Liefert die Kunden sortiert nach Umsatz zurück.
+        /// </summary>
+        /// <returns></returns>
+        public List<Tuple<string, double, int>> GetUsersOrderedByTotalRevenue()
+        {
+            return _usrCol.GetUsersOrderedByTotalRevenue();
+        }
+
+        /// <summary>
         /// Gibt die Rolle eines Users zurück.
         /// </summary>
         /// <param name="_email"></param>
@@ -86,7 +95,7 @@ namespace bll
             }
 
             return (_usrCol.InsertUser(newUser) == 1);
-      
+
         } // UserInsert()
 
         /// <summary>

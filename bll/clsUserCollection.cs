@@ -165,7 +165,30 @@ namespace bll
                 DataRow _dr = _myDataSet.Tables[0].Rows[0];
                 return AddIntFieldValue(_dr, "UID");
             }
-            return -1; 
+            return -1;
+        }
+
+        internal List<Tuple<string, double, int>> GetUsersOrderedByTotalRevenue()
+        {
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetUsersOrderedByTotalRevenue");
+
+            //Das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            List<Tuple<string, double, int>> _userList = new List<Tuple<string, double, int>>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                string name = AddStringFieldValue(_dr, "UName");
+                double totalRevenue = AddDoubleFieldValue(_dr, "Gesamtumsatz");
+                int amountOfOrders = AddIntFieldValue(_dr, "Bestellungen");
+
+                Tuple<string, double, int> _user = new Tuple<string, double, int>(name, totalRevenue, amountOfOrders);
+                _userList.Add(_user);
+            }
+
+            return _userList;
         }
 
         internal int getRoleOfUser(string _email)

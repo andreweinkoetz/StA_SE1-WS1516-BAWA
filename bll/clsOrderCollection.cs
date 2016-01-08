@@ -199,6 +199,35 @@ namespace bll
             return _myOrderList;
         }
 
+        internal List<Tuple<int, String, double>> GetOrderedProductsSortByCategory(String _category)
+        {
+
+            //Parameter definieren
+            _myDAL.AddParam("CName", _category, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
+
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOPGetOrderedProductsSortByCategory");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            List<Tuple<int, string, double>> _productList = new List<Tuple<int, string, double>>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                int orderNumber = AddIntFieldValue(_dr, "OPOrderNumber");
+                string name = AddStringFieldValue(_dr, "PName");
+                double price = AddDoubleFieldValue(_dr, "Preis");
+
+                //Instantiieren eine Liste von Order-Objekten
+                Tuple<int, string, double> _productByCategory = new Tuple<int, string, double>(orderNumber, name, price);
+                _productList.Add(_productByCategory);
+            }
+
+            return _productList;
+        }
+
+
         internal List<clsOrderExtended> getOrdersByEmail(String _email)
         {
             _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -317,7 +346,7 @@ namespace bll
             _myDAL.AddParam("Status", _myOrder.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
             _myDAL.AddParam("DeliveryDate", _myOrder.OrderDeliveryDate, DAL.DataDefinition.enumerators.SQLDataType.DATETIME);
             _myDAL.AddParam("ONumber", _myOrder.OrderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
-            
+
 
             int changedSets = _myDAL.MakeStoredProcedureAction("QOUpdateOrderStatusByONumber");
             return changedSets;

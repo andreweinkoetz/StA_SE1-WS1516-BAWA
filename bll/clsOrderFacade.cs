@@ -142,6 +142,14 @@ namespace bll
             return (_orderCol.updateOrderStatusByONumber(_myOrder) == 1);
         }
 
-
+        /// <summary>
+        /// Liefert die Produkte pro Kategorie zurück.
+        /// </summary>
+        /// <param name="_category"></param>
+        /// <returns></returns>
+        public List<Tuple<int, string, double>> GetOrderedProductsSortByCategory(String _category)
+        {
+            return _orderCol.GetOrderedProductsSortByCategory(_category);
+        }
     } // clsOrderFacade
 }
