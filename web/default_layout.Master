@@ -21,28 +21,28 @@
                 <div id="menu">
                     <ul>
 
-                        <li><a href="Pizza.aspx">Pizza</a></li>
-                        <li><a href="Beverages.aspx">Getr&auml;nke</a></li>
-                        <li><a href="Desserts.aspx">Desserts</a></li>
+                        <li><a href="pizza.aspx">Pizza</a></li>
+                        <li><a href="beverages.aspx">Getr&auml;nke</a></li>
+                        <li><a href="desserts.aspx">Desserts</a></li>
                         <li>
                             <% if (Session["roleID"] != null)
                                 {
                                     switch ((int)Session["roleID"])
                                     {
                                         case 1:
-                                            Response.Write("<a href=\"Administration.aspx\">Administration</a>");
+                                            Response.Write("<a href=\"administration.aspx\">Administration</a>");
                                             break;
                                         case 2:
-                                            Response.Write("<a href=\"OrderManagement.aspx\">Bestellungen verwalten</a>");
+                                            Response.Write("<a href=\"order_management.aspx\">Bestellungen verwalten</a>");
                                             break;
                                         case 3:
-                                            Response.Write("<a href=\"MyAccount.aspx\">Mein Konto</a>");
+                                            Response.Write("<a href=\"my_account.aspx\">Mein Konto</a>");
                                             break;
                                     }
                                 }
                                 else
                                 {
-                                    Response.Write("<a href=\"LoginPage.aspx\">Registrieren/Login</a>");
+                                    Response.Write("<a href=\"login_page.aspx\">Registrieren/Login</a>");
                                 }
                             %>
                         </li>

@@ -23,6 +23,7 @@ namespace web
                     if ((int)Session["roleID"] == 1)
                     {
                         gvOrderMgmt.DataSource = getAllOrders;
+                        btLogout.Text = "Zurück";
                     }
                     else
                     {
@@ -59,8 +60,14 @@ namespace web
 
         protected void btLogout_Click(object sender, EventArgs e)
         {
-            Session.Abandon();
-            Response.Redirect("LoginPage.aspx");
+            if ((int)Session["roleID"] != 1)
+            {
+                Session.Abandon();
+                Response.Redirect("login_page.aspx");
+            } else
+            {
+                Response.Redirect("administration.aspx");
+            }
         }
 
         protected void gvOrderMgmt_SelectedIndexChanged(object sender, EventArgs e)

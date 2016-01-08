@@ -16,17 +16,17 @@ namespace web
             {
                 if((int)Session["roleID"] > 1)
                 {
-                    Response.Redirect("Administration.aspx");
+                    Response.Redirect("administration.aspx");
                 }
             } else
             {
-                Response.Redirect("LoginPage.aspx");
+                Response.Redirect("login_page.aspx");
             }
         }
 
         protected void btBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Administration.aspx");
+            Response.Redirect("administration.aspx");
         }
 
         protected void gvAdmCoupon_SelectedIndexChanged(object sender, EventArgs e)

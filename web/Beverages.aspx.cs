@@ -49,12 +49,6 @@ namespace web
 
                 _myProduct = clsProductExtended.ProductFactory(_id,_size);
 
-                //_myProduct.Id = Int32.Parse(selectedRow.Cells[1].Text);
-                //_myProduct.Name = selectedRow.Cells[2].Text;
-                //_myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
-                //_myProduct.Size = Double.Parse(selectedSize);
-                //_myProduct.CID = (int)Session["category"];
-
                 lblChooseSize.Text = "";
 
                 ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);

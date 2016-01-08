@@ -52,7 +52,7 @@
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
-    <asp:Label ID="lblTest" runat="server" Text=""></asp:Label>
+    <asp:Label ID="lblInactiveUser" runat="server" Text=""></asp:Label>
     <p class="p-login"><u>Zugänge lauten:</u></p>
     <table style="width: 400px">
         <tr>

@@ -22,7 +22,7 @@ namespace web
             }
             else
             {
-                Response.Redirect("Administration.aspx");
+                Response.Redirect("administration.aspx");
             }
         }
 
@@ -307,7 +307,7 @@ namespace web
         protected void btBack_Click(object sender, EventArgs e)
         {
             Session["toEdit"] = Session["selAdmData"] = null;
-            Response.Redirect("Administration.aspx");
+            Response.Redirect("administration.aspx");
         }
 
         protected void gvAdmData_SelectedIndexChanged(object sender, EventArgs e)
@@ -328,16 +328,16 @@ namespace web
             switch ((int)Session["selAdmData"])
             {
                 case 1:
-                    Server.Transfer("EditProduct.aspx");
+                    Server.Transfer("edit_product.aspx");
                     break;
                 case 2:
-                    Server.Transfer("EditExtra.aspx");
+                    Server.Transfer("edit_extra.aspx");
                     break;
                 case 3:
-                    Server.Transfer("EditUser.aspx");
+                    Server.Transfer("edit_user.aspx");
                     break;
                 case 4:
-                    Server.Transfer("EditSize.aspx");
+                    Server.Transfer("edit_size.aspx");
                     break;
             }
         }

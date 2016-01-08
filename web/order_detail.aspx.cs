@@ -66,7 +66,7 @@ namespace web
         private void redirectOverview()
         {
             Session["oNumber"] = null;
-            Response.Redirect("MyAccount.aspx");
+            Response.Redirect("my_account.aspx");
         }
 
         protected void btCancelOrder_Click(object sender, EventArgs e)

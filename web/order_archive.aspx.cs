@@ -15,18 +15,18 @@ namespace web
         {
             if (Session["roleID"] == null)
             {
-                Response.Redirect("LoginPage.aspx");
+                Response.Redirect("login_page.aspx");
             }
             else if ((int)Session["roleID"] >= 2)
             {
-                Response.Redirect("Administration.aspx");
+                Response.Redirect("administration.aspx");
             }
 
         }
 
         protected void btBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Administration.aspx");
+            Response.Redirect("administration.aspx");
         }
 
         protected void gvOrderArchive_SelectedIndexChanged(object sender, EventArgs e)
