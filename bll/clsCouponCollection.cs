@@ -18,6 +18,11 @@ namespace bll
             _myDAL = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
         }
 
+        /// <summary>
+        /// Liefert alle aktiven Gutscheincodes eines Benutzers zurück.
+        /// </summary>
+        /// <param name="_uid">ID des Users</param>
+        /// <returns></returns>
         internal List<clsCoupon> GetAllActiveCouponsByUser(int _uid)
         {
             _myDAL.AddParam("UID", _uid, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -35,6 +40,11 @@ namespace bll
             return _myCouponList;
         }
 
+        /// <summary>
+        /// Insert eines neuen Coupons.
+        /// </summary>
+        /// <param name="_myCoupon">einzufügender Coupon</param>
+        /// <returns>Anzahl der betroffenen Zeilen</returns>
         internal int InsertCoupon(clsCoupon _myCoupon)
         {
             _myDAL.AddParam("Code", _myCoupon.Code, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -44,18 +54,15 @@ namespace bll
 
             int _affectedRows = -1;
 
-            try
-            {
-                _affectedRows =  _myDAL.MakeStoredProcedureAction("QCInsertCoupon");
-            }
-            catch (Exception)
-            {
-                
-            }
+            _affectedRows = _myDAL.MakeStoredProcedureAction("QCInsertCoupon");
 
             return _affectedRows;
         }
 
+        /// <summary>
+        /// Liefert alle vorhandenen Coupons zurück.
+        /// </summary>
+        /// <returns>Alle vorhandenen Coupons</returns>
         internal List<clsCoupon> GetAllCoupons()
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QCUGetAllCoupons");
@@ -71,6 +78,11 @@ namespace bll
             return _myCouponList;
         }
 
+        /// <summary>
+        /// Liefert einen Coupon zurück.
+        /// </summary>
+        /// <param name="_cuid">ID des Coupons</param>
+        /// <returns>Coupon mit der angegebenen ID</returns>
         internal clsCoupon GetCouponById(int _cuid)
         {
             _myDAL.AddParam("Id", _cuid, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -81,6 +93,11 @@ namespace bll
             return _myCoupon;
         }
 
+        /// <summary>
+        /// Aktiviert bzw. deaktiviert einen Coupon.
+        /// </summary>
+        /// <param name="_cuid">ID des Coupons</param>
+        /// <returns>Anzahl der betroffenen Zeilen</returns>
         internal int ToggleCoupon(int _cuid)
         {
             _myDAL.AddParam("ID", _cuid, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -89,7 +106,11 @@ namespace bll
             return _affectedRows;
         }
 
-        internal Dictionary<int,String> GetAllUsersForCoupons()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        internal Dictionary<int, String> GetAllUsersForCoupons()
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QCUGetAllUsers");
             DataTable _myDataTable = _myDataSet.Tables[0];

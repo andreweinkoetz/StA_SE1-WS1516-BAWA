@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// clsCoupon: repräsentiert Gutscheine, die von einem Benutzer eingelöst werden können.
+    /// Repräsentiert Gutscheine, die von einem Benutzer eingelöst werden können.
     /// </summary>
     public class clsCoupon
     {
@@ -48,7 +48,7 @@ namespace bll
         private String _code;
 
         /// <summary>
-        /// Code der zum Einlösen des Gutscheinwerts benötigt wird.
+        /// Code, der zum Einlösen des Gutscheinwerts benötigt wird.
         /// </summary>
         public string Code
         {
@@ -66,7 +66,7 @@ namespace bll
         private bool _isValid;
 
         /// <summary>
-        /// Zeigt an ob Gutschein einlösbar ist.
+        /// Zeigt an, ob der Gutschein aktiv bzw. einlösbar ist.
         /// </summary>
         public bool IsValid
         {
@@ -131,33 +131,31 @@ namespace bll
 
         /// <summary>
         /// Erstellt einen per Zufallsgenerator ermittelten Code.
-        /// Dieser besteht aus vier Blöcken à vier alphanumerischen Zeichen getrennt durch Bindestriche.
+        /// Dieser besteht aus vier Blöcken je vier alphanumerischen Zeichen getrennt durch Bindestriche.
         /// </summary>
-        /// <returns>Neuen generierten Code.</returns>
+        /// <returns>den neuen generierten Code.</returns>
         public static String GenerateCode()
         {
             String _code = "";
             Random r = new Random();
 
-            for (int i = 0; i<16; i++)
+            for (int i = 0; i < 16; i++)
             {
                 if (i % 4 == 0 && i != 0)
                 {
                     _code += '-';
                 }
 
-                if (i%2 == 0 && i!=0)
+                if (i % 2 == 0 && i != 0)
                 {
                     _code += r.Next(1, 10);
-                } else
+                }
+                else
                 {
                     _code += (char)r.Next(65, 91);
                 }
             }
-
             return _code;
-
         }
-
     }
 }
