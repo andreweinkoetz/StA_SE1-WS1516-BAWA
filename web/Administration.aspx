@@ -38,7 +38,7 @@
                 </asp:DropDownList>
             </asp:TableHeaderCell>
             <asp:TableHeaderCell>
-                 <asp:DropDownList ID="ddlistOrders" runat="server" Width="200px">
+                <asp:DropDownList ID="ddlistOrders" runat="server" Width="200px">
                     <asp:ListItem Value="0" Text="- Daten wählen"></asp:ListItem>
                     <asp:ListItem Value="1" Text="Bestellungen verwalten"></asp:ListItem>
                     <asp:ListItem Value="2" Text="Bestellungen archivieren"></asp:ListItem>
@@ -75,7 +75,7 @@
                 <p>Text für Bestellverwaltung kurze Beschreibung. Sollte auch in OrderManagement stehen.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
-                <p>Text für statistische Auswertungen. Am Besten irgendwas betriebswirtschaftl. Tolles.</p>
+                <p>Durch die Auswertungen erhält der Pizzabäcker einen Überblick über die aktuelle wirtschaftliche Lage des Unternehmens.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
                 <p>Text für Gutscheine. Gutscheine anlegen (Rabattcoupons um genau zu sein) und welche widerrufen.</p>

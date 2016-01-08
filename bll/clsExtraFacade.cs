@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// 
+    /// Stellt die nach außen sichtbaren Methoden bzgl. der Extra-Verwaltung bereit.
+    /// Als Grundlage werden die clsExtraCollection-Methoden verwendet.
     /// </summary>
     public class clsExtraFacade
     {
-
-        clsExtraCollection _extraCol; //Objektvariable für Extra-Collection,
+        clsExtraCollection _extraCol; // Objektvariable für Extra-Collection, wird im Konstruktor instantiiert 
         /// <summary>
         /// Konstruktor
+        /// TODO: hier weiter!
         /// </summary>
         public clsExtraFacade()
         {   // instantiierung _extraCol
@@ -38,11 +39,11 @@ namespace bll
             return _extraCol.GetAllActiveExtras();
         }
 
-       /// <summary>
-       /// Preis eines bestimmten Extras ermitteln.
-       /// </summary>
-       /// <param name="_eID"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// Preis eines bestimmten Extras ermitteln.
+        /// </summary>
+        /// <param name="_eID"></param>
+        /// <returns></returns>
         public double GetPriceOfExtra(int _eID)
         {
             return _extraCol.GetPriceOfExtra(_eID);

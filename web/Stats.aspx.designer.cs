@@ -13,22 +13,31 @@ namespace web {
     public partial class Stats {
         
         /// <summary>
-        /// header-Steuerelement
+        /// lblHeader-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label header;
+        protected global::System.Web.UI.WebControls.Label lblHeader;
         
         /// <summary>
-        /// statsRequired-Steuerelement
+        /// lblStatsRequired-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label statsRequired;
+        protected global::System.Web.UI.WebControls.Label lblStatsRequired;
+        
+        /// <summary>
+        /// tblStatistic-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tblStatistic;
         
         /// <summary>
         /// ddlStats-Steuerelement

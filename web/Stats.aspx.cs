@@ -19,21 +19,26 @@ namespace web
         {
             if (!IsPostBack)
             {
-                fillUserAndCategoryDropDownList();
+                //Anfängliches Initialisieren der Komponenten
+                InitializeUserAndCategoryDropDownList();
                 btnCreateStats.Enabled = false;
                 btnCreateStats.BackColor = System.Drawing.Color.Gray;
             }
 
-            manageExtendedStats();
-            manageUser();
-            manageCategories();
+            //Management der Dropdown-Listen bei Postbacks
+            ShowFurtherPossibilitiesForSelectedStatistic();
+            ShowUsersForOrdersByUser();
+            ShowCategoriesForOrdersByCategory();
+
+            //Management der dritten Dropdown-Liste bzgl. der ersten Dropdown-Liste
             if (ddlStats.SelectedIndex != previousIndex)
             {
-                fillExtendedStatsDropDownList(sender, e);
+                SetFurtherPossibilitiesDependingOnSelectedStatistic(sender, e);
                 ddlUser.Visible = false;
                 ddlCategory.Visible = false;
             }
 
+            //Aktivieren bzw. Deaktivieren des Buttons
             if (ddlStatsExtended.SelectedIndex == 0)
             {
                 btnCreateStats.Enabled = false;
@@ -45,9 +50,28 @@ namespace web
                 btnCreateStats.BackColor = System.Drawing.Color.Red;
             }
 
+            //"Zurücksetzen" der Tabellen bei Postbacks
             gvStats.Visible = false;
             stats.Visible = false;
             lblAnnotation.Visible = false;
+        }
+
+        private void enableUI()
+        {
+            lblHeader.Visible = true;
+            lblStatsRequired.Visible = true;
+            tblStatistic.Visible = true;
+            btnCreateStats.Visible = true;
+        }
+
+        private void disableUI()
+        {
+            lblHeader.ForeColor = System.Drawing.Color.Red;
+            lblHeader.Font.Size = 16;
+            lblHeader.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. \nBitte melden Sie sich an.";
+            lblStatsRequired.Visible = false;
+            tblStatistic.Visible = false;
+            btnCreateStats.Visible = false;
         }
 
         protected void ddlStats_SelectedIndexChanged(object sender, EventArgs e)
@@ -55,107 +79,92 @@ namespace web
             previousIndex = ddlStats.SelectedIndex;
         }
 
-        protected void fillUserAndCategoryDropDownList()
+        protected void InitializeUserAndCategoryDropDownList()
         {
-            clsUserFacade userFacade = new clsUserFacade();
-
-            List<clsUser> users = userFacade.UsersGetAll();
+            List<clsUser> users = new clsUserFacade().UsersGetAll();
             ddlUser.DataSource = users;
-            ddlUser.DataTextField = "Email";
-            ddlUser.DataValueField = "Email";
-            ddlUser.DataBind();
+            InitializeDropDownList(ddlUser, "Email", "Email");
 
             Dictionary<Int32, String> categories = new clsProductFacade().GetAllProductCategories();
             ddlCategory.DataSource = categories;
-            ddlCategory.DataTextField = "Value";
-            ddlCategory.DataValueField = "Value";
-            ddlCategory.DataBind();
-
-            ddlStatsExtended.Visible = false;
-            ddlCategory.Visible = false;
-            ddlUser.Visible = false;
+            InitializeDropDownList(ddlCategory, "Value", "Value");
         }
 
-        protected void fillExtendedStatsDropDownList(object sender, EventArgs e)
+        protected void InitializeDropDownList(DropDownList ddl, string textField, string valueField)
         {
-            if (ddlStats.SelectedIndex == 1)
-            {
-                ddlStatsExtended.Items.Clear();
-                ddlStatsExtended.Items.Add("- Daten wählen");
-                ddlStatsExtended.Items.Add("sortiert nach Datum");
-                ddlStatsExtended.Items.Add("pro Kategorie");
-                ddlStatsExtended.Items.Add("des Kunden");
-            }
-            if (ddlStats.SelectedIndex == 2)
-            {
-                ddlStatsExtended.Items.Clear();
-                ddlStatsExtended.Items.Add("- Daten wählen");
-                ddlStatsExtended.Items.Add("sortiert nach Beliebtheit");
-                ddlStatsExtended.Items.Add("sortiert nach Umsatz");
-            }
-            if (ddlStats.SelectedIndex == 3)
-            {
-                ddlStatsExtended.Items.Clear();
-                ddlStatsExtended.Items.Add("- Daten wählen");
-                ddlStatsExtended.Items.Add("sortiert nach Umsatz");
-            }
+            ddl.DataTextField = textField;
+            ddl.DataValueField = valueField;
+            ddl.DataBind();
+            ddl.Visible = false;
         }
 
-        protected void manageExtendedStats()
+        protected void SetFurtherPossibilitiesDependingOnSelectedStatistic(object sender, EventArgs e)
         {
-            if (ddlStats.SelectedIndex == 0)
+            switch (ddlStats.SelectedIndex)
             {
-                ddlStatsExtended.Visible = false;
-            }
-            else
-            {
-                ddlStatsExtended.Visible = true;
+                case 1:
+                    BuildDropDownList(ddlStatsExtended, new List<string> { "- Daten wählen", "sortiert nach Datum", "pro Kategorie", "des Kunden" }, true);
+                    break;
+                case 2:
+                    BuildDropDownList(ddlStatsExtended, new List<string> { "- Daten wählen", "sortiert nach Beliebtheit", "sortiert nach Umsatz" }, true);
+                    break;
+                case 3:
+                    BuildDropDownList(ddlStatsExtended, new List<string> { "- Daten wählen", "sortiert nach Umsatz" }, true);
+                    break;
+                default:
+                    //Unbekannter Index
+                    break;
             }
         }
 
-        protected void manageCategories()
+        protected void BuildDropDownList(DropDownList ddl, List<string> possibilities, bool isCleared)
         {
-            if (ddlStats.SelectedIndex == 1 && ddlStatsExtended.SelectedIndex == 2)
+            if (isCleared)
             {
-                ddlCategory.Visible = true;
+                ddl.Items.Clear();
             }
-            else
+            foreach (string possibility in possibilities)
             {
-                ddlCategory.Visible = false;
+                ddl.Items.Add(possibility);
             }
         }
 
-        protected void manageUser()
+        protected void ShowFurtherPossibilitiesForSelectedStatistic()
         {
-            if (ddlStatsExtended.SelectedIndex != 3)
-            {
-                ddlUser.Visible = false;
-            }
-            else
-            {
-                ddlUser.Visible = true;
-            }
+            ddlStatsExtended.Visible = !(ddlStats.SelectedIndex == 0);
         }
 
-        protected void GetAllOrdersOrderedByDate()
+        protected void ShowCategoriesForOrdersByCategory()
         {
-            DataTable dt = new DataTable("OrderStats");
-            CreateDataTable(dt, new List<String> { "Bestelldatum", "Kunde", "Bestellnummer", "Bestellstatus", "Lieferdatum", "Summe" });
-
-            List<clsOrderExtended> orderList = new clsOrderFacade().GetOrdersOrderedByDate();
-            double revenueResult = 0;
-            foreach (clsOrderExtended _order in orderList)
-            {
-                dt.LoadDataRow(new object[] { _order.OrderDate, _order.UserName, _order.OrderNumber,
-              _order.OrderStatusDescription, _order.OrderDeliveryDate, String.Format("{0:C}",_order.OrderSum) }, true);
-
-                revenueResult += _order.OrderSum;
-            }
-            MalculateTotalAndAverageRevenue(revenueResult, orderList.Count);
-            ManageVisibilityAndDataBinding(dt);
+            ddlCategory.Visible = ddlStats.SelectedIndex == 1 && ddlStatsExtended.SelectedIndex == 2;
         }
 
-        protected void MalculateTotalAndAverageRevenue(double totalRevenue, int amount)
+        protected void ShowUsersForOrdersByUser()
+        {
+            ddlUser.Visible = !(ddlStatsExtended.SelectedIndex != 3);
+        }
+
+        protected void BuildDataTable(DataTable dt, List<String> names)
+        {
+            foreach (String name in names)
+            {
+                dt.Columns.Add(name);
+            }
+        }
+
+        protected void ManageVisibilityAndDataBinding(DataTable dt, bool isOrder)
+        {
+            gvStats.DataSource = dt;
+            gvStats.DataBind();
+            gvStats.Visible = true;
+
+            if (isOrder)
+            {
+                stats.Visible = true;
+            }
+        }
+
+        protected void CalculateTotalAndAverageRevenue(double totalRevenue, int amount)
         {
             lblRevenueResult.Text = String.Format("{0:C}", totalRevenue);
             if (amount > 0)
@@ -168,26 +177,54 @@ namespace web
             }
         }
 
-        protected void CreateDataTable(DataTable dt, List<String> args)
-        {
-            foreach (String name in args)
-            {
-                dt.Columns.Add(name);
-            }
-        }
-
-        protected void ManageVisibilityAndDataBinding(DataTable dt)
-        {
-            gvStats.DataSource = dt;
-            gvStats.DataBind();
-            gvStats.Visible = true;
-            stats.Visible = true;
-        }
-
-        protected void GetOrdersFromASpecificUser()
+        protected void GetOrdersOrderedByDate()
         {
             DataTable dt = new DataTable("OrderStats");
-            CreateDataTable(dt, new List<String> { "Bestelldatum", "Kunde", "Bestellnummer", "Bestellstatus", "Lieferdatum", "Summe" });
+            BuildDataTable(dt, new List<String> { "Bestelldatum", "Kunde", "Bestellnummer", "Bestellstatus", "Lieferdatum", "Summe" });
+
+            List<clsOrderExtended> orderList = new clsOrderFacade().GetOrdersOrderedByDate();
+            double revenueResult = 0;
+            foreach (clsOrderExtended _order in orderList)
+            {
+                dt.LoadDataRow(new object[] { _order.OrderDate, _order.UserName, _order.OrderNumber,
+              _order.OrderStatusDescription, _order.OrderDeliveryDate, String.Format("{0:C}",_order.OrderSum) }, true);
+
+                revenueResult += _order.OrderSum;
+            }
+            CalculateTotalAndAverageRevenue(revenueResult, orderList.Count);
+            ManageVisibilityAndDataBinding(dt, true);
+        }
+
+        protected void GetOrdersOrderedByCategory()
+        {
+            DataTable dt = new DataTable("OrderStats");
+            BuildDataTable(dt, new List<String> { "Bestellnummer", "Produktname", "Preis" });
+
+            List<Tuple<int, string, double>> productList = new clsOrderFacade().GetOrderedProductsSortByCategory(ddlCategory.SelectedValue);
+            double revenueResult = 0;
+            foreach (Tuple<int, string, double> _product in productList)
+            {
+                dt.LoadDataRow(new object[] { _product.Item1, _product.Item2, String.Format("{0:C}", _product.Item3) }, true);
+                revenueResult += _product.Item3;
+            }
+
+            CalculateTotalAndAverageRevenue(revenueResult, productList.Count);
+            ManageVisibilityAndDataBinding(dt, true);
+
+            string labelText = "Beachte: Gutscheine";
+            if (ddlCategory.SelectedValue.Equals("Pizza"))
+            {
+                labelText += " und Extras";
+            }
+            labelText += " werden nicht berücksichtigt.";
+            lblAnnotation.Text = labelText;
+            lblAnnotation.Visible = true;
+        }
+
+        protected void GetOrdersOfUser()
+        {
+            DataTable dt = new DataTable("OrderStats");
+            BuildDataTable(dt, new List<String> { "Bestelldatum", "Kunde", "Bestellnummer", "Bestellstatus", "Lieferdatum", "Summe" });
 
             List<clsOrderExtended> orderList = new clsOrderFacade().GetOrdersByEmail(ddlUser.SelectedValue);
             double revenueResult = 0;
@@ -199,32 +236,14 @@ namespace web
                 revenueResult += _order.OrderSum;
             }
 
-            MalculateTotalAndAverageRevenue(revenueResult, orderList.Count);
-            ManageVisibilityAndDataBinding(dt);
+            CalculateTotalAndAverageRevenue(revenueResult, orderList.Count);
+            ManageVisibilityAndDataBinding(dt, true);
         }
 
-        protected void GetOrdersOrderedByCategory()
+        protected void GetFanciestProducts()
         {
             DataTable dt = new DataTable("OrderStats");
-            CreateDataTable(dt, new List<String> { "Bestellnummer", "Produktname", "Preis" });
-
-            List<Tuple<int, string, double>> productList = new clsOrderFacade().GetOrderedProductsSortByCategory(ddlCategory.SelectedValue);
-            double revenueResult = 0;
-            foreach (Tuple<int, string, double> _product in productList)
-            {
-                dt.LoadDataRow(new object[] { _product.Item1, _product.Item2, String.Format("{0:C}", _product.Item3) }, true);
-                revenueResult += _product.Item3;
-            }
-
-            MalculateTotalAndAverageRevenue(revenueResult, productList.Count);
-            ManageVisibilityAndDataBinding(dt);
-            lblAnnotation.Visible = true;
-        }
-
-        protected void GetFanciestProduct()
-        {
-            DataTable dt = new DataTable("OrderStats");
-            CreateDataTable(dt, new List<String> { "Name des Produkts", "Anzahl der Käufe" });
+            BuildDataTable(dt, new List<String> { "Name des Produkts", "Anzahl der Käufe" });
 
 
             OrderedDictionary favoriteProduct = new clsProductFacade().GetMostFanciestProduct();
@@ -232,33 +251,33 @@ namespace web
             {
                 dt.LoadDataRow(new object[] { entry.Key, entry.Value }, true);
             }
-            ManageVisibilityAndDataBinding(dt);
+            ManageVisibilityAndDataBinding(dt, false);
         }
 
         protected void GetProductsOrderedByRevenue()
         {
             DataTable dt = new DataTable("ProductSales");
-            CreateDataTable(dt, new List<String> { "Name des Produkts", "Höhe des Umsatzes" });
+            BuildDataTable(dt, new List<String> { "Name des Produkts", "Höhe des Umsatzes" });
 
             Dictionary<string, double> products = new clsProductFacade().GetProductsOrderedByTotalRevenue();
             foreach (KeyValuePair<string, double> _entry in products)
             {
                 dt.LoadDataRow(new object[] { _entry.Key, String.Format("{0:C}", _entry.Value) }, true);
             }
-            ManageVisibilityAndDataBinding(dt);
+            ManageVisibilityAndDataBinding(dt, false);
         }
 
         protected void GetCustomersOrderedByRevenue()
         {
             DataTable dt = new DataTable("CustomerStats");
-            CreateDataTable(dt, new List<String> { "Kunde", "Gesamtumsatz", "Anzahl der Bestellungen" });
+            BuildDataTable(dt, new List<String> { "Kunde", "Gesamtumsatz", "Anzahl der Bestellungen" });
 
             List<Tuple<string, double, int>> userList = new clsUserFacade().GetUsersOrderedByTotalRevenue();
             foreach (Tuple<string, double, int> _user in userList)
             {
                 dt.LoadDataRow(new object[] { _user.Item1, String.Format("{0:C}", _user.Item2), _user.Item3 }, true);
             }
-            ManageVisibilityAndDataBinding(dt);
+            ManageVisibilityAndDataBinding(dt, false);
         }
 
         protected void btnCreateStats_Click(object sender, EventArgs e)
@@ -281,13 +300,13 @@ namespace web
                     switch (secondIndex)
                     {
                         case "sortiert nach Datum":
-                            GetAllOrdersOrderedByDate();
+                            GetOrdersOrderedByDate();
                             break;
                         case "pro Kategorie":
                             GetOrdersOrderedByCategory();
                             break;
-                        case "des Kunden:":
-                            GetOrdersFromASpecificUser();
+                        case "des Kunden":
+                            GetOrdersOfUser();
                             break;
                     }
                     break;
@@ -297,7 +316,7 @@ namespace web
                     switch (secondIndex)
                     {
                         case "sortiert nach Beliebtheit":
-                            GetFanciestProduct();
+                            GetFanciestProducts();
                             break;
                         case "sortiert nach Umsatz":
                             GetProductsOrderedByRevenue();
@@ -315,6 +334,7 @@ namespace web
                     }
                     break;
                 default:
+                    //Nicht bekannte Auswertungsart
                     break;
             }
         }

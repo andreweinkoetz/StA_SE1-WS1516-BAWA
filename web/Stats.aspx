@@ -5,19 +5,19 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p>
-        <asp:Label ID="header" runat="server" Text="Auswertungen" Font-Bold="true" Font-Size="X-Large"></asp:Label>
+        <asp:Label ID="lblHeader" runat="server" Text="Auswertungen" Font-Bold="true" Font-Size="X-Large"></asp:Label>
     </p>
     <br />
     <hr />
     <br />
     <p>
-        <asp:Label ID="statsRequired" runat="server" Text="Bitte geben Sie die gewünschte Auswertungsart an." Font-Bold="true" Font-Size="Medium"></asp:Label>
+        <asp:Label ID="lblStatsRequired" runat="server" Text="Bitte geben Sie die gewünschte Auswertungsart an." Font-Bold="true" Font-Size="Medium"></asp:Label>
     </p>
     <br />
     <asp:Table runat="server" CellSpacing="10">
         <asp:TableHeaderRow>
             <asp:TableHeaderCell>
-                <asp:Table runat="server" BorderStyle="Groove" CellSpacing="10">
+                <asp:Table runat="server" ID="tblStatistic" BorderStyle="Groove" CellSpacing="10">
                     <asp:TableRow runat="server">
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="ddlStats" runat="server" Width="200px" AutoPostBack="true" OnSelectedIndexChanged="ddlStats_SelectedIndexChanged">
@@ -30,7 +30,7 @@
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
-                            <asp:DropDownList ID="ddlStatsExtended" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlStatsExtended" runat="server" Width="200px" AutoPostBack="true" Visible="false"></asp:DropDownList>
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
@@ -65,7 +65,7 @@
                         </asp:TableCell>
                     </asp:TableRow>
                 </asp:Table>
-                <asp:Label ID="lblAnnotation" runat="server" Text="Beachte: Gutscheine und Extras werden nicht berücksichtigt." Font-Italic="true" Font-Size="Small" Visible="false"></asp:Label>
+                <asp:Label ID="lblAnnotation" runat="server" Text="" Font-Italic="true" Font-Size="Small" Visible="false"></asp:Label>
             </asp:TableHeaderCell>
         </asp:TableHeaderRow>
     </asp:Table>

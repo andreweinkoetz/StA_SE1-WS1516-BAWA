@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// Klasse für Extras.
+    /// Stellt Eigenschaften eines Extras dar.
+    /// Extras können optional bei der Bestellung von Pizzen gewählt werden.
     /// </summary>
     public class clsExtra
     {
         private int _id;
-
         /// <summary>
-        /// Extra-ID wird von DB-vergeben.
+        /// ID des Extras (wird von der DB vergeben).
         /// </summary>
         public int ID
         {
@@ -30,9 +30,8 @@ namespace bll
         }
 
         private String _name;
-
         /// <summary>
-        /// Sprechender Bezeichner des Extras.
+        /// Bezeichnung des Extras.
         /// </summary>
         public string Name
         {
@@ -49,7 +48,7 @@ namespace bll
 
         private double _price;
         /// <summary>
-        /// Preis für das Extra.
+        /// Preis des Extras.
         /// </summary>
         public double Price
         {
@@ -65,9 +64,8 @@ namespace bll
         }
 
         private bool _toSell;
-
         /// <summary>
-        /// Zeigt ob Extra angeboten wird.
+        /// Zeigt, ob das Extra angeboten wird.
         /// </summary>
         public bool ToSell
         {
@@ -82,10 +80,8 @@ namespace bll
             }
         }
 
-
-
         /// <summary>
-        /// Konstruktor für neues Extra.
+        /// Custom-Konstruktor für ein neues Extra.
         /// </summary>
         /// <param name="_id">ID des Extras</param>
         /// <param name="_name">Name des Extras</param>
@@ -99,31 +95,26 @@ namespace bll
         }
 
         /// <summary>
-        /// Standard-Konstruktor für neues Extra-Objekt.
+        /// Standard-Konstruktor für ein neues Extra-Objekt.
         /// </summary>
-        public clsExtra()
+        public clsExtra() : this(0, "", 0)
         {
-            this._id = 0;
-            this._name = "";
-            this._price = 0;
             this._toSell = false;
         }
 
         /// <summary>
-        /// Statische Methode zur Erstellung einer Liste von Extras für Pizzen.
+        /// Erstellt eine Liste von Extras für die Pizzen.
         /// </summary>
-        /// <param name="_idOfExtras">Ids gewählter Extras.</param>
-        /// <returns>Liste von Extras für Pizzen.</returns>
+        /// <param name="_idOfExtras">IDs der gewählten Extras.</param>
+        /// <returns>Liste von Extras für die Pizzen</returns>
         public static List<clsExtra> ExtraListFactory(params int[] _idOfExtras)
         {
             List<clsExtra> _myExtraList = new List<clsExtra>();
-
             foreach (int _id in _idOfExtras)
             {
                 clsExtraFacade _myExtraFacade = new clsExtraFacade();
                 _myExtraList.Add(_myExtraFacade.GetExtraById(_id));
             }
-
             return _myExtraList;
         }
     }
