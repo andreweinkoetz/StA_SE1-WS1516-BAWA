@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// Stellt Eigenschaften eines Extras dar.
+    /// Stellt die Eigenschaften eines Extras dar.
     /// Extras können optional bei der Bestellung von Pizzen gewählt werden.
     /// </summary>
     public class clsExtra

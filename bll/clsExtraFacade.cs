@@ -12,91 +12,92 @@ namespace bll
     /// </summary>
     public class clsExtraFacade
     {
-        clsExtraCollection _extraCol; // Objektvariable für Extra-Collection, wird im Konstruktor instantiiert 
+        clsExtraCollection _extraCol; // Objektvariable für die Extra-Collection, wird im Konstruktor instantiiert
+
         /// <summary>
-        /// Konstruktor
-        /// TODO: hier weiter!
+        /// Erstellt ein neues Objekt der clsExtraCollection.
         /// </summary>
         public clsExtraFacade()
-        {   // instantiierung _extraCol
+        {
             _extraCol = new clsExtraCollection();
         }
 
         /// <summary>
-        /// Alle Extras lesen.
+        /// Liefert alle vorhandenen (d.h. auch inaktive) Extras zurück.
         /// </summary>
+        /// <returns>alle vorhandenen Extras</returns>
         public List<clsExtra> GetAllExtras()
         {
             return _extraCol.GetAllExtras();
-        } //ExtrasGetAll()
+        }
 
         /// <summary>
-        /// Alle aktiven Extras lesen.
+        /// Liefert alle aktiven Extras zurück.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>alle aktiven Extras</returns>
         public List<clsExtra> GetAllActiveExtras()
         {
             return _extraCol.GetAllActiveExtras();
         }
 
         /// <summary>
-        /// Preis eines bestimmten Extras ermitteln.
+        /// Liefert den Preis des Extras mit der gewählten ID zurück.
         /// </summary>
-        /// <param name="_eID"></param>
-        /// <returns></returns>
-        public double GetPriceOfExtra(int _eID)
+        /// <param name="_extraID">ID des Extras</param>
+        /// <returns>Preis des Extras</returns>
+        public double GetPriceOfExtra(int _extraID)
         {
-            return _extraCol.GetPriceOfExtra(_eID);
+            return _extraCol.GetPriceOfExtra(_extraID);
         }
 
         /// <summary>
-        /// Bestimmes Extra ermitteln.
+        /// Liefert das Extra mit der gewählten ID zurück.
         /// </summary>
-        /// <param name="_eID">ID des Extras</param>
-        /// <returns>clsExtra</returns>
-        public clsExtra GetExtraById(int _eID)
+        /// <param name="_extraID">ID des Extras</param>
+        /// <returns>Extra mit der gewählten ID</returns>
+        public clsExtra GetExtraById(int _extraID)
         {
-            return _extraCol.GetExtraById(_eID);
+            return _extraCol.GetExtraById(_extraID);
         }
 
         /// <summary>
-        /// Ermittelt Bestellnummern eines bestimmten Extras.
+        /// Ermittelt alle Bestellungen, in denen das Extra verwendet wird.
         /// </summary>
-        /// <param name="_eID">ID des Extras</param>
-        /// <returns>Liste von Bestellnummern</returns>
-        public List<Int32> GetOrdersOfExtrasByEID(int _eID)
+        /// <param name="_extraID">ID des Extras</param>
+        /// <returns>alle betroffenen Bestellungen</returns>
+        public List<Int32> GetOrdersOfExtrasByEID(int _extraID)
         {
-            return _extraCol.GetOrdersOfExtrasByEID(_eID);
+            return _extraCol.GetOrdersOfExtrasByEID(_extraID);
         }
 
         /// <summary>
-        /// Fügt ein neues Extra ein.
+        /// Fügt ein neues Extra in die Datenbank ein.
         /// </summary>
-        /// <param name="_myExtra">einzufügendes Extra</param>
-        /// <returns>true wenn Einfügen erfolgreich.</returns>
+        /// <param name="_myExtra">das einzufügende Extra</param>
+        /// <returns>true, wenn das Einfügen erfolgreich war</returns>
         public bool InsertExtra(clsExtra _myExtra)
         {
             return _extraCol.InsertExtra(_myExtra) == 1;
         }
 
         /// <summary>
-        /// Ändert ein bestehendes Extra in der DB.
+        /// Ändert ein bestehendes Extra in der Datenbank.
         /// </summary>
-        /// <param name="_myExtra">geändertes Extra</param>
-        /// <returns>true wenn Update erfolgreich</returns>
+        /// <param name="_myExtra">das zu ändernde Extra</param>
+        /// <returns>true, wenn die Änderung erfolgreich war</returns>
         public bool UpdateExtra(clsExtra _myExtra)
         {
             return _extraCol.UpdateExtra(_myExtra) == 1;
         }
 
         /// <summary>
-        /// Löscht ein Extra aus der DB.
+        /// Löscht ein Extra aus der Datenbank.
         /// </summary>
-        /// <param name="_eID">Id des zu löschenden Extras.</param>
-        /// <returns>true wenn Löschung erfolgreich.</returns>
-        public bool DeleteExtraByID(int _eID)
+        /// <param name="_extraID">ID des zu löschenden Extras</param>
+        /// <returns>true, wenn das Löschen erfolgreich war</returns>
+        public bool DeleteExtraByID(int _extraID)
         {
-            return _extraCol.DeleteExtraByID(_eID) == 1;
+            return _extraCol.DeleteExtraByID(_extraID) == 1;
         }
     }
 }

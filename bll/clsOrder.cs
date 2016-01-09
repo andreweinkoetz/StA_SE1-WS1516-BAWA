@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// clsOrder: Bestellung
+    /// Stellt die Eigenschaften einer Bestellung dar.
     /// </summary>
     public class clsOrder
     {
@@ -20,7 +20,7 @@ namespace bll
         public int ID
         {
             get { return _id; }
-            set { _id = value;  } 
+            set { _id = value; }
         }
 
         private int _orderNumber;
@@ -40,7 +40,7 @@ namespace bll
             }
         }
 
-        private int _userId; 
+        private int _userId;
         /// <summary>
         /// User-Id der Bestellers, Fremdschlüssel
         /// </summary>
@@ -51,7 +51,7 @@ namespace bll
         }
 
 
-        private DateTime _orderDate;   
+        private DateTime _orderDate;
         /// <summary>
         /// Zeitpunkt wann bestellt wurde
         /// </summary>
@@ -61,9 +61,10 @@ namespace bll
             set { _orderDate = value; }
         }
 
-        private double _orderSum; 
+        //TODO: hier weiter!
+        private double _orderSum;
         /// <summary>
-        /// Gesamtpreis der Bestellung
+        /// Gesamtpreis der Bestellung.
         /// </summary>
         public double OrderSum
         {
@@ -71,10 +72,9 @@ namespace bll
             set { _orderSum = value; }
         }
 
-        private bool _orderDelivery;   
-
+        private bool _orderDelivery;
         /// <summary>
-        /// true falls Bestellung geliefert werden soll, false bei Selbstabholung
+        /// Zeigt an, ob eine Bestellung geliefert werden soll.
         /// </summary>
         public bool OrderDelivery
         {
@@ -82,10 +82,9 @@ namespace bll
             set { _orderDelivery = value; }
         }
 
-        private int _orderStatus;  
-
+        private int _orderStatus;
         /// <summary>
-        /// Status der Bestellung, noch zu definieren, 0: kein Status definiert
+        /// Status der Bestellung. 
         /// </summary>
         public int OrderStatus
         {
@@ -94,42 +93,38 @@ namespace bll
         }
 
         /// <summary>
-        /// Constructor (mit Default-Werten)
+        /// Standard-Konstruktor für ein neues Order-Objekt.
         /// </summary>
         public clsOrder()
         {
             this._id = 0;
             this._userId = 0;
-            this._orderDate = DateTime.MinValue; // default
+            this._orderDate = DateTime.MinValue;
             this._orderSum = 0.0;
             this._orderDelivery = false;
             this._orderStatus = 0;
         }
 
         /// <summary>
-        /// Generieren einer neuen Bestellnummer.
+        /// Generiert eine neue Bestellnummer.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>die generierte Bestellnummer</returns>
         public int GenerateOrderNumber()
         {
             Random rnd = new Random();
             int _orderNumber = 2015 + rnd.Next() * 100 + UserId * rnd.Next();
             return _orderNumber;
         }
-
-    } // clsOrder
+    }
 
     /// <summary>
-    /// clsOrderExtended(): Erweiterung von clsOrder um Attribute ProductName und UserName
-    /// diese sind für die Anzeige benutzerfreundlicher als die zugehörigen IDs
+    /// Erweiterung der Klasse clsOrder um weitere benötigte Eigenschaften.
     /// </summary>
     public class clsOrderExtended : clsOrder
     {
-        
-        private string _userName;      // user name ordering; not part of DB table, do not update
-
+        private string _userName;
         /// <summary>
-        /// Name des bestellenden Nutzers
+        /// Name des bestellenden Nutzers.
         /// </summary>
         public string UserName
         {
@@ -137,11 +132,9 @@ namespace bll
             set { _userName = value; }
         }
 
-
         private int _OPId;
-
         /// <summary>
-        /// Verknüpfungs-ID für Zuordnung zu bestellten Produkten.
+        /// Verknüpfungs-ID für die Zuordnung zu bestellten Produkten.
         /// </summary>
         public int OPId
         {
@@ -157,9 +150,8 @@ namespace bll
         }
 
         private DateTime _orderDeliveryDate;
-
         /// <summary>
-        /// Zeitpunkt wann Bestellung geliefert wurde.
+        /// Zeitpunkt, zu dem die Bestellung geliefert wurde.
         /// </summary>
         public DateTime OrderDeliveryDate
         {
@@ -175,9 +167,8 @@ namespace bll
         }
 
         private String _orderStatusDescription;
-
         /// <summary>
-        /// Textuelle Beschreibung des Status.
+        /// Textuelle Beschreibung des Status einer Bestellung.
         /// </summary>
         public string OrderStatusDescription
         {
@@ -193,9 +184,8 @@ namespace bll
         }
 
         private int _couponId;
-
         /// <summary>
-        /// Id des Gutscheins, der verwendet wurde.
+        /// ID des Gutscheins.
         /// </summary>
         public int CouponId
         {
@@ -211,9 +201,8 @@ namespace bll
         }
 
         private clsCoupon _myCoupon;
-
         /// <summary>
-        /// Gutschein-Objekt, eingelöst in Bestellung.
+        /// Gutschein, der bei einer Bestellung eingelöst werden kann.
         /// </summary>
         public clsCoupon MyCoupon
         {
@@ -229,8 +218,8 @@ namespace bll
         }
 
         /// <summary>
-        /// Constructor (mit Default-Werten)
-        /// ruft zunächst Constructor der Oberklasse (clsOrder) auf und setzt dann die zusätzlichen Attribute
+        /// Standard-Konstruktor für ein neues OrderExtended-Objekt.
+        /// Ruft zunächst den Konstruktor der Oberklasse (clsOrder) auf und setzt dann die zusätzlichen Attribute.
         /// </summary>
         public clsOrderExtended() : base()
         {
@@ -243,24 +232,19 @@ namespace bll
         }
 
         /// <summary>
-        /// Erstellt eine Tabelle aus Produkten um GridView-Elemente zu füllen.
+        /// Erstellt eine Tabelle mit allen Produkten einer Bestellung.
         /// </summary>
-        /// <param name="_selectedProducts">Produktliste die in GridView angezeigt werden soll.</param>
-        /// <returns>DataTable für GridView-Integration.</returns>
+        /// <param name="_selectedProducts">alle Produkte der Bestellung</param>
+        /// <returns>die neu erstellte Tabelle mit Produkten</returns>
         public DataTable CreateDataTableOfOrder(List<clsProductExtended> _selectedProducts)
         {
             DataTable dt = new DataTable();
 
             dt = new DataTable("MyOrder");
-
             dt.Columns.Add("ID");
-
             dt.Columns.Add("Name");
-
             dt.Columns.Add("Größe");
-
             dt.Columns.Add("Extras");
-
             dt.Columns.Add("Preis Gesamt");
 
             foreach (clsProductExtended _product in _selectedProducts)
@@ -274,14 +258,18 @@ namespace bll
                         _extraText += _extra.Name + "\n";
                     }
                 }
-                _sizeText = setSizeText(_product);
+                _sizeText = SetSizeText(_product);
                 dt.LoadDataRow(new object[] { _product.Id, _product.Name, _sizeText, _extraText, String.Format("{0:C}", (_product.PricePerUnit * _product.Size + clsProductFacade.GetCostsOfExtras(_product))) }, true);
             }
-
             return dt;
         }
 
-        private String setSizeText(clsProductExtended _product)
+        /// <summary>
+        /// Setzt die zum Produkt passende Beschreibung der Größe bzw. Größeneinheit.
+        /// </summary>
+        /// <param name="_product">Produkt, für das die Größeneinheit ermittelt werden soll</param>
+        /// <returns>die passende Größeneinheit</returns>
+        private String SetSizeText(clsProductExtended _product)
         {
             switch (_product.CID)
             {
@@ -304,6 +292,5 @@ namespace bll
             }
             return "Fehler in der Verarbeitung";
         }
-
-    } // clsOrderExtended
+    }
 }
