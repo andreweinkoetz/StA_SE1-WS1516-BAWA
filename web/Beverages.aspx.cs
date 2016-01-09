@@ -18,7 +18,22 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Nichts zu beachten.
+            if (!IsPostBack)
+            {
+                FillInfoText();
+            }
+        }
+
+        private void FillInfoText()
+        {
+            if (Session["userID"] == null)
+            {
+                lblInfoBeverages.Text += "<br />Melden Sie sich gleich an und bestellen Sie.";
+            }
+            else
+            {
+                lblInfoBeverages.Text += "<br />Wählen Sie zunächst die Größe des Getränks. Anschließend legen Sie es über das Einkaufswagen-Symbol in Ihren Warenkorb.";
+            }
         }
 
         protected void gvBeverages_DataBound(object sender, EventArgs e)

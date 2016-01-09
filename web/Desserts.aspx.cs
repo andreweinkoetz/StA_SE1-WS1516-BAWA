@@ -17,7 +17,21 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Nichts zu beachten.
+            if (!IsPostBack)
+            {
+                FillInfoText();
+            }
+        }
+
+        private void FillInfoText()
+        {
+            if(Session["userID"] == null)
+            {
+                lblInfoDessert.Text += "<br />Melden Sie sich gleich an und bestellen Sie.";
+            } else
+            {
+                lblInfoDessert.Text += "<br />Wählen Sie das Dessert und legen Sie es über das Einkaufswagen-Symbol in Ihren Warenkorb.";
+            }
         }
 
         protected void gvDesserts_DataBound(object sender, EventArgs e)

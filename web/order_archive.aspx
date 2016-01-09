@@ -14,15 +14,16 @@
         </tr>
     </table>
     <hr />
+    <br />
     <asp:GridView ID="gvOrderArchive" runat="server" AutoGenerateColumns="False" DataSourceID="FinishedOrders" Width="100%" OnSelectedIndexChanged="gvOrderArchive_SelectedIndexChanged">
         <Columns>
-            <asp:CommandField ButtonType="Image" ShowSelectButton="true" SelectImageUrl="~/img/archive_icon.png" />
-            <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Lieferzeitpunkt" SortExpression="OrderDeliveryDate" />
-            <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber" />
-            <asp:BoundField DataField="UserId" HeaderText="ID des Kunden" SortExpression="UserId" />
-            <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Lieferung?" SortExpression="OrderDelivery" />
-            <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status" SortExpression="OrderStatusDescription" />
-            <asp:BoundField DataField="OrderSum" DataFormatString="{0:C}" HeaderText="Gesamtsumme" SortExpression="OrderSum" />
+            <asp:CommandField ButtonType="Image" ShowSelectButton="true" SelectImageUrl="~/img/archive_icon.png" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Lieferzeitpunkt" SortExpression="OrderDeliveryDate" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber" ItemStyle-HorizontalAlign="Center"  />
+            <asp:BoundField DataField="UserId" HeaderText="ID des Kunden" SortExpression="UserId" ItemStyle-HorizontalAlign="Center"  />
+            <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Lieferung?" SortExpression="OrderDelivery" ItemStyle-HorizontalAlign="Center"  />
+            <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status" SortExpression="OrderStatusDescription" ItemStyle-HorizontalAlign="Center"  />
+            <asp:BoundField DataField="OrderSum" DataFormatString="{0:C}" HeaderText="Gesamtsumme" SortExpression="OrderSum" ItemStyle-HorizontalAlign="Center"  />
         </Columns>
     </asp:GridView>
     <asp:ObjectDataSource ID="FinishedOrders" runat="server" SelectMethod="GetFinishedOrders" TypeName="bll.clsOrderFacade"></asp:ObjectDataSource>

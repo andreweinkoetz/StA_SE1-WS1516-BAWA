@@ -22,13 +22,13 @@
             <SelectedRowStyle BorderColor="Red" BorderStyle="Solid" BorderWidth="3px" />
             <RowStyle BorderStyle="None" />
             <Columns>
-                <asp:CommandField ShowSelectButton="True" ButtonType="Image" SelectImageUrl="~/img/select_icon.png"/>
-                <asp:BoundField DataField="Id" HeaderText="CUID" SortExpression="Id" />
-                <asp:BoundField DataField="Discount" HeaderText="Rabatt in %" SortExpression="Discount" />
-                <asp:BoundField DataField="Code" HeaderText="Gutschein-Code" SortExpression="Code" />
-                <asp:CheckBoxField DataField="IsValid" SortExpression="IsValid" />
-                <asp:BoundField DataField="Uid" HeaderText="User-ID" SortExpression="Uid" />
-                <asp:BoundField DataField="UserName" HeaderText="Username" SortExpression="UserName" />
+                <asp:CommandField ShowSelectButton="True" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" ItemStyle-HorizontalAlign="Center"/>
+                <asp:BoundField DataField="Id" HeaderText="CUID" SortExpression="Id" ItemStyle-HorizontalAlign="Center"/>
+                <asp:BoundField DataField="Discount" HeaderText="Rabatt in %" SortExpression="Discount" ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="Code" HeaderText="Gutschein-Code" SortExpression="Code" ItemStyle-HorizontalAlign="Center" />
+                <asp:CheckBoxField DataField="IsValid" HeaderText="Aktiv" SortExpression="IsValid" ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="Uid" HeaderText="User-ID" SortExpression="Uid" ItemStyle-HorizontalAlign="Center" />
+                <asp:BoundField DataField="UserName" HeaderText="Username" SortExpression="UserName" ItemStyle-HorizontalAlign="Center" />
             </Columns>
         </asp:GridView>
 

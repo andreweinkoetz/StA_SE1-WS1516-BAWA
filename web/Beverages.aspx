@@ -4,7 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p style="font-family: 'Segoe UI'; font-weight: bold">Unsere Getränke</p>
-
+    <p><asp:Label ID="lblInfoBeverages" Font-Size="Small" runat="server" Text="Zu einem guten Essen gehört immer ein passendes Getränk."></asp:Label></p>
+    <hr /><br />
     <p style="font-family: 'Segoe UI'; font-weight: bold; text-align: left">
         <asp:GridView ID="gvBeverages" OnDataBound="gvBeverages_DataBound" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvBeverage_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
@@ -26,7 +27,6 @@
                         </asp:ObjectDataSource>
                     </ItemTemplate>
                 </asp:TemplateField>
-
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

@@ -13,6 +13,15 @@ namespace web {
     public partial class PizzaCode {
         
         /// <summary>
+        /// lblInfoPizza-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInfoPizza;
+        
+        /// <summary>
         /// gvPizza-Steuerelement
         /// </summary>
         /// <remarks>

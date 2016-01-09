@@ -19,7 +19,22 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Nichts zu beachten.
+            if (!IsPostBack)
+            {
+                FillInfoText();
+            } 
+        }
+
+        private void FillInfoText()
+        {
+            if (Session["userID"] == null)
+            {
+                lblInfoPizza.Text += "<br />Melden Sie sich gleich an und bestellen Sie.";
+            }
+            else
+            {
+                lblInfoPizza.Text += "<br />Wählen Sie zunächst die Größe der Pizza sowie etwaigen Sonderbelag (Zusatzkosten!).<br />Anschließend legen Sie die Pizza über das Einkaufswagen-Symbol in Ihren Warenkorb.";
+            }
         }
 
         protected void gvPizza_DataBound(object sender, EventArgs e)

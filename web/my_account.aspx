@@ -18,16 +18,29 @@
     <p>
         <asp:GridView ID="gvMyOrders" runat="server" AutoGenerateColumns="False" DataSourceID="QOGetOrdersByUserID" Width="100%" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" ForeColor="Black" OnSelectedIndexChanged="gvMyOrders_SelectedIndexChanged">
             <Columns>
-                <asp:CommandField SelectText="Detailansicht" ShowSelectButton="True" ButtonType="Button" >
-                <ControlStyle Height="30px" Width="100px" />
+                <asp:CommandField SelectImageUrl="~/img/detail_icon.png" ShowSelectButton="True" ButtonType="Image" >
                 </asp:CommandField>
-                <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber" />
-                <asp:BoundField DataField="OrderDate" HeaderText="Datum der Bestellung" SortExpression="OrderDate" />
-                <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Zum Liefern?" SortExpression="OrderDelivery" />
-                <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status der Bestellung" SortExpression="OrderStatusDescription" />
-                <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Datum der Lieferung" SortExpression="OrderDeliveryDate" />
-                <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}" />
-                <asp:BoundField DataField="CouponId" HeaderText="Gutschein#" />
+                <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber">
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundField>
+                <asp:BoundField DataField="OrderDate" HeaderText="Datum der Bestellung" SortExpression="OrderDate">
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundField>
+                <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Zum Liefern?" SortExpression="OrderDelivery">
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:CheckBoxField>
+                <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status der Bestellung" SortExpression="OrderStatusDescription">
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundField>
+                <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Datum der Lieferung" SortExpression="OrderDeliveryDate" >
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundField>
+                <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}" >
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundField>
+                <asp:BoundField DataField="CouponId" HeaderText="Gutschein#" >
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundField>
             </Columns>
             <FooterStyle BackColor="#CCCCCC" />
             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />

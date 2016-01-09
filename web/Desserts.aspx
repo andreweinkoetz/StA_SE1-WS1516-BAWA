@@ -4,7 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p style="font-family: 'Segoe UI'; font-weight: bold">Unsere Desserts</p>
-
+    <p><asp:Label ID="lblInfoDessert" Font-Size="Small" runat="server" Text="Feinste Süßspeisen, mit Liebe zubereitet - direkt zu Ihnen nach Hause!"></asp:Label></p>
+    <hr /><br />
     <p style="font-family: 'Segoe UI'; font-weight: bold; text-align: left">
         <asp:GridView ID="gvDesserts" runat="server" AutoGenerateColumns="False" OnDataBound="gvDesserts_DataBound" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvDesserts_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />

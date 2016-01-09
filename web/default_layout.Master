@@ -71,12 +71,12 @@
                 <br />
                 <asp:ContentPlaceHolder ID="contentBox" runat="server">
                 </asp:ContentPlaceHolder>
+                <br /><br /><br />
             </div>
         </div>
         <div id="footer">
             <div class="container">
                 <p>&copy; Copyright 2015 - Pizza, Pizza M&uuml;nchen&trade; &bull; <a href="Impressum.aspx">Impressum</a></p>
-
             </div>
         </div>
     </form>

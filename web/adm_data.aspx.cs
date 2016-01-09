@@ -65,6 +65,7 @@ namespace web
             _cmdField.ShowSelectButton = true;
             _cmdField.ButtonType = ButtonType.Image;
             _cmdField.SelectImageUrl = "~/img/edit_icon.png";
+            _cmdField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
             gvAdmData.Columns.Add(_cmdField);
 
@@ -80,6 +81,7 @@ namespace web
                     BoundField _pid = new BoundField();
                     _pid.DataField = "PID";
                     _pid.HeaderText = "PID";
+                    _pid.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     dtProduct.Columns.Add("PName");
 
@@ -92,18 +94,21 @@ namespace web
                     BoundField _pCategory = new BoundField();
                     _pCategory.DataField = "CName";
                     _pCategory.HeaderText = "Kategorie";
+                    _pCategory.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     dtProduct.Columns.Add("PricePerUnit");
 
                     BoundField _pPU = new BoundField();
                     _pPU.DataField = "PricePerUnit";
                     _pPU.HeaderText = "Preis pro Einheit";
+                    _pPU.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     dtProduct.Columns.Add("ToSell");
 
                     CheckBoxField _toSell = new CheckBoxField();
                     _toSell.DataField = "ToSell";
                     _toSell.HeaderText = "Zum Verkauf?";
+                    _toSell.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     gvAdmData.Columns.Add(_pid);
                     gvAdmData.Columns.Add(_pName);
@@ -128,6 +133,7 @@ namespace web
                     BoundField _eid = new BoundField();
                     _eid.DataField = "EID";
                     _eid.HeaderText = "EID";
+                    _eid.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     BoundField _eName = new BoundField();
                     _eName.DataField = "EName";
@@ -136,10 +142,12 @@ namespace web
                     BoundField _ePrice = new BoundField();
                     _ePrice.DataField = "EPrice";
                     _ePrice.HeaderText = "Preis pro Extra";
+                    _ePrice.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     CheckBoxField _etoSell = new CheckBoxField();
                     _etoSell.DataField = "ToSell";
                     _etoSell.HeaderText = "Zum Verkauf?";
+                    _etoSell.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     gvAdmData.Columns.Add(_eid);
                     gvAdmData.Columns.Add(_eName);
@@ -168,6 +176,7 @@ namespace web
                     BoundField _uid = new BoundField();
                     _uid.HeaderText = "UID";
                     _uid.DataField = "UID";
+                    _uid.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     BoundField _uName = new BoundField();
                     _uName.HeaderText = "Name";
@@ -204,6 +213,7 @@ namespace web
                     CheckBoxField _uIsActive = new CheckBoxField();
                     _uIsActive.HeaderText = "Aktiv?";
                     _uIsActive.DataField = "UIsActive";
+                    _uIsActive.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     BoundField _uRole = new BoundField();
                     _uRole.HeaderText = "Rollen-ID";
@@ -252,6 +262,7 @@ namespace web
                     BoundField _sid = new BoundField();
                     _sid.DataField = "SID";
                     _sid.HeaderText = "SID";
+                    _sid.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 
                     BoundField _sName = new BoundField();
                     _sName.DataField = "SName";
