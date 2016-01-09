@@ -37,6 +37,11 @@ namespace web
 
         protected void btCreateNew_Click(object sender, EventArgs e)
         {
+            InsertNewCoupon();
+        }
+
+        private void InsertNewCoupon()
+        {
             bool readyForDB = true, insertSuccessful = false;
 
             clsCoupon _myCoupon = new clsCoupon();
@@ -44,8 +49,9 @@ namespace web
             if (!String.IsNullOrEmpty(txtCode.Text))
             {
                 _myCoupon.Code = txtCode.Text;
-                
-            } else
+
+            }
+            else
             {
                 txtCode.BackColor = System.Drawing.Color.Red;
                 readyForDB = false;
@@ -54,8 +60,9 @@ namespace web
             int _discount;
             if (Int32.TryParse(txtDiscount.Text, out _discount) && (_discount > 0 && _discount <= 100))
             {
-                    _myCoupon.Discount = _discount;
-            } else
+                _myCoupon.Discount = _discount;
+            }
+            else
             {
                 txtDiscount.ForeColor = System.Drawing.Color.Red;
                 readyForDB = false;
@@ -72,16 +79,21 @@ namespace web
                 {
                     lblError.Text = "Fehler beim Einfügen in die Datenbank.<br />Hat dieser Benutzer evtl. schon diesen Gutschein? (siehe oben)";
                 }
-            }  else
+            }
+            else
             {
                 lblError.Text = "Bitte beachten Sie die rot markierten Felder.";
             }
 
             gvAdmCoupon.DataBind();
-
         }
 
         protected void btToggleCoupon_Click(object sender, EventArgs e)
+        {
+            DeActivateSelectedCoupon();
+        }
+
+        private void DeActivateSelectedCoupon()
         {
             int _cuid = Int32.Parse(gvAdmCoupon.SelectedRow.Cells[1].Text);
             new clsCouponFacade().ToggleCoupon(_cuid);

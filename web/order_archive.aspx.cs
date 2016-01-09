@@ -31,112 +31,37 @@ namespace web
 
         protected void gvOrderArchive_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int _oNumber = Int32.Parse(gvOrderArchive.SelectedRow.Cells[2].Text);
+            ArchiveOrderAndGenerateReport(Int32.Parse(gvOrderArchive.SelectedRow.Cells[2].Text));
+
+        }
+
+        private void ArchiveOrderAndGenerateReport(int _oNumber)
+        {
             clsOrderFacade _orderFacade = new clsOrderFacade();
             clsOrderExtended _myOrder = _orderFacade.GetOrderByOrderNumber(_oNumber);
             _orderFacade = new clsOrderFacade();
-            List<clsProductExtended> _myProductList = _orderFacade.GetOrderedProductsByOrderNumber(_oNumber);
-            _orderFacade = new clsOrderFacade();
+            Session["ReportFileName"] = "export - Order" + _oNumber + " " + DateTime.Now + ".csv";
+            Session["Report"] = _myOrder.CreateCSVString();
             int _deletedRecords = _orderFacade.DeleteOrderByOrderNumber(_oNumber);
             if (_deletedRecords > 0)
             {
                 lblError.ForeColor = System.Drawing.Color.Black;
                 lblError.Text = "Es wurden " + _deletedRecords + " Datensätze erfolgreich gelöscht.";
                 gvOrderArchive.DataBind();
-                CreateCSV(_myOrder, _myProductList);
                 btDownloadCSV.Visible = true;
             }
             else
             {
                 lblError.Text = "Es konnten keine Datensätze gelöscht werden. Fehler bei DB-DELETE.";
             }
-
-        }
-
-        private void CreateCSV(clsOrderExtended _myOrder, List<clsProductExtended> _myProductList)
-        {
-            double _sum = 0.0;
-
-            StringBuilder _toCSV = new StringBuilder();
-
-            _toCSV.Append("Bestellung: #" + _myOrder.OrderNumber);
-            _toCSV.AppendLine();
-            _toCSV.Append("Bestellnummer;Kunde;Lieferzeitpunkt;Lieferung;Endstatus;Gesamtsumme");
-            _toCSV.AppendLine();
-            _toCSV.Append(_myOrder.OrderNumber);
-            _toCSV.Append(';');
-            _toCSV.Append(_myOrder.UserName);
-            _toCSV.Append(';');
-            _toCSV.Append(_myOrder.OrderDeliveryDate);
-            _toCSV.Append(';');
-            _toCSV.Append(_myOrder.OrderDelivery);
-            _toCSV.Append(';');
-            _toCSV.Append(_myOrder.OrderStatusDescription);
-            _toCSV.Append(';');
-            _toCSV.Append(String.Format("{0:N}", _myOrder.OrderSum));
-            _toCSV.Append(" EUR");
-            _toCSV.AppendLine();
-            _toCSV.Append("Enthaltene Produkte:");
-            _toCSV.AppendLine();
-            _toCSV.Append("Produktname;Preis pro Einheit;Größe;Produktkategorie;Enthaltene Extras;Preis des Produkts");
-            _toCSV.AppendLine();
-
-            foreach (clsProductExtended _myProduct in _myProductList)
-            {
-                double _productPrice = _myProduct.Size * _myProduct.PricePerUnit;
-                _toCSV.Append(_myProduct.Name);
-                _toCSV.Append(';');
-                _toCSV.Append(String.Format("{0:N}", _myProduct.PricePerUnit));
-                _toCSV.Append(" EUR");
-                _toCSV.Append(';');
-                _toCSV.Append(_myProduct.Size);
-                _toCSV.Append(';');
-                _toCSV.Append(_myProduct.Category);
-                _toCSV.Append(';');
-
-                double _extrasPrice = 0.0;
-                foreach (clsExtra _myExtra in _myProduct.ProductExtras)
-                {
-                    _extrasPrice += _myExtra.Price;
-                    _toCSV.Append(_myExtra.Name);
-                    _toCSV.Append(" ");
-                }
-                _toCSV.Append(';');
-                _productPrice += _extrasPrice;
-                _sum += _productPrice;
-                _toCSV.Append(String.Format("{0:N}", _productPrice));
-                _toCSV.Append(" EUR");
-                _toCSV.AppendLine();
-            }
-            _toCSV.AppendLine();
-            if (_myOrder.MyCoupon != null)
-            {
-                double _discount = _sum - _myOrder.OrderSum;
-                _toCSV.Append("Gutschein# " + _myOrder.CouponId + " (" + _myOrder.MyCoupon.Code + ") eingelöst.");
-                _toCSV.Append(";;;;");
-                _toCSV.Append("Wert: ");
-                _toCSV.Append(';');
-                _toCSV.Append("-" +_myOrder.MyCoupon.Discount + "%");
-                _toCSV.AppendLine();
-                _toCSV.Append(";;;;");
-                _toCSV.Append("Rabatt: ");
-                _toCSV.Append(';');
-                _toCSV.Append(String.Format("{0:0.00}", _discount) + " EUR");
-                _toCSV.AppendLine();
-                _toCSV.Append(";;;;");
-                _toCSV.Append("Alte Gesamtsumme: ");
-                _toCSV.Append(';');
-                _toCSV.Append(String.Format("{0:0.00}", _sum) + " EUR");
-                _toCSV.AppendLine();
-            }
-
-            _toCSV.Append("Exportiert am " + DateTime.Now + " Uhr");
-
-            Session["Report"] = _toCSV;
-            Session["ReportFileName"] = "export - Order" + _myOrder.OrderNumber + " " + DateTime.Now + ".csv";
         }
 
         protected void btDownloadCSV_Click(object sender, EventArgs e)
+        {
+            DownloadCSV();
+        }
+
+        private void DownloadCSV()
         {
             Response.Clear();
             Response.AddHeader("Content-Disposition", "attachment;filename=" + Session["ReportFileName"].ToString());

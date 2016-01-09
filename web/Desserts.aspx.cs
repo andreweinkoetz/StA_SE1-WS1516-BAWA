@@ -10,7 +10,6 @@ namespace web
 {
     public partial class Dessert_Code : System.Web.UI.Page
     {
-
         protected override void OnInit(EventArgs e)
         {
             Session["category"] = 3;
@@ -18,7 +17,12 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Nichts zu beachten.
+        }
 
+        protected void gvDesserts_DataBound(object sender, EventArgs e)
+        {
+            EnableSelection();
         }
 
         private void EnableSelection()
@@ -35,6 +39,11 @@ namespace web
 
         protected void gvDesserts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SelectedDessertToCart();
+        }
+
+        private void SelectedDessertToCart()
+        {
             GridViewRow selectedRow = gvDesserts.SelectedRow;
             int _id = Int32.Parse(selectedRow.Cells[1].Text);
 
@@ -42,11 +51,6 @@ namespace web
             clsProductExtended _myProduct = clsProductExtended.ProductFactory(_id, 1);
 
             ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
-        }
-
-        protected void gvDesserts_DataBound(object sender, EventArgs e)
-        {
-            EnableSelection();
         }
     }
 }

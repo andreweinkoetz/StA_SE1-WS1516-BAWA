@@ -21,22 +21,12 @@ namespace web
             {
                 if (Session["toEdit"] != null && !IsPostBack)
                 {
-                    clsSizeFacade _sizeFacade = new clsSizeFacade();
-                    clsSize _mySize = _sizeFacade.GetSizeById((int)Session["toEdit"]);
-                    txtSid.Text = _mySize.Id.ToString();
-                    txtSname.Text = _mySize.Name;
-                    txtSvalue.Text = _mySize.Value.ToString();
-                    Session["pCategory"] = _mySize.CID;
-                    lblSizeEdit.Text = "Größe " + _mySize.Name + " bearbeiten.";
-                    btEnter.Text = "Größe ändern";
-
+                    InitializeToEdit();
 
                 }
                 else if (!IsPostBack)
                 {
-                    lblSizeEdit.Text = "Neue Größe anlegen";
-                    btEnter.Text = "Größe hinzufügen";
-                    btDelete.Visible = false;
+                    InitializeCreateNew();
                 }
             }
             else
@@ -44,14 +34,33 @@ namespace web
                 Response.Redirect("login_page.aspx");
             }
         }
-        protected void btDelete_Click(object sender, EventArgs e)
+
+        private void InitializeToEdit()
         {
             clsSizeFacade _sizeFacade = new clsSizeFacade();
-            _sizeFacade.DeleteSizeById(Int32.Parse(txtSid.Text));
-            RedirectAdmData();
+            clsSize _mySize = _sizeFacade.GetSizeById((int)Session["toEdit"]);
+            txtSid.Text = _mySize.Id.ToString();
+            txtSname.Text = _mySize.Name;
+            txtSvalue.Text = _mySize.Value.ToString();
+            Session["pCategory"] = _mySize.CID;
+            lblSizeEdit.Text = "Größe " + _mySize.Name + " bearbeiten.";
+            btEnter.Text = "Größe ändern";
+        }
+
+        private void InitializeCreateNew()
+        {
+            lblSizeEdit.Text = "Neue Größe anlegen";
+            btEnter.Text = "Größe hinzufügen";
+            btDelete.Visible = false;
         }
 
         protected void btEnter_Click(object sender, EventArgs e)
+        {
+            InsertOrUpdateSize();
+
+        }
+
+        private void InsertOrUpdateSize()
         {
             bool readyForDB = true, insertSuccessful = false;
 
@@ -101,14 +110,24 @@ namespace web
             {
                 lblError.Text = "Fehlerhafte Eingabe. Bitte überprüfen Sie die roten Felder.";
             }
+        }
 
+        protected void btDelete_Click(object sender, EventArgs e)
+        {
+            DeleteSize();
+        }
+
+        private void DeleteSize()
+        {
+            clsSizeFacade _sizeFacade = new clsSizeFacade();
+            _sizeFacade.DeleteSizeById(Int32.Parse(txtSid.Text));
+            RedirectAdmData();
         }
 
         protected void btBack_Click(object sender, EventArgs e)
         {
             RedirectAdmData();
         }
-
 
         private void RedirectAdmData()
         {

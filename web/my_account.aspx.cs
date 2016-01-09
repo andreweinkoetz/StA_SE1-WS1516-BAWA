@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bll;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,11 +14,18 @@ namespace web
         {
             if(Session["userID"] == null)
             {
-                lblMyOrders.ForeColor = System.Drawing.Color.Red;
-                lblMyOrders.Font.Size = 16;
-                lblMyOrders.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. \nBitte melden Sie sich an.";
-                btLogout.Visible = false;
+                Response.Redirect("login_page.aspx");
+            } else
+            {
+                WelcomeUser((int)Session["userID"]);
             }
+        }
+
+        private void WelcomeUser(int _uId)
+        {
+            clsUser _user = new clsUserFacade().UserGetById(_uId);
+            lblWelcome.Text = "Herzlich willkommen " + _user.Title + " " + _user.Name + ",<br />";
+            lblWelcome.Text += "Hier finden Sie Ihre offenen sowie abgeschlossenen Bestellungen:";
         }
 
         protected void btLogout_Click(object sender, EventArgs e)
@@ -29,7 +37,7 @@ namespace web
         protected void gvMyOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["oNumber"] = Int32.Parse(gvMyOrders.SelectedRow.Cells[1].Text);
-            Response.Redirect("order_detail.aspx",false);
+            Response.Redirect("order_detail.aspx", false);
         }
     }
 }

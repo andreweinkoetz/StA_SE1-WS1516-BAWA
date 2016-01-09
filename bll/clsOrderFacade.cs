@@ -308,5 +308,47 @@ namespace bll
             }
         }
 
+        public static string CreateStringOfOpenOrders(List<Int32> _orderNumbers, int _selAdmData)
+        {
+            String _openOrders = "";
+
+            switch (_selAdmData)
+            {
+                case 1:
+                    _openOrders = "Produkt";
+                    break;
+                case 2:
+                    _openOrders = "Extra";
+                    break;
+                case 3:
+                    _openOrders = "Benutzer";
+                    break;
+            }
+
+            _openOrders += " kann nicht gelöscht werden, da in folgenden Bestellungen enthalten: <br />{<br />";
+            foreach (int _oNumber in _orderNumbers)
+            {
+                _openOrders += _oNumber + "<br />";
+            }
+            _openOrders += "}";
+            return _openOrders;
+        }
+
+        public bool InsertOrderedProductWithExtras(clsOrderExtended _myOrder, clsProductExtended _product)
+        {
+            bool orderIsCorrect;
+            _product.OpID = _product.GetHashCode() + _myOrder.OrderNumber;
+            orderIsCorrect = InsertOrderedProduct(_myOrder, _product);
+            if (_product.ProductExtras != null)
+            {
+                if (_product.ProductExtras.Count > 0)
+                {
+                    orderIsCorrect = InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
+                }
+            }
+
+            return orderIsCorrect;
+        }
+
     } // clsOrderFacade
 }

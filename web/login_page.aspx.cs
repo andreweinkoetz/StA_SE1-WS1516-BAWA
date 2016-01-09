@@ -51,29 +51,6 @@ namespace web
         }
 
         /// <summary>
-        /// Creates and returns the MD5 Hash of a String
-        /// </summary>
-        /// <param name="md5Hash"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public static string createMD5Hash(MD5 md5Hash, string password)
-        {
-
-            // Converts the password to a byte array and computes the MD5 hash
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Formats each byte into a hexadecimal string
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return sBuilder.ToString();
-        }
-
-        /// <summary>
         /// Verify the password
         /// </summary>
         /// <param name="md5Hash"></param>
@@ -82,7 +59,7 @@ namespace web
         /// <returns></returns>
         bool VerifyPassword(MD5 md5Hash, string passwordInput, string originalPassword)
         {
-            string passwordInputHash = createMD5Hash(md5Hash, passwordInput);
+            string passwordInputHash = clsUser.CreateMD5Hash(md5Hash, passwordInput);
 
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
 

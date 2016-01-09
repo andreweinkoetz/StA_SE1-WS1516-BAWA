@@ -235,7 +235,7 @@ namespace bll
         /// Erstellt eine Tabelle mit allen Produkten einer Bestellung.
         /// </summary>
         /// <param name="_selectedProducts">alle Produkte der Bestellung</param>
-        /// <returns>die neu erstellte Tabelle mit Produkten</returns>
+        /// <returns>neu erstellte Tabelle mit Produkten</returns>
         public DataTable CreateDataTableOfOrder(List<clsProductExtended> _selectedProducts)
         {
             DataTable dt = new DataTable();
@@ -291,6 +291,96 @@ namespace bll
                     return _product.Size + " Stück";
             }
             return "Fehler in der Verarbeitung";
+        }
+
+        /// <summary>
+        /// Erstellt einen Report aus Attributen der Bestellung.
+        /// </summary>
+        /// <returns>Reportinhalt als String vorbereitet für CSV-Export.</returns>
+        public String CreateCSVString()
+        {
+            clsOrderFacade _orderFacade = new clsOrderFacade();
+            List<clsProductExtended> _myProductList = _orderFacade.GetOrderedProductsByOrderNumber(OrderNumber);
+
+            double _sum = 0.0;
+
+            StringBuilder _toCSV = new StringBuilder();
+
+            _toCSV.Append("Bestellung: #" + OrderNumber);
+            _toCSV.AppendLine();
+            _toCSV.Append("Bestellnummer;Kunde;Lieferzeitpunkt;Lieferung;Endstatus;Gesamtsumme");
+            _toCSV.AppendLine();
+            _toCSV.Append(OrderNumber);
+            _toCSV.Append(';');
+            _toCSV.Append(UserName);
+            _toCSV.Append(';');
+            _toCSV.Append(OrderDeliveryDate);
+            _toCSV.Append(';');
+            _toCSV.Append(OrderDelivery);
+            _toCSV.Append(';');
+            _toCSV.Append(OrderStatusDescription);
+            _toCSV.Append(';');
+            _toCSV.Append(String.Format("{0:N}", OrderSum));
+            _toCSV.Append(" EUR");
+            _toCSV.AppendLine();
+            _toCSV.Append("Enthaltene Produkte:");
+            _toCSV.AppendLine();
+            _toCSV.Append("Produktname;Preis pro Einheit;Größe;Produktkategorie;Enthaltene Extras;Preis des Produkts");
+            _toCSV.AppendLine();
+
+            foreach (clsProductExtended _myProduct in _myProductList)
+            {
+                double _productPrice = _myProduct.Size * _myProduct.PricePerUnit;
+                _toCSV.Append(_myProduct.Name);
+                _toCSV.Append(';');
+                _toCSV.Append(String.Format("{0:N}", _myProduct.PricePerUnit));
+                _toCSV.Append(" EUR");
+                _toCSV.Append(';');
+                _toCSV.Append(_myProduct.Size);
+                _toCSV.Append(';');
+                _toCSV.Append(_myProduct.Category);
+                _toCSV.Append(';');
+
+                double _extrasPrice = 0.0;
+                foreach (clsExtra _myExtra in _myProduct.ProductExtras)
+                {
+                    _extrasPrice += _myExtra.Price;
+                    _toCSV.Append(_myExtra.Name);
+                    _toCSV.Append(" ");
+                }
+                _toCSV.Append(';');
+                _productPrice += _extrasPrice;
+                _sum += _productPrice;
+                _toCSV.Append(String.Format("{0:N}", _productPrice));
+                _toCSV.Append(" EUR");
+                _toCSV.AppendLine();
+            }
+            _toCSV.AppendLine();
+            if (MyCoupon != null)
+            {
+                double _discount = _sum - OrderSum;
+                _toCSV.Append("Gutschein# " + CouponId + " (" + MyCoupon.Code + ") eingelöst.");
+                _toCSV.Append(";;;;");
+                _toCSV.Append("Wert: ");
+                _toCSV.Append(';');
+                _toCSV.Append("-" + MyCoupon.Discount + "%");
+                _toCSV.AppendLine();
+                _toCSV.Append(";;;;");
+                _toCSV.Append("Rabatt: ");
+                _toCSV.Append(';');
+                _toCSV.Append(String.Format("{0:0.00}", _discount) + " EUR");
+                _toCSV.AppendLine();
+                _toCSV.Append(";;;;");
+                _toCSV.Append("Alte Gesamtsumme: ");
+                _toCSV.Append(';');
+                _toCSV.Append(String.Format("{0:0.00}", _sum) + " EUR");
+                _toCSV.AppendLine();
+            }
+
+            _toCSV.Append("Exportiert am " + DateTime.Now + " Uhr");
+
+            return _toCSV.ToString();
+            
         }
     }
 }

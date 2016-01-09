@@ -7,6 +7,7 @@
         <tr>
             <td style="text-align: left">
                 <asp:Label ID="lblAdmCoupon" runat="server" Text="Gutscheinverwaltung" Font-Bold="true" Font-Size="X-Large"></asp:Label>
+                <p style="font-size:small">Gutscheinadministration, ausschließlich für berechtigte Personen vorgesehen.</p>
             </td>
             <td style="text-align: right">
                 <asp:Button ID="btBack" runat="server" Text="Zurück" OnClick="btBack_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
