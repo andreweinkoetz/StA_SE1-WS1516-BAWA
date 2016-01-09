@@ -23,50 +23,12 @@ namespace web
             {
                 if (Session["toEdit"] != null && !IsPostBack)
                 {
-                    btEnter.Text = "Benutzer ändern";
-                    clsUserFacade _userFacade = new clsUserFacade();
-                    clsUser _myUser = _userFacade.UserGetById((int)Session["toEdit"]);
-                    _userFacade = new clsUserFacade();
-                    List<Int32> _userOrders = _userFacade.GetOrdersFromUserById(_myUser.ID);
-                    if (_userOrders.Count == 0)
-                    {
-                        btDelete.Enabled = true;
-                    }
-                    else
-                    {
-                        lblOpenOrders.Text = "Benutzer kann nicht gelöscht werden, da er folgende Bestellungen aufgegeben hat: <br />{<br />";
-
-                        foreach (int _oNumber in _userOrders)
-                        {
-                            lblOpenOrders.Text += _oNumber + "<br />";
-                        }
-
-                        lblOpenOrders.Text += "}";
-                        btDelete.BackColor = System.Drawing.Color.Gray;
-
-                    }
-                    txtBoxId.Text = _myUser.ID.ToString();
-                    txtBoxEmail.Text = _myUser.EMail;
-                    ddlTitle.SelectedValue = _myUser.Title;
-                    txtBoxName.Text = _myUser.Name;
-                    txtBoxVorname.Text = _myUser.Prename;
-                    txtBoxPlace.Text = _myUser.Place;
-                    txtBoxPLZ.Text = _myUser.Postcode.ToString();
-                    txtBoxStraße.Text = _myUser.Street;
-                    txtBoxHnr.Text = _myUser.Nr.ToString();
-                    txtBoxPhone.Text = _myUser.Phone;
-                    chkActive.Checked = _myUser.IsActive;
-                    ddlUserRole.SelectedValue = _myUser.Role.ToString();
-                    lblUserEdit.Text = "Benutzer #" + _myUser.ID + " ändern:";
+                    InitializeToEdit();
 
                 }
                 else if (!IsPostBack)
                 {
-                    lblUserEdit.Text = "Benutzer anlegen";
-                    btEnter.Text = "Benutzer anlegen";
-                    btDelete.Visible = false;
-                    pwRow.Visible = pwRow2.Visible = true;
-                    changePwChkRow.Visible = false;
+                    InitializeCreateNew();
 
                 }
             }
@@ -76,7 +38,53 @@ namespace web
             }
         }
 
+        private void InitializeToEdit()
+        {
+            btEnter.Text = "Benutzer ändern";
+            clsUserFacade _userFacade = new clsUserFacade();
+            clsUser _myUser = _userFacade.UserGetById((int)Session["toEdit"]);
+            _userFacade = new clsUserFacade();
+            List<Int32> _userOrders = _userFacade.GetOrdersFromUserById(_myUser.ID);
+            if (_userOrders.Count == 0)
+            {
+                btDelete.Enabled = true;
+            }
+            else
+            {
+                lblOpenOrders.Text = clsOrderFacade.CreateStringOfOpenOrders(_userOrders, (int)Session["selAdmData"]);
+                btDelete.BackColor = System.Drawing.Color.Gray;
+
+            }
+            txtBoxId.Text = _myUser.ID.ToString();
+            txtBoxEmail.Text = _myUser.EMail;
+            ddlTitle.SelectedValue = _myUser.Title;
+            txtBoxName.Text = _myUser.Name;
+            txtBoxVorname.Text = _myUser.Prename;
+            txtBoxPlace.Text = _myUser.Place;
+            txtBoxPLZ.Text = _myUser.Postcode.ToString();
+            txtBoxStraße.Text = _myUser.Street;
+            txtBoxHnr.Text = _myUser.Nr.ToString();
+            txtBoxPhone.Text = _myUser.Phone;
+            chkActive.Checked = _myUser.IsActive;
+            ddlUserRole.SelectedValue = _myUser.Role.ToString();
+            lblUserEdit.Text = "Benutzer #" + _myUser.ID + " ändern:";
+        }
+
+        private void InitializeCreateNew()
+        {
+            lblUserEdit.Text = "Benutzer anlegen";
+            btEnter.Text = "Benutzer anlegen";
+            btDelete.Visible = false;
+            pwRow.Visible = pwRow2.Visible = true;
+            changePwChkRow.Visible = false;
+        }
+
         protected void btDelete_Click(object sender, EventArgs e)
+        {
+            DeleteUser();
+        }
+
+        private void DeleteUser()
         {
             clsUserFacade _userFacade = new clsUserFacade();
             _userFacade.UserDelete(Int32.Parse(txtBoxId.Text));
@@ -84,6 +92,12 @@ namespace web
         }
 
         protected void btEnter_Click(object sender, EventArgs e)
+        {
+            InsertOrUpdateUser();
+
+        }
+
+        private void InsertOrUpdateUser()
         {
             bool successful = false;
             bool readyForDB = true;
@@ -134,7 +148,7 @@ namespace web
                 if (!String.IsNullOrEmpty(txtBoxPassword.Text) && txtBoxPassword.Text == txtBoxPasswordx2.Text)
                 {
                     MD5 hash = MD5.Create();
-                    _userToInsert.Password = createMD5Hash(hash, txtBoxPasswordx2.Text);
+                    _userToInsert.Password = clsUser.CreateMD5Hash(hash, txtBoxPasswordx2.Text);
                 }
                 else
                 {
@@ -164,36 +178,11 @@ namespace web
                     lblError.Text = "Fehler bei der DB-INSERT.";
                 }
             }
-
         }
 
         protected void btBack_Click(object sender, EventArgs e)
         {
             RedirectAdmData();
-        }
-
-
-        /// <summary>
-        /// Creates and returns the MD5 Hash of a String
-        /// </summary>
-        /// <param name="md5Hash"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        private string createMD5Hash(MD5 md5Hash, string password)
-        {
-
-            // Converts the password to a byte array and computes the MD5 hash
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Formats each byte into a hexadecimal string
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return sBuilder.ToString();
         }
 
         private void RedirectAdmData()

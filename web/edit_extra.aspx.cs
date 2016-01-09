@@ -21,36 +21,11 @@ namespace web
             {
                 if (Session["toEdit"] != null && !IsPostBack)
                 {
-                    clsExtraFacade _extraFacade = new clsExtraFacade();
-                    clsExtra _myExtra = _extraFacade.GetExtraById((int)Session["toEdit"]);
-                    _extraFacade = new clsExtraFacade();
-                    List<Int32> _orderNumbers = _extraFacade.GetOrdersOfExtrasByEID(_myExtra.ID);
-                    if (_orderNumbers.Count == 0)
-                    {
-                        btDelete.Enabled = true;
-                    }
-                    else
-                    {
-                        lblOpenOrders.Text = "Extra kann nicht gelöscht werden, da es in folgenden Bestellungen enthalten ist: <br />{<br />";
-                        foreach (int _oNumber in _orderNumbers)
-                        {
-                            lblOpenOrders.Text += _oNumber + "<br />";
-                        }
-                        lblOpenOrders.Text += "}";
-                        btDelete.BackColor = System.Drawing.Color.Gray;
-                    }
-                    txtEid.Text = _myExtra.ID.ToString();
-                    txtEname.Text = _myExtra.Name;
-                    txtPpE.Text = _myExtra.Price.ToString();
-                    chkSell.Checked = _myExtra.ToSell;
-                    lblExtraEdit.Text = "Extra \"" + _myExtra.Name + "\" bearbeiten";
-                    btEnter.Text = "Extra ändern";
+                    InitializeToEdit();
                 }
                 else if (!IsPostBack)
                 {
-                    lblExtraEdit.Text = "Neues Extra anlegen";
-                    btEnter.Text = "Extra hinzufügen";
-                    btDelete.Visible = false;
+                    InitializeCreateNew();
                 }
             }
             else
@@ -59,14 +34,42 @@ namespace web
             }
         }
 
-        private void RedirectAdmData()
+        private void InitializeToEdit()
         {
-            Session["toEdit"] = null;
-            Session["pCategory"] = null;
-            Response.Redirect("adm_data.aspx");
+            clsExtraFacade _extraFacade = new clsExtraFacade();
+            clsExtra _myExtra = _extraFacade.GetExtraById((int)Session["toEdit"]);
+            _extraFacade = new clsExtraFacade();
+            List<Int32> _orderNumbers = _extraFacade.GetOrdersOfExtrasByEID(_myExtra.ID);
+            if (_orderNumbers.Count == 0)
+            {
+                btDelete.Enabled = true;
+            }
+            else
+            {
+                lblOpenOrders.Text = clsOrderFacade.CreateStringOfOpenOrders(_orderNumbers, (int)Session["selAdmData"]);
+                btDelete.BackColor = System.Drawing.Color.Gray;
+            }
+            txtEid.Text = _myExtra.ID.ToString();
+            txtEname.Text = _myExtra.Name;
+            txtPpE.Text = _myExtra.Price.ToString();
+            chkSell.Checked = _myExtra.ToSell;
+            lblExtraEdit.Text = "Extra \"" + _myExtra.Name + "\" bearbeiten";
+            btEnter.Text = "Extra ändern";
+        }
+
+        private void InitializeCreateNew()
+        {
+            lblExtraEdit.Text = "Neues Extra anlegen";
+            btEnter.Text = "Extra hinzufügen";
+            btDelete.Visible = false;
         }
 
         protected void btEnter_Click(object sender, EventArgs e)
+        {
+            InsertOrUpdateExtra();
+        }
+
+        private void InsertOrUpdateExtra()
         {
             bool readyForDB = true, insertSuccessful = false;
 
@@ -117,6 +120,11 @@ namespace web
 
         protected void btDelete_Click(object sender, EventArgs e)
         {
+            DeleteExtra();
+        }
+
+        private void DeleteExtra()
+        {
             clsExtraFacade _extraFacade = new clsExtraFacade();
             _extraFacade.DeleteExtraByID(Int32.Parse(txtEid.Text));
             RedirectAdmData();
@@ -126,5 +134,13 @@ namespace web
         {
             RedirectAdmData();
         }
+
+        private void RedirectAdmData()
+        {
+            Session["toEdit"] = null;
+            Session["pCategory"] = null;
+            Response.Redirect("adm_data.aspx");
+        }
+
     }
 }

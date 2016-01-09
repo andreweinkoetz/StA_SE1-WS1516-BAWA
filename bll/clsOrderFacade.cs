@@ -308,5 +308,31 @@ namespace bll
             }
         }
 
+        public static string CreateStringOfOpenOrders(List<Int32> _orderNumbers, int _selAdmData)
+        {
+            String _openOrders = "";
+
+            switch (_selAdmData)
+            {
+                case 1:
+                    _openOrders = "Produkt";
+                    break;
+                case 2:
+                    _openOrders = "Extra";
+                    break;
+                case 3:
+                    _openOrders = "Benutzer";
+                    break;
+            }
+
+            _openOrders += " kann nicht gelöscht werden, da in folgenden Bestellungen enthalten: <br />{<br />";
+            foreach (int _oNumber in _orderNumbers)
+            {
+                _openOrders += _oNumber + "<br />";
+            }
+            _openOrders += "}";
+            return _openOrders;
+        }
+
     } // clsOrderFacade
 }

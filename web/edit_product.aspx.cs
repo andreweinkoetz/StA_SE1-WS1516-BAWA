@@ -22,45 +22,12 @@ namespace web
             {
                 if (Session["toEdit"] != null && !IsPostBack)
                 {
-                    clsProductFacade _myFacade = new clsProductFacade();
-                    clsProductExtended _myProduct = _myFacade.GetProductByID((int)Session["toEdit"]);
-                    lblProductEdit.Text = "Produkt \"" + _myProduct.Name + "\" bearbeiten:";
-                    txtPid.Text = _myProduct.Id.ToString();
-                    Session["pCategory"] = _myProduct.CID;
-                    txtPname.Text = _myProduct.Name;
-                    txtPpU.Text = _myProduct.PricePerUnit.ToString();
-                    chkSell.Checked = _myProduct.ToSell;
-                    btEnter.Text = "Produkt ändern";
-                    _myFacade = new clsProductFacade();
-                    List<Int32> _ordersOfProduct = _myFacade.GetOrdersOfProductByPid(_myProduct.Id);
-                    if (_ordersOfProduct.Count == 0)
-                    {
-                        btDelete.Enabled = true;
-                    }
-                    else
-                    {
-                        ddlCategory.Enabled = false;
-                        btDelete.BackColor = System.Drawing.Color.Gray;
-                        String _openOrders = "Produkt kann weder gelöscht, noch dessen Kategorie verändert werden, da es in folgenden Bestellungen hinterlegt ist: <br />{<br />";
-
-                        foreach (int _oNumber in _ordersOfProduct)
-                        {
-                            _openOrders += _oNumber + "<br />";
-                        }
-
-                        _openOrders += "}";
-
-                        lblOpenOrders.Text = _openOrders;
-                    }
+                    InitializeToEdit();
                 }
                 else if (!IsPostBack)
                 {
-                    lblProductEdit.Text = "Neues Produkt anlegen";
-                    btEnter.Text = "Produkt hinzufügen";
-                    btDelete.Visible = false;
+                    InitializeCreateNew();
                 }
-
-
 
             }
             else
@@ -69,20 +36,44 @@ namespace web
             }
         }
 
-        protected void ddlCategory_DataBound(object sender, EventArgs e)
+        private void InitializeToEdit()
         {
-            if (Session["pCategory"] != null)
+            clsProductFacade _myFacade = new clsProductFacade();
+            clsProductExtended _myProduct = _myFacade.GetProductByID((int)Session["toEdit"]);
+            lblProductEdit.Text = "Produkt \"" + _myProduct.Name + "\" bearbeiten:";
+            txtPid.Text = _myProduct.Id.ToString();
+            Session["pCategory"] = _myProduct.CID;
+            txtPname.Text = _myProduct.Name;
+            txtPpU.Text = _myProduct.PricePerUnit.ToString();
+            chkSell.Checked = _myProduct.ToSell;
+            btEnter.Text = "Produkt ändern";
+            _myFacade = new clsProductFacade();
+            List<Int32> _ordersOfProduct = _myFacade.GetOrdersOfProductByPid(_myProduct.Id);
+            if (_ordersOfProduct.Count == 0)
             {
-                ddlCategory.SelectedValue = Session["pCategory"].ToString();
+                btDelete.Enabled = true;
+            }
+            else
+            {
+                ddlCategory.Enabled = false;
+                btDelete.BackColor = System.Drawing.Color.Gray;
+                lblOpenOrders.Text = clsOrderFacade.CreateStringOfOpenOrders(_ordersOfProduct, (int)Session["selAdmData"]);
             }
         }
 
-        protected void btBack_Click(object sender, EventArgs e)
+        private void InitializeCreateNew()
         {
-            RedirectAdmData();
+            lblProductEdit.Text = "Neues Produkt anlegen";
+            btEnter.Text = "Produkt hinzufügen";
+            btDelete.Visible = false;
         }
 
         protected void btEnter_Click(object sender, EventArgs e)
+        {
+            InsertOrUpdateProduct();
+        }
+
+        private void InsertOrUpdateProduct()
         {
             bool insertSuccessful = false, isValidPrice = true;
 
@@ -130,15 +121,13 @@ namespace web
             }
         }
 
-
-        private void RedirectAdmData()
+        protected void btDelete_Click(object sender, EventArgs e)
         {
-            Session["toEdit"] = null;
-            Session["pCategory"] = null;
-            Response.Redirect("adm_data.aspx");
+            DeleteProduct();
+
         }
 
-        protected void btDelete_Click(object sender, EventArgs e)
+        private void DeleteProduct()
         {
             clsProductFacade _productFacade = new clsProductFacade();
             if (_productFacade.DeleteProductByPid(Int32.Parse(txtPid.Text)))
@@ -149,7 +138,26 @@ namespace web
             {
                 lblError.Text = "Produkt konnte nicht gelöscht werden. Fehler in DB";
             }
+        }
 
+        protected void btBack_Click(object sender, EventArgs e)
+        {
+            RedirectAdmData();
+        }
+
+        private void RedirectAdmData()
+        {
+            Session["toEdit"] = null;
+            Session["pCategory"] = null;
+            Response.Redirect("adm_data.aspx");
+        }
+
+        protected void ddlCategory_DataBound(object sender, EventArgs e)
+        {
+            if (Session["pCategory"] != null)
+            {
+                ddlCategory.SelectedValue = Session["pCategory"].ToString();
+            }
         }
     }
 }

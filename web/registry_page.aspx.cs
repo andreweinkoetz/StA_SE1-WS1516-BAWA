@@ -194,7 +194,7 @@ namespace web
                     if (!errorOccured)
                     {
                         MD5 md5Hash = MD5.Create();
-                        string hash = createMD5Hash(md5Hash, txtBoxPasswordx2.Text);
+                        string hash = clsUser.CreateMD5Hash(md5Hash, txtBoxPasswordx2.Text);
                         userToInsert.Password = hash;
                     }
                     break;
@@ -210,29 +210,6 @@ namespace web
             }
 
             return errorOccured;
-        }
-
-        /// <summary>
-        /// Creates and returns the MD5 Hash of a String
-        /// </summary>
-        /// <param name="md5Hash"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        private string createMD5Hash(MD5 md5Hash, string password)
-        {
-
-            // Converts the password to a byte array and computes the MD5 hash
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-            StringBuilder sBuilder = new StringBuilder();
-
-            // Formats each byte into a hexadecimal string
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return sBuilder.ToString();
         }
 
         /// <summary>

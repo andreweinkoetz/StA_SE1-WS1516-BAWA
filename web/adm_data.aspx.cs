@@ -288,18 +288,17 @@ namespace web
 
         }
 
-
-        protected void btBack_Click(object sender, EventArgs e)
-        {
-            Session["toEdit"] = Session["selAdmData"] = null;
-            Response.Redirect("administration.aspx");
-        }
-
         protected void gvAdmData_SelectedIndexChanged(object sender, EventArgs e)
         {
             TableCellCollection _rowContent = gvAdmData.SelectedRow.Cells;
             Session["toEdit"] = Int32.Parse(_rowContent[1].Text);
             TransferToEditPage();
+        }
+
+        protected void btBack_Click(object sender, EventArgs e)
+        {
+            Session["toEdit"] = Session["selAdmData"] = null;
+            Response.Redirect("administration.aspx");
         }
 
         protected void btCreateNew_Click(object sender, EventArgs e)
