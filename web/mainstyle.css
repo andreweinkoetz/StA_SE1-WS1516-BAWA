@@ -70,10 +70,8 @@ body {
 
 #footer {
     height: 20px;
-    background-color: #FFFFFF;
     width: 100%;
     padding-top: 20px;
-    padding-bottom:10px;
     position:fixed;
     bottom:0px;
 }
@@ -81,6 +79,12 @@ body {
     #footer p {
         text-align: center;
         font-size:small;
+        width:960px; 
+        background-color:white; 
+        bottom:0px; 
+        position:fixed; 
+        height:30px;
+        padding-top:10px;
     }
 
 #head_logo {
