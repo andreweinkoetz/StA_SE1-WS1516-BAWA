@@ -112,5 +112,26 @@ namespace web
                 txtBoxPassword.Text = safe;
             }
         }
+
+        protected void btadmin_Click(object sender, EventArgs e)
+        {
+            Session["roleID"] = 1;
+            Session["userID"] = 13;
+            Response.Redirect("administration.aspx", true);
+        }
+
+        protected void btservice_Click(object sender, EventArgs e)
+        {
+            Session["roleID"] = 2;
+            Session["userID"] = 14;
+            Response.Redirect("order_management.aspx", true);
+        }
+
+        protected void btkunde_Click(object sender, EventArgs e)
+        {
+            Session["roleID"] = 3;
+            Session["userID"] = 15;
+            Response.Redirect("pizza.aspx", true);
+        }
     }
 }

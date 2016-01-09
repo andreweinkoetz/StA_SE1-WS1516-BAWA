@@ -19,7 +19,7 @@
     <br />
     <hr />
     <p>
-        Sie bestellen zum ersten Mal bei uns? Registrieren Sie sich <a href="RegistryPage.aspx">hier</a>!
+        Sie bestellen zum ersten Mal bei uns? Registrieren Sie sich <a href="registry_page.aspx">hier</a>!
     </p>
     <br />
     <p>
@@ -59,21 +59,28 @@
             <td><b>Username</b></td>
             <td><b>Password</b></td>
             <td><b>Role</b></td>
+            <td><b>Übernehmen</b></td>
         </tr>
         <tr>
             <td>admin@pizzapizza.de</td>
             <td>admin</td>
             <td>Administrator</td>
+            <td>
+                <asp:Button ID="btadmin" runat="server" Text="Admin" OnClick="btadmin_Click" Height="35px" Width="100px" /></td>
         </tr>
         <tr>
             <td>service@pizzapizza.de</td>
             <td>admin</td>
             <td>Service-Mitarbeiter</td>
+            <td>
+                <asp:Button ID="btservice" runat="server" Text="Service" OnClick="btservice_Click" Height="35px" Width="100px" /></td>
         </tr>
         <tr>
             <td>kunde@pizzapizza.de</td>
             <td>admin</td>
             <td>Kunde</td>
+            <td>
+                <asp:Button ID="btkunde" runat="server" Text="Kunde" OnClick="btkunde_Click" Height="35px" Width="100px" /></td>
         </tr>
     </table>
     <p class="p-login">Für den Gastzugang wählen Sie einfach die gewünschte Seite.</p>
