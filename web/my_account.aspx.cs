@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bll;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,17 @@ namespace web
             if(Session["userID"] == null)
             {
                 Response.Redirect("login_page.aspx");
+            } else
+            {
+                WelcomeUser((int)Session["userID"]);
             }
+        }
+
+        private void WelcomeUser(int _uId)
+        {
+            clsUser _user = new clsUserFacade().UserGetById(_uId);
+            lblWelcome.Text = "Herzlich willkommen " + _user.Title + " " + _user.Name + ",<br />";
+            lblWelcome.Text += "Hier finden Sie Ihre offenen sowie abgeschlossenen Bestellungen:";
         }
 
         protected void btLogout_Click(object sender, EventArgs e)

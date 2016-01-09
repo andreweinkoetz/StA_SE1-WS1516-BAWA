@@ -7,6 +7,7 @@
         <tr>
             <td style="text-align: left">
                 <asp:Label ID="lblOrderMgmt" runat="server" Text="Bestellverwaltung" Font-Bold="true" Font-Size="X-Large"></asp:Label>
+                <p style="font-size:small">Bitte wählen Sie zunächst die Bestellung, deren Status geändert werden soll.<br />Dies erfolgt über die Buttons in der linken Spalte der Tabelle (Hand).<br />Anschließend haben Sie die Möglichkeit am Ende der Seite den neuen Status der Bestellung festzulegen. <br />Bitte beachten Sie, dass ausschließlich die rot-umrandete Bestellung bearbeitet wird.</p>
             </td>
             <td style="text-align: right">
                 <asp:Button ID="btLogout" runat="server" Text="Logout" OnClick="btLogout_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />

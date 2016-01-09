@@ -5,7 +5,8 @@
     <table style="width:100%">
         <tr>
             <td style="text-align:left">
-                <asp:Label ID="lblMyOrders" runat="server" Text="Meine Bestellungen (Übersicht)" Font-Size="X-Large" Font-Bold="true"></asp:Label>
+                <asp:Label ID="lblMyOrders" runat="server" Text="Meine Bestellungen (Übersicht)" Font-Size="X-Large" Font-Bold="true"></asp:Label><br />
+                <asp:Label ID="lblWelcome" runat="server" Text=""></asp:Label>
             </td>
             <td style="text-align:right">
                 <asp:Button ID="btLogout" runat="server" Text="Logout" OnClick="btLogout_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />

@@ -45,10 +45,6 @@ namespace web
             {
                 Response.Redirect("orders.aspx", true);
             }
-            //else if (Session["selProducts"] != null)
-            //{
-            //    selectedProducts = (List<clsProductExtended>)Session["selProducts"];
-            //}
         }
 
         protected void chkDelivery_CheckedChanged(object sender, EventArgs e)

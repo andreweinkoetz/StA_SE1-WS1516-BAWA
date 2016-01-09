@@ -8,7 +8,8 @@
         }
 
         .tbl-td-Style {
-            text-align: justify;
+            text-align: left;
+            vertical-align:top;
         }
     </style>
 </asp:Content>
@@ -17,6 +18,7 @@
         <tr>
             <td class="auto-style1">
                 <asp:Label ID="lblAdminOverview" runat="server" Text="Administration" Font-Size="X-Large" Font-Bold="true"></asp:Label>
+                <p style="font-size:small">Administrationsbereich, ausschließlich für berechtigte Personen vorgesehen.</p>
             </td>
             <td style="text-align: right">
                 <asp:Button ID="btLogout" runat="server" Text="Logout" OnClick="btLogout_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
@@ -26,7 +28,7 @@
 
     <hr />
 
-    <asp:Table ID="tblAdm" runat="server" CellSpacing="10" Width="100%" CssClass="tbl-Style">
+    <asp:Table ID="tblAdm" runat="server" CellSpacing="20" Width="100%" CssClass="tbl-Style">
         <asp:TableHeaderRow>
             <asp:TableHeaderCell>
                 <asp:DropDownList ID="ddlistData" runat="server" Width="200px">
@@ -69,16 +71,16 @@
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell CssClass="tbl-td-Style">
-                <p>Text für Stammdatenbearbeitung: Hier steht was man da so alles machen kann. usw..</p>
+                <p><b>Stammdatenbearbeitung:</b> <br />Bearbeiten Sie hier alle Stammdaten.<br /><br />Es k&ouml;nnen neue angelegt und bestehende verändert werden. <br /><br />Sie haben die Auswahl zwischen Kunden, Produkten, Extras und Größen.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
-                <p>Text für Bestellverwaltung kurze Beschreibung. Sollte auch in OrderManagement stehen.</p>
+                <p><b>Bestellungen:</b><br />Verwalten Sie aktuelle Bestellungen oder archivieren Sie bereits abgeschlossene Bestellungen.<br /><br />Als Manager sind Sie außerdem in der Lage den Status, auch bereits abgeschlossener Bestellungen zu ändern.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
-                <p>Durch die Auswertungen erhält der Pizzabäcker einen Überblick über die aktuelle wirtschaftliche Lage des Unternehmens.</p>
+                <p><b>Auswertungen:</b><br />Durch die Auswertungen erhalten Sie einen Überblick über die aktuelle wirtschaftliche Lage Ihres Unternehmens.<br /><br />Wählen Sie zwischen diversen Auswertungsmöglichkeiten und treffen Sie die richtigen Entscheidungen für Ihr Business.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
-                <p>Text für Gutscheine. Gutscheine anlegen (Rabattcoupons um genau zu sein) und welche widerrufen.</p>
+                <p><b>Gutscheinverwaltung:</b><br />Verwalten Sie hier die Gutscheine. Sie können neue Gutscheine für Ihre Kunden erstellen, sowie bereits bestehende aktivieren und deaktivieren.<br /><br />Den Gutscheincode können Sie entweder selbst vergeben oder generieren lassen.<br />Die Höhe des Rabatts (in %) ist ebenfalls frei wählbar.</p>
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
