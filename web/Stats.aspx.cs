@@ -15,25 +15,25 @@ namespace web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["roleID"] == null || (int)Session["roleID"] != 1)
+            //Sicherheitsmechanismus für den Zugriff auf die Seite
+            if (Session["roleID"] == null || (int)Session["roleID"] != 1)
             {
                 Response.Redirect("login_page.aspx");
             }
 
-            if (!IsPostBack)
+            if (Session["initialized"] == null)
             {
-                //Anfängliches Initialisieren der Komponenten
+                //Einmaliges, anfängliches Initialisieren der Komponenten
                 InitializeUserAndCategoryDropDownList();
                 btnCreateStats.Enabled = false;
                 btnCreateStats.BackColor = System.Drawing.Color.Gray;
+                Session["initialized"] = true;
+
+                //Benötigt, damit beim erstmaligen Benutzen der Auswertungsseite die verfeinernde Dropdown-Liste gefüllt wird
+                Session["stats"] = -1;
             }
 
-            //Management der Dropdown-Listen bei Postbacks
-            ShowFurtherPossibilitiesForSelectedStatistic();
-            ShowUsersForOrdersByUser();
-            ShowCategoriesForOrdersByCategory();
-
-            //Management der dritten Dropdown-Liste bzgl. der ersten Dropdown-Liste
+            //Management der verfeinernden Dropdown-Liste bzgl. der allgemeinen Dropdown-Liste
             if (Session["stats"] != null && ddlStats.SelectedIndex != (int)Session["stats"])
             {
                 SetFurtherPossibilitiesDependingOnSelectedStatistic(sender, e);
@@ -41,11 +41,22 @@ namespace web
                 ddlCategory.Visible = false;
             }
 
-            //Aktivieren bzw. Deaktivieren des Buttons
-            if (IsPostBack)
+            //Management der verfeinernden und zusätzlichen Dropdown-Liste bei Postbacks
+            ShowFurtherPossibilitiesForSelectedStatistic();
+            ShowUsersForOrdersByUser();
+            ShowCategoriesForOrdersByCategory();
+
+            //Aktivieren bzw. Deaktivieren des Buttons bei Postbacks
+            if (IsPostBack && ddlStats.SelectedIndex > 0 && ddlStatsExtended.SelectedIndex > 0)
             {
                 btnCreateStats.Enabled = true;
                 btnCreateStats.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
+            }
+            else
+            {
+                //Benötigt für eine erneute Graufärbung des Buttons, falls er bereits rot war
+                btnCreateStats.Enabled = false;
+                btnCreateStats.BackColor = System.Drawing.Color.Gray;
             }
 
             //"Zurücksetzen" der Tabellen bei Postbacks
@@ -56,10 +67,14 @@ namespace web
 
         protected void ddlStats_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlStats.SelectedIndex != -1)
+            if (ddlStats.SelectedIndex >= 0 && ddlStats.SelectedIndex <= 3)
+            {
                 Session["stats"] = ddlStats.SelectedIndex;
+            }
             else
-                Session["stats"] = null;
+            {
+                Session["stats"] = null; //Ungültigen Index erhalten
+            }
         }
 
         protected void InitializeUserAndCategoryDropDownList()
@@ -124,7 +139,7 @@ namespace web
 
         protected void ShowUsersForOrdersByUser()
         {
-            ddlUser.Visible = !(ddlStatsExtended.SelectedIndex != 3);
+            ddlUser.Visible = ddlStats.SelectedIndex == 1 && ddlStatsExtended.SelectedIndex == 3;
         }
 
         protected void BuildDataTable(DataTable dt, List<String> names)

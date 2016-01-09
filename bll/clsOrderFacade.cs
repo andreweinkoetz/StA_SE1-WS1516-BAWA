@@ -153,6 +153,13 @@ namespace bll
 
         }
 
+        /// <summary>
+        /// Berechnung der Lieferzeit einer Bestellung
+        /// </summary>
+        /// <param name="_selectedProducts">zu liefernde Produkte</param>
+        /// <param name="_distance">Distanz zum Kunden</param>
+        /// <param name="_toDeliver">Kennzeichen, ob die Liefertart "Lieferung" ausgewählt wurde</param>
+        /// <returns>eine textuelle Darstellung der Wartezeit</returns>
         public static String GetEstimatedTime(List<clsProductExtended> _selectedProducts, double _distance, bool _toDeliver)
         {
             double _minutes = 0;
