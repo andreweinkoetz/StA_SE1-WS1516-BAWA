@@ -31,7 +31,7 @@ namespace web
             tblAdm.Visible = false;
             lblAdminOverview.ForeColor = System.Drawing.Color.Red;
             lblAdminOverview.Font.Size = 16;
-            lblAdminOverview.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. \nBitte melden Sie sich an.";
+            lblAdminOverview.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. <br />Bitte melden Sie sich an.";
         }
 
         private void enableUI()

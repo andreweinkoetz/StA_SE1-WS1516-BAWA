@@ -334,5 +334,21 @@ namespace bll
             return _openOrders;
         }
 
+        public bool InsertOrderedProductWithExtras(clsOrderExtended _myOrder, clsProductExtended _product)
+        {
+            bool orderIsCorrect;
+            _product.OpID = _product.GetHashCode() + _myOrder.OrderNumber;
+            orderIsCorrect = InsertOrderedProduct(_myOrder, _product);
+            if (_product.ProductExtras != null)
+            {
+                if (_product.ProductExtras.Count > 0)
+                {
+                    orderIsCorrect = InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
+                }
+            }
+
+            return orderIsCorrect;
+        }
+
     } // clsOrderFacade
 }

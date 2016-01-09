@@ -53,8 +53,12 @@ namespace bll
             _myDAL.AddParam("FKUserId", _myCoupon.Uid, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
             int _affectedRows = -1;
-
-            _affectedRows = _myDAL.MakeStoredProcedureAction("QCInsertCoupon");
+            try
+            {
+                //try-catch hier nötig um DB-Insert Fehler wegen PK abzufangen.
+                _affectedRows = _myDAL.MakeStoredProcedureAction("QCInsertCoupon");
+            }
+            catch { /*Fehlerbehandlung hier nicht nötig da -1 zurückgegeben wird. Dies führt zu passender Fehlermeldung an den Endbenutzer.*/ }
 
             return _affectedRows;
         }

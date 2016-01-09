@@ -49,7 +49,7 @@
             <asp:TableHeaderCell></asp:TableHeaderCell>
         </asp:TableHeaderRow>
         <asp:TableRow>
-            <asp:TableCell ColumnSpan="4">
+            <asp:TableCell ColumnSpan="4" HorizontalAlign="Left">
                 <asp:Label ID="lblErrorMsg" runat="server" Text="Bitte wählen Sie aus dem DropDown-Feld einen geeigneten Wert!" ForeColor="Red" Visible="false"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>

@@ -13,10 +13,7 @@ namespace web
         {
             if(Session["userID"] == null)
             {
-                lblMyOrders.ForeColor = System.Drawing.Color.Red;
-                lblMyOrders.Font.Size = 16;
-                lblMyOrders.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. \nBitte melden Sie sich an.";
-                btLogout.Visible = false;
+                Response.Redirect("login_page.aspx");
             }
         }
 
@@ -29,7 +26,7 @@ namespace web
         protected void gvMyOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["oNumber"] = Int32.Parse(gvMyOrders.SelectedRow.Cells[1].Text);
-            Response.Redirect("order_detail.aspx",false);
+            Response.Redirect("order_detail.aspx", false);
         }
     }
 }

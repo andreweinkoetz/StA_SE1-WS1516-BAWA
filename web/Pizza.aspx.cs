@@ -19,7 +19,12 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            //Nichts zu beachten.
+        }
+
+        protected void gvPizza_DataBound(object sender, EventArgs e)
+        {
+            EnableSelection();
         }
 
         private void EnableSelection()
@@ -40,6 +45,11 @@ namespace web
 
         protected void gvPizza_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SelectedPizzaToCart();
+        }
+
+        private void SelectedPizzaToCart()
+        {
             string selectedSize = (string)Session["lastSelectedSize"];
 
             if (!String.IsNullOrEmpty(selectedSize))
@@ -49,37 +59,26 @@ namespace web
                 int _id = Int32.Parse(selectedRow.Cells[1].Text);
                 double _size = Double.Parse(selectedSize);
 
-                clsProductExtended _myProduct;
-                List<clsExtra> _myExtraList;
-
                 List<int> _extraIds = new List<int>();
-                CheckBoxList extraCheckList =  (CheckBoxList)selectedRow.FindControl("ExtrasCheckBoxList");
+                CheckBoxList extraCheckList = (CheckBoxList)selectedRow.FindControl("ExtrasCheckBoxList");
 
+                //Ausgewählte Extras zur Liste hinzufügen.
                 foreach (ListItem item in extraCheckList.Items)
                 {
                     if (item.Selected)
                     {
-                        //clsExtraFacade _myExtraFacade = new clsExtraFacade();
-                        //int _eID = Int32.Parse(item.Value);
-                        //double _priceOfExtra = _myExtraFacade.GetPriceOfExtra(_eID);
-                        //_myExtraList.Add(new clsExtra(_eID, item.Text,_priceOfExtra));
                         _extraIds.Add(Int32.Parse(item.Value));
                         item.Selected = false;
                     }
                 }
 
-                _myExtraList = clsExtra.ExtraListFactory(_extraIds.ToArray());
-                _myProduct = clsProductExtended.PizzaFactory(_id, _size, _myExtraList);
-
-                //_myProduct.ProductExtras = _myExtraList;
-                //_myProduct.Id = Int32.Parse(selectedRow.Cells[1].Text);
-                //_myProduct.Name = selectedRow.Cells[2].Text;
-                //_myProduct.PricePerUnit = Double.Parse(selectedRow.Cells[3].Text.Substring(0, selectedRow.Cells[3].Text.IndexOf('€')));
-                //_myProduct.Size = Double.Parse(selectedSize);
-                //_myProduct.CID = (int)Session["category"];
+                //Liste aller Extras der gewählten Pizza erstellen und Pizza erstellen.
+                List<clsExtra> _myExtraList = clsExtra.ExtraListFactory(_extraIds.ToArray());
+                clsProductExtended _myProduct = clsProductExtended.PizzaFactory(_id, _size, _myExtraList);
 
                 lblChooseSize.Text = "";
 
+                //Ablage in Warenkorb.
                 ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
 
                 Session["lastSelectedSize"] = "";
@@ -99,9 +98,6 @@ namespace web
             Session["lastSelectedSize"] = sizeSelect.SelectedItem.Value;
         }
 
-        protected void gvPizza_DataBound(object sender, EventArgs e)
-        {
-            EnableSelection();
-        }
+
     }
 }

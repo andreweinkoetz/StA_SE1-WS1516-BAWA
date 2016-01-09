@@ -18,7 +18,12 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Nichts zu beachten.
+        }
 
+        protected void gvBeverages_DataBound(object sender, EventArgs e)
+        {
+            EnableSelection();
         }
 
         private void EnableSelection()
@@ -37,21 +42,23 @@ namespace web
 
         protected void gvBeverage_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SelectedBeverageToCart();
+        }
+
+        private void SelectedBeverageToCart()
+        {
             string selectedSize = (string)Session["lastSelectedSize"];
 
             if (!String.IsNullOrEmpty(selectedSize))
             {
                 GridViewRow selectedRow = gvBeverages.SelectedRow;
-
-                clsProductExtended _myProduct;
+                
                 int _id = Int32.Parse(selectedRow.Cells[1].Text);
                 double _size = Double.Parse(selectedSize);
 
-                _myProduct = clsProductExtended.ProductFactory(_id,_size);
-
                 lblChooseSize.Text = "";
 
-                ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
+                ((List<clsProductExtended>)Session["selProducts"]).Add(clsProductExtended.ProductFactory(_id, _size));
 
                 Session["lastSelectedSize"] = "";
 
@@ -59,9 +66,7 @@ namespace web
             else
             {
                 lblChooseSize.Text = "Bitte wählen Sie eine Größe!";
-
             }
-
         }
 
         protected void sizeSelect_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,15 +77,6 @@ namespace web
             Session["lastSelectedSize"] = sizeSelect.SelectedItem.Value; 
         }
 
-        protected void lnkBtCart_Click(object sender, EventArgs e)
-        {
-            Session["roleID"] = 2;
-            Session["userID"] = 1;
-        }
 
-        protected void gvBeverages_DataBound(object sender, EventArgs e)
-        {
-            EnableSelection();
-        }
     }
 }
