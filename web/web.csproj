@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="img\detail_icon.png" />
+    <Content Include="img\gruen.png" />
+    <Content Include="img\pizza-1562028.jpg" />
     <Content Include="img\select_icon.png" />
     <Content Include="img\edit_icon.png" />
     <Content Include="img\fav.ico" />

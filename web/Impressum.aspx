@@ -54,7 +54,9 @@
         <a href="img/edit_icon.png">Edit-Icons</a>,<a href="img/select_icon.png">Select-Icons</a>,<a href="img/archive_icon.png">Archiv-Icons</a>,<a href="img/detail_icon.png">Detail-Icons:</a>
         <br />
         <a href="https://icons8.com">Icon pack by Icons8</a>
-
+        <br />
+        StockPhoto of Pizza:<br />
+        <a href="http://de.freeimages.com/photographer/Montejorge-46891">FreeImages.com/André Montejorge</a>
     </p>
 
     <p class="p-style">

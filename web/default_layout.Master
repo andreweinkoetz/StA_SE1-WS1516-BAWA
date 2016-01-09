@@ -62,8 +62,13 @@
                 </div>
             </div>
         </div>
+        <br />
+        <div class="container separator">
+            <br /><br />
+        </div>
         <div id="content">
             <div class="container page">
+                <br />
                 <asp:ContentPlaceHolder ID="contentBox" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
