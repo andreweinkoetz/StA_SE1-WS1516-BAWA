@@ -45,15 +45,25 @@ namespace web
         {
             if(txtBoxPassword.Text == txtBoxPasswordx2.Text && !String.IsNullOrEmpty(txtBoxPassword.Text))
             {
-                ChangePassword(txtBoxPassword.Text);
+                if (ChangePassword(txtBoxPassword.Text))
+                {
+                    lblErrorPasswd.Text = "Passwort erfolgreich geändert.";
+                } else
+                {
+                    lblErrorPasswd.Text = "Änderung fehlgeschlagen. <br />Bitte versuchen Sie es später erneut.";
+                }
+                
+            } else
+            {
+                lblErrorPasswd.Text = "Bitte geben Sie 2x das gleiche Passwort ein!<br />Das Passwort darf nicht leer sein!";
             }
         }
 
-        private void ChangePassword(string _newPassword)
+        private bool ChangePassword(string _newPassword)
         {
             MD5 md5Hash = MD5.Create();
             string hash = clsUser.CreateMD5Hash(md5Hash, _newPassword);
-            new clsUserFacade().ChangeUserPassword((int)Session["userID"], hash);
+            return new clsUserFacade().ChangeUserPassword((int)Session["userID"], hash);
         }
 
     }

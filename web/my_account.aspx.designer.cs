@@ -58,6 +58,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.ObjectDataSource QOGetOrdersByUserID;
         
         /// <summary>
+        /// lblErrorPasswd-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorPasswd;
+        
+        /// <summary>
         /// tblPwChange-Steuerelement
         /// </summary>
         /// <remarks>

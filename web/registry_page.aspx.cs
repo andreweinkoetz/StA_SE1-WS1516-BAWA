@@ -39,11 +39,8 @@ namespace web
 
             foreach (TextBox element in textBoxes)
             {
-                bool result = checkAndSetValidInput(element);
-                if (result)
-                {
-                    userCanBeInsertedInDB = false;
-                }
+                bool error = checkAndSetValidInput(element);
+                userCanBeInsertedInDB = !error;
             }
 
             if (userCanBeInsertedInDB)
@@ -80,7 +77,7 @@ namespace web
         /// <param name="errorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
         /// <param name="errorLabel">Label, das im Falle eines Fehlers angezeigt wird</param>
         /// <param name="errorText">Text, der dem Label zugeordnet wird</param>
-        protected void handleError(bool errorOccured, Label errorLabel, string errorText)
+        protected void handleError(out bool errorOccured, Label errorLabel, string errorText)
         {
             errorOccured = true;
             errorLabel.Text = errorText;
@@ -101,11 +98,11 @@ namespace web
         {
             if (textBox.Text.Equals(""))
             {
-                handleError(isErrorOccured, lblError, emptyErrorText);
+                handleError(out isErrorOccured, lblError, emptyErrorText);
             }
             else if (!IsAlphaString(textBox.Text))
             {
-                handleError(isErrorOccured, lblError, alphaErrorText);
+                handleError(out isErrorOccured, lblError, alphaErrorText);
             }
             setValidUserAttribute(isErrorOccured, attribute, textBox.Text);
             return isErrorOccured;
@@ -122,9 +119,12 @@ namespace web
         {
             if (ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
             {
-                handleError(isErrorOccured, errorLabel, errorText);
+                handleError(out isErrorOccured, errorLabel, errorText);
+            } else
+            {
+                userToInsert.Title = ddlTitle.SelectedItem.Text;
             }
-            setValidUserAttribute(isErrorOccured, userToInsert.Title, ddlTitle.SelectedItem.Text);
+          
             return isErrorOccured;
         }
 
@@ -147,18 +147,27 @@ namespace web
             switch (stringToProve.ID)
             {
                 case "txtBoxName":
-                    errorOccured = handleNeededAlphaInput(txtBoxName, userToInsert.Name, errorOccured, lblErrorName,
-                        "Bitte geben Sie ihren Nachnamen ein!", "Nachnamen können nur Buchstaben enthalten!");
+                    if(!(errorOccured = handleNeededAlphaInput(txtBoxName, userToInsert.Name, errorOccured, lblErrorName,
+                        "Bitte geben Sie ihren Nachnamen ein!", "Nachnamen können nur Buchstaben enthalten!")))
+                    {
+                        userToInsert.Name = txtBoxName.Text;
+                    }
+                    
                     break;
-
                 case "txtBoxVorname":
-                    errorOccured = handleNeededAlphaInput(txtBoxVorname, userToInsert.Prename, errorOccured, lblErrorPrename,
-                        "Bitte geben Sie ihren Vornamen ein!", "Vornamen können nur Buchstaben enthalten!");
+                    if(!(errorOccured = handleNeededAlphaInput(txtBoxVorname, userToInsert.Prename, errorOccured, lblErrorPrename,
+                        "Bitte geben Sie ihren Vornamen ein!", "Vornamen können nur Buchstaben enthalten!")))
+                    {
+                        userToInsert.Prename = txtBoxVorname.Text;
+                    }
                     break;
 
                 case "txtBoxStraße":
-                    errorOccured = handleNeededAlphaInput(txtBoxStraße, userToInsert.Street, errorOccured, lblErrorStreet,
-                        "Bitte geben Sie eine Straße ein!", "Straßennamen können nur Buchstaben enthalten!");
+                    if(!(errorOccured = handleNeededAlphaInput(txtBoxStraße, userToInsert.Street, errorOccured, lblErrorStreet,
+                        "Bitte geben Sie eine Straße ein!", "Straßennamen können nur Buchstaben enthalten!")))
+                    {
+                        userToInsert.Street = txtBoxStraße.Text;
+                    }
                     break;
 
                 case "txtBoxHnr":

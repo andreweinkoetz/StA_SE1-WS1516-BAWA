@@ -63,8 +63,8 @@
         <tr>
             <td>Denken Sie daran regelmäßig Ihr Kennwort zu ändern.<br />
                 Bitte verwenden Sie möglichst sichere Kennwörter (8 Zeichen, Sonderzeichen, Zahlen usw.)<br />
-                Sollten sich Ihre Adressdaten geändert haben, so bitten wir Sie uns unter <a href="mailto:support@pizzapizza.de">support@pizzapizza.de</a> zu kontaktieren.
-    
+                Sollten sich Ihre Adressdaten geändert haben, so bitten wir Sie uns unter <a href="mailto:support@pizzapizza.de">support@pizzapizza.de</a> zu kontaktieren.<br />
+                <asp:Label ID="lblErrorPasswd" runat="server" Text="" ForeColor="Red"></asp:Label>
             </td>
             <td>
                 <asp:Table ID="tblPwChange" runat="server" HorizontalAlign="Center">
