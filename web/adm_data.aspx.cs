@@ -47,7 +47,7 @@ namespace web
                     lblAdmData.Text = "Benutzerverwaltung";
                     btCreateNew.Text = "Neuen Benutzer anlegen";
                     clsUserFacade _userFacade = new clsUserFacade();
-                    InitializeGvAdmData(_userFacade.UsersGetAll(), 3);
+                    InitializeGvAdmData(_userFacade.GetAllUsers(), 3);
                     break;
                 case 4:
                     lblAdmData.Text = "Größenverwaltung";

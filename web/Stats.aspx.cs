@@ -79,7 +79,7 @@ namespace web
 
         protected void InitializeUserAndCategoryDropDownList()
         {
-            List<clsUser> users = new clsUserFacade().UsersGetAll();
+            List<clsUser> users = new clsUserFacade().GetAllUsers();
             ddlUser.DataSource = users;
             InitializeDropDownList(ddlUser, "Email", "Email");
 

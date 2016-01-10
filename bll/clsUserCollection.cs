@@ -52,7 +52,7 @@ namespace bll
                 _myUserList.Add(DatarowToClsUser(_dr));
             }
             return _myUserList;
-        } //getAllUsers() 
+        } 
 
         /// <summary>
         /// Update eines Userobjekts
@@ -95,6 +95,12 @@ namespace bll
             return _changedSets;
         } //updateUser()
 
+        /// <summary>
+        /// Kennwort eines Benutzers ändern.
+        /// </summary>
+        /// <param name="_userID">Benutzer dessen Passwort geändert wird.</param>
+        /// <param name="_password">Neues Passwort</param>
+        /// <returns>true wenn Änderung erfolgreich.</returns>
         internal int ChangeUserPassword(int _userID, String _password)
         {
             _myDAL.AddParam("UPassword", _password, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -129,7 +135,6 @@ namespace bll
         /// <returns>1 falls delete erfolgreich </returns>
         public int DeleteUser(int _userId)
         {
-
             // Übergabeparameter ID hinzufügen 
             _myDAL.AddParam("ID", _userId, DAL.DataDefinition.enumerators.SQLDataType.INT);
 
@@ -193,6 +198,11 @@ namespace bll
             }
         }
 
+        /// <summary>
+        /// Gibt die ID des Users zurück.
+        /// </summary>
+        /// <param name="_email">Username/E-Mail</param>
+        /// <returns>ID des Users</returns>
         internal int GetIDOfUser(string _email)
         {
             _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -206,6 +216,11 @@ namespace bll
             return -1;
         }
 
+        /// <summary>
+        /// Liefert die Rolle des Users zurück.
+        /// </summary>
+        /// <param name="_email">E-Mail (Username) des Users</param>
+        /// <returns>Rollen-ID</returns>
         internal int GetRoleOfUser(string _email)
         {
             _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -237,6 +252,10 @@ namespace bll
             return isActive;
         }
 
+        /// <summary>
+        /// Gibt das Passwort des Users zurück.
+        /// </summary>
+        /// <returns>Passwort des Benutzers</returns>
         internal string GetPasswordOfAUser(string _name)
         {
 
@@ -261,6 +280,11 @@ namespace bll
 
         }
 
+        /// <summary>
+        /// Berechnet Distanz von Pizza-Shop zum Benutzer. (Anhand GoogleMaps-API)
+        /// </summary>
+        /// <param name="_id">UserId</param>
+        /// <returns>Strecke in km</returns>
         internal double GetDistanceByUser(int _id)
         {
             clsUser _myUser = GetUserById(_id);
@@ -281,6 +305,11 @@ namespace bll
 
         }
 
+        /// <summary>
+        /// Liefert alle Bestellungen eines bestimmten Benutzers.
+        /// </summary>
+        /// <param name="_userId">ID des Benutzers</param>
+        /// <returns>Liste aller Bestellnummern</returns>
         internal List<Int32> GetOrdersFromUserById(int _userId)
         {
             _myDAL.AddParam("UserId", _userId, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -298,6 +327,10 @@ namespace bll
             return _userOrders;
         }
 
+        /// <summary>
+        /// Liefert die Kunden sortiert nach Umsatz zurück.
+        /// </summary>
+        /// <returns>Ergebnistupel</returns>
         internal List<Tuple<string, double, int>> GetUsersOrderedByTotalRevenue()
         {
             //Hier wird unser Dataset aus der DB befüllt

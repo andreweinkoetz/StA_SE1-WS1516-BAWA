@@ -25,15 +25,15 @@ namespace bll
         /// Alle User lesen
         /// </summary>
         /// <returns>Liste der User</returns>
-        public List<clsUser> UsersGetAll()
+        public List<clsUser> GetAllUsers()
         {
             return _usrCol.GetAllUsers();
-        } // UsersGetAll()
+        }
 
         /// <summary>
         /// Liefert die Kunden sortiert nach Umsatz zurück.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Ergebnistupel</returns>
         public List<Tuple<string, double, int>> GetUsersOrderedByTotalRevenue()
         {
             return _usrCol.GetUsersOrderedByTotalRevenue();
@@ -52,7 +52,7 @@ namespace bll
         /// <summary>
         /// Gibt das Passwort des Users zurück.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Passwort des Benutzers</returns>
         public String getPassword(string _email)
         {
             return _usrCol.GetPasswordOfAUser(_email);
@@ -61,8 +61,8 @@ namespace bll
         /// <summary>
         /// Gibt die ID des Users zurück.
         /// </summary>
-        /// <param name="_email"></param>
-        /// <returns></returns>
+        /// <param name="_email">Username/E-Mail</param>
+        /// <returns>ID des Users</returns>
         public int GetIDOfUser(string _email)
         {
             return _usrCol.GetIDOfUser(_email);
@@ -84,7 +84,7 @@ namespace bll
         /// <returns>true, wenn Insert erfolgreich</returns>
         public bool UserInsert(clsUser newUser)
         {
-            List<clsUser> allUsers = UsersGetAll();
+            List<clsUser> allUsers = GetAllUsers();
 
             foreach (clsUser user in allUsers)
             {
@@ -123,16 +123,6 @@ namespace bll
         }
 
         /// <summary>
-        /// Delete User Object
-        /// </summary>
-        /// <param name="delUser">zu löschendes User-Objekt</param>
-        /// <returns>true if successful</returns>
-        public bool UserDelete(clsUser delUser)
-        {
-            return delUser.Delete();
-        } // UserDelete()
-
-        /// <summary>
         /// Löschen eines Users anhand seiner Id.
         /// </summary>
         /// <param name="_userId">Id des zu löschenden Users</param>
@@ -141,36 +131,6 @@ namespace bll
         {
             return _usrCol.DeleteUser(_userId) == 1;
         }
-
-        /// <summary>
-        /// Zählt Anzahl Users, indem erst alle eingelesen werden und dann Länge der Liste zurückgegeben wird
-        /// </summary>
-        /// <returns>Anzahl Users</returns>
-        public int CountUsers()
-        {
-            int _count;
-            List<clsUser> _userList;
-            _userList = _usrCol.GetAllUsers();
-            _count = _userList.Count;
-            return _count;
-        } // CountUsers()
-
-        /// <summary>
-        /// Zählt Anzahl von aktiven Usern 
-        /// </summary>
-        /// <returns>Anzahl Users</returns>
-        public int CountActiveUsers()
-        {
-            int _count = 0;
-            List<clsUser> _UserList;
-            _UserList = _usrCol.GetAllUsers();
-            foreach (clsUser u in _UserList)
-            {
-                if (u.IsActive)
-                    _count++;
-            }
-            return _count;
-        } // CountUsers()
 
         /// <summary>
         /// Berechnet Distanz von Pizza-Shop zum Benutzer.

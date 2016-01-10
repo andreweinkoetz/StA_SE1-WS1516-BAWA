@@ -27,7 +27,6 @@ namespace bll
             this._postcode = 0;
             this._place = "No Place";
             this._phone = "No Phone";
-            this._distance = 0;
             this._isActive = false;
             this._role = 0;
             this._email = "No E-Mail";
@@ -173,22 +172,6 @@ namespace bll
             }
         }
 
-        private int _distance;
-        /// <summary>
-        /// Distanz: Entfernung zum Pizza-Shop
-        /// </summary>
-        public int Distance
-        {
-            get { return _distance; }
-            set
-            {
-                if (value < 0)
-                    _distance = 0;
-                else
-                    _distance = value;
-            }
-        }
-
         private int _role;
         /// <summary>
         /// 3: Kunde; 2: Service (z.B. Pizzabäcker); 1: Manager
@@ -238,11 +221,11 @@ namespace bll
         }
 
         /// <summary>
-        /// Creates and returns the MD5 Hash of a String
+        /// Erstellt verschlüsseltes Passwort.
         /// </summary>
-        /// <param name="md5Hash"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// <param name="md5Hash">HashWert (md5)</param>
+        /// <param name="password">Klartext-Passwort</param>
+        /// <returns>Verschlüsseltes Passwort</returns>
         public static string CreateMD5Hash(MD5 md5Hash, string password)
         {
             // Converts the password to a byte array and computes the MD5 hash
