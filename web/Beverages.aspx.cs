@@ -1,6 +1,7 @@
 ﻿using bll;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -18,8 +19,10 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
+                Session["selectedBeverage"] = null;
                 FillInfoText();
             }
         }
@@ -32,7 +35,9 @@ namespace web
             }
             else
             {
-                lblInfoBeverages.Text += "<br />Wählen Sie zunächst die Größe des Getränks. Anschließend legen Sie es über das Einkaufswagen-Symbol in Ihren Warenkorb.";
+                lblInfoBeverages.Text += "<br />Zunächst wählen Sie das Getränk über das Hand-Symbol. <br />"
+                                        + "Sie können nun am Fuße der Seite die Größe sowie Anzahl gleicher Getränke festlegen und "
+                                        + "das gewünschte Getränk über das Einkaufswagen-Symbol in Ihren Warenkorb legen.";
             }
         }
 
@@ -43,55 +48,76 @@ namespace web
 
         private void EnableSelection()
         {
-            if (Session["roleID"] == null)
-            {
-                gvBeverages.Columns[0].Visible = false;
-                gvBeverages.Columns[6].Visible = false;
-            }
-            else
-            {
-                gvBeverages.Columns[0].Visible = true;
-                gvBeverages.Columns[6].Visible = true;
-            }
+            gvBeverages.Columns[0].Visible = Session["userID"] != null;
         }
 
         protected void gvBeverage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedBeverageToCart();
+            GetSelectedBeverage();
         }
 
-        private void SelectedBeverageToCart()
+        private void GetSelectedBeverage()
         {
-            string selectedSize = (string)Session["lastSelectedSize"];
+            //Gewählte Getränkzeile ermitteln.
+            GridViewRow selectedRow = gvBeverages.SelectedRow;
 
-            if (!String.IsNullOrEmpty(selectedSize))
+            //ID des Getränks ermitteln.
+            int _id = Int32.Parse(selectedRow.Cells[1].Text);
+
+            //Gewähltes Produkt in Auswahlmenü legen.
+            BeverageSelected(clsProductExtended.ProductFactory(_id));
+
+        }
+
+        private void BeverageSelected(clsProductExtended _myProduct)
+        {
+            Session["selectedBeverage"] = _myProduct;
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Größe");
+            dt.Columns.Add("Anzahl");
+
+            dt.LoadDataRow(new object[] { _myProduct.Id, _myProduct.Name, null, null }, true);
+
+            gvBeverageToOrder.DataSource = dt;
+            gvBeverageToOrder.DataBind();
+            gvBeverageToOrder.SelectedIndex = -1;
+            gvBeverageToOrder.Visible = true;
+            lblGvToOrder.Visible = true;
+        }
+
+        protected void gvBeverageToOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow _selectedRow = gvBeverageToOrder.SelectedRow;
+            TextBox txtAmount = (TextBox)_selectedRow.FindControl("txtAmount");
+            DropDownList sizeSelect = (DropDownList)_selectedRow.FindControl("sizeSelect");
+            if (sizeSelect.SelectedIndex > 0)
             {
-                GridViewRow selectedRow = gvBeverages.SelectedRow;
-                
-                int _id = Int32.Parse(selectedRow.Cells[1].Text);
-                double _size = Double.Parse(selectedSize);
-
-                lblChooseSize.Text = "";
-
-                ((List<clsProductExtended>)Session["selProducts"]).Add(clsProductExtended.ProductFactory(_id, _size));
-
-                Session["lastSelectedSize"] = "";
-
+                BeverageToCart(Int32.Parse(txtAmount.Text), Double.Parse(sizeSelect.SelectedValue));
+                lblChooseSize.Visible = false;
             }
             else
             {
-                lblChooseSize.Text = "Bitte wählen Sie eine Größe!";
+                lblChooseSize.Visible = true;
             }
         }
 
-        protected void sizeSelect_SelectedIndexChanged(object sender, EventArgs e)
+        private void BeverageToCart(int _amount, double _size)
         {
-            DropDownList sizeSelect = (DropDownList)sender;
-            GridViewRow selRow = (GridViewRow)sizeSelect.Parent.Parent;
-            selRow.Cells[6].Text = sizeSelect.SelectedItem.Text;
-            Session["lastSelectedSize"] = sizeSelect.SelectedItem.Value; 
+            clsProductExtended _myProduct = (clsProductExtended)Session["selectedBeverage"];
+            _myProduct.Size = _size;
+
+            for (int i = 0; i < _amount; i++)
+            {
+                ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
+            }
+
+            Session["selectedBeverage"] = null;
+            gvBeverageToOrder.Visible = false;
+            lblGvToOrder.Visible = false;
+            gvBeverages.SelectedIndex = -1;
         }
-
-
     }
 }

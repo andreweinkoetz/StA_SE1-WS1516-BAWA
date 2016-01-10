@@ -5,7 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AjaxControlToolkit;
 using bll;
+using System.Data;
 
 namespace web
 {
@@ -21,8 +23,9 @@ namespace web
         {
             if (!IsPostBack)
             {
+                Session["selectedPizza"] = null;
                 FillInfoText();
-            } 
+            }
         }
 
         private void FillInfoText()
@@ -33,7 +36,10 @@ namespace web
             }
             else
             {
-                lblInfoPizza.Text += "<br />Wählen Sie zunächst die Größe der Pizza sowie etwaigen Sonderbelag (Zusatzkosten!).<br />Anschließend legen Sie die Pizza über das Einkaufswagen-Symbol in Ihren Warenkorb.";
+                lblInfoPizza.Text += "<br />Wählen Sie zunächst den Extrabelag der Pizza (Zusatzkosten!). "
+                    + " Anschließend wählen Sie die Pizza über das Hand-Symbol. <br />"
+                    + "Sie können nun am Fuße der Seite die Größe sowie Anzahl gleicher Pizzen festlegen und "
+                    + "die gewünschte Pizza über das Einkaufswagen-Symbol in Ihren Warenkorb legen.";
             }
         }
 
@@ -44,75 +50,103 @@ namespace web
 
         private void EnableSelection()
         {
-            if (Session["roleID"] == null)
-            {
-                gvPizza.Columns[0].Visible = false;
-                gvPizza.Columns[6].Visible = false;
-                gvPizza.Columns[7].Visible = false;
-            }
-            else
-            {
-                gvPizza.Columns[0].Visible = true;
-                gvPizza.Columns[6].Visible = true;
-                gvPizza.Columns[7].Visible = true;
-            }
+            gvPizza.Columns[0].Visible = gvPizza.Columns[6].Visible = Session["userID"] != null;
         }
 
         protected void gvPizza_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedPizzaToCart();
+            GetSelectedPizza();
         }
 
-        private void SelectedPizzaToCart()
+        private void GetSelectedPizza()
         {
-            string selectedSize = (string)Session["lastSelectedSize"];
+            //Gewählte Pizzazeile.
+            GridViewRow selectedRow = gvPizza.SelectedRow;
 
-            if (!String.IsNullOrEmpty(selectedSize))
+            //ID der Pizza ermitteln.
+            int _id = Int32.Parse(selectedRow.Cells[1].Text);
+
+            //Gewählte Extras ermitteln.
+            List<int> _extraIds = new List<int>();
+            CheckBoxList extraCheckList = (CheckBoxList)selectedRow.FindControl("ExtrasCheckBoxList");
+
+            //Ausgewählte Extras zur Liste hinzufügen.
+            foreach (ListItem item in extraCheckList.Items)
             {
-                GridViewRow selectedRow = gvPizza.SelectedRow;
-
-                int _id = Int32.Parse(selectedRow.Cells[1].Text);
-                double _size = Double.Parse(selectedSize);
-
-                List<int> _extraIds = new List<int>();
-                CheckBoxList extraCheckList = (CheckBoxList)selectedRow.FindControl("ExtrasCheckBoxList");
-
-                //Ausgewählte Extras zur Liste hinzufügen.
-                foreach (ListItem item in extraCheckList.Items)
+                if (item.Selected)
                 {
-                    if (item.Selected)
-                    {
-                        _extraIds.Add(Int32.Parse(item.Value));
-                        item.Selected = false;
-                    }
+                    _extraIds.Add(Int32.Parse(item.Value));
+                    item.Selected = false;
                 }
+            }
 
-                //Liste aller Extras der gewählten Pizza erstellen und Pizza erstellen.
-                List<clsExtra> _myExtraList = clsExtra.ExtraListFactory(_extraIds.ToArray());
-                clsProductExtended _myProduct = clsProductExtended.PizzaFactory(_id, _size, _myExtraList);
+            //Liste aller Extras der gewählten Pizza erstellen und Pizza erstellen.
+            List<clsExtra> _myExtraList = clsExtra.ExtraListFactory(_extraIds.ToArray());
+            clsProductExtended _myProduct = clsProductExtended.PizzaFactory(_id, _myExtraList);
 
-                lblChooseSize.Text = "";
+            //Weitergabe an Größen/Anzahlauswahl.
+            PizzaSelected(_myProduct);
 
-                //Ablage in Warenkorb.
-                ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
+        }
 
-                Session["lastSelectedSize"] = "";
+        private void PizzaSelected(clsProductExtended _myProduct)
+        {
+            Session["selectedPizza"] = _myProduct;
 
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Größe");
+            dt.Columns.Add("Extras");
+            dt.Columns.Add("Anzahl");
+
+            String selExtras = "";
+
+            foreach (clsExtra _myExtra in _myProduct.ProductExtras)
+            {
+                selExtras += _myExtra.Name + " ";
+            }
+
+            dt.LoadDataRow(new object[] { _myProduct.Id, _myProduct.Name, null, selExtras, null }, true);
+
+            gvPizzaToOrder.DataSource = dt;
+            gvPizzaToOrder.DataBind();
+            gvPizzaToOrder.SelectedIndex = -1;
+            gvPizzaToOrder.Visible = true;
+            lblGvToOrder.Visible = true;
+        }
+
+        protected void gvPizzaToOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow _selectedRow = gvPizzaToOrder.SelectedRow;
+            TextBox txtAmount = (TextBox)_selectedRow.FindControl("txtAmount");
+            DropDownList sizeSelect = (DropDownList)_selectedRow.FindControl("sizeSelect");
+            if (sizeSelect.SelectedIndex > 0)
+            {
+                PizzaToCart(Int32.Parse(txtAmount.Text), Double.Parse(sizeSelect.SelectedValue));
+                lblChooseSize.Visible = false;
             }
             else
             {
-                lblChooseSize.Text = "Bitte wählen Sie eine Größe!";
+                lblChooseSize.Visible = true;
             }
         }
 
-        protected void sizeSelect_SelectedIndexChanged(object sender, EventArgs e)
+        private void PizzaToCart(int _amount, double _size)
         {
-            DropDownList sizeSelect = (DropDownList)sender;
-            GridViewRow selRow = (GridViewRow)sizeSelect.Parent.Parent;
-            selRow.Cells[6].Text = sizeSelect.SelectedItem.Text;
-            Session["lastSelectedSize"] = sizeSelect.SelectedItem.Value;
+
+            clsProductExtended _myProduct = (clsProductExtended)Session["selectedPizza"];
+            _myProduct.Size = _size;
+
+            for (int i = 0; i < _amount; i++)
+            {
+                ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
+            }
+
+            Session["selectedPizza"] = null;
+            gvPizzaToOrder.Visible = false;
+            lblGvToOrder.Visible = false;
+            gvPizza.SelectedIndex = -1;
         }
-
-
     }
 }

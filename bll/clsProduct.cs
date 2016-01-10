@@ -206,9 +206,9 @@ namespace bll
         /// <param name="_size">gewählte Größe der Pizza.</param>
         /// <param name="_myExtraList">gewählte Extras der Pizza.</param>
         /// <returns>Neues Produkt-Objekt (Pizza).</returns>
-        public static clsProductExtended PizzaFactory(int _id, double _size, List<clsExtra> _myExtraList)
+        public static clsProductExtended PizzaFactory(int _id, List<clsExtra> _myExtraList)
         {
-            clsProductExtended _myProduct = ProductFactory(_id, _size);
+            clsProductExtended _myProduct = ProductFactory(_id);
             _myProduct.ProductExtras = _myExtraList;
             return _myProduct;
         }
@@ -219,10 +219,10 @@ namespace bll
         /// <param name="_id">ID des Produkts</param>
         /// <param name="_size">gewählte Größe des Produkts.</param>
         /// <returns>Neues Produkt-Objekt.</returns>
-        public static clsProductExtended ProductFactory(int _id, double _size)
+        public static clsProductExtended ProductFactory(int _id)
         {
             clsProductExtended _myProduct = new clsProductCollection().GetProductById(_id);
-            _myProduct.Size = _size;
+            _myProduct.Size = 0;
             return _myProduct;
         }
 
