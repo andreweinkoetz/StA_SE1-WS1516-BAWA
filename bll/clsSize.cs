@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// Repräsentiert eine Größe, zugehörig zu einer Kategorie.
+    /// Stellt die Eigenschaften einer zu einer Kategorie gehörenden Größe dar.
     /// </summary>
     public class clsSize
     {
-
         private int _id;
-
         /// <summary>
-        /// Id einer Größe.
+        /// ID der Größe.
         /// </summary>
         public int Id
         {
@@ -32,7 +30,7 @@ namespace bll
 
         private double _value;
         /// <summary>
-        /// Wert einer Größe.
+        /// Wert der Größe.
         /// </summary>
         public double Value
         {
@@ -65,9 +63,8 @@ namespace bll
         }
 
         private int _cid;
-
         /// <summary>
-        /// Zur Größe zugehörige Kategorie-ID.
+        /// Die zur Größe zugehörige Kategorie-ID.
         /// </summary>
         public int CID
         {
@@ -83,9 +80,8 @@ namespace bll
         }
 
         private String _category;
-
         /// <summary>
-        /// Zur Größe zugehörige Kategorie.
+        /// Die zur Größe zugehörige Kategorie.
         /// </summary>
         public string Category
         {
@@ -101,7 +97,7 @@ namespace bll
         }
 
         /// <summary>
-        /// Standardkonstruktor für neue Größe.
+        /// Standard-Konstruktor für ein neues Größe-Objekt.
         /// </summary>
         public clsSize()
         {
@@ -109,6 +105,5 @@ namespace bll
             this._name = "";
             this._value = 0.0;
         }
-
     }
 }
