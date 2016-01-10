@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// Repräsentiert Gutscheine, die von einem Benutzer eingelöst werden können.
+    /// Stellt die Eigenschaften eines Gutscheins dar.
+    /// Gutscheine können von einem Kunden eingelöst werden.
     /// </summary>
     public class clsCoupon
     {
         private int _id;
         /// <summary>
-        /// Id des Gutscheins.
+        /// ID des Gutscheins.
         /// </summary>
         public int Id
         {
@@ -30,7 +31,7 @@ namespace bll
 
         private int _discount;
         /// <summary>
-        /// Prozentualer Rabattwert eines Gutscheins.
+        /// Prozentualer Rabattwert des Gutscheins.
         /// </summary>
         public int Discount
         {
@@ -38,7 +39,6 @@ namespace bll
             {
                 return _discount;
             }
-
             set
             {
                 _discount = value;
@@ -46,9 +46,8 @@ namespace bll
         }
 
         private String _code;
-
         /// <summary>
-        /// Code, der zum Einlösen des Gutscheinwerts benötigt wird.
+        /// Code, der zum Einlösen des Gutscheins benötigt wird.
         /// </summary>
         public string Code
         {
@@ -64,7 +63,6 @@ namespace bll
         }
 
         private bool _isValid;
-
         /// <summary>
         /// Zeigt an, ob der Gutschein aktiv bzw. einlösbar ist.
         /// </summary>
@@ -82,9 +80,8 @@ namespace bll
         }
 
         private int _uid;
-
         /// <summary>
-        /// User-ID des Benutzers, der über den Gutschein verfügt.
+        /// User-ID des Benutzers, der den Gutschein besitzt.
         /// </summary>
         public int Uid
         {
@@ -100,7 +97,6 @@ namespace bll
         }
 
         private String _userName;
-
         /// <summary>
         /// Name des Besitzers des Gutscheins.
         /// </summary>
@@ -131,9 +127,9 @@ namespace bll
 
         /// <summary>
         /// Erstellt einen per Zufallsgenerator ermittelten Code.
-        /// Dieser besteht aus vier Blöcken je vier alphanumerischen Zeichen getrennt durch Bindestriche.
+        /// Dieser besteht aus vier Blöcken mit je vier alphanumerischen Zeichen, die durch Bindestriche getrennt sind.
         /// </summary>
-        /// <returns>den neuen generierten Code.</returns>
+        /// <returns>den generierten Code</returns>
         public static String GenerateCode()
         {
             String _code = "";
@@ -141,11 +137,13 @@ namespace bll
 
             for (int i = 0; i < 16; i++)
             {
+                //Bindestrich zwischen den Vierer-Blöcken
                 if (i % 4 == 0 && i != 0)
                 {
                     _code += '-';
                 }
 
+                //Erstellung des Codes 
                 if (i % 2 == 0 && i != 0)
                 {
                     _code += r.Next(1, 10);

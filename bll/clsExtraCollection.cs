@@ -13,14 +13,14 @@ namespace bll
     internal class clsExtraCollection : clsBLLCollections
     {
         string _databaseFile; // String zur Access-Datei, wird im Konstruktor initialisiert
-        DAL.DALObjects.dDataProvider _myDAL; // DAL Objekt für den Zugriff auf die Datenbank
+        DAL.DALObjects.dDataProvider _myDAL; // DAL-Objekt für den Zugriff auf die Datenbank
 
         /// <summary>
         /// Stellt eine Verbindung zur Datenbank her.
         /// </summary>
         internal clsExtraCollection()
         {
-            // Hier wird der Pfad zur Access-Datei aus web.config gelesen und eine DAL-Instanz erzeugt, die den Zugriff auf die DB ermöglicht
+            // Hier wird der Pfad zur Access-Datei aus web.config gelesen und eine DAL-Instanz erzeugt, die den Zugriff auf die Datenbank ermöglicht
             _databaseFile = System.Configuration.ConfigurationManager.AppSettings["AccessFileName"];
             _myDAL = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
         }
@@ -102,7 +102,7 @@ namespace bll
         }
 
         /// <summary>
-        /// Liefert die Anzahl der Bestellungen zurück, in denen das Extra verwendet wird.
+        /// Liefert alle Bestellungen zurück, in denen das Extra verwendet wird.
         /// </summary>
         /// <param name="_extraID">ID des Extras</param>
         /// <returns>Anzahl der betroffenen Bestellungen</returns>
@@ -124,7 +124,7 @@ namespace bll
         /// <summary>
         /// Fügt ein neues Extra in die Datenbank ein.
         /// </summary>
-        /// <param name="_myExtra">das zu erstellende Extra</param>
+        /// <param name="_myExtra">das einzufügende Extra</param>
         /// <returns>Anzahl der eingefügten Datensätze</returns>
         internal int InsertExtra(clsExtra _myExtra)
         {

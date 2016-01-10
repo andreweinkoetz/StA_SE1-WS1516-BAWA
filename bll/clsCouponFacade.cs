@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// clsCouponFacade: Nach aussen sichtbare Fassade für Gutscheine.
+    /// Stellt die nach außen sichtbaren Methoden bzgl. der Gutschein-Verwaltung bereit.
+    /// Als Grundlage werden die clsCouponCollection-Methoden verwendet.
     /// </summary>
     public class clsCouponFacade
     {
-        private clsCouponCollection _couponCol;
+        private clsCouponCollection _couponCol; // Objektvariable für die Coupon-Collection, wird im Konstruktor instantiiert
 
         /// <summary>
-        /// Standardkonstruktor für eine neue Coupon-Fassade.
+        /// Erstellt ein neues Objekt der clsCouponCollection.
         /// </summary>
         public clsCouponFacade()
         {
@@ -22,62 +23,61 @@ namespace bll
         }
 
         /// <summary>
-        /// Liefert eine Liste aller Gutscheine eines bestimmten Benutzers.
+        /// Liefert alle aktiven Gutscheincodes eines Kunden zurück.
         /// </summary>
-        /// <param name="_uid">Id des Benutzers.</param>
-        /// <returns>Liste seiner Gutscheine.</returns>
+        /// <param name="_uid">ID des Kunden</param>
+        /// <returns>alle aktiven Gutscheincodes</returns>
         public List<clsCoupon> GetAllActiveCouponsByUser(int _uid)
         {
             return _couponCol.GetAllActiveCouponsByUser(_uid);
         }
 
         /// <summary>
-        /// Fügt einen neuen Gutschein hinzu und weist ihn einem Benutzer zu.
+        /// Fügt einen neuen Gutschein in die Datenbank ein und weist ihn einem Benutzer zu.
         /// </summary>
-        /// <param name="_myCoupon">Hinzuzufügender Gutschein.</param>
-        /// <returns>true wenn Einfügen erfolgreich.</returns>
+        /// <param name="_myCoupon">der einzufügende Gutschein</param>
+        /// <returns>true, falls das Einfügen erfolgreich ist</returns>
         public bool InsertCoupon(clsCoupon _myCoupon)
         {
             return _couponCol.InsertCoupon(_myCoupon) == 1;
         }
 
         /// <summary>
-        /// Liefert eine Liste aller Gutscheine.
+        /// Liefert alle vorhandenen Gutscheine zurück.
         /// </summary>
-        /// <returns>Liste aller Gutscheine.</returns>
+        /// <returns>alle vorhandenen Gutscheine</returns>
         public List<clsCoupon> GetAllCoupons()
         {
             return _couponCol.GetAllCoupons();
         }
 
         /// <summary>
-        /// Liefert einen bestimmten Gutschein.
+        /// Liefert den Gutschein mit der angegebenen ID zurück.
         /// </summary>
-        /// <param name="_cuid">Id des zu liefernden Gutscheins.</param>
-        /// <returns>Gutschein-Objekt</returns>
+        /// <param name="_cuid">ID des Gutscheins</param>
+        /// <returns>Gutschein mit der angegebenen ID</returns>
         public clsCoupon GetCouponById(int _cuid)
         {
             return _couponCol.GetCouponById(_cuid);
         }
 
         /// <summary>
-        /// (De-)Aktiviert einen Gutschein. 
+        /// Aktiviert bzw. deaktiviert einen Gutschein.
         /// </summary>
-        /// <param name="_cuid">Id des Gutscheins, der (de-)aktiviert werden soll.</param>
-        /// <returns>true wenn (De-)Aktivierung erfolgreich.</returns>
+        /// <param name="_cuid">ID des Gutscheins</param>
+        /// <returns>true, falls die Aktivierung bzw. Deaktivierung erfolgreich ist</returns>
         public bool ToggleCoupon(int _cuid)
         {
             return _couponCol.ToggleCoupon(_cuid) == 1;
         }
 
-
         /// <summary>
-        /// Prüft ob ein eingegebener Gutschein-Code zum angemeldeten Benutzer passt.
+        /// Prüft, ob der eingegebene Gutschein-Code vom angemeldeten Benutzer eingelöst werden kann.
         /// </summary>
-        /// <param name="_couponCode">Gutschein-Code, welchen der Benutzer eingegeben hat.</param>
-        /// <param name="_uid">User-Id des angemeldeten Benutzers.</param>
-        /// <param name="_coupon">Coupon, falls Validierung erfolgreich</param>
-        /// <returns>true, wenn Gutscheincode zu angemeldetem Benutzer passt.</returns>
+        /// <param name="_couponCode">Gutschein-Code, den der Benutzer eingegeben hat</param>
+        /// <param name="_uid">User-ID des angemeldeten Benutzers</param>
+        /// <param name="_coupon">Gutschein, falls die Validierung erfolgreich ist</param>
+        /// <returns>true, falls der Gutschein-Code vom angemeldeten Benutzer eingelöst werden kann</returns>
         public bool CheckCouponValid(String _couponCode, int _uid, out clsCoupon _coupon)
         {
             List<clsCoupon> _myCouponList = _couponCol.GetAllActiveCouponsByUser(_uid);
@@ -95,9 +95,9 @@ namespace bll
         }
 
         /// <summary>
-        /// Liefert ein Dictionary aller aktiven Benutzer, zur Auswahl der Gutscheinzuweisung.
+        /// Liefert alle aktiven Benutzer zurück, die einen Gutschein erhalten können.
         /// </summary>
-        /// <returns>Dictionary aller aktiven Benutzer, key=User-ID; value=Voller Name des Benutzers.</returns>
+        /// <returns>alle aktiven Benutzer, die einen Gutschein erhalten können</returns>
         public Dictionary<int, String> GetAllUsersForCoupons()
         {
             return _couponCol.GetAllUsersForCoupons();
