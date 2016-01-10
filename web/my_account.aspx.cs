@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -39,5 +40,21 @@ namespace web
             Session["oNumber"] = Int32.Parse(gvMyOrders.SelectedRow.Cells[1].Text);
             Response.Redirect("order_detail.aspx", false);
         }
+
+        protected void btChangePasswd_Click(object sender, EventArgs e)
+        {
+            if(txtBoxPassword.Text == txtBoxPasswordx2.Text && !String.IsNullOrEmpty(txtBoxPassword.Text))
+            {
+                ChangePassword(txtBoxPassword.Text);
+            }
+        }
+
+        private void ChangePassword(string _newPassword)
+        {
+            MD5 md5Hash = MD5.Create();
+            string hash = clsUser.CreateMD5Hash(md5Hash, _newPassword);
+            new clsUserFacade().ChangeUserPassword((int)Session["userID"], hash);
+        }
+
     }
 }

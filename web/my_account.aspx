@@ -1,25 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="my_account.aspx.cs" Inherits="web.MyAccount_Code" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
-    <table style="width:100%">
+    <table style="width: 100%">
         <tr>
-            <td style="text-align:left">
+            <td style="text-align: left">
                 <asp:Label ID="lblMyOrders" runat="server" Text="Meine Bestellungen (Übersicht)" Font-Size="X-Large" Font-Bold="true"></asp:Label><br />
                 <asp:Label ID="lblWelcome" runat="server" Text=""></asp:Label>
             </td>
-            <td style="text-align:right">
+            <td style="text-align: right">
                 <asp:Button ID="btLogout" runat="server" Text="Logout" OnClick="btLogout_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
             </td>
         </tr>
     </table>
-    
+
     <hr />
     <p>
         <asp:GridView ID="gvMyOrders" runat="server" AutoGenerateColumns="False" DataSourceID="QOGetOrdersByUserID" Width="100%" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" ForeColor="Black" OnSelectedIndexChanged="gvMyOrders_SelectedIndexChanged">
             <Columns>
-                <asp:CommandField SelectImageUrl="~/img/detail_icon.png" ShowSelectButton="True" ButtonType="Image" >
-                </asp:CommandField>
+                <asp:CommandField SelectImageUrl="~/img/detail_icon.png" ShowSelectButton="True" ButtonType="Image"></asp:CommandField>
                 <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
@@ -32,13 +32,13 @@
                 <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status der Bestellung" SortExpression="OrderStatusDescription">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
-                <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Datum der Lieferung" SortExpression="OrderDeliveryDate" >
+                <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Datum der Lieferung" SortExpression="OrderDeliveryDate">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
-                <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}" >
+                <asp:BoundField DataField="OrderSum" HeaderText="Gesamtsumme" SortExpression="OrderSum" DataFormatString="{0:C}">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
-                <asp:BoundField DataField="CouponId" HeaderText="Gutschein#" >
+                <asp:BoundField DataField="CouponId" HeaderText="Gutschein#">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
             </Columns>
@@ -57,8 +57,34 @@
                 <asp:SessionParameter Name="_userID" SessionField="userID" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
-
-  
-
     </p>
+    <br />
+    <table>
+        <tr>
+            <td>Denken Sie daran regelmäßig Ihr Kennwort zu ändern.<br />
+                Bitte verwenden Sie möglichst sichere Kennwörter (8 Zeichen, Sonderzeichen, Zahlen usw.)<br />
+                Sollten sich Ihre Adressdaten geändert haben, so bitten wir Sie uns unter <a href="mailto:support@pizzapizza.de">support@pizzapizza.de</a> zu kontaktieren.
+    
+            </td>
+            <td>
+                <asp:Table ID="tblPwChange" runat="server" HorizontalAlign="Center">
+                    <asp:TableRow>
+                        <asp:TableCell ColumnSpan="2">
+                            <asp:Label ID="lblChangePasswd" runat="server" Text="Passwort ändern" Font-Bold="true"></asp:Label>
+                        </asp:TableCell>
+                    </asp:TableRow>
+                    <asp:TableRow>
+                        <asp:TableCell>
+                            <asp:TextBox runat="server" placeholder="Neues Passwort" ID="txtBoxPassword" Width="300" TextMode="Password" BorderStyle="Ridge" borderwith="2"></asp:TextBox><br />
+                            <asp:TextBox runat="server" placeholder="Passwort bestätigen" ID="txtBoxPasswordx2" Width="300" TextMode="Password" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                        </asp:TableCell>
+                        <asp:TableCell>
+                            <asp:Button ID="btChangePasswd" runat="server" Text="Ändern" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" OnClick="btChangePasswd_Click" />
+                        </asp:TableCell>
+                    </asp:TableRow>
+                </asp:Table>
+            </td>
+        </tr>
+    </table>
+    <br />
 </asp:Content>
