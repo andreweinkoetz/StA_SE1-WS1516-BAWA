@@ -19,7 +19,9 @@ namespace web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblTitleError.Visible = false;
+            lblErrorName.Visible = false;
+            lblErrorPrename.Visible = false;
         }
 
         /// <summary>
@@ -58,61 +60,114 @@ namespace web
             }
         }
 
-        private bool checkAndSetValidInput(TextBox stringToProve)
+        /// <summary>
+        /// Setzt den Wert einer Eigenschaft des Nutzers bei gültiger Eingabe.
+        /// </summary>
+        /// <param name="errorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
+        /// <param name="attribute">Eigenschaft des Nutzers</param>
+        /// <param name="userInput">Wert, den der Nutzer eingegeben hat</param>
+        protected void setValidUserAttribute(bool errorOccured, string attribute, string userInput)
+        {
+            if (!errorOccured)
+            {
+                attribute = userInput;
+            }
+        }
+
+        /// <summary>
+        /// Error-Handling für Nutzereingaben.
+        /// </summary>
+        /// <param name="errorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
+        /// <param name="errorLabel">Label, das im Falle eines Fehlers angezeigt wird</param>
+        /// <param name="errorText">Text, der dem Label zugeordnet wird</param>
+        protected void handleError(bool errorOccured, Label errorLabel, string errorText)
+        {
+            errorOccured = true;
+            errorLabel.Text = errorText;
+            errorLabel.Visible = true;
+        }
+
+        /// <summary>
+        /// Error-Handling für ein Textfeld, in dem eine Eingabe erwartet wird, die nur Buchstaben enthält.
+        /// </summary>
+        /// <param name="textBox">die betroffene Textbox</param>
+        /// <param name="attribute">Eigenschaft des Benutzers, der bei gültiger Eingabe der Wert zugeordnet wird</param>
+        /// <param name="isErrorOccured">gibt an, ob bei der Zuordnung des Wertes ein Fehler aufgetreten ist</param>
+        /// <param name="lblError">Error-Label, dass im Falle eines Fehlers angezeigt wird</param>
+        /// <param name="emptyErrorText">Fehlertext für den Fall, dass der Nutzer nichts eingegeben hat</param>
+        /// <param name="alphaErrorText">Fehlertext für den Fall, dass die Eingabe nicht nur aus Buchstaben besteht</param>
+        /// <returns>true, falls bei der Zuordnung des Wertes ein Fehler aufgetreten ist</returns>
+        protected bool handleNeededAlphaInput(TextBox textBox, string attribute, bool isErrorOccured, Label lblError, string emptyErrorText, string alphaErrorText)
+        {
+            if (textBox.Text.Equals(""))
+            {
+                handleError(isErrorOccured, lblError, emptyErrorText);
+            }
+            else if (!IsAlphaString(textBox.Text))
+            {
+                handleError(isErrorOccured, lblError, alphaErrorText);
+            }
+            setValidUserAttribute(isErrorOccured, attribute, textBox.Text);
+            return isErrorOccured;
+        }
+
+        /// <summary>
+        /// Error-Handling für den Titel des Benutzers.
+        /// </summary>
+        /// <param name="isErrorOccured">gibt an, ob bei der Zuordnung des Wertes ein Fehler aufgetreten ist</param>
+        /// <param name="errorLabel">Error-Label, das im Falle eines Fehlers angezeigt wird</param>
+        /// <param name="errorText">Fehlertext für den Fall, dass kein Titel ausgewählt wird</param>
+        /// <returns></returns>
+        protected bool HandleUserTitle(bool isErrorOccured, Label errorLabel, string errorText)
+        {
+            if (ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
+            {
+                handleError(isErrorOccured, errorLabel, errorText);
+            }
+            setValidUserAttribute(isErrorOccured, userToInsert.Title, ddlTitle.SelectedItem.Text);
+            return isErrorOccured;
+        }
+
+        /// <summary>
+        /// Aktiviert einen User und setzt die passende Rolle.
+        /// </summary>
+        protected void setIsActiveAndRole()
+        {
+            userToInsert.IsActive = true;
+            userToInsert.Role = 3;
+        }
+
+        protected bool checkAndSetValidInput(TextBox stringToProve)
         {
             bool errorOccured = false;
 
-            if (ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
-            {
-                lblTitleError.Text = "Bitte treffen Sie eine Auswahl.";
-                return !errorOccured;
-            }
-
-            userToInsert.Title = ddlTitle.SelectedItem.Text;
-            userToInsert.IsActive = true;
-            userToInsert.Role = 3;
+            setIsActiveAndRole();
+            errorOccured = HandleUserTitle(errorOccured, lblTitleError, "Bitte treffen Sie eine Auswahl!");
 
             switch (stringToProve.ID)
             {
                 case "txtBoxName":
+                    errorOccured = handleNeededAlphaInput(txtBoxName, userToInsert.Name, errorOccured, lblErrorName,
+                        "Bitte geben Sie ihren Nachnamen ein!", "Nachnamen können nur Buchstaben enthalten!");
+                    break;
+
                 case "txtBoxVorname":
-                    if (txtBoxName.Text.Equals("") | txtBoxVorname.Text.Equals(""))
-                    {
-                        lblErrorName.Text = "Bitte geben Sie ihren Vor- und Nachnamen ein!";
-                        errorOccured = true;
-                    }
-                    else if (!isAlphaString(txtBoxName.Text) | !isAlphaString(txtBoxVorname.Text))
-                    {
-                        lblErrorName.Text = "Namen können nur Buchstaben enthalten!";
-                        errorOccured = true;
-                    }
-                    if (!errorOccured)
-                    {
-                        userToInsert.Name = txtBoxName.Text;
-                        userToInsert.Prename = txtBoxVorname.Text;
-                    }
+                    errorOccured = handleNeededAlphaInput(txtBoxVorname, userToInsert.Prename, errorOccured, lblErrorPrename,
+                        "Bitte geben Sie ihren Vornamen ein!", "Vornamen können nur Buchstaben enthalten!");
                     break;
 
                 case "txtBoxStraße":
-                    if (txtBoxStraße.Text.Equals(""))
-                    {
-                        lblErrorStreet.Text = "Bitte geben Sie eine Straße ein!";
-                        errorOccured = true;
-                    }
-                    else if (!isAlphaString(txtBoxStraße.Text))
-                    {
-                        lblErrorStreet.Text = "Straßennamen können nur Buchstaben enthalten!";
-                        errorOccured = true;
-                    }
-                    if (!errorOccured) { userToInsert.Street = txtBoxStraße.Text; }
+                    errorOccured = handleNeededAlphaInput(txtBoxStraße, userToInsert.Street, errorOccured, lblErrorStreet,
+                        "Bitte geben Sie eine Straße ein!", "Straßennamen können nur Buchstaben enthalten!");
                     break;
+
                 case "txtBoxHnr":
                     if (txtBoxHnr.Text.Equals(""))
                     {
                         lblErrorStreet.Text = "Bitte geben Sie eine Hausnummer ein!";
                         errorOccured = true;
                     }
-                    else if (!isAlphaNumericString(txtBoxHnr.Text))
+                    else if (!IsAlphaNumericString(txtBoxHnr.Text))
                     {
                         lblErrorStreet.Text = "Hausnummern können nur Zahlen und Buchstaben enthalten!";
                         errorOccured = true;
@@ -126,12 +181,12 @@ namespace web
                         lblErrorPlace.Text = "Bitte geben Sie eine Postleitzahl ein!";
                         errorOccured = true;
                     }
-                    else if (!isNumericString(txtBoxPLZ.Text))
+                    else if (!IsNumericString(txtBoxPLZ.Text))
                     {
                         lblErrorPlace.Text = "Die Postleitzahl kann nur Zahlen enthalten!";
                         errorOccured = true;
                     }
-                    else if (getLengthOfWord(txtBoxPLZ.Text) != 5)
+                    else if (GetLengthOfInput(txtBoxPLZ.Text) != 5)
                     {
                         lblErrorPlace.Text = "Postleitzahlen in Deutschland müssen fünfstellig sein!";
                         errorOccured = true;
@@ -146,7 +201,7 @@ namespace web
                         lblErrorPlace.Text = "Bitte geben Sie einen Ort ein!";
                         errorOccured = true;
                     }
-                    else if (!isAlphaString(txtBoxPlace.Text))
+                    else if (!IsAlphaString(txtBoxPlace.Text))
                     {
                         lblErrorPlace.Text = "Orte können nur Buchstaben enthalten!";
                         errorOccured = true;
@@ -163,7 +218,7 @@ namespace web
                         lblErrorPhone.Text = "Bitte geben Sie eine Telefonnummer ein!";
                         errorOccured = true;
                     }
-                    else if (!isTelephoneNumber(txtBoxPhone.Text))
+                    else if (!IsNumericString(txtBoxPhone.Text))
                     {
                         lblErrorPhone.Text = "Telefonnummern bestehen nur aus Zahlen!";
                         errorOccured = true;
@@ -213,54 +268,46 @@ namespace web
         }
 
         /// <summary>
-        /// Checks if it is a valid alphanumeric String.
+        /// Prüft, ob die Eingabe nur aus Buchsaben und Zahlen besteht.
         /// </summary>
-        /// <param name="wordToTest"></param>
-        /// <returns></returns>
-        private bool isAlphaNumericString(string wordToTest)
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>true, wenn die Eingabe nur aus Buchstaben und Zahlen besteht</returns>
+        private bool IsAlphaNumericString(string input)
         {
-            System.Text.RegularExpressions.Regex template = new Regex(@"^[A-Za-z0-9]+$");
-            return template.IsMatch(wordToTest);
+            Regex template = new Regex(@"^[A-Za-z0-9]+$");
+            return template.IsMatch(input);
         }
 
         /// <summary>
-        /// Checks if only letters are used.
+        /// Prüft, ob die Eingabe nur aus Buchstaben besteht.
         /// </summary>
-        /// <param name="wordToTest"></param>
-        /// <returns></returns>
-        private static bool isAlphaString(string wordToTest)
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>true, falls die Eingabe nur aus Buchstaben besteht</returns>
+        private bool IsAlphaString(string input)
         {
-
-            System.Text.RegularExpressions.Regex template = new Regex(@"^[A-Za-z_äÄöÖüÜß\s]+$");
-            return template.IsMatch(wordToTest);
-
+            Regex template = new Regex(@"^[A-Za-z_äÄöÖüÜß\s]+$");
+            return template.IsMatch(input);
         }
 
         /// <summary>
-        /// Checks if only digits are used.
+        /// Prüft, ob die Eingabe nur aus Zahlen besteht.
         /// </summary>
-        /// <param name="wordToTest"></param>
-        /// <returns></returns>
-        private bool isNumericString(string wordToTest)
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>true, falls die Eingabe nur aus Zahlen besteht</returns>
+        private bool IsNumericString(string input)
         {
-            System.Text.RegularExpressions.Regex template = new Regex(@"^[0-9]+$");
-            return template.IsMatch(wordToTest);
-        }
-
-        private bool isTelephoneNumber(string wordToTest)
-        {
-            System.Text.RegularExpressions.Regex template = new Regex(@"^[0-9]+$");
-            return template.IsMatch(wordToTest);
+            Regex template = new Regex(@"^[0-9]+$");
+            return template.IsMatch(input);
         }
 
         /// <summary>
-        /// Ermittelt die Laenge eines Zeichensatzes.
+        /// Ermittelt die Länge der Eingabe.
         /// </summary>
-        /// <param name="wordToTest"></param>
-        /// <returns></returns>
-        private int getLengthOfWord(string wordToTest)
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>die Länge der Eingabe</returns>
+        private int GetLengthOfInput(string input)
         {
-            return wordToTest.Length;
+            return input.Length;
         }
     }
 }

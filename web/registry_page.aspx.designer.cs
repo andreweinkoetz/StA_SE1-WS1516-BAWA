@@ -94,6 +94,15 @@ namespace web {
         protected global::System.Web.UI.WebControls.TextBox txtBoxVorname;
         
         /// <summary>
+        /// lblErrorPrename-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorPrename;
+        
+        /// <summary>
         /// lblErrorName-Steuerelement
         /// </summary>
         /// <remarks>
@@ -128,6 +137,15 @@ namespace web {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorStreet;
+        
+        /// <summary>
+        /// lblErrorStreetNr-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorStreetNr;
         
         /// <summary>
         /// txtBoxPLZ-Steuerelement

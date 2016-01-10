@@ -7,7 +7,6 @@ using System.Data;
 
 namespace bll
 {
-
     /// <summary>
     /// Abstrakte Oberklasse für die Collection-Klassen
     /// enthält einige viel verwendete Mewthoden
@@ -83,5 +82,5 @@ namespace bll
             else
                 return DateTime.MinValue;
         }
-    } //clsBLLCollections
+    }
 }

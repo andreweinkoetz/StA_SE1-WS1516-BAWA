@@ -278,7 +278,7 @@ namespace web
             ManageVisibilityAndDataBinding(dt, false);
         }
 
-        protected void btnCreateStats_Click(object sender, EventArgs e)
+        protected void createStatisticDependingOnSelection()
         {
             string firstIndex = ddlStats.SelectedItem.Text;
             string secondIndex = "-";
@@ -331,10 +331,16 @@ namespace web
                             break;
                     }
                     break;
+
                 default:
                     //Nicht bekannte Auswertungsart
                     break;
             }
+        }
+
+        protected void btnCreateStats_Click(object sender, EventArgs e)
+        {
+            createStatisticDependingOnSelection();
         }
     }
 }
