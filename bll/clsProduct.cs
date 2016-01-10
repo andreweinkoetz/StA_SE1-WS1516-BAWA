@@ -217,11 +217,14 @@ namespace bll
             this._cID = _productToCopy._cID;
             this._opID = _productToCopy._opID;
             List<clsExtra> _productExtras = new List<clsExtra>();
-            foreach (clsExtra _myExtra in _productToCopy._productExtras)
+            if (_productToCopy.ProductExtras != null)
             {
-                _productExtras.Add(new clsExtra(_myExtra));
+                foreach (clsExtra _myExtra in _productToCopy._productExtras)
+                {
+                    _productExtras.Add(new clsExtra(_myExtra));
+                }
+                this._productExtras = _productExtras;
             }
-            this._productExtras = _productExtras;
         }
 
         /// <summary>
