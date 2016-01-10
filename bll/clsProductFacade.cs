@@ -26,45 +26,35 @@ namespace bll
         /// </summary>
         public List<clsProduct> ProductsGetAll()
         {
-            return _productCol.getAllProducts();
+            return _productCol.GetAllProducts();
         } //ProductsGetAll()
 
 
         /// <summary>
-        /// Alle Produkte einer Kategorie lesen.
+        /// Liefert alle Produkte einer Kategorie
         /// </summary>
-        /// <param name="_category"></param>
-        /// <returns></returns>
+        /// <param name="_category">Kategorie-ID</param>
+        /// <returns>Liste aller Produkte</returns>
         public List<clsProduct> ProductsGetAllByCategory(int _category)
         {
-            return _productCol.getAllProductsByCategory(_category);
+            return _productCol.GetAllProductsByCategory(_category);
         }
 
         /// <summary>
-        /// Produkt mittels ID finden.
+        /// Gibt Produkt mit gegebener ID zurück
         /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
+        /// <param name="_id">ID des gesuchten Produkts</param>
+        /// <returns>Produkt-Objekt (oder NULL) </returns>
         public clsProductExtended GetProductByID(int ID)
         {
             return _productCol.GetProductById(ID);
         }
 
         /// <summary>
-        /// Produkt-Liste erstellen.
+        /// Aktualisiert ein Produkt.
         /// </summary>
-        /// <param name="_Products"></param>
-        /// <returns></returns>
-        public List<clsProduct> createListofProducts(params clsProduct[] _Products)
-        {
-            return _productCol.createListofProducts(_Products);
-        }
-
-        /// <summary>
-        /// Einzelnes Produkt in DB aktualisieren.
-        /// </summary>
-        /// <param name="_product"></param>
-        /// <returns></returns>
+        /// <param name="_product">Produkt das aktualisiert werden soll.</param>
+        /// <returns>true wenn erfolgreich</returns>
         public bool UpdateProduct(clsProductExtended _product)
         {
             return _productCol.UpdateProduct(_product);
@@ -82,7 +72,7 @@ namespace bll
         /// <summary>
         /// Zeigt die Beliebtheit der verschiedenen Produkte an.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>OrderedDictionary (Name, Verkäufe)</returns>
         public OrderedDictionary GetMostFanciestProduct()
         {
             return _productCol.GetMostFanciestProduct();
@@ -91,7 +81,7 @@ namespace bll
         /// <summary>
         /// Liefert die Umsätze aller Produkte zurück.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Dictionary (Name, Umsatz)</returns>
         public Dictionary<string, double> GetProductsOrderedByTotalRevenue()
         {
             return _productCol.GetProductsOrderedByTotalRevenue();
@@ -128,7 +118,7 @@ namespace bll
         }
 
         /// <summary>
-        /// Liefert zu einem angegebenen Produkt die Kosten aller inkludierten Extras.
+        /// Liefert zu einem angegebenen Produkt die Kosten aller zug. Extras.
         /// </summary>
         /// <param name="_product">Produkt dessen Extra-Kosten summiert werden soll.</param>
         /// <returns>Kosten für Extras des Produkts.</returns>

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 namespace bll
 {
     /// <summary>
-    /// 
+    /// Klasse repräsentiert Produktobjekt.
     /// </summary>
     public class clsProduct
     {
         private int _id;
         /// <summary>
-        /// 
+        /// ID des Produkts
         /// </summary>
         public int Id
         {
@@ -19,7 +19,7 @@ namespace bll
 
         private String _name;
         /// <summary>
-        /// 
+        /// Name des Produkts.
         /// </summary>
         public String Name
         {
@@ -35,7 +35,7 @@ namespace bll
 
         private double _pricePerUnit;
         /// <summary>
-        /// 
+        /// Preis pro Einheit
         /// </summary>
         public double PricePerUnit
         {
@@ -46,7 +46,7 @@ namespace bll
         private String _category;
 
         /// <summary>
-        /// 
+        /// Kategorie des Produkts
         /// </summary>
         public String Category
         {
@@ -64,7 +64,7 @@ namespace bll
         private String _cUnit;
 
         /// <summary>
-        /// 
+        /// Einheit des Produkts
         /// </summary>
         public string CUnit
         {
@@ -81,7 +81,7 @@ namespace bll
 
         private double _size;
         /// <summary>
-        /// 
+        /// Größe eines gewählten Produkts.
         /// </summary>
         public double Size
         {
@@ -99,7 +99,7 @@ namespace bll
 
         private bool _toSell;
         /// <summary>
-        /// 
+        /// Anzeige ob Produkt zum Verkauf angeboten wird.
         /// </summary>
         public bool ToSell
         {
@@ -121,16 +121,15 @@ namespace bll
 
 
     }//clsProduct
-    // weitere Attribute und gg. Methoden sind noch auszuprogrammieren!
 
     /// <summary>
-    /// 
+    /// Erweiterungen der Poduktklasse
     /// </summary>
     public class clsProductExtended : clsProduct
     {
         private List<clsExtra> _productExtras;
         /// <summary>
-        /// 
+        /// Liste aller Extras eines Produkts
         /// </summary>
         public List<clsExtra> ProductExtras
         {
@@ -147,7 +146,7 @@ namespace bll
 
         private int _opID;
         /// <summary>
-        /// 
+        /// Bestellposition eines Produkts innerhalb einer Bestellung. (DB-PK)
         /// </summary>
         public int OpID
         {
@@ -164,7 +163,7 @@ namespace bll
 
         private int _cID;
         /// <summary>
-        /// 
+        /// Kategorie-ID des Produkts
         /// </summary>
         public int CID
         {
@@ -180,7 +179,7 @@ namespace bll
         }
 
         /// <summary>
-        /// 
+        /// Standard-Konstruktor für neues erw. Produkt
         /// </summary>
         public clsProductExtended() : base()
         {
@@ -190,9 +189,9 @@ namespace bll
         }
 
         /// <summary>
-        /// 
+        /// Konstruktor für neues erw. Produkt inkl. Extras.
         /// </summary>
-        /// <param name="_productExtras"></param>
+        /// <param name="_productExtras">Produktextras</param>
         public clsProductExtended(List<clsExtra> _productExtras) : base()
         {
             this._productExtras = _productExtras;
@@ -203,7 +202,6 @@ namespace bll
         /// Abgestützt auf generelle Produktfabrik.
         /// </summary>
         /// <param name="_id">ID der Pizza</param>
-        /// <param name="_size">gewählte Größe der Pizza.</param>
         /// <param name="_myExtraList">gewählte Extras der Pizza.</param>
         /// <returns>Neues Produkt-Objekt (Pizza).</returns>
         public static clsProductExtended PizzaFactory(int _id, List<clsExtra> _myExtraList)
@@ -217,7 +215,6 @@ namespace bll
         /// Statische Methode zur Erstellung eines neuen Produkts.
         /// </summary>
         /// <param name="_id">ID des Produkts</param>
-        /// <param name="_size">gewählte Größe des Produkts.</param>
         /// <returns>Neues Produkt-Objekt.</returns>
         public static clsProductExtended ProductFactory(int _id)
         {

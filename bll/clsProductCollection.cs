@@ -8,18 +8,29 @@ using System.Threading.Tasks;
 
 namespace bll
 {
+    /// <summary>
+    /// clsProductCollection: Verwalten von Product-Objekten und ProductExtended Objekten
+    /// </summary>
     internal class clsProductCollection : clsBLLCollections
     {
         string _databaseFile; // String zur Access-Datei
         DAL.DALObjects.dDataProvider _myDAL; // DAL: Zugriff auf die Datenbank
 
+        /// <summary>
+        /// Standard-Konstruktor für neue Collection.
+        /// </summary>
         internal clsProductCollection()
         {
             _databaseFile = System.Configuration.ConfigurationManager.AppSettings["AccessFileName"];
             _myDAL = DAL.DataFactory.GetAccessDBProvider(_databaseFile);
         }
 
-        internal List<clsProduct> getAllProducts()
+
+        /// <summary>
+        /// Liefert Liste aller Produkte.
+        /// </summary>
+        /// <returns>Liste aller Produkte</returns>
+        internal List<clsProduct> GetAllProducts()
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetAllProducts");
             DataTable _myDataTable = _myDataSet.Tables[0];
@@ -34,14 +45,12 @@ namespace bll
             return _myProductList;
         }
 
-        internal List<clsProduct> createListofProducts(params clsProduct[] _Products)
-        {
-            List<clsProduct> _myProductsList = new List<clsProduct>(_Products);
-
-            return _myProductsList;
-        }
-
-        internal List<clsProduct> getAllProductsByCategory(int _category)
+        /// <summary>
+        /// Liefert alle Produkte einer Kategorie
+        /// </summary>
+        /// <param name="_category">Kategorie-ID</param>
+        /// <returns>Liste aller Produkte</returns>
+        internal List<clsProduct> GetAllProductsByCategory(int _category)
         {
             _myDAL.AddParam("PFKCategory", _category, DAL.DataDefinition.enumerators.SQLDataType.INT);
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QPGetAllProductsByCategory");
@@ -80,6 +89,11 @@ namespace bll
 
         } // getProductById()
 
+        /// <summary>
+        /// Aktualisiert ein Produkt.
+        /// </summary>
+        /// <param name="_product">Produkt das aktualisiert werden soll.</param>
+        /// <returns>true wenn erfolgreich</returns>
         internal bool UpdateProduct(clsProductExtended _product)
         {
             _myDAL.AddParam("PName", _product.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -92,6 +106,10 @@ namespace bll
             return affectedRow == 1;
         }
 
+        /// <summary>
+        /// Gibt eine Liste aller Kategorien inkl. zug. ID zurück.
+        /// </summary>
+        /// <returns>Liste der Kategorienamen mit ID</returns>
         internal Dictionary<Int32, String> GetAllProductCategories()
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QCGetAllCategories");
@@ -109,7 +127,11 @@ namespace bll
             return _myCategories;
 
         }
-
+        /// <summary>
+        /// Einfügen eines neuen Produkts.
+        /// </summary>
+        /// <param name="_myProduct">einzufügendes Produkt</param>
+        /// <returns>Anzahl der veränderten Zeilen (i.d.R. = 1)</returns>
         internal int InsertNewProduct(clsProductExtended _myProduct)
         {
             _myDAL.AddParam("PName", _myProduct.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -121,6 +143,11 @@ namespace bll
 
         }
 
+        /// <summary>
+        /// Erstellt eine Liste aller Bestellnummern, in denen das Produkt enthalten ist.
+        /// </summary>
+        /// <param name="_pid">Produkt-ID</param>
+        /// <returns>Liste aller Bestellnummern.</returns>
         internal List<Int32> GetOrdersOfProductByPid(int _pid)
         {
             _myDAL.AddParam("PID", _pid, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -139,7 +166,10 @@ namespace bll
             return _orderNumbers;
         }
 
-
+        /// <summary>
+        /// Zeigt die Beliebtheit der verschiedenen Produkte an.
+        /// </summary>
+        /// <returns>OrderedDictionary (Name, Verkäufe)</returns>
         internal OrderedDictionary GetMostFanciestProduct()
         {
             //Hier wird unser Dataset aus der DB befüllt
@@ -156,6 +186,10 @@ namespace bll
             return amountOfProducts;
         }
 
+        /// <summary>
+        /// Liefert die Umsätze aller Produkte zurück.
+        /// </summary>
+        /// <returns>Dictionary (Name, Umsatz)</returns>
         internal Dictionary<string, double> GetProductsOrderedByTotalRevenue()
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOPGetProductsOrderedByTotalRevenue");
@@ -171,7 +205,11 @@ namespace bll
             return _myProducts;
         }
 
-
+        /// <summary>
+        /// Löscht Produkt aus Datenbank.
+        /// </summary>
+        /// <param name="_pid">Id des zu löschenden Produkts</param>
+        /// <returns>true wenn Produkt gelöscht</returns>
         internal int DeleteProductByPid(int _pid)
         {
             _myDAL.AddParam("PID", _pid, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -179,7 +217,13 @@ namespace bll
             return _myDAL.MakeStoredProcedureAction("QPDeleteProductById");
         }
 
-        internal clsProductExtended DatarowToClsProduct(DataRow _dr)
+
+        /// <summary>
+        /// Hilfsmethode zur Erstellung eines Produktobjektes aus einer DataRow.
+        /// </summary>
+        /// <param name="_dr">DataRow die DB-Abfragewerte enthält</param>
+        /// <returns>Produkt</returns>
+        private clsProductExtended DatarowToClsProduct(DataRow _dr)
         {
             clsProductExtended _myProduct = new clsProductExtended();
             _myProduct.Id = AddIntFieldValue(_dr, "PID");
