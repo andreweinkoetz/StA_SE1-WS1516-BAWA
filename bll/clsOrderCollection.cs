@@ -55,7 +55,7 @@ namespace bll
         /// </summary>
         /// <param name="_Order">Order-Objekt</param>
         /// <returns>1 falls Insert erfolgreich </returns>
-        public int InsertOrder(clsOrderExtended _Order)
+        internal int InsertOrder(clsOrderExtended _Order)
         {
 
             //DB-Provider instanziiert und eine Verbindung zur access-Datenbank aufgebaut
@@ -77,7 +77,13 @@ namespace bll
             return _changedSets;
         } //insertOrder()
 
-        public int InsertOrderedProduct(clsOrderExtended _Order, clsProductExtended _Product)
+        /// <summary>
+        /// Einfügen der Produkte einer Bestellung.
+        /// </summary>
+        /// <param name="_Order">Bestellung des Produkts</param>
+        /// <param name="_Product">einzufügendes Produkt</param>
+        /// <returns>Anzahl der veränderten Zeilen</returns>
+        internal int InsertOrderedProduct(clsOrderExtended _Order, clsProductExtended _Product)
         {
             int _changedSets = 0;
 
@@ -96,7 +102,13 @@ namespace bll
             return _changedSets;
         }
 
-        public int InsertOrderedExtras(clsProductExtended _Product, List<clsExtra> _Extras)
+        /// <summary>
+        /// Einfügen der Extras der Produkte einer Bestellung.
+        /// </summary>
+        /// <param name="_Product">Produkt das die Extras enthält</param>
+        /// <param name="_Extras">Extras die einzufügen sind.</param>
+        /// <returns>Anzahl der veränderten Zeilen</returns>
+        internal int InsertOrderedExtras(clsProductExtended _Product, List<clsExtra> _Extras)
         {
             int _changedSets = 0;
 
@@ -121,7 +133,7 @@ namespace bll
         /// <summary>
         /// Liest alle Bestellungen eines Users aus der DB und gibt sie als Liste zurück
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste aller Bestellungen eines Users</returns>
         internal List<clsOrderExtended> GetOrdersByUserID(int _userID)
         {
             _myDAL.AddParam("UserID", _userID, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -169,7 +181,7 @@ namespace bll
         /// <summary>
         /// Liest alle Produkte inkl. Extras einer Bestellung aus der DB und gibt sie als Liste zurück
         /// </summary>
-        /// <returns></returns>
+        /// <returns>alle Produkte inkl. Extras einer Bestellung als Liste</returns>
         internal List<clsProductExtended> GetOrderedProductsByOrderNumber(int _orderNumber)
         {
             _myDAL.AddParam("ONumber", _orderNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -203,7 +215,7 @@ namespace bll
         /// <summary>
         /// Gibt alle Bestellungen geordnet nach Datum zurück.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste aller Bestellungen geordnet nach Datum</returns>
         internal List<clsOrderExtended> GetOrdersOrderedByDate()
         {
             //Hier wird unser Dataset aus der DB befüllt
@@ -231,6 +243,60 @@ namespace bll
             return _myOrderList;
         }
 
+        /// <summary>
+        /// Gibt eine Liste von Ergebnistupeln geordnet nach Status zurück.
+        /// </summary>
+        /// <returns>Liste von Ergebnistupeln</returns>
+        internal List<Tuple<String,Int32,Double>> GetOrdersOrderedByStatus()
+        {
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrdersOrderedByStatus");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //Erzeugen einer Liste von Ergebnistupeln
+            List<Tuple<String, Int32, Double>> _resultTuples = new List<Tuple<String, Int32, Double>>();
+
+
+            //Lesen wir jetzt Zeile (DataRow) für Zeile
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                Tuple<String, Int32, Double> _order = new Tuple<String, Int32, Double>(AddStringFieldValue(_dr, "Bestellstatus"), AddIntFieldValue(_dr, "AnzahlBestellungen"), AddDoubleFieldValue(_dr, "Gesamtsumme"));
+                _resultTuples.Add(_order);
+            }
+            return _resultTuples;
+        }
+
+        /// <summary>
+        /// Gibt ein Dictionary mit den Ergebniswerten zurück.
+        /// </summary>
+        /// <returns>Dictionary mit Ergebniswerten</returns>
+        internal Dictionary<Int32, Int32> GetTimeToDeliverOfOrders()
+        {
+            //Hier wird unser Dataset aus der DB befüllt
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetTimeToDeliverOfOrders");
+
+            //das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //Erzeugen des Ergebnisdictionaries.
+            Dictionary<Int32, Int32> _results = new Dictionary<Int32, Int32>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _results.Add(AddIntFieldValue(_dr, "ONumber"), AddIntFieldValue(_dr, "Differenz"));
+            }
+
+            return _results;
+        }
+
+
+        /// <summary>
+        /// Gibt eine Liste von Ergebnistupeln geordnet nach Kategorie zurück.
+        /// </summary>
+        /// <param name="_category">Kategorie der Produkte</param>
+        /// <returns>Liste von Ergebnistupeln</returns>
         internal List<Tuple<int, String, double>> GetOrderedProductsSortByCategory(String _category)
         {
 
@@ -259,6 +325,12 @@ namespace bll
             return _productList;
         }
 
+
+        /// <summary>
+        /// Erstellt eine Liste aller Bestellungen eines Users.
+        /// </summary>
+        /// <param name="_email">Username/Email des Users.</param>
+        /// <returns>Liste aller Bestellungen des Users</returns>
         internal List<clsOrderExtended> GetOrdersByEmail(String _email)
         {
             _myDAL.AddParam("Email", _email, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -288,6 +360,12 @@ namespace bll
             return _myOrderList;
         }
 
+
+        /// <summary>
+        /// Interne Hilfsmethode - Erstellt eine Liste aller Extras, die ein best. Produkt in einer Bestellung hat.
+        /// </summary>
+        /// <param name="_opID">DB-ID des bestellten Produkts</param>
+        /// <returns>Liste aller Extras</returns>
         private List<clsExtra> GetExtrasByOPID(int _opID)
         {
             // Neuer Provider muss angelegt werden da die Abfrage sonst keinen Wert liefert wegen falschen Parametern!
@@ -316,9 +394,9 @@ namespace bll
         }
 
         /// <summary>
-        /// Liest alle Order aus der DB und gibt sie als Liste zurück
+        /// Liest alle nicht gelieferten Orders aus der DB und gibt sie als Liste zurück
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste alle nicht gelieferten Orders</returns>
         internal List<clsOrderExtended> GetOrdersNotDelivered()
         {
             //Hier wird unser Dataset aus der DB befüllt
@@ -337,8 +415,12 @@ namespace bll
                 _myOrderList.Add(DatarowToclsOrderExtended(_dr));
             }
             return _myOrderList;
-        } //getAllOrders() 
+        }
 
+        /// <summary>
+        /// Liest alle gelieferten Orders aus der DB und gibt sie als Liste zurück
+        /// </summary>
+        /// <returns>Liste aller gelieferten Orders</returns>
         internal List<clsOrderExtended> GetFinishedOrders()
         {
             DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetAllFinishedOrders");
@@ -354,6 +436,12 @@ namespace bll
             return _myOrderList;
         }
 
+
+        /// <summary>
+        /// Legt den neuen Status einer Bestellung fest.
+        /// </summary>
+        /// <param name="_myOrder">Bestellung deren Status verändert wird</param>
+        /// <returns>Anzahl der veränderten Zeilen (i.d.R. = 1)</returns>
         internal int UpdateOrderStatusByONumber(clsOrderExtended _myOrder)
         {
             _myDAL.AddParam("Status", _myOrder.OrderStatus, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -365,6 +453,11 @@ namespace bll
             return changedSets;
         }
 
+        /// <summary>
+        /// Storniert eine Bestellung.
+        /// </summary>
+        /// <param name="_oNumber">Nummer der Bestellung</param>
+        /// <returns>Anzahl der veränderten Zeilen (i.d.R. = 1)</returns>
         internal int CancelOrderByONumber(int _oNumber)
         {
             _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -373,6 +466,12 @@ namespace bll
             return changedSets;
         }
 
+
+        /// <summary>
+        /// Liefert eine bestimmte Bestellung zurück.
+        /// </summary>
+        /// <param name="_oNumber">Nummer der Bestellung</param>
+        /// <returns>Bestellung</returns>
         internal clsOrderExtended GetOrderByOrderNumber(int _oNumber)
         {
             _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);
@@ -396,6 +495,11 @@ namespace bll
             }
         }
 
+        /// <summary>
+        /// Löscht eine Bestellung. Dabei werden auch alle Produkte sowie Extras der zug. Bestellung entfernt.
+        /// </summary>
+        /// <param name="_oNumber">Nummer der Bestellung</param>
+        /// <returns>Anzahl der veränderten Zeilen.</returns>
         internal int DeleteOrderByOrderNumber(int _oNumber)
         {
             _myDAL.AddParam("ONumber", _oNumber, DAL.DataDefinition.enumerators.SQLDataType.INT);

@@ -101,7 +101,7 @@ namespace web
             switch (ddlStats.SelectedIndex)
             {
                 case 1:
-                    BuildDropDownList(ddlStatsExtended, new List<string> { "- Daten wählen", "sortiert nach Datum", "pro Kategorie", "des Kunden" }, true);
+                    BuildDropDownList(ddlStatsExtended, new List<string> { "- Daten wählen", "sortiert nach Datum", "pro Kategorie", "des Kunden", "nach Status", "nach Lieferdauer" }, true);
                     break;
                 case 2:
                     BuildDropDownList(ddlStatsExtended, new List<string> { "- Daten wählen", "sortiert nach Beliebtheit", "sortiert nach Umsatz" }, true);
@@ -252,6 +252,36 @@ namespace web
             ManageVisibilityAndDataBinding(dt, false);
         }
 
+        protected void GetOrdersOrderedByStatus()
+        {
+            DataTable dt = new DataTable("OrderStats");
+            BuildDataTable(dt, new List<String> { "Bestellstatus", "Anzahl der Bestellungen", "Gesamtsumme" });
+
+
+            List<Tuple<String, Int32, Double>> _resultTuples = new clsOrderFacade().GetOrdersOrderedByStatus();
+            foreach (Tuple<String, Int32, Double> _tuple in _resultTuples)
+            {
+                dt.LoadDataRow(new object[] { _tuple.Item1, _tuple.Item2, _tuple.Item3 }, true);
+            }
+            ManageVisibilityAndDataBinding(dt, false);
+        }
+
+        protected void GetOrdersOrderedByDeliveryTime()
+        {
+            DataTable dt = new DataTable("OrderStats");
+            BuildDataTable(dt, new List<String> { "Bestellnummer", "Dauer der Lieferung in Minuten" });
+
+
+            Dictionary<Int32, Int32> _resultTuples = new clsOrderFacade().GetTimeToDeliverOfOrders();
+
+            for (int i = 0; i < _resultTuples.Count; i++)
+            {
+                dt.LoadDataRow(new object[] { _resultTuples.Keys.ElementAt(i), _resultTuples.Values.ElementAt(i) + " min" }, true);
+            }
+
+            ManageVisibilityAndDataBinding(dt, false);
+        }
+
         protected void GetProductsOrderedByRevenue()
         {
             DataTable dt = new DataTable("ProductSales");
@@ -278,7 +308,7 @@ namespace web
             ManageVisibilityAndDataBinding(dt, false);
         }
 
-        protected void createStatisticDependingOnSelection()
+        protected void CreateStatisticDependingOnSelection()
         {
             string firstIndex = ddlStats.SelectedItem.Text;
             string secondIndex = "-";
@@ -305,6 +335,12 @@ namespace web
                             break;
                         case "des Kunden":
                             GetOrdersOfUser();
+                            break;
+                        case "nach Status":
+                            GetOrdersOrderedByStatus();
+                            break;
+                        case "nach Lieferdauer":
+                            GetOrdersOrderedByDeliveryTime();
                             break;
                     }
                     break;
@@ -340,7 +376,7 @@ namespace web
 
         protected void btnCreateStats_Click(object sender, EventArgs e)
         {
-            createStatisticDependingOnSelection();
+            CreateStatisticDependingOnSelection();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace bll
         /// <summary>
         /// OrderInsert
         /// </summary>
-        /// <param name="_newOrder"></param>
+        /// <param name="_newOrder">neue Bestellung</param>
         /// <returns>true falls insert erfolgreich</returns>
         public bool InsertOrder(clsOrderExtended _newOrder)
         {
@@ -56,8 +56,8 @@ namespace bll
         /// <summary>
         /// Alle Bestellungen eines Users.
         /// </summary>
-        /// <param name="_userID"></param>
-        /// <returns></returns>
+        /// <param name="_userID">ID des Benutzers</param>
+        /// <returns>Liste aller Bestellungen</returns>
         public List<clsOrderExtended> GetOrdersByUserID(int _userID)
         {
             return _orderCol.GetOrdersByUserID(_userID);
@@ -66,8 +66,8 @@ namespace bll
         /// <summary>
         /// Alle Produkte inkl. Extras einer Bestellung.
         /// </summary>
-        /// <param name="_orderNumber"></param>
-        /// <returns></returns>
+        /// <param name="_orderNumber">Nummer der Bestellung</param>
+        /// <returns>Liste aller Produkte inkl. Extras</returns>
         public List<clsProductExtended> GetOrderedProductsByOrderNumber(int _orderNumber)
         {
             return _orderCol.GetOrderedProductsByOrderNumber(_orderNumber);
@@ -182,9 +182,9 @@ namespace bll
         /// <summary>
         /// Einfügen der Extras der Produkte einer Bestellung.
         /// </summary>
-        /// <param name="_Product"></param>
-        /// <param name="_Extras"></param>
-        /// <returns></returns>
+        /// <param name="_Product">Produkt das die Extras enthält</param>
+        /// <param name="_Extras">Extras die einzufügen sind.</param>
+        /// <returns>Anzahl der veränderten Zeilen</returns>
         public bool InsertOrderedExtras(clsProductExtended _Product, List<clsExtra> _Extras)
         {
             return (_orderCol.InsertOrderedExtras(_Product, _Extras) > 0);
@@ -193,19 +193,41 @@ namespace bll
         /// <summary>
         /// Einfügen der Produkte einer Bestellung.
         /// </summary>
-        /// <param name="_Order"></param>
-        /// <param name="_Product"></param>
-        /// <returns></returns>
+        /// <param name="_Order">Bestellung des Produkt</param>
+        /// <param name="_Product">Produkt</param>
+        /// <returns>true wenn Einfügen erfolgreich</returns>
         public bool InsertOrderedProduct(clsOrderExtended _Order, clsProductExtended _Product)
         {
             return (_orderCol.InsertOrderedProduct(_Order, _Product) > 0);
         }
 
         /// <summary>
+        /// Einfügen eines Produkts inkl. seiner Extras in die DB.
+        /// </summary>
+        /// <param name="_myOrder">zug. Bestellung</param>
+        /// <param name="_product">einzufügendes Produkt</param>
+        /// <returns>true wenn erfolgreich</returns>
+        public bool InsertOrderedProductWithExtras(clsOrderExtended _myOrder, clsProductExtended _product)
+        {
+            bool orderIsCorrect;
+            _product.OpID = _product.GetHashCode() + _myOrder.OrderNumber;
+            orderIsCorrect = InsertOrderedProduct(_myOrder, _product);
+            if (_product.ProductExtras != null)
+            {
+                if (_product.ProductExtras.Count > 0)
+                {
+                    orderIsCorrect = InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
+                }
+            }
+
+            return orderIsCorrect;
+        }
+
+        /// <summary>
         /// Bestellstatus aktualisieren.
         /// </summary>
-        /// <param name="_myOrder"></param>
-        /// <returns></returns>
+        /// <param name="_myOrder">Bestellung deren Status verändert wird.</param>
+        /// <returns>true wenn erfolgreich</returns>
         public bool UpdateOrderStatusByONumber(clsOrderExtended _myOrder)
         {
             return (_orderCol.UpdateOrderStatusByONumber(_myOrder) == 1);
@@ -234,7 +256,7 @@ namespace bll
         /// <summary>
         /// Alle Bestellungen sortiert nach Datum.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste aller Bestellungen sortiert nach Datum</returns>
         public List<clsOrderExtended> GetOrdersOrderedByDate()
         {
             return _orderCol.GetOrdersOrderedByDate();
@@ -243,19 +265,18 @@ namespace bll
         /// <summary>
         /// Alle Bestellungen eines bestimmten Nutzers.
         /// </summary>
-        /// <param name="_email"></param>
-        /// <returns></returns>
+        /// <param name="_email">Username/Email</param>
+        /// <returns>Liste aller Bestellung des Nutzers.</returns>
         public List<clsOrderExtended> GetOrdersByEmail(String _email)
         {
             return _orderCol.GetOrdersByEmail(_email);
         }
 
-
         /// <summary>
-        /// Liefert die Produkte pro Kategorie zurück.
+        /// Gibt eine Liste von Ergebnistupeln geordnet nach Kategorie zurück.
         /// </summary>
-        /// <param name="_category"></param>
-        /// <returns></returns>
+        /// <param name="_category">Kategorie der Produkte</param>
+        /// <returns>Liste von Ergebnistupeln</returns>
         public List<Tuple<int, string, double>> GetOrderedProductsSortByCategory(String _category)
         {
             return _orderCol.GetOrderedProductsSortByCategory(_category);
@@ -308,6 +329,31 @@ namespace bll
             }
         }
 
+
+        /// <summary>
+        /// Gibt eine Liste von Ergebnistupeln geordnet nach Status zurück.
+        /// </summary>
+        /// <returns>Liste von Ergebnistupeln</returns>
+        public List<Tuple<String, Int32, Double>> GetOrdersOrderedByStatus()
+        {
+            return _orderCol.GetOrdersOrderedByStatus();
+        }
+
+        /// <summary>
+        /// Gibt ein Dictionary mit den Ergebniswerten zurück.
+        /// </summary>
+        /// <returns>Dictionary mit Ergebniswerten</returns>
+        public Dictionary<Int32, Int32> GetTimeToDeliverOfOrders()
+        {
+            return _orderCol.GetTimeToDeliverOfOrders();
+        }
+
+        /// <summary>
+        /// Hilfsmethode zur Erstellung einer (textuellen) Liste von offenen Bestellnummern.
+        /// </summary>
+        /// <param name="_orderNumbers">Liste der Bestellnummern</param>
+        /// <param name="_selAdmData">Auswahl (1 - Produkt 2 - Extra 3 - Benutzer)</param>
+        /// <returns>textuelle Liste von offenen Bestellnummern</returns>
         public static string CreateStringOfOpenOrders(List<Int32> _orderNumbers, int _selAdmData)
         {
             String _openOrders = "";
@@ -332,22 +378,6 @@ namespace bll
             }
             _openOrders += "}";
             return _openOrders;
-        }
-
-        public bool InsertOrderedProductWithExtras(clsOrderExtended _myOrder, clsProductExtended _product)
-        {
-            bool orderIsCorrect;
-            _product.OpID = _product.GetHashCode() + _myOrder.OrderNumber;
-            orderIsCorrect = InsertOrderedProduct(_myOrder, _product);
-            if (_product.ProductExtras != null)
-            {
-                if (_product.ProductExtras.Count > 0)
-                {
-                    orderIsCorrect = InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
-                }
-            }
-
-            return orderIsCorrect;
         }
 
     } // clsOrderFacade

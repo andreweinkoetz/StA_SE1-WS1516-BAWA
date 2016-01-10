@@ -61,7 +61,6 @@ namespace bll
             set { _orderDate = value; }
         }
 
-        //TODO: hier weiter!
         private double _orderSum;
         /// <summary>
         /// Gesamtpreis der Bestellung.
