@@ -160,7 +160,7 @@ namespace web
 
             for (int i = 0; i < _amount; i++)
             {
-                ((List<clsProductExtended>)Session["selProducts"]).Add(_myProduct);
+                ((List<clsProductExtended>)Session["selProducts"]).Add(new clsProductExtended(_myProduct));
             }
 
             Session["selectedPizza"] = null;

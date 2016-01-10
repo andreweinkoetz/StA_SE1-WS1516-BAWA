@@ -63,7 +63,7 @@
                 </p>
             </asp:TableCell>
             <asp:TableCell>
-                <asp:Label ID="lblPhone" runat="server" FCssClass="lbl-font-small" Text="Telefon: 089 1265-3714"></asp:Label>
+                <asp:Label ID="lblPhone" runat="server" CssClass="lbl-font-small" Text="Telefon: 089 1265-3714"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>

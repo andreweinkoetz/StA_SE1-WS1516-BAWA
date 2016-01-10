@@ -114,7 +114,25 @@ namespace bll
             }
         }
 
+        /// <summary>
+        /// Standardkonstruktor
+        /// </summary>
+        public clsProduct() { }
 
+        /// <summary>
+        /// Kopierkonstruktor
+        /// </summary>
+        /// <param name="_productToCopy">zu kopierendes Produkt</param>
+        public clsProduct(clsProduct _productToCopy)
+        {
+            this._id = _productToCopy._id;
+            this._name = _productToCopy._name;
+            this._pricePerUnit = _productToCopy._pricePerUnit;
+            this._size = _productToCopy._size;
+            this._toSell = _productToCopy._toSell;
+            this._cUnit = _productToCopy._cUnit;
+            this._category = _productToCopy._category;
+        }
 
 
 
@@ -186,6 +204,24 @@ namespace bll
             this._opID = 0;
             this._productExtras = null;
 
+        }
+
+
+
+        /// <summary>
+        /// Kopierkonstruktor
+        /// </summary>
+        /// <param name="_productToCopy">zu kopierendes Produkt</param>
+        public clsProductExtended(clsProductExtended _productToCopy) : base(_productToCopy)
+        {
+            this._cID = _productToCopy._cID;
+            this._opID = _productToCopy._opID;
+            List<clsExtra> _productExtras = new List<clsExtra>();
+            foreach (clsExtra _myExtra in _productToCopy._productExtras)
+            {
+                _productExtras.Add(new clsExtra(_myExtra));
+            }
+            this._productExtras = _productExtras;
         }
 
         /// <summary>

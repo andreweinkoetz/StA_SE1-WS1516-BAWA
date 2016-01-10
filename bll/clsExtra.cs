@@ -103,6 +103,18 @@ namespace bll
         }
 
         /// <summary>
+        /// Kopierkonstruktor.
+        /// </summary>
+        /// <param name="_extraToCopy">zu kopierendes Extra</param>
+        public clsExtra(clsExtra _extraToCopy)
+        {
+            this.ID = _extraToCopy._id;
+            this._name = _extraToCopy._name;
+            this._price = _extraToCopy._price;
+            this._toSell = _extraToCopy._toSell;
+        }
+
+        /// <summary>
         /// Erstellt eine Liste von Extras für die Pizzen.
         /// </summary>
         /// <param name="_idOfExtras">IDs der gewählten Extras.</param>
