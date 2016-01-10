@@ -36,6 +36,9 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Initialisierung UI für Produkt-Bearbeitung.
+        /// </summary>
         private void InitializeToEdit()
         {
             clsProductFacade _myFacade = new clsProductFacade();
@@ -61,6 +64,9 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Initialisierung UI für Produkt-Neuerstellung.
+        /// </summary>
         private void InitializeCreateNew()
         {
             lblProductEdit.Text = "Neues Produkt anlegen";
@@ -73,6 +79,14 @@ namespace web
             InsertOrUpdateProduct();
         }
 
+        /// <summary>
+        /// Prüft auf korrekte Eingaben und fügt
+        /// das neue Produkt in die DB ein bzw. updated das
+        /// bestehende Produkt.
+        /// 
+        /// Fall Einfügen erfolgreich wird der User zur Hauptansicht zurückgeleitet.
+        /// Im Fehlerfall erscheint ein passender Hinweis.
+        /// </summary>
         private void InsertOrUpdateProduct()
         {
             bool insertSuccessful = false, isValidPrice = true;
@@ -127,6 +141,9 @@ namespace web
 
         }
 
+        /// <summary>
+        /// Löscht das ausgewählte Produkt.
+        /// </summary>
         private void DeleteProduct()
         {
             clsProductFacade _productFacade = new clsProductFacade();
@@ -145,6 +162,10 @@ namespace web
             RedirectAdmData();
         }
 
+        /// <summary>
+        /// Setzt Session-Variablen zurück und 
+        /// leitet auf Hauptansicht um.
+        /// </summary>
         private void RedirectAdmData()
         {
             Session["toEdit"] = null;

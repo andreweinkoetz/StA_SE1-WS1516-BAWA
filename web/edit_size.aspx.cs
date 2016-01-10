@@ -35,6 +35,9 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Initialisierung UI für Größen-Bearbeitung.
+        /// </summary>
         private void InitializeToEdit()
         {
             clsSizeFacade _sizeFacade = new clsSizeFacade();
@@ -47,6 +50,9 @@ namespace web
             btEnter.Text = "Größe ändern";
         }
 
+        /// <summary>
+        /// Initialisierung UI für Größen-Neuerstellung.
+        /// </summary>
         private void InitializeCreateNew()
         {
             lblSizeEdit.Text = "Neue Größe anlegen";
@@ -60,6 +66,14 @@ namespace web
 
         }
 
+        /// <summary>
+        /// Prüft auf korrekte Eingaben und fügt
+        /// die neue Größe in die DB ein bzw. updated die
+        /// bestehende Größe.
+        /// 
+        /// Fall Einfügen erfolgreich wird der User zur Hauptansicht zurückgeleitet.
+        /// Im Fehlerfall erscheint ein passender Hinweis.
+        /// </summary>
         private void InsertOrUpdateSize()
         {
             bool readyForDB = true, insertSuccessful = false;
@@ -117,6 +131,9 @@ namespace web
             DeleteSize();
         }
 
+        /// <summary>
+        /// Löscht die gewählte Größe
+        /// </summary>
         private void DeleteSize()
         {
             clsSizeFacade _sizeFacade = new clsSizeFacade();
@@ -129,6 +146,10 @@ namespace web
             RedirectAdmData();
         }
 
+        /// <summary>
+        /// Setzt Session-Variablen zurück und 
+        /// leitet auf Hauptansicht um.
+        /// </summary>
         private void RedirectAdmData()
         {
             Session["toEdit"] = null;

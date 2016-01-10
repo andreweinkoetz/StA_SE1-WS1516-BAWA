@@ -22,6 +22,9 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Deaktivieren des UserInterfaces zum Schutz vor unautorisiertem Zutritt.
+        /// </summary>
         private void disableUI()
         {
             btAdmData.Visible = false;
@@ -34,6 +37,9 @@ namespace web
             lblAdminOverview.Text = "Sie sind nicht authorisiert diese Seite zu nutzen. <br />Bitte melden Sie sich an.";
         }
 
+        /// <summary>
+        /// Aktivieren des UserInterfaces bei Berechtigung.
+        /// </summary>
         private void enableUI()
         {
             btAdmData.Visible = true;

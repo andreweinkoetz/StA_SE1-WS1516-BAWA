@@ -34,6 +34,9 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Initialisierung UI für Extra-Bearbeitung.
+        /// </summary>
         private void InitializeToEdit()
         {
             clsExtraFacade _extraFacade = new clsExtraFacade();
@@ -57,6 +60,9 @@ namespace web
             btEnter.Text = "Extra ändern";
         }
 
+        /// <summary>
+        /// Initialisierung UI für Extra-Neuerstellung.
+        /// </summary>
         private void InitializeCreateNew()
         {
             lblExtraEdit.Text = "Neues Extra anlegen";
@@ -69,6 +75,14 @@ namespace web
             InsertOrUpdateExtra();
         }
 
+        /// <summary>
+        /// Prüft auf korrekte Eingaben und fügt
+        /// das neue Extra in die DB ein bzw. updated das
+        /// bestehende Extra.
+        /// 
+        /// Fall Einfügen erfolgreich wird der User zur Hauptansicht zurückgeleitet.
+        /// Im Fehlerfall erscheint ein passender Hinweis.
+        /// </summary>
         private void InsertOrUpdateExtra()
         {
             bool readyForDB = true, insertSuccessful = false;
@@ -123,6 +137,9 @@ namespace web
             DeleteExtra();
         }
 
+        /// <summary>
+        /// Löscht das gewählte Extra.
+        /// </summary>
         private void DeleteExtra()
         {
             clsExtraFacade _extraFacade = new clsExtraFacade();
@@ -135,6 +152,10 @@ namespace web
             RedirectAdmData();
         }
 
+        /// <summary>
+        /// Setzt Session-Variablen zurück und 
+        /// leitet auf Hauptansicht um.
+        /// </summary>
         private void RedirectAdmData()
         {
             Session["toEdit"] = null;

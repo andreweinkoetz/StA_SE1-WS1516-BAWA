@@ -38,6 +38,9 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Initialisierung UI für User-Bearbeitung.
+        /// </summary>
         private void InitializeToEdit()
         {
             btEnter.Text = "Benutzer ändern";
@@ -70,6 +73,9 @@ namespace web
             lblUserEdit.Text = "Benutzer #" + _myUser.ID + " ändern:";
         }
 
+        /// <summary>
+        /// Initialisierung UI für User-Neuerstellung.
+        /// </summary>
         private void InitializeCreateNew()
         {
             lblUserEdit.Text = "Benutzer anlegen";
@@ -84,6 +90,9 @@ namespace web
             DeleteUser();
         }
 
+        /// <summary>
+        /// Löscht den gewählten Benutzer.
+        /// </summary>
         private void DeleteUser()
         {
             clsUserFacade _userFacade = new clsUserFacade();
@@ -97,6 +106,14 @@ namespace web
 
         }
 
+        /// <summary>
+        /// Prüft auf korrekte Eingaben und fügt
+        /// den neue User in die DB ein bzw. updated den
+        /// bestehenden User.
+        /// 
+        /// Fall Einfügen erfolgreich wird der User zur Hauptansicht zurückgeleitet.
+        /// Im Fehlerfall erscheint ein passender Hinweis.
+        /// </summary>
         private void InsertOrUpdateUser()
         {
             bool successful = false;
@@ -185,6 +202,10 @@ namespace web
             RedirectAdmData();
         }
 
+        /// <summary>
+        /// Setzt Session-Variablen zurück und 
+        /// leitet auf Hauptansicht um.
+        /// </summary>
         private void RedirectAdmData()
         {
             Session["toEdit"] = null;

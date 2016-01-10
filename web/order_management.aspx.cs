@@ -56,6 +56,10 @@ namespace web
 
         }
 
+        /// <summary>
+        /// Aktiviert die Buttons zur Bestellbearbeitung.
+        /// Wird durch die Selektion einer Bestellung ausgelöst.
+        /// </summary>
         private void EnableOrderManagementButtons()
         {
             btDelivered.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
@@ -70,6 +74,9 @@ namespace web
             refreshAfterUpdate();
         }
 
+        /// <summary>
+        /// Ändert den Status einer Bestellung auf "Geliefert"
+        /// </summary>
         private void OrderDelivered()
         {
             clsOrderExtended _updateOrder = new clsOrderExtended();
@@ -85,6 +92,9 @@ namespace web
             refreshAfterUpdate();
         }
 
+        /// <summary>
+        /// Ändert den Status einer Bestellung auf "In Arbeit"
+        /// </summary>
         private void OrderInProgress()
         {
             clsOrderExtended _updateOrder = new clsOrderExtended();
@@ -93,6 +103,10 @@ namespace web
             _myOrderFacade.UpdateOrderStatusByONumber(_updateOrder);
         }
 
+        /// <summary>
+        /// Aktualisiert das GridView-Element um
+        /// Änderungen des Inhalts sofort darzustellen.
+        /// </summary>
         private void refreshAfterUpdate()
         {
             getOrdersNotDelivered.EnableCaching = false;

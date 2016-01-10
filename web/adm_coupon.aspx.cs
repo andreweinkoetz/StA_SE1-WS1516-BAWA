@@ -40,6 +40,9 @@ namespace web
             InsertNewCoupon();
         }
 
+        /// <summary>
+        /// Einfügen eines neuen Coupons in die DB.
+        /// </summary>
         private void InsertNewCoupon()
         {
             bool readyForDB = true, insertSuccessful = false;
@@ -93,6 +96,9 @@ namespace web
             DeActivateSelectedCoupon();
         }
 
+        /// <summary>
+        /// De- bzw. Aktivieren des gewählten Coupons.
+        /// </summary>
         private void DeActivateSelectedCoupon()
         {
             int _cuid = Int32.Parse(gvAdmCoupon.SelectedRow.Cells[1].Text);

@@ -26,6 +26,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Wählt anhand der ausgewählten Option die weitere Ansicht zur Bearbeitung.
+        /// Die Auswahl wird dabei in einer Session-Variable gespeichert.
+        /// </summary>
         private void chooseSelection()
         {
 
@@ -58,6 +62,13 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Initialisiert das GridView-Element mit den jeweiligen Werten.
+        /// Die Selektion erfolgt anhand der zuvor bestimmten Auswahl.
+        /// Als Liste kommen Produkte, User o.ä. Listen in Frage.
+        /// </summary>
+        /// <param name="_list">Objekt-Liste</param>
+        /// <param name="_selection">Selektion</param>
         private void InitializeGvAdmData(object _list, int _selection)
         {
 
@@ -318,6 +329,10 @@ namespace web
             TransferToEditPage();
         }
 
+        /// <summary>
+        /// Wenn ein Objekt bearbeitet werden soll, so wird der 
+        /// Anwender auf die entsprechende Seite weitergeleitet.
+        /// </summary>
         private void TransferToEditPage()
         {
             switch ((int)Session["selAdmData"])

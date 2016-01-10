@@ -35,6 +35,15 @@ namespace web
 
         }
 
+        /// <summary>
+        /// Archiviert eine Bestellung.
+        /// Hierbei wird die Bestellung aus der DB entfernt.
+        /// Ebenfalls werden alle Bestandteile der DB (wie Produkte) entfernt.
+        /// 
+        /// Ein Bericht mit allen Details zu der Bestellung wird erstellt.
+        /// Er wird anschließend zum Download bereitgestellt.
+        /// </summary>
+        /// <param name="_oNumber">Bestellnummer der zu archivierenden Bestellung</param>
         private void ArchiveOrderAndGenerateReport(int _oNumber)
         {
             clsOrderFacade _orderFacade = new clsOrderFacade();
@@ -61,6 +70,9 @@ namespace web
             DownloadCSV();
         }
 
+        /// <summary>
+        /// Bereitstellung der CSV zum Download.
+        /// </summary>
         private void DownloadCSV()
         {
             Response.Clear();

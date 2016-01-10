@@ -27,6 +27,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Prüft ob Gast oder Benutzer und füllt 
+        /// dementsprechend den Informationstext.
+        /// </summary>
         private void FillInfoText()
         {
             if (Session["userID"] == null)
@@ -46,6 +50,9 @@ namespace web
             EnableSelection();
         }
 
+        /// <summary>
+        /// Deaktivieren des Auswahl-Buttons für Gäste.
+        /// </summary>
         private void EnableSelection()
         {
             gvBeverages.Columns[0].Visible = Session["userID"] != null;
@@ -56,6 +63,9 @@ namespace web
             GetSelectedBeverage();
         }
 
+        /// <summary>
+        /// Getränk, welches gewählt wurde aus DB lesen und als Objekt weitergeben.
+        /// </summary>
         private void GetSelectedBeverage()
         {
             //Gewählte Getränkzeile ermitteln.
@@ -69,6 +79,10 @@ namespace web
 
         }
 
+        /// <summary>
+        /// Getränk-Objekt in Auswahl-GridView darstellen.
+        /// </summary>
+        /// <param name="_myProduct">Getränk-Objekt</param>
         private void BeverageSelected(clsProductExtended _myProduct)
         {
             Session["selectedBeverage"] = _myProduct;
@@ -104,6 +118,12 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Ausgewähltes Produkt in bestimmter Größe und 
+        /// Anzahl in den Warenkorb legen.
+        /// </summary>
+        /// <param name="_amount">Anzahl der Produkte</param>
+        /// <param name="_size">Größe des Produkts</param>
         private void BeverageToCart(int _amount, double _size)
         {
             clsProductExtended _myProduct = (clsProductExtended)Session["selectedBeverage"];

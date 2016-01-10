@@ -28,6 +28,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Prüft ob Gast oder Benutzer und füllt 
+        /// dementsprechend den Informationstext.
+        /// </summary>
         private void FillInfoText()
         {
             if (Session["userID"] == null)
@@ -48,6 +52,9 @@ namespace web
             EnableSelection();
         }
 
+        /// <summary>
+        /// Deaktivieren des Auswahl-Buttons und der Extra-Auswahl für Gäste.
+        /// </summary>
         private void EnableSelection()
         {
             gvPizza.Columns[0].Visible = gvPizza.Columns[6].Visible = Session["userID"] != null;
@@ -58,6 +65,9 @@ namespace web
             GetSelectedPizza();
         }
 
+        /// <summary>
+        /// Pizza, welche gewählt wurde aus DB lesen und als Objekt weitergeben.
+        /// </summary>
         private void GetSelectedPizza()
         {
             //Gewählte Pizzazeile.
@@ -89,6 +99,10 @@ namespace web
 
         }
 
+        /// <summary>
+        /// Pizza-Objekt in Auswahl-GridView darstellen.
+        /// </summary>
+        /// <param name="_myProduct">Pizza-Objekt</param>
         private void PizzaSelected(clsProductExtended _myProduct)
         {
             Session["selectedPizza"] = _myProduct;
@@ -132,6 +146,12 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Ausgewähltes Produkt in bestimmter Größe und 
+        /// Anzahl in den Warenkorb legen.
+        /// </summary>
+        /// <param name="_amount">Anzahl der Produkte</param>
+        /// <param name="_size">Größe des Produkts</param>
         private void PizzaToCart(int _amount, double _size)
         {
 

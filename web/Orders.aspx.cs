@@ -52,6 +52,9 @@ namespace web
             CheckMinimumOrder(clsOrderFacade.GetOrderSum(selectedProducts, (clsCoupon)Session["coupon"]));
         }
 
+        /// <summary>
+        /// Prüft ob eine Lieferung möglich ist (20km)
+        /// </summary>
         private void CheckDelivery()
         {
             if (GetDistance() > 20.0)
@@ -61,6 +64,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Prüft ob die angegebene Gesamtsumme den Mindestbestellwert erreicht.
+        /// </summary>
+        /// <param name="_sum">Gesamtsumme der Bestellung</param>
         private void CheckMinimumOrder(double _sum)
         {
             String _msg;
@@ -68,6 +75,10 @@ namespace web
             lblStatus.Text = _msg;
         }
 
+        /// <summary>
+        /// Liefert die Distanz zum Endkunden in km.
+        /// </summary>
+        /// <returns>Distanz in km</returns>
         private double GetDistance()
         {
             return new clsUserFacade().GetDistanceByUser(Convert.ToInt32(Session["userID"]));
@@ -91,14 +102,24 @@ namespace web
             InsertOrder();
         }
 
+        /// <summary>
+        /// Prüft auf korrekte Eingaben und fügt
+        /// die Bestellung in die DB ein.
+        /// 
+        /// Falls Einfügen erfolgreich ist, wird dem User ein entsprechender Hinweis
+        /// angezeigt sowie die vorraussichtliche Lieferdauer (falls Lieferung gewählt)
+        /// Im Fehlerfall erscheint ein passender Hinweis.
+        /// </summary>
         private void InsertOrder()
         {
             bool orderIsCorrect = true;
             clsOrderFacade _orderFacade = new clsOrderFacade();
             clsOrderExtended _myOrder = new clsOrderExtended();
-            _myOrder.OrderNumber = _myOrder.GetHashCode();
+
+            _myOrder.OrderNumber = _myOrder.GetHashCode(); //eindeutige Nummer
             _myOrder.UserId = (int)Session["userID"];
-            _myOrder.OrderDate = DateTime.Now;
+
+            _myOrder.OrderDate = DateTime.Now;  //Bestellungseingang
             _myOrder.OrderStatus = 1; // Bestellung eingangen!
             _myOrder.OrderDelivery = chkDelivery.Checked;
 
@@ -136,6 +157,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Meldet die erfolgreiche Bestellung an den Benutzer.
+        /// </summary>
+        /// <param name="_myOrder">Bestellung</param>
         private void OrderPlacedSuccessfully(clsOrderExtended _myOrder)
         {
             lblOrder.ForeColor = System.Drawing.Color.Red;
@@ -145,6 +170,9 @@ namespace web
             Session["selProducts"] = null;
         }
 
+        /// <summary>
+        /// Anzeigen der vorraussichtlichen Lieferzeit.
+        /// </summary>
         private void setEstimatedTime()
         {
             lblEmptyCart.Text = clsOrderFacade.GetEstimatedTime(selectedProducts, GetDistance(), chkDelivery.Checked);
@@ -156,6 +184,10 @@ namespace web
             ValidateCouponAndUpdateUI();
         }
 
+        /// <summary>
+        /// Prüft den eingegeben Gutscheincode und passt die Bestellung an.
+        /// Im Fehlerfall wird ein entsprechender Hinweis angezeigt.
+        /// </summary>
         private void ValidateCouponAndUpdateUI()
         {
             clsCoupon _myCoupon;
@@ -178,6 +210,13 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Prüft ob Gutschein gültig und zu entsprechendem User gehört.
+        /// </summary>
+        /// <param name="_couponCode">Gutscheincode</param>
+        /// <param name="_uid">User-ID</param>
+        /// <param name="_myCoupon">eingegebener Gutschein</param>
+        /// <returns></returns>
         private bool ValidateCoupon(String _couponCode, int _uid, out clsCoupon _myCoupon)
         {
             clsCouponFacade _couponFacade = new clsCouponFacade();

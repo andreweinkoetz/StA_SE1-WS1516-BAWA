@@ -25,6 +25,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Prüft ob Gast oder Benutzer und füllt 
+        /// dementsprechend den Informationstext.
+        /// </summary>
         private void FillInfoText()
         {
             if (Session["userID"] == null)
@@ -42,6 +46,9 @@ namespace web
             EnableSelection();
         }
 
+        /// <summary>
+        /// Deaktivieren des Auswahl-Buttons für Gäste.
+        /// </summary>
         private void EnableSelection()
         {
             gvDesserts.Columns[0].Visible = Session["userID"] != null;
@@ -52,6 +59,9 @@ namespace web
             GetSelectedDessert();
         }
 
+        /// <summary>
+        /// Dessert, welches gewählt wurde aus DB lesen und als Objekt weitergeben.
+        /// </summary>
         private void GetSelectedDessert()
         {
             GridViewRow selectedRow = gvDesserts.SelectedRow;
@@ -64,6 +74,10 @@ namespace web
             DessertSelected(_myProduct);
         }
 
+        /// <summary>
+        /// Dessert-Objekt in Auswahl-GridView darstellen.
+        /// </summary>
+        /// <param name="_myProduct">Dessert-Objekt</param>
         private void DessertSelected(clsProductExtended _myProduct)
         {
             Session["selectedDessert"] = _myProduct;
@@ -89,6 +103,11 @@ namespace web
             DessertToCart(Int32.Parse(txtAmount.Text));
         }
 
+        /// <summary>
+        /// Ausgewähltes Produkt in bestimmter Größe und 
+        /// Anzahl in den Warenkorb legen.
+        /// </summary>
+        /// <param name="_amount">Anzahl der Produkte</param>
         private void DessertToCart(int _amount)
         {
             clsProductExtended _myProduct = (clsProductExtended)Session["selectedDessert"];

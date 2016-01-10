@@ -22,6 +22,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Willkommenstext auf User angepassen.
+        /// </summary>
+        /// <param name="_uId">ID des Users</param>
         private void WelcomeUser(int _uId)
         {
             clsUser _user = new clsUserFacade().UserGetById(_uId);
@@ -43,22 +47,38 @@ namespace web
 
         protected void btChangePasswd_Click(object sender, EventArgs e)
         {
-            if(txtBoxPassword.Text == txtBoxPasswordx2.Text && !String.IsNullOrEmpty(txtBoxPassword.Text))
+            ChangePasswordUI();
+        }
+
+        /// <summary>
+        /// Ändern des Benutzer-Kennworts.
+        /// Im Fehlerfall mit entsprechender Meldung.
+        /// </summary>
+        private void ChangePasswordUI()
+        {
+            if (txtBoxPassword.Text == txtBoxPasswordx2.Text && !String.IsNullOrEmpty(txtBoxPassword.Text))
             {
                 if (ChangePassword(txtBoxPassword.Text))
                 {
                     lblErrorPasswd.Text = "Passwort erfolgreich geändert.";
-                } else
+                }
+                else
                 {
                     lblErrorPasswd.Text = "Änderung fehlgeschlagen. <br />Bitte versuchen Sie es später erneut.";
                 }
-                
-            } else
+
+            }
+            else
             {
                 lblErrorPasswd.Text = "Bitte geben Sie 2x das gleiche Passwort ein!<br />Das Passwort darf nicht leer sein!";
             }
         }
 
+        /// <summary>
+        /// Durchführen der Passwortänderung in der DB
+        /// </summary>
+        /// <param name="_newPassword">neues Klartext-Passwort</param>
+        /// <returns>true wenn erfolgreich</returns>
         private bool ChangePassword(string _newPassword)
         {
             MD5 md5Hash = MD5.Create();

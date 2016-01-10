@@ -13,6 +13,7 @@ namespace web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Warenkorb (Session) Handling
             if (Session["selProducts"] == null)
             {
                 Session["selProducts"] = new List<clsProductExtended>();

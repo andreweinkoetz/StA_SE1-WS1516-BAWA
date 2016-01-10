@@ -23,6 +23,10 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Initialisieren der Grundinformationen zur Darstellung
+        /// der detaillierten Bestellung.
+        /// </summary>
         private void InitializeOrderDetails()
         {
             int _orderNumber = (int)Session["oNumber"];
@@ -43,6 +47,12 @@ namespace web
             InitializeOrderDetailView(_orderedProducts);
         }
 
+        /// <summary>
+        /// Falls ein Gutschein eingelöst wurde, so ist er
+        /// in der Detailansicht ebenfalls einsehbar.
+        /// </summary>
+        /// <param name="_myOrder">Bestellung die dargestellt wird</param>
+        /// <param name="_sum">Gesamtsumme der Bestellung</param>
         private void FillCouponLabel(clsOrderExtended _myOrder, double _sum)
         {
             lblCoupon.Text = "Eingelöster Gutschein: \"" + _myOrder.MyCoupon.Code + "\"<br />";
@@ -53,6 +63,10 @@ namespace web
             lblTotalSum.Font.Strikeout = true;
         }
 
+        /// <summary>
+        /// Erstellt ein neues DataTable-Objekt und füllt damit das GridView-Element.
+        /// </summary>
+        /// <param name="_orderedProducts">Liste der bestellten Produkte</param>
         private void InitializeOrderDetailView(List<clsProductExtended> _orderedProducts)
         {
             DataTable dt = new clsOrderExtended().CreateDataTableOfOrder(_orderedProducts);
@@ -66,6 +80,10 @@ namespace web
             redirectOverview();
         }
 
+        /// <summary>
+        /// Setzt Session-Variablen zurück und 
+        /// leitet auf Hauptansicht um.
+        /// </summary>
         private void redirectOverview()
         {
             Session["oNumber"] = null;
@@ -73,6 +91,14 @@ namespace web
         }
 
         protected void btCancelOrder_Click(object sender, EventArgs e)
+        {
+            CancelOrder();
+        }
+
+        /// <summary>
+        /// Storniert die ausgewählte Bestellung.
+        /// </summary>
+        private void CancelOrder()
         {
             clsOrderFacade _myOrderFacade = new clsOrderFacade();
             _myOrderFacade.CancelOrderByONumber((int)Session["oNumber"]);
