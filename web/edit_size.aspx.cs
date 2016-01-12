@@ -78,6 +78,10 @@ namespace web
         {
             bool readyForDB = true, insertSuccessful = false;
 
+            TextBox[] _boxes = new TextBox[] { txtSname, txtSvalue };
+
+            readyForDB = CheckEmptyTextBoxes(_boxes);
+
             clsSize _mySize = new clsSize();
 
             if (!String.IsNullOrEmpty(txtSid.Text))
@@ -126,6 +130,24 @@ namespace web
             }
         }
 
+        /// <summary>
+        /// Prüft von mehreren Textboxen, ob deren
+        /// Text leer ist und gibt in diesem Fall false zurück.
+        /// </summary>
+        /// <param name="_boxes">TextBoxen, die geprüft werden sollen.</param>
+        /// <returns>true wenn alle Textboxen gefüllt sind.</returns>
+        private bool CheckEmptyTextBoxes(TextBox[] _boxes)
+        {
+            foreach (TextBox _box in _boxes)
+            {
+                if (String.IsNullOrEmpty(_box.Text))
+                {
+                    _box.BackColor = System.Drawing.Color.Red;
+                    return false;
+                }
+            }
+            return true;
+        }
         protected void btDelete_Click(object sender, EventArgs e)
         {
             DeleteSize();

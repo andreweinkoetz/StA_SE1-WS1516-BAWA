@@ -89,7 +89,10 @@ namespace web
         /// </summary>
         private void InsertOrUpdateProduct()
         {
-            bool insertSuccessful = false, isValidPrice = true;
+            bool insertSuccessful = false, readyForDB = true;
+
+            TextBox[] _boxes = new TextBox[] { txtPname, txtPpU };
+            readyForDB = CheckEmptyTextBoxes(_boxes);
 
             clsProductFacade _myProductFacade = new clsProductFacade();
             clsProductExtended _myProduct = new clsProductExtended();
@@ -109,18 +112,18 @@ namespace web
             else
             {
                 txtPpU.ForeColor = System.Drawing.Color.Red;
-                isValidPrice = false;
+                readyForDB = false;
             }
 
             _myProduct.ToSell = chkSell.Checked;
             _myProduct.CID = Int32.Parse(ddlCategory.SelectedValue);
             _myProduct.Category = ddlCategory.SelectedItem.Text;
 
-            if (_myProduct.Id == 0 && isValidPrice)
+            if (_myProduct.Id == 0 && readyForDB)
             {
                 insertSuccessful = _myProductFacade.InsertNewProduct(_myProduct);
             }
-            else if (isValidPrice)
+            else if (readyForDB)
             {
                 insertSuccessful = _myProductFacade.UpdateProduct(_myProduct);
             }
@@ -133,6 +136,25 @@ namespace web
             {
                 lblError.Text = "Einfügen/Update fehlgeschlagen. Bitte beachten Sie die rot markierten Felder.";
             }
+        }
+
+        /// <summary>
+        /// Prüft von mehreren Textboxen, ob deren
+        /// Text leer ist und gibt in diesem Fall false zurück.
+        /// </summary>
+        /// <param name="_boxes">TextBoxen, die geprüft werden sollen.</param>
+        /// <returns>true wenn alle Textboxen gefüllt sind.</returns>
+        private bool CheckEmptyTextBoxes(TextBox[] _boxes)
+        {
+            foreach (TextBox _box in _boxes)
+            {
+                if (String.IsNullOrEmpty(_box.Text))
+                {
+                    _box.BackColor = System.Drawing.Color.Red;
+                    return false;
+                }
+            }
+            return true;
         }
 
         protected void btDelete_Click(object sender, EventArgs e)

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="desserts.aspx.cs" Inherits="web.Dessert_Code" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
         .headLines {
@@ -22,7 +22,7 @@
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" />
-                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
+                <asp:BoundField DataField="Id" HeaderText="Nr." SortExpression="Id" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="PricePerUnit" HeaderText="Preis pro Stück" SortExpression="PricePerUnit" DataFormatString="{0:C}" />
                 <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" Visible="False" />

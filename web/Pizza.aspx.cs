@@ -53,6 +53,36 @@ namespace web
         }
 
         /// <summary>
+        /// Erstellt die Datenquelle für die Extra CheckBoxen.
+        /// </summary>
+        /// <returns>DataTable als DataSource für CheckBoxListe</returns>
+        private DataTable GetExtraDataTable()
+        {
+            List<clsExtra> _extras = GetAllActiveExtrasForCheckBox();
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("EID");
+            dt.Columns.Add("EName");
+
+            foreach (clsExtra _extra in _extras)
+            {
+                String _nameAndPrice = _extra.Name + " (" + String.Format("{0:C}", _extra.Price) + ")";
+                dt.LoadDataRow(new object[] { _extra.ID, _nameAndPrice }, true);
+            }
+
+            return dt;
+        }
+
+        /// <summary>
+        /// Liefert eine Liste aller aktiven Extras aus der DB.
+        /// </summary>
+        /// <returns>Liste aller aktiven Extras</returns>
+        private List<clsExtra> GetAllActiveExtrasForCheckBox()
+        {
+            return new clsExtraFacade().GetAllActiveExtras();
+        }
+
+        /// <summary>
         /// Deaktivieren des Auswahl-Buttons und der Extra-Auswahl für Gäste.
         /// </summary>
         private void EnableSelection()
@@ -62,7 +92,23 @@ namespace web
 
         protected void gvPizza_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Falls keine Pizza in den Warenkorb gelegt wurde, aber eine andere ausgewählt wurde.
+            EnableExtrasCheckBoxList();
+
+            //Ausgewählte Pizza weiter bearbeiten.
             GetSelectedPizza();
+        }
+
+        /// <summary>
+        /// Reaktiviert alle CheckBoxen.
+        /// </summary>
+        private void EnableExtrasCheckBoxList()
+        {
+            foreach (GridViewRow _row in gvPizza.Rows)
+            {
+                CheckBoxList extraCheckList = (CheckBoxList)_row.FindControl("ExtrasCheckBoxList");
+                extraCheckList.Enabled = true;
+            }
         }
 
         /// <summary>
@@ -93,6 +139,9 @@ namespace web
             //Liste aller Extras der gewählten Pizza erstellen und Pizza erstellen.
             List<clsExtra> _myExtraList = clsExtra.ExtraListFactory(_extraIds.ToArray());
             clsProductExtended _myProduct = clsProductExtended.PizzaFactory(_id, _myExtraList);
+
+            //Deaktivieren der nachträglichen Extra-Wahl
+            extraCheckList.Enabled = false;
 
             //Weitergabe an Größen/Anzahlauswahl.
             PizzaSelected(_myProduct);
@@ -167,6 +216,17 @@ namespace web
             gvPizzaToOrder.Visible = false;
             lblGvToOrder.Visible = false;
             gvPizza.SelectedIndex = -1;
+
+            EnableExtrasCheckBoxList();
+        }
+
+        protected void ExtrasCheckBoxList_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                ((CheckBoxList)sender).DataSource = GetExtraDataTable();
+                ((CheckBoxList)sender).DataBind();
+            }
         }
     }
 }

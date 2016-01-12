@@ -120,6 +120,10 @@ namespace web
             bool readyForDB = true;
             bool changePassword = txtBoxPassword.Visible;
 
+            TextBox[] _boxes = new TextBox[] { txtBoxEmail, txtBoxHnr, txtBoxName, txtBoxPassword, txtBoxPhone, txtBoxPlace, txtBoxPLZ, txtBoxStraße, txtBoxVorname };
+
+            readyForDB = CheckEmptyTextBoxes(_boxes);
+
             clsUser _userToInsert = new clsUser();
             if (!String.IsNullOrEmpty(txtBoxId.Text))
             {
@@ -194,7 +198,29 @@ namespace web
                 {
                     lblError.Text = "Fehler bei der DB-INSERT.";
                 }
+            } else
+            {
+                lblError.Text = "Fehlerhafte Eingabe. Bitte überprüfen Sie die roten Felder.";
             }
+        }
+
+        /// <summary>
+        /// Prüft von mehreren Textboxen, ob deren
+        /// Text leer ist und gibt in diesem Fall false zurück.
+        /// </summary>
+        /// <param name="_boxes">TextBoxen, die geprüft werden sollen.</param>
+        /// <returns>true wenn alle Textboxen gefüllt sind.</returns>
+        private bool CheckEmptyTextBoxes(TextBox[] _boxes)
+        {
+            foreach (TextBox _box in _boxes)
+            {
+                if (String.IsNullOrEmpty(_box.Text))
+                {
+                    _box.BackColor = System.Drawing.Color.Red;
+                    return false;
+                }
+            }
+            return true;
         }
 
         protected void btBack_Click(object sender, EventArgs e)

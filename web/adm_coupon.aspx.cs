@@ -31,8 +31,7 @@ namespace web
 
         protected void gvAdmCoupon_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btToggleCoupon.Enabled = true;
-            btToggleCoupon.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
+            DeActivateCouponButtons(true);
         }
 
         protected void btCreateNew_Click(object sender, EventArgs e)
@@ -67,6 +66,10 @@ namespace web
             }
             else
             {
+                if (String.IsNullOrEmpty(txtDiscount.Text))
+                {
+                    txtDiscount.BackColor = System.Drawing.Color.Red;
+                }
                 txtDiscount.ForeColor = System.Drawing.Color.Red;
                 readyForDB = false;
             }
@@ -81,6 +84,11 @@ namespace web
                 if (!insertSuccessful)
                 {
                     lblError.Text = "Fehler beim Einfügen in die Datenbank.<br />Hat dieser Benutzer evtl. schon diesen Gutschein? (siehe oben)";
+                } else
+                {
+                    lblError.Visible = false;
+                    txtCode.BackColor = txtDiscount.BackColor = System.Drawing.Color.White;
+                    txtCode.ForeColor = txtDiscount.ForeColor = System.Drawing.Color.Black;
                 }
             }
             else
@@ -103,7 +111,27 @@ namespace web
         {
             int _cuid = Int32.Parse(gvAdmCoupon.SelectedRow.Cells[1].Text);
             new clsCouponFacade().ToggleCoupon(_cuid);
+            gvAdmCoupon.SelectedIndex = -1;
+            DeActivateCouponButtons(false);
             gvAdmCoupon.DataBind();
+        }
+
+        /// <summary>
+        /// Aktiviert bzw. Deaktiviert die Buttons zur Bearbeitung
+        /// von Coupons.
+        /// </summary>
+        /// <param name="_active">true wenn Buttons aktiv gesetzt werden sollen.</param>
+        private void DeActivateCouponButtons(bool _active)
+        {
+            if (_active)
+            {
+                btToggleCoupon.Enabled = true;
+                btToggleCoupon.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
+            } else
+            {
+                btToggleCoupon.Enabled = false;
+                btToggleCoupon.BackColor = System.Drawing.Color.Gray;
+            }
         }
 
         protected void btGenerateCode_Click(object sender, EventArgs e)

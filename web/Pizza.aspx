@@ -20,16 +20,15 @@
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" />
-                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
+                <asp:BoundField DataField="Id" HeaderText="Nr." SortExpression="Id" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="PricePerUnit" HeaderText="Preis pro cm" SortExpression="PricePerUnit" DataFormatString="{0:C}" />
                 <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" Visible="False" />
                 <asp:BoundField DataField="CUnit" HeaderText="CUnit" SortExpression="CUnit" Visible="False" />
                 <asp:TemplateField HeaderText="Extras" ItemStyle-HorizontalAlign="Left" ItemStyle-CssClass="gvPizza">
                     <ItemTemplate>
-                        <asp:CheckBoxList ID="ExtrasCheckBoxList" runat="server" AutoPostBack="False" DataSourceID="ExtrasDataSource" DataTextField="Name" DataValueField="ID">
+                        <asp:CheckBoxList ID="ExtrasCheckBoxList" runat="server" AutoPostBack="False" OnLoad="ExtrasCheckBoxList_Load" DataTextField="EName" DataValueField="EID">
                         </asp:CheckBoxList>
-                        <asp:ObjectDataSource ID="ExtrasDataSource" runat="server" SelectMethod="GetAllActiveExtras" TypeName="bll.clsExtraFacade"></asp:ObjectDataSource>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
