@@ -36,7 +36,7 @@ namespace web
             //Management der verfeinernden Dropdown-Liste bzgl. der allgemeinen Dropdown-Liste
             if (Session["stats"] != null && ddlStats.SelectedIndex != (int)Session["stats"])
             {
-                SetFurtherPossibilitiesDependingOnSelectedStatistic(sender, e);
+                SetFurtherPossibilitiesDependingOnSelectedStatistic();
                 ddlUser.Visible = false;
                 ddlCategory.Visible = false;
             }
@@ -70,6 +70,7 @@ namespace web
             if (ddlStats.SelectedIndex >= 0 && ddlStats.SelectedIndex <= 3)
             {
                 Session["stats"] = ddlStats.SelectedIndex;
+                SetFurtherPossibilitiesDependingOnSelectedStatistic();
             }
             else
             {
@@ -96,7 +97,7 @@ namespace web
             ddl.Visible = false;
         }
 
-        protected void SetFurtherPossibilitiesDependingOnSelectedStatistic(object sender, EventArgs e)
+        protected void SetFurtherPossibilitiesDependingOnSelectedStatistic()
         {
             switch (ddlStats.SelectedIndex)
             {
@@ -377,6 +378,18 @@ namespace web
         protected void btnCreateStats_Click(object sender, EventArgs e)
         {
             CreateStatisticDependingOnSelection();
+        }
+
+        protected void ddlStatsExtended_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String selectedItem = ddlStatsExtended.SelectedItem.Text;
+
+            if (selectedItem == "pro Kategorie" || selectedItem == "des Kunden")
+            {
+                InitializeUserAndCategoryDropDownList();
+                ShowCategoriesForOrdersByCategory();
+                ShowUsersForOrdersByUser();
+            }
         }
     }
 }

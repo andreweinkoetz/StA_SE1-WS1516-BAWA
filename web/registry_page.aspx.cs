@@ -58,20 +58,6 @@ namespace web
         }
 
         /// <summary>
-        /// Setzt den Wert einer Eigenschaft des Nutzers bei gültiger Eingabe.
-        /// </summary>
-        /// <param name="errorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
-        /// <param name="attribute">Eigenschaft des Nutzers</param>
-        /// <param name="userInput">Wert, den der Nutzer eingegeben hat</param>
-        protected void setValidUserAttribute(bool errorOccured, string attribute, string userInput)
-        {
-            if (!errorOccured)
-            {
-                attribute = userInput;
-            }
-        }
-
-        /// <summary>
         /// Error-Handling für Nutzereingaben.
         /// </summary>
         /// <param name="errorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
@@ -104,7 +90,7 @@ namespace web
             {
                 handleError(out isErrorOccured, lblError, alphaErrorText);
             }
-            setValidUserAttribute(isErrorOccured, attribute, textBox.Text);
+            
             return isErrorOccured;
         }
 

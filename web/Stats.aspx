@@ -30,7 +30,7 @@
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
-                            <asp:DropDownList ID="ddlStatsExtended" runat="server" Width="200px" AutoPostBack="true" Visible="false"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlStatsExtended" runat="server" Width="200px" AutoPostBack="true" Visible="false" OnSelectedIndexChanged="ddlStatsExtended_SelectedIndexChanged"></asp:DropDownList>
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
