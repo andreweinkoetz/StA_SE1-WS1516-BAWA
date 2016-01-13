@@ -159,7 +159,7 @@ namespace web
 
             try
             {
-                _userToInsert.Nr = Int32.Parse(txtBoxHnr.Text);
+                _userToInsert.Nr = txtBoxHnr.Text;
             }
             catch (Exception)
             {

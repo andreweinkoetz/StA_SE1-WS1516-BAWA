@@ -5,9 +5,18 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
     <p>
-        <asp:Label ID="lblHeader" runat="server" Text="Auswertungen" Font-Bold="true" Font-Size="X-Large"></asp:Label>
     </p>
-    <br />
+    <table style="width: 100%">
+        <tr>
+            <td style="text-align: left">
+                <asp:Label ID="lblHeader" runat="server" Text="Auswertungen" Font-Bold="true" Font-Size="X-Large"></asp:Label>
+                <p style="font-size: small">Geschäftliche Auswertungen, ausschließlich für berechtigte Personen vorgesehen.</p>
+            </td>
+            <td style="text-align: right">
+                <asp:Button ID="btBack" runat="server" Text="Zurück" OnClick="btBack_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
+            </td>
+        </tr>
+    </table>
     <hr />
     <br />
     <p>
@@ -47,7 +56,7 @@
                 </asp:Table>
             </asp:TableHeaderCell>
             <asp:TableHeaderCell>
-                <asp:Table ID="stats" runat="server" BorderStyle="Groove" CellSpacing="10" Visible="false" AutoPostBack="true">
+                <asp:Table ID="stats" runat="server" BorderStyle="Groove" CellSpacing="10" Visible="false">
                     <asp:TableRow>
                         <asp:TableCell>
                             <asp:Label ID="lblRevenue" runat="server" Text="Gesamtumsatz:"></asp:Label>

@@ -45,9 +45,9 @@ namespace bll
         /// </summary>
         /// <param name="_id">ID des gesuchten Produkts</param>
         /// <returns>Produkt-Objekt (oder NULL) </returns>
-        public clsProductExtended GetProductByID(int ID)
+        public clsProductExtended GetProductByID(int _id)
         {
-            return _productCol.GetProductById(ID);
+            return _productCol.GetProductById(_id);
         }
 
         /// <summary>

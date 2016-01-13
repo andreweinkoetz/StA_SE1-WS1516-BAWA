@@ -23,7 +23,7 @@ namespace bll
             this._name = "No Name";
             this._prename = "No Prename";
             this._street = "No Street";
-            this._nr = 0;
+            this._nr = "No Hnr";
             this._postcode = 0;
             this._place = "No Place";
             this._phone = "No Phone";
@@ -108,19 +108,16 @@ namespace bll
             }
         }
 
-        private int _nr;
+        private String _nr;
         /// <summary>
         /// Adresse des Nutzers
         /// </summary>
-        public int Nr
+        public String Nr
         {
             get { return _nr; }
             set
             {
-                if (value < 0)
-                    _nr = 0;
-                else
-                    _nr = value;
+                _nr = value;
             }
         }
 

@@ -14,7 +14,7 @@
         <asp:Label ID="header" runat="server" Text="Login" Font-Bold="true" Font-Size="Large"></asp:Label>
     </p>
     <p>
-        <asp:Label ID="welcomeTextLogin" runat="server" Text="Herzlich Willkommen bei Pizza Pizza München." Font-Size="Medium" Font-Italic="true"></asp:Label>
+        <asp:Label ID="welcomeTextLogin" runat="server" Text="Herzlich willkommen bei Pizza Pizza München." Font-Size="Medium" Font-Italic="true"></asp:Label>
     </p>
     <br />
     <hr />
@@ -54,7 +54,7 @@
     </asp:Table>
     <asp:Label ID="lblInactiveUser" runat="server" Text=""></asp:Label>
     <p class="p-login"><u>Zugänge lauten:</u></p>
-    <table style="width: 400px">
+    <table style="width: 600px">
         <tr>
             <td><b>Username</b></td>
             <td><b>Password</b></td>

@@ -391,5 +391,17 @@ namespace web
                 ShowUsersForOrdersByUser();
             }
         }
+
+        protected void btBack_Click(object sender, EventArgs e)
+        {
+            RedirectAdministration();
+        }
+
+        private void RedirectAdministration()
+        {
+            Session["stats"] = null;
+            Session["initialized"] = null;
+            Response.Redirect("administration.aspx");
+        }
     }
 }

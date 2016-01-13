@@ -35,12 +35,10 @@ namespace web
                 txtBoxPLZ, txtBoxPlace, txtBoxPhone, txtBoxEmail, txtBoxPassword,
                 txtBoxPasswordx2 };
 
-            Label[] errorLabels = { lblErrorName, lblErrorStreet, lblErrorPlace, lblErrorEmail, lblErrorPwd };
-
             foreach (TextBox element in textBoxes)
             {
                 bool error = checkAndSetValidInput(element);
-                userCanBeInsertedInDB = !error;
+                userCanBeInsertedInDB = userCanBeInsertedInDB && !error;
             }
 
             if (userCanBeInsertedInDB)
@@ -74,13 +72,12 @@ namespace web
         /// Error-Handling für ein Textfeld, in dem eine Eingabe erwartet wird, die nur Buchstaben enthält.
         /// </summary>
         /// <param name="textBox">die betroffene Textbox</param>
-        /// <param name="attribute">Eigenschaft des Benutzers, der bei gültiger Eingabe der Wert zugeordnet wird</param>
         /// <param name="isErrorOccured">gibt an, ob bei der Zuordnung des Wertes ein Fehler aufgetreten ist</param>
         /// <param name="lblError">Error-Label, dass im Falle eines Fehlers angezeigt wird</param>
         /// <param name="emptyErrorText">Fehlertext für den Fall, dass der Nutzer nichts eingegeben hat</param>
         /// <param name="alphaErrorText">Fehlertext für den Fall, dass die Eingabe nicht nur aus Buchstaben besteht</param>
         /// <returns>true, falls bei der Zuordnung des Wertes ein Fehler aufgetreten ist</returns>
-        protected bool handleNeededAlphaInput(TextBox textBox, string attribute, bool isErrorOccured, Label lblError, string emptyErrorText, string alphaErrorText)
+        protected bool handleNeededAlphaInput(TextBox textBox, bool isErrorOccured, Label lblError, string emptyErrorText, string alphaErrorText)
         {
             if (textBox.Text.Equals(""))
             {
@@ -133,7 +130,7 @@ namespace web
             switch (stringToProve.ID)
             {
                 case "txtBoxName":
-                    if(!(errorOccured = handleNeededAlphaInput(txtBoxName, userToInsert.Name, errorOccured, lblErrorName,
+                    if(!(errorOccured = handleNeededAlphaInput(txtBoxName, errorOccured, lblErrorName,
                         "Bitte geben Sie ihren Nachnamen ein!", "Nachnamen können nur Buchstaben enthalten!")))
                     {
                         userToInsert.Name = txtBoxName.Text;
@@ -141,7 +138,7 @@ namespace web
                     
                     break;
                 case "txtBoxVorname":
-                    if(!(errorOccured = handleNeededAlphaInput(txtBoxVorname, userToInsert.Prename, errorOccured, lblErrorPrename,
+                    if(!(errorOccured = handleNeededAlphaInput(txtBoxVorname, errorOccured, lblErrorPrename,
                         "Bitte geben Sie ihren Vornamen ein!", "Vornamen können nur Buchstaben enthalten!")))
                     {
                         userToInsert.Prename = txtBoxVorname.Text;
@@ -149,7 +146,7 @@ namespace web
                     break;
 
                 case "txtBoxStraße":
-                    if(!(errorOccured = handleNeededAlphaInput(txtBoxStraße, userToInsert.Street, errorOccured, lblErrorStreet,
+                    if(!(errorOccured = handleNeededAlphaInput(txtBoxStraße, errorOccured, lblErrorStreet,
                         "Bitte geben Sie eine Straße ein!", "Straßennamen können nur Buchstaben enthalten!")))
                     {
                         userToInsert.Street = txtBoxStraße.Text;
@@ -162,13 +159,13 @@ namespace web
                         lblErrorStreet.Text = "Bitte geben Sie eine Hausnummer ein!";
                         errorOccured = true;
                     }
-                    else if (!IsAlphaNumericString(txtBoxHnr.Text))
+                    else if (!IsCorrectHouseNumber(txtBoxHnr.Text))
                     {
-                        lblErrorStreet.Text = "Hausnummern können nur Zahlen und Buchstaben enthalten!";
+                        lblErrorStreet.Text = "Hausnummern haben das Format 26 (auch 26b)";
                         errorOccured = true;
                     }
                     if (!errorOccured)
-                    { userToInsert.Nr = Convert.ToInt32(txtBoxHnr.Text); }
+                    { userToInsert.Nr = txtBoxHnr.Text; }
                     break;
                 case "txtBoxPLZ":
                     if (txtBoxPLZ.Text.Equals(""))
@@ -176,14 +173,9 @@ namespace web
                         lblErrorPlace.Text = "Bitte geben Sie eine Postleitzahl ein!";
                         errorOccured = true;
                     }
-                    else if (!IsNumericString(txtBoxPLZ.Text))
+                    else if (!IsCorrectPostCode(txtBoxPLZ.Text))
                     {
-                        lblErrorPlace.Text = "Die Postleitzahl kann nur Zahlen enthalten!";
-                        errorOccured = true;
-                    }
-                    else if (GetLengthOfInput(txtBoxPLZ.Text) != 5)
-                    {
-                        lblErrorPlace.Text = "Postleitzahlen in Deutschland müssen fünfstellig sein!";
+                        lblErrorPlace.Text = "Postleitzahlen sind fünfstellige Zahlen!";
                         errorOccured = true;
                     }
                     if (!errorOccured)
@@ -213,21 +205,25 @@ namespace web
                         lblErrorPhone.Text = "Bitte geben Sie eine Telefonnummer ein!";
                         errorOccured = true;
                     }
-                    else if (!IsNumericString(txtBoxPhone.Text))
+                    else if (!IsCorrectPhoneNumber(txtBoxPhone.Text))
                     {
-                        lblErrorPhone.Text = "Telefonnummern bestehen nur aus Zahlen!";
+                        lblErrorPhone.Text = "Telefonnummern haben das Format 089/12345678 oder 089 12345678.";
                         errorOccured = true;
                     }
                     if (!errorOccured)
                     {
-                        userToInsert.Phone = "+49" + txtBoxPhone.Text;
+                        userToInsert.Phone = txtBoxPhone.Text;
                     }
                     break;
 
                 case "txtBoxEmail":
                     if (txtBoxEmail.Text.Equals(""))
                     {
-                        lblErrorEmail.Text = "Bitte geben Sie eine Email-Adresse ein!";
+                        lblErrorEmail.Text = "Bitte geben Sie eine E-Mail-Adresse ein!";
+                        errorOccured = true;
+                    } else if (!IsCorrectMailAdress(txtBoxEmail.Text))
+                    {
+                        lblErrorEmail.Text = "Eine E-Mail-Adresse hat folgendes Format: user@domain.com";
                         errorOccured = true;
                     }
                     if (!errorOccured)
@@ -270,6 +266,30 @@ namespace web
         private bool IsAlphaNumericString(string input)
         {
             Regex template = new Regex(@"^[A-Za-z0-9]+$");
+            return template.IsMatch(input);
+        }
+
+        private bool IsCorrectPostCode(string input)
+        {
+            Regex template = new Regex(@"^\d{5}$");
+            return template.IsMatch(input);
+        }
+
+        private bool IsCorrectPhoneNumber(string input)
+        {
+            Regex template = new Regex(@"^\d+(\s|\/|)\d+$");
+            return template.IsMatch(input);
+        }
+
+        private bool IsCorrectMailAdress(string input)
+        {
+            Regex template = new Regex(@"^(\w|\d|\.|\-)+\@(\w|\d|\-)+\.\w{2,3}");
+            return template.IsMatch(input);
+        }
+
+        private bool IsCorrectHouseNumber(string input)
+        {
+            Regex template = new Regex(@"^\d+(\w|)$");
             return template.IsMatch(input);
         }
 

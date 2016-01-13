@@ -46,7 +46,7 @@ namespace web
             }
             else
             {
-                lblInactiveUser.Text = "Die Validierung war nicht erfolgreich!";
+                lblInactiveUser.Text = "Die Anmeldung war nicht erfolgreich!";
             }
         }
 

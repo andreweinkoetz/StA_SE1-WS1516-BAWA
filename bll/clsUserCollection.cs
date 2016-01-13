@@ -69,7 +69,7 @@ namespace bll
             _myDAL.AddParam("Name", _user.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Prename", _user.Prename, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Street", _user.Street, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
-            _myDAL.AddParam("Nr", _user.Nr, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myDAL.AddParam("Nr", _user.Nr, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Postcode", _user.Postcode, DAL.DataDefinition.enumerators.SQLDataType.INT);
             _myDAL.AddParam("Place", _user.Place, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Phone", _user.Phone, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -158,7 +158,7 @@ namespace bll
             _myDAL.AddParam("Name", _User.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Prename", _User.Prename, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Street", _User.Street, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
-            _myDAL.AddParam("Nr", _User.Nr, DAL.DataDefinition.enumerators.SQLDataType.INT);
+            _myDAL.AddParam("Nr", _User.Nr, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Postcode", _User.Postcode, DAL.DataDefinition.enumerators.SQLDataType.INT);
             _myDAL.AddParam("Place", _User.Place, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
             _myDAL.AddParam("Phone", _User.Phone, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);
@@ -369,7 +369,7 @@ namespace bll
             _myUser.Name = AddStringFieldValue(_dr, "UName");
             _myUser.Prename = AddStringFieldValue(_dr, "UPrename");
             _myUser.Street = AddStringFieldValue(_dr, "UStreet");
-            _myUser.Nr = AddIntFieldValue(_dr, "UNr");
+            _myUser.Nr = AddStringFieldValue(_dr, "UNr");
             _myUser.Postcode = AddIntFieldValue(_dr, "UPostcode");
             _myUser.Place = AddStringFieldValue(_dr, "UPlace");
             _myUser.Phone = AddStringFieldValue(_dr, "UPhone");
