@@ -14,7 +14,7 @@ namespace bll
     {
         private int _id;
         /// <summary>
-        /// ID des Extras (wird von der DB vergeben).
+        /// ID des Extras (wird von der Datenbank vergeben).
         /// </summary>
         public int ID
         {
@@ -103,9 +103,9 @@ namespace bll
         }
 
         /// <summary>
-        /// Kopierkonstruktor.
+        /// Kopierkonstruktor für ein Extra.
         /// </summary>
-        /// <param name="_extraToCopy">zu kopierendes Extra</param>
+        /// <param name="_extraToCopy">das zu kopierende Extra</param>
         public clsExtra(clsExtra _extraToCopy)
         {
             this.ID = _extraToCopy._id;
@@ -115,10 +115,10 @@ namespace bll
         }
 
         /// <summary>
-        /// Erstellt eine Liste von Extras für die Pizzen.
+        /// Erstellt eine Liste von möglichen Extras für die Pizzen.
         /// </summary>
-        /// <param name="_idOfExtras">IDs der gewählten Extras.</param>
-        /// <returns>Liste von Extras für die Pizzen</returns>
+        /// <param name="_idOfExtras">IDs der gewählten Extras</param>
+        /// <returns>Liste der Extras für die Pizzen</returns>
         public static List<clsExtra> ExtraListFactory(params int[] _idOfExtras)
         {
             List<clsExtra> _myExtraList = new List<clsExtra>();

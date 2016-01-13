@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 namespace bll
 {
     /// <summary>
-    /// clsOrderFacade: nach außen hin sichtbare Methoden bzgl. Order-Verwaltung
-    /// das meiste wird direkt an clsOrderCollection-Methoden durchgereicht
+    /// Stellt die nach außen sichtbaren Methoden bzgl. der Order-Verwaltung bereit.
+    /// Als Grundlage werden die clsOrderCollection-Methoden verwendet.
     /// </summary>
     public class clsOrderFacade
     {
-        clsOrderCollection _orderCol;  // Objektvariable für Order-Collection, wird im Konstruktor instantiiert 
+        clsOrderCollection _orderCol; // Objektvariable für die Order-Collection, wird im Konstruktor instantiiert
+
         /// <summary>
-        /// Konstruktor, instantiiert _orderCol
+        /// Erstellt ein neues Objekt der clsOrderCollection.
         /// </summary>
         public clsOrderFacade()
         {
@@ -22,74 +23,69 @@ namespace bll
         }
 
         /// <summary>
-        /// Alle Orders lesen
+        /// Liefert alle vorhandenen Bestellungen zurück.
         /// </summary>
-        /// <returns>Liste der Order</returns>
+        /// <returns>alle vorhandenen Bestellungen</returns>
         public List<clsOrderExtended> OrdersGetAll()
         {
             return _orderCol.GetAllOrders();
-        } // OrdersGetAll()
+        }
 
         /// <summary>
-        /// Alle Bestellungen die noch nicht geliefert wurden anzeigen.
+        /// Liefert alle noch nicht gelieferten Bestellungen zurück.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>alle noch nicht gelieferten Bestellungen</returns>
         public List<clsOrderExtended> GetOrdersNotDelivered()
         {
             return _orderCol.GetOrdersNotDelivered();
         }
 
         /// <summary>
-        /// OrderInsert
+        /// Fügt eine neue Bestellung in die Datenbank ein.
         /// </summary>
-        /// <param name="_newOrder">neue Bestellung</param>
-        /// <returns>true falls insert erfolgreich</returns>
+        /// <param name="_newOrder">die einzufügende Bestellung</param>
+        /// <returns>true, falls das Einfügen der Bestellung erfolgreich ist</returns>
         public bool InsertOrder(clsOrderExtended _newOrder)
         {
-            if (_orderCol.InsertOrder(_newOrder) == 1)
-                return true;
-            else
-                return false;
-        } // OrderInsert()
-
+            return _orderCol.InsertOrder(_newOrder) == 1;
+        }
 
         /// <summary>
-        /// Alle Bestellungen eines Users.
+        /// Liefert alle Bestellungen eines Benutzers zurück.
         /// </summary>
         /// <param name="_userID">ID des Benutzers</param>
-        /// <returns>Liste aller Bestellungen</returns>
+        /// <returns>alle Bestellungen des Benutzers</returns>
         public List<clsOrderExtended> GetOrdersByUserID(int _userID)
         {
             return _orderCol.GetOrdersByUserID(_userID);
         }
 
         /// <summary>
-        /// Alle Produkte inkl. Extras einer Bestellung.
+        /// Liefert alle Produkte inkl. Extras einer Bestellung zurück. 
         /// </summary>
-        /// <param name="_orderNumber">Nummer der Bestellung</param>
-        /// <returns>Liste aller Produkte inkl. Extras</returns>
+        /// <param name="_orderNumber">Bestellnummer der Bestellung</param>
+        /// <returns>alle Produkte inkl. Extras einer Bestellung</returns>
         public List<clsProductExtended> GetOrderedProductsByOrderNumber(int _orderNumber)
         {
             return _orderCol.GetOrderedProductsByOrderNumber(_orderNumber);
         }
 
         /// <summary>
-        /// Erstellt eine Liste aller abgeschlossenen Bestellungen.
+        /// Liefert alle gelieferten bzw. abgeschlossenen Bestellungen zurück.
         /// </summary>
-        /// <returns>Liste aller abgeschlossenen Bestellungen.</returns>
+        /// <returns>alle gelieferten Bestellungen </returns>
         public List<clsOrderExtended> GetFinishedOrders()
         {
             return _orderCol.GetFinishedOrders();
         }
 
-
         /// <summary>
-        /// Errechnet auf Basis eines Gutscheins die neue Gesamtsumme und liefert einen passenden Text zurück.
+        /// Errechnet nach dem Einlösen eines Gutscheins die neue Gesamtsumme der Bestellung und liefert einen passenden Text zurück.
         /// </summary>
-        /// <param name="_sum">Summe der Bestellung.</param>
-        /// <param name="_newSum">Summe der Bestellung.</param>
-        /// <param name="_myCoupon">Coupon der Bestellung.</param>
-        /// <returns>Gutscheinbasierter Text.</returns>
+        /// <param name="_sum">alte Summe der Bestellung</param>
+        /// <param name="_newSum">neue Summe der Bestellung</param>
+        /// <param name="_myCoupon">Gutschein, der bei der Bestellung eingelöst wird</param>
+        /// <returns>einen passenden Text basierend auf dem Gutschein</returns>
         public static String GetMsgCoupon(double _sum, out double _newSum, clsCoupon _myCoupon)
         {
             String _msgCoupon = "";
@@ -101,34 +97,31 @@ namespace bll
                 _msgCoupon = "Wert des Gutscheins: " + _myCoupon.Discount + "%.<br />";
                 _msgCoupon += "Ersparnis: " + String.Format("{0:C}", _saving);
             }
-
             return _msgCoupon;
         }
 
         /// <summary>
-        /// Preisberechnung einer Bestellung mit Coupon.
+        /// Preisberechnung einer Bestellung, bei der ein Gutschein eingelöst wird.
         /// Wird nur beim Aufgeben einer Bestellung benötigt.
         /// </summary>
-        /// <param name="_myProductList">Liste der bestellten Produkte.</param>
-        /// <param name="_myCoupon">Coupon, der auf Bestellung eingelöst wurde.</param>
-        /// <param name="_msgCoupon">Meldung über Vorteile des Gutscheins.</param>
-        /// <returns>Gesamtsumme der Bestellung.</returns>
+        /// <param name="_myProductList">die bestellten Produkte</param>
+        /// <param name="_myCoupon">Gutschein, der bei der Bestellung eingelöst wird</param>
+        /// <param name="_msgCoupon">Meldung über die Vorteile bzw. Auswirkungen des Gutscheins</param>
+        /// <returns>neue Gesamtsumme der Bestellung</returns>
         public static double GetOrderSum(List<clsProductExtended> _myProductList, clsCoupon _myCoupon, out string _msgCoupon)
         {
             double _sum = GetOrderSum(_myProductList);
-
             _msgCoupon = GetMsgCoupon(_sum, out _sum, _myCoupon);
-
             return _sum;
         }
 
         /// <summary>
-        /// Preisberechnung einer Bestellung mit Coupon.
+        /// Preisberechnung einer Bestellung, bei der ein Gutschein eingelöst wird.
         /// Wird nur beim Aufgeben einer Bestellung benötigt.
         /// </summary>
-        /// <param name="_myProductList">Liste der bestellten Produkte.</param>
-        /// <param name="_myCoupon">Coupon, der auf Bestellung eingelöst wurde.</param>
-        /// <returns>Gesamtsumme der Bestellung.</returns>
+        /// <param name="_myProductList">die bestellten Produkte</param>
+        /// <param name="_myCoupon">Gutschein, der bei der Bestellung eingelöst wird</param>
+        /// <returns>neue Gesamtsumme der Bestellung</returns>
         public static double GetOrderSum(List<clsProductExtended> _myProductList, clsCoupon _myCoupon)
         {
             String s;
@@ -136,34 +129,30 @@ namespace bll
         }
 
         /// <summary>
-        /// Preisberechnung einer Bestellung.
+        /// Berechnet die Gesamtsumme einer Bestellung.
         /// </summary>
-        /// <param name="_myProductList">Liste der bestellten Produkte.</param>
-        /// <returns>Gesamtsumme der Bestellung.</returns>
+        /// <param name="_myProductList">die bestellten Produkte</param>
+        /// <returns>Gesamtsumme der Bestellung</returns>
         public static double GetOrderSum(List<clsProductExtended> _myProductList)
         {
             double _sum = 0.0;
-
             foreach (clsProductExtended _product in _myProductList)
             {
                 _sum += _product.PricePerUnit * _product.Size + clsProductFacade.GetCostsOfExtras(_product);
             }
-
             return _sum;
-
         }
 
         /// <summary>
-        /// Berechnung der Lieferzeit einer Bestellung
+        /// Berechnet die Lieferzeit einer Bestellung.
         /// </summary>
-        /// <param name="_selectedProducts">zu liefernde Produkte</param>
+        /// <param name="_selectedProducts">die zu liefernden Produkte</param>
         /// <param name="_distance">Distanz zum Kunden</param>
-        /// <param name="_toDeliver">Kennzeichen, ob die Liefertart "Lieferung" ausgewählt wurde</param>
-        /// <returns>eine textuelle Darstellung der Wartezeit</returns>
+        /// <param name="_toDeliver">Kennzeichen, ob die Lieferart "Lieferung" ausgewählt wurde</param>
+        /// <returns>die textuelle Darstellung der Wartezeit</returns>
         public static String GetEstimatedTime(List<clsProductExtended> _selectedProducts, double _distance, bool _toDeliver)
         {
             double _minutes = 0;
-
             if (_toDeliver)
             {
                 _minutes += _distance * 2;
@@ -180,33 +169,33 @@ namespace bll
         }
 
         /// <summary>
-        /// Einfügen der Extras der Produkte einer Bestellung.
+        /// Fügt die Extras des Produkts einer Bestellung in die Datenbank ein.
         /// </summary>
-        /// <param name="_Product">Produkt das die Extras enthält</param>
-        /// <param name="_Extras">Extras die einzufügen sind.</param>
-        /// <returns>Anzahl der veränderten Zeilen</returns>
-        public bool InsertOrderedExtras(clsProductExtended _Product, List<clsExtra> _Extras)
+        /// <param name="_product">Produkt, zu dem die Extras gewählt wurden</param>
+        /// <param name="_extras">die einzufügenden Extras</param>
+        /// <returns>true, falls das Einfügen der Extras erfolgreich ist</returns>
+        public bool InsertOrderedExtras(clsProductExtended _product, List<clsExtra> _extras)
         {
-            return (_orderCol.InsertOrderedExtras(_Product, _Extras) > 0);
+            return _orderCol.InsertOrderedExtras(_product, _extras) > 0;
         }
 
         /// <summary>
-        /// Einfügen der Produkte einer Bestellung.
+        /// Fügt das Produkt einer Bestellung in die Datenbank ein.
         /// </summary>
-        /// <param name="_Order">Bestellung des Produkt</param>
-        /// <param name="_Product">Produkt</param>
-        /// <returns>true wenn Einfügen erfolgreich</returns>
-        public bool InsertOrderedProduct(clsOrderExtended _Order, clsProductExtended _Product)
+        /// <param name="_order">die zugehörige Bestellung zum Produkt</param>
+        /// <param name="_product">das einzufügende Produkt</param>
+        /// <returns>true, falls das Einfügen des Produkts erfolgreich ist</returns>
+        public bool InsertOrderedProduct(clsOrderExtended _order, clsProductExtended _product)
         {
-            return (_orderCol.InsertOrderedProduct(_Order, _Product) > 0);
+            return _orderCol.InsertOrderedProduct(_order, _product) > 0;
         }
 
         /// <summary>
-        /// Einfügen eines Produkts inkl. seiner Extras in die DB.
+        /// Fügt das Produkt einer Bestellung inkl. seiner Extras in die Datenbank ein.
         /// </summary>
-        /// <param name="_myOrder">zug. Bestellung</param>
-        /// <param name="_product">einzufügendes Produkt</param>
-        /// <returns>true wenn erfolgreich</returns>
+        /// <param name="_myOrder">die zugehörige Bestellung zum Produkt</param>
+        /// <param name="_product">das einzufügende Produkt</param>
+        /// <returns>true, falls das Einfügen des Produkts inkl. seiner Extras erfolgreich ist</returns>
         public bool InsertOrderedProductWithExtras(clsOrderExtended _myOrder, clsProductExtended _product)
         {
             bool orderIsCorrect;
@@ -219,24 +208,23 @@ namespace bll
                     orderIsCorrect = InsertOrderedExtras(_product, _product.ProductExtras) && orderIsCorrect;
                 }
             }
-
             return orderIsCorrect;
         }
 
         /// <summary>
-        /// Bestellstatus aktualisieren.
+        /// Ändert den Status einer Bestellung.
         /// </summary>
-        /// <param name="_myOrder">Bestellung deren Status verändert wird.</param>
-        /// <returns>true wenn erfolgreich</returns>
+        /// <param name="_myOrder">Bestellung, deren Status geändert wird</param>
+        /// <returns>true, falls das Ändern des Status der Bestellung erfolgreich ist</returns>
         public bool UpdateOrderStatusByONumber(clsOrderExtended _myOrder)
         {
-            return (_orderCol.UpdateOrderStatusByONumber(_myOrder) == 1);
+            return _orderCol.UpdateOrderStatusByONumber(_myOrder) == 1;
         }
 
         /// <summary>
         /// Gibt den Status einer Bestellung zurück.
         /// </summary>
-        /// <param name="_orderNumber">Bestellnummer</param>
+        /// <param name="_orderNumber">Bestellnummer der Bestellung</param>
         /// <returns>Status der Bestellung</returns>
         public int GetOrderStatusByOrderNumber(int _orderNumber)
         {
@@ -244,77 +232,75 @@ namespace bll
         }
 
         /// <summary>
-        /// Liefert eine Bestellung anhand ihrer Bestellnummer.
+        /// Liefert die Bestellung mit der angegebenen Bestellnummer zurück.
         /// </summary>
-        /// <param name="_oNumber">Nummer der Bestellung</param>
-        /// <returns>Bestellung</returns>
+        /// <param name="_oNumber">Bestellnummer der Bestellung</param>
+        /// <returns>die Bestellung mit der angegebenen Bestellnummer</returns>
         public clsOrderExtended GetOrderByOrderNumber(int _oNumber)
         {
             return _orderCol.GetOrderByOrderNumber(_oNumber);
         }
 
         /// <summary>
-        /// Alle Bestellungen sortiert nach Datum.
+        /// Liefert alle Bestellungen sortiert nach Datum zurück.
         /// </summary>
-        /// <returns>Liste aller Bestellungen sortiert nach Datum</returns>
+        /// <returns>alle Bestellungen sortiert nach Datum</returns>
         public List<clsOrderExtended> GetOrdersOrderedByDate()
         {
             return _orderCol.GetOrdersOrderedByDate();
         }
 
         /// <summary>
-        /// Alle Bestellungen eines bestimmten Nutzers.
+        /// Liefert alle Bestellungen eines Benutzers zurück.
         /// </summary>
-        /// <param name="_email">Username/Email</param>
-        /// <returns>Liste aller Bestellung des Nutzers.</returns>
+        /// <param name="_email">Email-Adresse des Benutzers</param>
+        /// <returns>alle Bestellungen des Benutzers</returns>
         public List<clsOrderExtended> GetOrdersByEmail(String _email)
         {
             return _orderCol.GetOrdersByEmail(_email);
         }
 
         /// <summary>
-        /// Gibt eine Liste von Ergebnistupeln geordnet nach Kategorie zurück.
+        /// Liefert alle Produkte aus Bestellungen zurück, die zur gewählten Kategorie gehören.
         /// </summary>
-        /// <param name="_category">Kategorie der Produkte</param>
-        /// <returns>Liste von Ergebnistupeln</returns>
+        /// <param name="_category">gewählte Kategorie der Produkte</param>
+        /// <returns>alle Produkte, die zur gewählten Kategorie gehören</returns>
         public List<Tuple<int, string, double>> GetOrderedProductsSortByCategory(String _category)
         {
             return _orderCol.GetOrderedProductsSortByCategory(_category);
         }
 
-
         /// <summary>
         /// Storniert eine Bestellung.
         /// </summary>
-        /// <param name="_oNumber">Bestellung die storniert werden soll</param>
-        /// <returns>true falls Stornierung erfolgreich war</returns>
+        /// <param name="_oNumber">Bestellnummer der Bestellung</param>
+        /// <returns>true, falls die Stornierung erfolgreich ist</returns>
         public bool CancelOrderByONumber(int _oNumber)
         {
             return _orderCol.CancelOrderByONumber(_oNumber) == 1;
         }
 
         /// <summary>
-        /// Löscht eine Bestellung inkl. aller Inhalte.
-        /// Nur nach erfolgreichem Export verwenden!
+        /// Löscht eine Bestellung inkl. deren Produkte und Extras.
+        /// Anmerkung: Nur nach einem erfolgreichem Export der Bestellung verwenden.
         /// </summary>
-        /// <param name="_oNumber">Bestellnummer der zu löschenden Bestellungen.</param>
-        /// <returns>Anzahl der gelöschten Datensätze.</returns>
+        /// <param name="_oNumber">Bestellnummer der Bestellung</param>
+        /// <returns>Anzahl der gelöschten Datensätze</returns>
         public int DeleteOrderByOrderNumber(int _oNumber)
         {
             return _orderCol.DeleteOrderByOrderNumber(_oNumber);
         }
 
         /// <summary>
-        /// Prüft, ob eine Bestellsumme den Mindestbestellwert (zum Liefern) erreicht.
+        /// Prüft, ob eine Bestellsumme den Mindestbestellwert zum Liefern erreicht hat.
         /// </summary>
         /// <param name="_sum">Summe der Bestellung.</param>
-        /// <param name="_delivery">true wenn geliefert werden soll.</param>
-        /// <param name="_msg">Fehlermeldung falls nicht erreicht.</param>
-        /// <returns>true wenn Mindestbestellwert erreicht.</returns>
+        /// <param name="_delivery">zeigt an, ob die Bestellung geliefert werden soll</param>
+        /// <param name="_msg">Fehlermeldung, falls der Mindestbestellwert nicht erreicht ist</param>
+        /// <returns>true, falls der Mindestbestellwert erreicht ist</returns>
         public static bool CheckMinimumOrder(double _sum, bool _delivery, out string _msg)
         {
             double _diff = 20 - _sum;
-
             if (_sum <= 20 && _delivery)
             {
                 _msg = "Mindestbestellwert nicht erreicht. <br />"
@@ -331,24 +317,25 @@ namespace bll
 
 
         /// <summary>
-        /// Gibt eine Liste von Ergebnistupeln geordnet nach Status zurück.
+        /// Liefert zurück, wieviele Bestellungen in den verschiedenen Bestellstatus sind.
         /// </summary>
-        /// <returns>Liste von Ergebnistupeln</returns>
+        /// <returns>Anzahl der Bestellungen in den verschiedenen Bestellstatus</returns>
         public List<Tuple<String, Int32, Double>> GetOrdersOrderedByStatus()
         {
             return _orderCol.GetOrdersOrderedByStatus();
         }
 
         /// <summary>
-        /// Gibt ein Dictionary mit den Ergebniswerten zurück.
+        /// Liefert alle abgeschlossenen Bestellungen mit ihrer benötigten Lieferzeit zurück.
         /// </summary>
-        /// <returns>Dictionary mit Ergebniswerten</returns>
+        /// <returns>alle abgeschlossenen Bestellungen mit ihrer benötigten Lieferzeit</returns>
         public Dictionary<Int32, Int32> GetTimeToDeliverOfOrders()
         {
             return _orderCol.GetTimeToDeliverOfOrders();
         }
 
         /// <summary>
+        /// //TODO:
         /// Hilfsmethode zur Erstellung einer (textuellen) Liste von offenen Bestellnummern.
         /// </summary>
         /// <param name="_orderNumbers">Liste der Bestellnummern</param>

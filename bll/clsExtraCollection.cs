@@ -138,7 +138,7 @@ namespace bll
         /// Ändert ein Extra in der Datenbank.
         /// </summary>
         /// <param name="_myExtra">das zu ändernde Extra</param>
-        /// <returns>Anzahl der zu ändernden Datensätze</returns>
+        /// <returns>Anzahl der geänderten Datensätze</returns>
         internal int UpdateExtra(clsExtra _myExtra)
         {
             _myDAL.AddParam("EName", _myExtra.Name, DAL.DataDefinition.enumerators.SQLDataType.VARCHAR);

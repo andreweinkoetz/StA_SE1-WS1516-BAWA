@@ -8,16 +8,15 @@ using System.Data;
 namespace bll
 {
     /// <summary>
-    /// Abstrakte Oberklasse für die Collection-Klassen
-    /// enthält einige viel verwendete Mewthoden
+    /// Abstrakte Oberklasse für die Collection-Klassen. Enthält einige viel verwendete Methoden.
     /// </summary>
     public abstract class clsBLLCollections
     {
         /// <summary>
-        /// AddStringFieldValue(): String aus DataRow-Field, mit Handling von DBNull
+        /// AddStringFieldValue(): String aus DataRow-Field, mit Handling von DBNull.
         /// </summary>
         /// <param name="row">DataRow</param>
-        /// <param name="fieldName">feldname in DataRow</param>
+        /// <param name="fieldName">Feldname in DataRow</param>
         /// <returns>String</returns>
         public static string AddStringFieldValue(DataRow row, string fieldName)
         {

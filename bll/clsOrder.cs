@@ -12,10 +12,9 @@ namespace bll
     /// </summary>
     public class clsOrder
     {
-        // private Attribute
         private int _id;
         /// <summary>
-        /// Id der Order, von DB vergeben, Read-Only, eindeutig
+        /// ID der Bestellung (wird von der Datenbank vergeben).
         /// </summary>
         public int ID
         {
@@ -25,7 +24,7 @@ namespace bll
 
         private int _orderNumber;
         /// <summary>
-        /// Bestellnummer - generiert für Anzeige.
+        /// Bestellnummer der Bestellung.
         /// </summary>
         public int OrderNumber
         {
@@ -42,7 +41,7 @@ namespace bll
 
         private int _userId;
         /// <summary>
-        /// User-Id der Bestellers, Fremdschlüssel
+        /// User-ID des bestellenden Benutzers.
         /// </summary>
         public int UserId
         {
@@ -50,10 +49,9 @@ namespace bll
             set { _userId = value; }
         }
 
-
         private DateTime _orderDate;
         /// <summary>
-        /// Zeitpunkt wann bestellt wurde
+        /// Zeitpunkt, zu dem bestellt wurde.
         /// </summary>
         public DateTime OrderDate
         {
@@ -73,7 +71,7 @@ namespace bll
 
         private bool _orderDelivery;
         /// <summary>
-        /// Zeigt an, ob eine Bestellung geliefert werden soll.
+        /// Zeigt an, ob die Bestellung geliefert werden soll.
         /// </summary>
         public bool OrderDelivery
         {
@@ -184,7 +182,7 @@ namespace bll
 
         private int _couponId;
         /// <summary>
-        /// ID des Gutscheins.
+        /// ID des Gutscheins, der eingelöst werden kann.
         /// </summary>
         public int CouponId
         {
@@ -234,7 +232,7 @@ namespace bll
         /// Erstellt eine Tabelle mit allen Produkten einer Bestellung.
         /// </summary>
         /// <param name="_selectedProducts">alle Produkte der Bestellung</param>
-        /// <returns>neu erstellte Tabelle mit Produkten</returns>
+        /// <returns>die neu erstellte Tabelle mit Produkten</returns>
         public DataTable CreateDataTableOfOrder(List<clsProductExtended> _selectedProducts)
         {
             DataTable dt = new DataTable();
@@ -293,9 +291,9 @@ namespace bll
         }
 
         /// <summary>
-        /// Erstellt einen Report aus Attributen der Bestellung.
+        /// Erstellt einen Report aus Eigenschaften der Bestellung.
         /// </summary>
-        /// <returns>Reportinhalt als String vorbereitet für CSV-Export.</returns>
+        /// <returns>Reportinhalt in textueller Form vorbereitet für einen CSV-Export</returns>
         public String CreateCSVString()
         {
             clsOrderFacade _orderFacade = new clsOrderFacade();
@@ -379,7 +377,6 @@ namespace bll
             _toCSV.Append("Exportiert am " + DateTime.Now + " Uhr");
 
             return _toCSV.ToString();
-            
         }
     }
 }
