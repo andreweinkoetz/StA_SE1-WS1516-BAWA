@@ -120,9 +120,14 @@ namespace web
             bool readyForDB = true;
             bool changePassword = txtBoxPassword.Visible;
 
-            TextBox[] _boxes = new TextBox[] { txtBoxEmail, txtBoxHnr, txtBoxName, txtBoxPassword, txtBoxPhone, txtBoxPlace, txtBoxPLZ, txtBoxStraße, txtBoxVorname };
+            TextBox[] _boxes = new TextBox[] { txtBoxEmail, txtBoxHnr, txtBoxName, txtBoxPhone, txtBoxPlace, txtBoxPLZ, txtBoxStraße, txtBoxVorname };
 
             readyForDB = CheckEmptyTextBoxes(_boxes);
+
+            if (changePassword)
+            {
+                readyForDB = CheckEmptyTextBoxes(new TextBox[] { txtBoxPassword, txtBoxPasswordx2 });
+            }
 
             clsUser _userToInsert = new clsUser();
             if (!String.IsNullOrEmpty(txtBoxId.Text))
