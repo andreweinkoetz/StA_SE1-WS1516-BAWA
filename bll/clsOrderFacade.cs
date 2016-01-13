@@ -315,7 +315,6 @@ namespace bll
             }
         }
 
-
         /// <summary>
         /// Liefert zurück, wieviele Bestellungen in den verschiedenen Bestellstatus sind.
         /// </summary>
@@ -335,12 +334,11 @@ namespace bll
         }
 
         /// <summary>
-        /// //TODO:
-        /// Hilfsmethode zur Erstellung einer (textuellen) Liste von offenen Bestellnummern.
+        /// Erstellt eine Liste von Bestellnummern aller offenen Bestellungen, die von der Auswahl betroffen sind.
         /// </summary>
-        /// <param name="_orderNumbers">Liste der Bestellnummern</param>
-        /// <param name="_selAdmData">Auswahl (1 - Produkt 2 - Extra 3 - Benutzer)</param>
-        /// <returns>textuelle Liste von offenen Bestellnummern</returns>
+        /// <param name="_orderNumbers">alle Bestellnummern von offenen Bestellungen, die von der Auswahl betroffen sind</param>
+        /// <param name="_selAdmData">die ausgewählten Daten, die geändert werden sollen</param>
+        /// <returns>alle betroffenen Bestellnummern der offenen Bestellungen</returns>
         public static string CreateStringOfOpenOrders(List<Int32> _orderNumbers, int _selAdmData)
         {
             String _openOrders = "";
@@ -366,6 +364,5 @@ namespace bll
             _openOrders += "}";
             return _openOrders;
         }
-
-    } // clsOrderFacade
+    }
 }
