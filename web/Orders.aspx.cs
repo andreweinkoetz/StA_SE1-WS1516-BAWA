@@ -166,14 +166,14 @@ namespace web
             lblOrder.ForeColor = System.Drawing.Color.Red;
             lblOrder.Text = "Ihre Bestellung war erfolgreich. Bestellnummer: #" + _myOrder.OrderNumber;
             lblEmptyCart.Text = "";
-            setEstimatedTime();
+            SetEstimatedTime();
             Session["selProducts"] = null;
         }
 
         /// <summary>
         /// Anzeigen der vorraussichtlichen Lieferzeit.
         /// </summary>
-        private void setEstimatedTime()
+        private void SetEstimatedTime()
         {
             lblEmptyCart.Text = clsOrderFacade.GetEstimatedTime(selectedProducts, GetDistance(), chkDelivery.Checked);
             lblEmptyCart.Visible = true;

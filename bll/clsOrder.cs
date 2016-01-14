@@ -238,7 +238,7 @@ namespace bll
             DataTable dt = new DataTable();
 
             dt = new DataTable("MyOrder");
-            dt.Columns.Add("ID");
+            dt.Columns.Add("Nr.");
             dt.Columns.Add("Name");
             dt.Columns.Add("Größe");
             dt.Columns.Add("Extras");

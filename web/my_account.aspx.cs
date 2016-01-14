@@ -13,24 +13,42 @@ namespace web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["userID"] == null)
+            if (Session["userID"] == null)
             {
                 Response.Redirect("login_page.aspx");
-            } else
+            }
+            else
             {
-                WelcomeUser((int)Session["userID"]);
+                int _uId = (int)Session["userID"];
+                WelcomeUser(_uId);
+                FillLblSum(_uId);
             }
         }
 
         /// <summary>
-        /// Willkommenstext auf User angepassen.
+        /// Willkommenstext auf Benutzer anpassen.
         /// </summary>
-        /// <param name="_uId">ID des Users</param>
+        /// <param name="_uId">ID des Benutzers</param>
         private void WelcomeUser(int _uId)
         {
             clsUser _user = new clsUserFacade().UserGetById(_uId);
             lblWelcome.Text = "Herzlich willkommen " + _user.Title + " " + _user.Name + ",<br />";
             lblWelcome.Text += "Hier finden Sie Ihre offenen sowie abgeschlossenen Bestellungen:";
+        }
+
+        /// <summary>
+        /// Gesamtsumme der Bestellungen (sortiert nach Bestellstatus) des Benutzers anzeigen.
+        /// </summary>
+        /// <param name="_uId">ID des Benutzers</param>
+        private void FillLblSum(int _uId)
+        {
+            clsOrderFacade _orderFacade = new clsOrderFacade();
+            Dictionary<String, Double> _statusAndSumDict = _orderFacade.GetOrderSumAndStatusByUserId(_uId);
+
+            foreach (KeyValuePair<String, Double> _keyPair in _statusAndSumDict)
+            {
+                lblOrderSum.Text += _keyPair.Key + ": " + String.Format("{0:C}", _keyPair.Value) + "<br />";
+            }
         }
 
         protected void btLogout_Click(object sender, EventArgs e)

@@ -61,6 +61,12 @@
     <br />
     <table>
         <tr>
+            <td colspan="2" style="text-align: right">
+                <b>Der Gesamtwert Ihrer Bestellungen nach Status:</b><br />
+                <asp:Label ID="lblOrderSum" runat="server" Text=""></asp:Label>
+            </td>
+        </tr>
+        <tr>
             <td>Denken Sie daran regelmäßig Ihr Kennwort zu ändern.<br />
                 Bitte verwenden Sie möglichst sichere Kennwörter (8 Zeichen, Sonderzeichen, Zahlen usw.)<br />
                 Sollten sich Ihre Adressdaten geändert haben, so bitten wir Sie uns unter <a href="mailto:support@pizzapizza.de">support@pizzapizza.de</a> zu kontaktieren.<br />

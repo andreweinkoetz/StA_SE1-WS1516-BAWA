@@ -337,6 +337,34 @@ namespace bll
         }
 
         /// <summary>
+        /// Liefert die Status und Summe aller Bestellungen eines Benutzers.
+        /// </summary>
+        /// <param name="_uId">ID des Benutzers</param>
+        /// <returns>Status und Summe aller Bestellungen</returns>
+        internal Dictionary<String,Double> GetOrderSumAndStatusByUserId(int _uId)
+        {
+            //Hinzufügen eines Übergabeparameters
+            _myDAL.AddParam("UserId", _uId, DAL.DataDefinition.enumerators.SQLDataType.INT);
+
+            //Befüllen des DataSets mit Daten aus der Datenbank
+            DataSet _myDataSet = _myDAL.GetStoredProcedureDSResult("QOGetOrderSumAndStatusByUserId");
+
+            //Das DataSet enthält nur eine DataTable
+            DataTable _myDataTable = _myDataSet.Tables[0];
+
+            //Instantiieren eines Dictionaries mit dem Status als Key und Summe als Value.
+            Dictionary<String, Double> _orderStatusAndSum = new Dictionary<String, Double>();
+
+            foreach (DataRow _dr in _myDataTable.Rows)
+            {
+                _orderStatusAndSum.Add(AddStringFieldValue(_dr, "STDescription"), AddDoubleFieldValue(_dr, "Summe"));
+            }
+
+            return _orderStatusAndSum;
+
+        }
+
+        /// <summary>
         /// Liefert alle Extras zurück, die zu einem bestimmten Produkt bestellt wurden. (interne Hilfsmethode)
         /// </summary>
         /// <param name="_opID">ID des bestellten Produkts</param>

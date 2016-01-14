@@ -262,7 +262,7 @@ namespace web
             List<Tuple<String, Int32, Double>> _resultTuples = new clsOrderFacade().GetOrdersOrderedByStatus();
             foreach (Tuple<String, Int32, Double> _tuple in _resultTuples)
             {
-                dt.LoadDataRow(new object[] { _tuple.Item1, _tuple.Item2, _tuple.Item3 }, true);
+                dt.LoadDataRow(new object[] { _tuple.Item1, _tuple.Item2, String.Format("{0:C}",_tuple.Item3) }, true);
             }
             ManageVisibilityAndDataBinding(dt, false);
         }

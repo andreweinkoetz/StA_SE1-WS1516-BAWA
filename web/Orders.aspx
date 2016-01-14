@@ -6,6 +6,9 @@
     <p style="font-size: 36px">
         <asp:Label ID="lblOrder" runat="server" Text="Ihre Bestellung:"></asp:Label>
     </p>
+    <br />
+    <hr />
+    <br />
     <% if (Session["selProducts"] != null && ((List<bll.clsProductExtended>)Session["selProducts"]).Count > 0)
         {%>
     <asp:GridView ID="gvOrder" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">

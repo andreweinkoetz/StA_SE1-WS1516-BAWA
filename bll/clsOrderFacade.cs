@@ -61,6 +61,16 @@ namespace bll
         }
 
         /// <summary>
+        /// Liefert die Status und Summe aller Bestellungen eines Benutzers.
+        /// </summary>
+        /// <param name="_uId">ID des Benutzers</param>
+        /// <returns>Status und Summe aller Bestellungen</returns>
+        public Dictionary<String, Double> GetOrderSumAndStatusByUserId(int _uId)
+        {
+            return _orderCol.GetOrderSumAndStatusByUserId(_uId);
+        }
+
+        /// <summary>
         /// Liefert alle Produkte inkl. Extras einer Bestellung zurück. 
         /// </summary>
         /// <param name="_orderNumber">Bestellnummer der Bestellung</param>
@@ -153,10 +163,7 @@ namespace bll
         public static String GetEstimatedTime(List<clsProductExtended> _selectedProducts, double _distance, bool _toDeliver)
         {
             double _minutes = 0;
-            if (_toDeliver)
-            {
-                _minutes += _distance * 2;
-            }
+            String _estimatedTime = "";
 
             foreach (clsProductExtended _myProduct in _selectedProducts)
             {
@@ -165,7 +172,22 @@ namespace bll
                     _minutes += 10.0;
                 }
             }
-            return "Die Wartezeit beträgt vorraussichtlich " + Math.Round(_minutes) + " Minuten.";
+
+            if (_toDeliver)
+            {
+                if (_distance > 0)
+                {
+                    _minutes += _distance * 2;
+                }
+                else
+                {
+                    _estimatedTime = "Bei der Berechnung der Entfernung zum Lieferort ist ein Fehler aufgetreten.<br /><b>Bitte überprüfen Sie Ihre Angaben</b>. Ihre Bestellung kann bei uns vor Ort abgeholt werden.<br />";
+                }
+            }
+
+            _estimatedTime += "Die Wartezeit beträgt vorraussichtlich <b>" + Math.Round(_minutes) + " Minuten</b>.";
+
+            return _estimatedTime;
         }
 
         /// <summary>
