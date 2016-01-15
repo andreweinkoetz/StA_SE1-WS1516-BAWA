@@ -3,13 +3,13 @@ using System.Collections.Generic;
 namespace bll
 {
     /// <summary>
-    /// Klasse repräsentiert Produktobjekt.
+    /// Stellt die Eigenschaften eines Produkts dar.
     /// </summary>
     public class clsProduct
     {
         private int _id;
         /// <summary>
-        /// ID des Produkts
+        /// ID des Produkts.
         /// </summary>
         public int Id
         {
@@ -27,7 +27,7 @@ namespace bll
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
-                    _name = "Product without a Name";
+                    _name = "Product without a name";
                 else
                     _name = value;
             }
@@ -35,7 +35,7 @@ namespace bll
 
         private double _pricePerUnit;
         /// <summary>
-        /// Preis pro Einheit
+        /// Preis pro Einheit.
         /// </summary>
         public double PricePerUnit
         {
@@ -44,9 +44,8 @@ namespace bll
         }
 
         private String _category;
-
         /// <summary>
-        /// Kategorie des Produkts
+        /// Kategorie des Produkts.
         /// </summary>
         public String Category
         {
@@ -62,9 +61,8 @@ namespace bll
         }
 
         private String _cUnit;
-
         /// <summary>
-        /// Einheit des Produkts
+        /// Einheit des Produkts.
         /// </summary>
         public string CUnit
         {
@@ -81,7 +79,7 @@ namespace bll
 
         private double _size;
         /// <summary>
-        /// Größe eines gewählten Produkts.
+        /// Größe des Produkts.
         /// </summary>
         public double Size
         {
@@ -89,17 +87,15 @@ namespace bll
             {
                 return _size;
             }
-
             set
             {
                 _size = value;
             }
         }
 
-
         private bool _toSell;
         /// <summary>
-        /// Anzeige ob Produkt zum Verkauf angeboten wird.
+        /// Zeigt an, ob das Produkt zum Verkauf angeboten wird.
         /// </summary>
         public bool ToSell
         {
@@ -115,14 +111,14 @@ namespace bll
         }
 
         /// <summary>
-        /// Standardkonstruktor
+        /// Standard-Konstruktor für ein neues Produkt-Objekt.
         /// </summary>
         public clsProduct() { }
 
         /// <summary>
-        /// Kopierkonstruktor
+        /// Kopierkonstruktor für ein Produkt.
         /// </summary>
-        /// <param name="_productToCopy">zu kopierendes Produkt</param>
+        /// <param name="_productToCopy">das zu kopierende Produkt</param>
         public clsProduct(clsProduct _productToCopy)
         {
             this._id = _productToCopy._id;
@@ -133,14 +129,10 @@ namespace bll
             this._cUnit = _productToCopy._cUnit;
             this._category = _productToCopy._category;
         }
-
-
-
-
-
-    }//clsProduct
+    }
 
     /// <summary>
+    /// //TODO:
     /// Erweiterungen der Poduktklasse
     /// </summary>
     public class clsProductExtended : clsProduct
