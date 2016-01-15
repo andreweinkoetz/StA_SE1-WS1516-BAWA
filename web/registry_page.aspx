@@ -66,7 +66,6 @@
                 <p>
                     <asp:Label ID="lblErrorPLZ" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
                 </p>
-
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
@@ -107,4 +106,5 @@
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
+    <asp:Label ID="lblUserDouble" runat="server" Text="E-Mail-Adresse bereits im System vorhanden. Bitte wählen Sie eine andere E-Mail-Adresse." ForeColor="Red" Visible="false"></asp:Label>
 </asp:Content>

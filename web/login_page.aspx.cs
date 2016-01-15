@@ -14,7 +14,7 @@ namespace web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblInactiveUser.ForeColor = System.Drawing.Color.Red; 
+            lblInactiveUser.ForeColor = System.Drawing.Color.Red;
         }
 
         /// <summary>
@@ -39,7 +39,8 @@ namespace web
                     Session["userID"] = _userId;
                     Session["roleID"] = userFacade.GetRoleOfUser(userToLogin.EMail);
                     Response.Redirect("pizza.aspx");
-                } else
+                }
+                else
                 {
                     lblInactiveUser.Text = "Ihr Konto wurde gesperrt. Bitte wenden Sie sich an support@pizzapizza.de";
                 }
@@ -51,20 +52,20 @@ namespace web
         }
 
         /// <summary>
-        /// Verify the password
+        /// Verifizierung des Passworts.
         /// </summary>
-        /// <param name="md5Hash"></param>
-        /// <param name="passwordInput"></param>
-        /// <param name="originalPassword"></param>
-        /// <returns></returns>
+        /// <param name="md5Hash">verwendete Verschlüsselung</param>
+        /// <param name="passwordInput">das vom Nutzer eingegebene Passwort</param>
+        /// <param name="originalPassword">in der Datenbank hinterlegtes Passwort</param>
+        /// <returns>true, falls die Verifizierung erfolgreich ist</returns>
         bool VerifyPassword(MD5 md5Hash, string passwordInput, string originalPassword)
         {
             string passwordInputHash = clsUser.CreateMD5Hash(md5Hash, passwordInput);
-
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
 
             clsUserFacade userFacade = new clsUserFacade();
             bll.clsUser userToLogin = new bll.clsUser();
+
             userToLogin.Name = txtBoxUsername.Text;
             userToLogin.Password = userFacade.getPassword(userToLogin.Name);
 
@@ -72,7 +73,7 @@ namespace web
         }
 
         /// <summary>
-        /// Show the password.
+        /// Anzeigen des Passworts.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

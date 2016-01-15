@@ -62,7 +62,7 @@ namespace web
             {
                 if (!userFacade.UserInsert(userToInsert))
                 {
-                    lblErrorEmail.Text = "Fehler beim Anlegen des Benutzers. E-Mail-Adresse bereits im System vorhanden";
+                    lblUserDouble.Visible = true;
                 }
                 else
                 {
