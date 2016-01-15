@@ -130,15 +130,6 @@ namespace web {
         protected global::System.Web.UI.WebControls.TextBox txtBoxHnr;
         
         /// <summary>
-        /// lblErrorStreet-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorStreet;
-        
-        /// <summary>
         /// lblErrorStreetNr-Steuerelement
         /// </summary>
         /// <remarks>
@@ -146,6 +137,15 @@ namespace web {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorStreetNr;
+        
+        /// <summary>
+        /// lblErrorStreet-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorStreet;
         
         /// <summary>
         /// txtBoxPLZ-Steuerelement
@@ -173,6 +173,15 @@ namespace web {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorPlace;
+        
+        /// <summary>
+        /// lblErrorPLZ-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorPLZ;
         
         /// <summary>
         /// txtBoxPhone-Steuerelement
@@ -220,13 +229,13 @@ namespace web {
         protected global::System.Web.UI.WebControls.TextBox txtBoxPassword;
         
         /// <summary>
-        /// lblErrorPwd-Steuerelement
+        /// lblErrorPwdx1-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorPwd;
+        protected global::System.Web.UI.WebControls.Label lblErrorPwdx1;
         
         /// <summary>
         /// txtBoxPasswordx2-Steuerelement
@@ -236,6 +245,15 @@ namespace web {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBoxPasswordx2;
+        
+        /// <summary>
+        /// lblErrorPwdx2-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorPwdx2;
         
         /// <summary>
         /// btnSubmit-Steuerelement

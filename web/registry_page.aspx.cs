@@ -13,40 +13,56 @@ namespace web
 {
     public partial class RegistryPage : System.Web.UI.Page
     {
-        private clsUserFacade userFacade = new clsUserFacade();
-        private bll.clsUser userToInsert = new bll.clsUser();
-        private bool userCanBeInsertedInDB = true;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblTitleError.Visible = false;
-            lblErrorName.Visible = false;
-            lblErrorPrename.Visible = false;
+            ResetErrorLabels();
         }
 
         /// <summary>
-        /// User data is written in the database
+        /// Setzt alle Fehlermeldungen zurück.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="sender"></param>
+        protected void ResetErrorLabels()
+        {
+            Label[] errorLabels = new Label[] {lblTitleError, lblErrorName, lblErrorPrename, lblErrorStreet, lblErrorStreetNr, lblErrorPLZ,
+            lblErrorPlace, lblErrorPhone, lblErrorEmail, lblErrorPwdx1, lblErrorPwdx2};
+
+            foreach (Label errorLabel in errorLabels)
+            {
+                errorLabel.Visible = false;
+            }
+        }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            InsertNewUserIfValidInputIsProvived();
+        }
+
+        /// <summary>
+        /// Prüft alle Nutzereingaben auf Gültigkeit.
+        /// Wenn alle Eingaben gültig sind und die angegeben E-Mail-Adresse noch nicht vorhanden ist, 
+        /// wird der neue Benutzer in die Datenbank eingetragen.
+        /// </summary>
+        protected void InsertNewUserIfValidInputIsProvived()
+        {
+            clsUserFacade userFacade = new clsUserFacade();
+            clsUser userToInsert = new bll.clsUser();
+            bool userCanBeInsertedInDB = true;
+
             TextBox[] textBoxes = { txtBoxName, txtBoxVorname, txtBoxStraße, txtBoxHnr,
                 txtBoxPLZ, txtBoxPlace, txtBoxPhone, txtBoxEmail, txtBoxPassword,
                 txtBoxPasswordx2 };
 
             foreach (TextBox element in textBoxes)
             {
-                bool error = checkAndSetValidInput(element);
+                bool error = CheckAndSetValidUserInput(element, userToInsert);
                 userCanBeInsertedInDB = userCanBeInsertedInDB && !error;
             }
 
             if (userCanBeInsertedInDB)
             {
-
                 if (!userFacade.UserInsert(userToInsert))
                 {
-                    lblErrorEmail.Text = "Fehler beim Anlegen. E-Mail Adresse bereits vorhanden";
+                    lblErrorEmail.Text = "Fehler beim Anlegen des Benutzers. E-Mail-Adresse bereits im System vorhanden";
                 }
                 else
                 {
@@ -56,89 +72,31 @@ namespace web
         }
 
         /// <summary>
-        /// Error-Handling für Nutzereingaben.
+        /// Überprüft die Eingaben des Benutzers auf Richtigkeit.
+        /// Falls der Benutzer falsche Eingaben tätigt, wird eine passende Fehlermeldung angezeigt.
         /// </summary>
-        /// <param name="errorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
-        /// <param name="errorLabel">Label, das im Falle eines Fehlers angezeigt wird</param>
-        /// <param name="errorText">Text, der dem Label zugeordnet wird</param>
-        protected void handleError(out bool errorOccured, Label errorLabel, string errorText)
-        {
-            errorOccured = true;
-            errorLabel.Text = errorText;
-            errorLabel.Visible = true;
-        }
-
-        /// <summary>
-        /// Error-Handling für ein Textfeld, in dem eine Eingabe erwartet wird, die nur Buchstaben enthält.
-        /// </summary>
-        /// <param name="textBox">die betroffene Textbox</param>
-        /// <param name="isErrorOccured">gibt an, ob bei der Zuordnung des Wertes ein Fehler aufgetreten ist</param>
-        /// <param name="lblError">Error-Label, dass im Falle eines Fehlers angezeigt wird</param>
-        /// <param name="emptyErrorText">Fehlertext für den Fall, dass der Nutzer nichts eingegeben hat</param>
-        /// <param name="alphaErrorText">Fehlertext für den Fall, dass die Eingabe nicht nur aus Buchstaben besteht</param>
-        /// <returns>true, falls bei der Zuordnung des Wertes ein Fehler aufgetreten ist</returns>
-        protected bool handleNeededAlphaInput(TextBox textBox, bool isErrorOccured, Label lblError, string emptyErrorText, string alphaErrorText)
-        {
-            if (textBox.Text.Equals(""))
-            {
-                handleError(out isErrorOccured, lblError, emptyErrorText);
-            }
-            else if (!IsAlphaString(textBox.Text))
-            {
-                handleError(out isErrorOccured, lblError, alphaErrorText);
-            }
-            
-            return isErrorOccured;
-        }
-
-        /// <summary>
-        /// Error-Handling für den Titel des Benutzers.
-        /// </summary>
-        /// <param name="isErrorOccured">gibt an, ob bei der Zuordnung des Wertes ein Fehler aufgetreten ist</param>
-        /// <param name="errorLabel">Error-Label, das im Falle eines Fehlers angezeigt wird</param>
-        /// <param name="errorText">Fehlertext für den Fall, dass kein Titel ausgewählt wird</param>
-        /// <returns></returns>
-        protected bool HandleUserTitle(bool isErrorOccured, Label errorLabel, string errorText)
-        {
-            if (ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
-            {
-                handleError(out isErrorOccured, errorLabel, errorText);
-            } else
-            {
-                userToInsert.Title = ddlTitle.SelectedItem.Text;
-            }
-          
-            return isErrorOccured;
-        }
-
-        /// <summary>
-        /// Aktiviert einen User und setzt die passende Rolle.
-        /// </summary>
-        protected void setIsActiveAndRole()
-        {
-            userToInsert.IsActive = true;
-            userToInsert.Role = 3;
-        }
-
-        protected bool checkAndSetValidInput(TextBox stringToProve)
+        /// <param name="textBoxToProve">Eingabefeld, das überprüft werden muss</param>
+        /// <param name="userToInsert">Nutzer, dem Daten bei gültiger Eingabe zugeordnet werden</param>
+        /// <returns>true, falls eine fehlerhafte Eingabe getätigt wurde</returns>
+        protected bool CheckAndSetValidUserInput(TextBox textBoxToProve, clsUser userToInsert)
         {
             bool errorOccured = false;
+            setIsActiveAndRole(userToInsert);
 
-            setIsActiveAndRole();
-            errorOccured = HandleUserTitle(errorOccured, lblTitleError, "Bitte treffen Sie eine Auswahl!");
+            errorOccured = HandleUserTitle(errorOccured, lblTitleError, "Bitte treffen Sie eine Auswahl!", userToInsert);
 
-            switch (stringToProve.ID)
+            switch (textBoxToProve.ID)
             {
                 case "txtBoxName":
-                    if(!(errorOccured = handleNeededAlphaInput(txtBoxName, errorOccured, lblErrorName,
+                    if (!(errorOccured = handleAlphaInput(txtBoxName, errorOccured, lblErrorName,
                         "Bitte geben Sie ihren Nachnamen ein!", "Nachnamen können nur Buchstaben enthalten!")))
                     {
                         userToInsert.Name = txtBoxName.Text;
                     }
-                    
                     break;
+
                 case "txtBoxVorname":
-                    if(!(errorOccured = handleNeededAlphaInput(txtBoxVorname, errorOccured, lblErrorPrename,
+                    if (!(errorOccured = handleAlphaInput(txtBoxVorname, errorOccured, lblErrorPrename,
                         "Bitte geben Sie ihren Vornamen ein!", "Vornamen können nur Buchstaben enthalten!")))
                     {
                         userToInsert.Prename = txtBoxVorname.Text;
@@ -146,7 +104,7 @@ namespace web
                     break;
 
                 case "txtBoxStraße":
-                    if(!(errorOccured = handleNeededAlphaInput(txtBoxStraße, errorOccured, lblErrorStreet,
+                    if (!(errorOccured = handleAlphaInput(txtBoxStraße, errorOccured, lblErrorStreet,
                         "Bitte geben Sie eine Straße ein!", "Straßennamen können nur Buchstaben enthalten!")))
                     {
                         userToInsert.Street = txtBoxStraße.Text;
@@ -154,139 +112,234 @@ namespace web
                     break;
 
                 case "txtBoxHnr":
-                    if (txtBoxHnr.Text.Equals(""))
+                    if (!(errorOccured = HandleHnr(errorOccured, lblErrorStreetNr,
+                        "Bitte geben Sie eine Hausnummer ein!", "Hausnummern haben das Format 26 bzw. 26b!")))
                     {
-                        lblErrorStreet.Text = "Bitte geben Sie eine Hausnummer ein!";
-                        errorOccured = true;
+                        userToInsert.Nr = txtBoxHnr.Text;
                     }
-                    else if (!IsCorrectHouseNumber(txtBoxHnr.Text))
-                    {
-                        lblErrorStreet.Text = "Hausnummern haben das Format 26 (auch 26b)";
-                        errorOccured = true;
-                    }
-                    if (!errorOccured)
-                    { userToInsert.Nr = txtBoxHnr.Text; }
                     break;
+
                 case "txtBoxPLZ":
-                    if (txtBoxPLZ.Text.Equals(""))
+                    if (!(errorOccured = HandlePLZ(errorOccured, lblErrorPLZ,
+                        "Bitte geben Sie eine Postleitzahl ein!", "Postleitzahlen sind fünfstellige Zahlen")))
                     {
-                        lblErrorPlace.Text = "Bitte geben Sie eine Postleitzahl ein!";
-                        errorOccured = true;
+                        userToInsert.Postcode = Convert.ToInt32(txtBoxPLZ.Text);
                     }
-                    else if (!IsCorrectPostCode(txtBoxPLZ.Text))
-                    {
-                        lblErrorPlace.Text = "Postleitzahlen sind fünfstellige Zahlen!";
-                        errorOccured = true;
-                    }
-                    if (!errorOccured)
-                    { userToInsert.Postcode = Convert.ToInt32(txtBoxPLZ.Text); }
                     break;
 
                 case "txtBoxPlace":
-                    if (txtBoxPlace.Text.Equals(""))
-                    {
-                        lblErrorPlace.Text = "Bitte geben Sie einen Ort ein!";
-                        errorOccured = true;
-                    }
-                    else if (!IsAlphaString(txtBoxPlace.Text))
-                    {
-                        lblErrorPlace.Text = "Orte können nur Buchstaben enthalten!";
-                        errorOccured = true;
-                    }
-                    if (!errorOccured)
+                    if (!(errorOccured = handleAlphaInput(txtBoxPlace, errorOccured, lblErrorPlace,
+                        "Bitte geben sie einen Ort ein!", "Orte bestehen nur aus Buchstaben!")))
                     {
                         userToInsert.Place = txtBoxPlace.Text;
                     }
                     break;
 
                 case "txtBoxPhone":
-                    if (txtBoxPhone.Text.Equals(""))
-                    {
-                        lblErrorPhone.Text = "Bitte geben Sie eine Telefonnummer ein!";
-                        errorOccured = true;
-                    }
-                    else if (!IsCorrectPhoneNumber(txtBoxPhone.Text))
-                    {
-                        lblErrorPhone.Text = "Telefonnummern haben das Format 089/12345678 oder 089 12345678.";
-                        errorOccured = true;
-                    }
-                    if (!errorOccured)
+                    if (!(errorOccured = HandlePhoneNumber(errorOccured, lblErrorPhone,
+                        "Bitte geben Sie eine Telefonnummer ein!", "Telefonnummer haben das Format 089/12345 oder 089 12345")))
                     {
                         userToInsert.Phone = txtBoxPhone.Text;
                     }
                     break;
 
                 case "txtBoxEmail":
-                    if (txtBoxEmail.Text.Equals(""))
+                    if (!(errorOccured = HandleEmail(errorOccured, lblErrorEmail,
+                        "Bitte geben Sie eine E-Mail-Adresse ein!", "E-Mail-Adressen haben das folgende Format: user@domain.com")))
                     {
-                        lblErrorEmail.Text = "Bitte geben Sie eine E-Mail-Adresse ein!";
-                        errorOccured = true;
-                    } else if (!IsCorrectMailAdress(txtBoxEmail.Text))
-                    {
-                        lblErrorEmail.Text = "Eine E-Mail-Adresse hat folgendes Format: user@domain.com";
-                        errorOccured = true;
+                        userToInsert.EMail = txtBoxEmail.Text;
                     }
-                    if (!errorOccured)
-                    { userToInsert.EMail = txtBoxEmail.Text; }
                     break;
 
                 case "txtBoxPassword":
+                    errorOccured = HandleFirstPasswordInput(errorOccured, lblErrorPwdx1, "Bitte geben Sie ein Passwort ein!");
+                    break;
+
                 case "txtBoxPasswordx2":
-                    if (txtBoxPassword.Text.Equals("") | txtBoxPasswordx2.Text.Equals(""))
-                    {
-                        lblErrorPwd.Text = "Bitte geben Sie ein Passwort ein!";
-                        errorOccured = true;
-                    }
-                    if (!errorOccured)
+                    if (!(errorOccured = HandleSecondPasswordInput(errorOccured, lblErrorPwdx2,
+                        "Bitte geben Sie Ihr Passwort erneut ein!", "Bitte geben Sie zweimal das gleiche Passwort ein!")))
+                        ;
                     {
                         MD5 md5Hash = MD5.Create();
-                        string hash = clsUser.CreateMD5Hash(md5Hash, txtBoxPasswordx2.Text);
-                        userToInsert.Password = hash;
+                        userToInsert.Password = clsUser.CreateMD5Hash(md5Hash, txtBoxPasswordx2.Text);
                     }
                     break;
                 default:
-                    Console.WriteLine("Komponente nicht gefunden!");
                     break;
             }
-
-            if (!txtBoxPassword.Text.Equals(txtBoxPasswordx2.Text))
-            {
-                lblErrorPwd.Text = "Bitte geben Sie zweimal das gleiche Passwort ein!";
-                errorOccured = true;
-            }
-
             return errorOccured;
         }
 
         /// <summary>
-        /// Prüft, ob die Eingabe nur aus Buchsaben und Zahlen besteht.
+        /// Error-Handling für alle Nutzereingaben.
         /// </summary>
-        /// <param name="input">die eingegebene Zeichenfolge</param>
-        /// <returns>true, wenn die Eingabe nur aus Buchstaben und Zahlen besteht</returns>
-        private bool IsAlphaNumericString(string input)
+        /// <param name="errorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
+        /// <param name="errorLabel">Label, das im Falle eines Fehlers angezeigt wird</param>
+        /// <param name="errorText">Meldung, die dem Label zugeordnet wird</param>
+        protected void HandleError(out bool errorOccured, Label errorLabel, string errorText)
         {
-            Regex template = new Regex(@"^[A-Za-z0-9]+$");
-            return template.IsMatch(input);
+            errorOccured = true;
+            errorLabel.Text = errorText;
+            errorLabel.Visible = true;
         }
 
+        /// <summary>
+        /// Aktiviert einen Benutzer und setzt die passende Rolle.
+        /// </summary>
+        protected void setIsActiveAndRole(clsUser userToInsert)
+        {
+            userToInsert.IsActive = true;
+            userToInsert.Role = 3;
+        }
+
+        /// <summary>
+        /// Error-Handling für ein Eingabefeld, in dem eine Eingabe erwartet wird, die nur Buchstaben enthält.
+        /// </summary>
+        /// <param name="textBox">das betroffene Eingabefeld</param>
+        /// <param name="isErrorOccured">gibt an, ob ein Fehler aufgetreten ist</param>
+        /// <param name="lblError">Error-Label, dass im Falle eines Fehlers angezeigt wird</param>
+        /// <param name="emptyErrorText">Fehlertext für den Fall, dass der Nutzer nichts eingegeben hat</param>
+        /// <param name="alphaErrorText">Fehlertext für den Fall, dass die Eingabe nicht nur aus Buchstaben besteht</param>
+        /// <returns>true, falls bei der Zuordnung des Wertes ein Fehler aufgetreten ist</returns>
+        protected bool handleAlphaInput(TextBox textBox, bool isErrorOccured, Label lblError, string emptyErrorText, string alphaErrorText)
+        {
+            if (textBox.Text.Equals(""))
+            {
+                HandleError(out isErrorOccured, lblError, emptyErrorText);
+            }
+            else if (!IsAlphaString(textBox.Text))
+            {
+                HandleError(out isErrorOccured, lblError, alphaErrorText);
+            }
+            return isErrorOccured;
+        }
+
+        protected bool HandleUserTitle(bool isErrorOccured, Label errorLabel, string errorText, clsUser userToInsert)
+        {
+            if (ddlTitle.SelectedItem.Text == " - " || ddlTitle.SelectedIndex == -1)
+            {
+                HandleError(out isErrorOccured, errorLabel, errorText);
+            }
+            else
+            {
+                userToInsert.Title = ddlTitle.SelectedItem.Text;
+            }
+
+            return isErrorOccured;
+        }
+
+        protected bool HandleHnr(bool isErrorOccured, Label errorLabel, string emptyErrorText, string hnrErrorText)
+        {
+            if (txtBoxHnr.Text.Equals(""))
+            {
+                HandleError(out isErrorOccured, errorLabel, emptyErrorText);
+            }
+            else if (!IsCorrectHouseNumber(txtBoxHnr.Text))
+            {
+                HandleError(out isErrorOccured, errorLabel, hnrErrorText);
+            }
+            return isErrorOccured;
+        }
+
+        protected bool HandlePLZ(bool isErrorOccured, Label errorLabel, string emptyErrorText, string plzErrorText)
+        {
+            if (txtBoxPLZ.Text.Equals(""))
+            {
+                HandleError(out isErrorOccured, errorLabel, emptyErrorText);
+            }
+            else if (!IsCorrectPostCode(txtBoxPLZ.Text))
+            {
+                HandleError(out isErrorOccured, errorLabel, plzErrorText);
+            }
+            return isErrorOccured;
+        }
+
+        protected bool HandlePhoneNumber(bool isErrorOccured, Label errorLabel, string emptyErrorText, string phoneErrorText)
+        {
+            if (txtBoxPhone.Text.Equals(""))
+            {
+                HandleError(out isErrorOccured, errorLabel, emptyErrorText);
+            }
+            else if (!IsCorrectPhoneNumber(txtBoxPhone.Text))
+            {
+                HandleError(out isErrorOccured, errorLabel, phoneErrorText);
+            }
+            return isErrorOccured;
+        }
+
+        protected bool HandleEmail(bool isErrorOccured, Label errorLabel, string emptyErrorText, string emailErrorText)
+        {
+            if (txtBoxEmail.Text.Equals(""))
+            {
+                HandleError(out isErrorOccured, errorLabel, emptyErrorText);
+            }
+            else if (!IsCorrectMailAdress(txtBoxEmail.Text))
+            {
+                HandleError(out isErrorOccured, errorLabel, emailErrorText);
+            }
+            return isErrorOccured;
+        }
+
+        protected bool HandleFirstPasswordInput(bool isErrorOccured, Label errorLabel, string emptyErrorText)
+        {
+            if (txtBoxPassword.Text.Equals(""))
+            {
+                HandleError(out isErrorOccured, errorLabel, emptyErrorText);
+            }
+            return isErrorOccured;
+        }
+
+        protected bool HandleSecondPasswordInput(bool isErrorOccured, Label errorLabel, string emptyErrorText, string notSameErrorText)
+        {
+            if (txtBoxPasswordx2.Text.Equals(""))
+            {
+                HandleError(out isErrorOccured, errorLabel, emptyErrorText);
+            }
+            else if (!txtBoxPassword.Text.Equals(txtBoxPasswordx2.Text))
+            {
+                HandleError(out isErrorOccured, errorLabel, notSameErrorText);
+            }
+            return isErrorOccured;
+        }
+
+        /// <summary>
+        /// Prüft, ob die Eingabe eine gültige Postleitzahl ist.
+        /// </summary>
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>true, falls die Eingabe eine gültige Postleitzahl ist</returns>
         private bool IsCorrectPostCode(string input)
         {
             Regex template = new Regex(@"^\d{5}$");
             return template.IsMatch(input);
         }
 
+        /// <summary>
+        /// Prüft, ob die Eingabe eine gültige Telefonnummer ist.
+        /// </summary>
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>true, falls die Eingabe eine gültige Telefonnummer ist</returns>
         private bool IsCorrectPhoneNumber(string input)
         {
             Regex template = new Regex(@"^\d+(\s|\/|)\d+$");
             return template.IsMatch(input);
         }
 
+        /// <summary>
+        /// Prüft, ob die Eingabe eine gültige E-Mail-Adresse ist.
+        /// </summary>
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>true, falls die Eingabe eine gültige E-Mail-Adresse ist</returns>
         private bool IsCorrectMailAdress(string input)
         {
             Regex template = new Regex(@"^(\w|\d|\.|\-)+\@(\w|\d|\-)+\.\w{2,3}");
             return template.IsMatch(input);
         }
 
+        /// <summary>
+        /// Prüft, ob die Eingabe eine gültige Hausnummer ist.
+        /// </summary>
+        /// <param name="input">die eingegebene Zeichenfolge</param>
+        /// <returns>true, falls die Eingabe eine gültige Hausnummer ist</returns>
         private bool IsCorrectHouseNumber(string input)
         {
             Regex template = new Regex(@"^\d+(\w|)$");
@@ -302,27 +355,6 @@ namespace web
         {
             Regex template = new Regex(@"^[A-Za-z_äÄöÖüÜß\s]+$");
             return template.IsMatch(input);
-        }
-
-        /// <summary>
-        /// Prüft, ob die Eingabe nur aus Zahlen besteht.
-        /// </summary>
-        /// <param name="input">die eingegebene Zeichenfolge</param>
-        /// <returns>true, falls die Eingabe nur aus Zahlen besteht</returns>
-        private bool IsNumericString(string input)
-        {
-            Regex template = new Regex(@"^[0-9]+$");
-            return template.IsMatch(input);
-        }
-
-        /// <summary>
-        /// Ermittelt die Länge der Eingabe.
-        /// </summary>
-        /// <param name="input">die eingegebene Zeichenfolge</param>
-        /// <returns>die Länge der Eingabe</returns>
-        private int GetLengthOfInput(string input)
-        {
-            return input.Length;
         }
     }
 }

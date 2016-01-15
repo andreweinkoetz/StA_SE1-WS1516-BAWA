@@ -48,26 +48,32 @@
                 <p>
                     <asp:TextBox runat="server" placeholder="Straße" ID="txtBoxStraße" Width="250" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
                     <asp:TextBox runat="server" placeholder="Nr." ID="txtBoxHnr" Width="50" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
-                    <asp:Label ID="lblErrorStreet" runat="server" Text="" ForeColor="Red"></asp:Label>
+                    <asp:Label ID="lblErrorStreetNr" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
                 </p>
                 <p>
-                    <asp:Label ID="lblErrorStreetNr" runat="server" Text="" ForeColor="Red"></asp:Label>
+                    <asp:Label ID="lblErrorStreet" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
                 </p>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell></asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="PLZ" ID="txtBoxPLZ" Width="80" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
-                <asp:TextBox runat="server" placeholder="Ort" ID="txtBoxPlace" Width="220" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
-                <asp:Label ID="lblErrorPlace" runat="server" Text="" ForeColor="Red"></asp:Label>
+                <p>
+                    <asp:TextBox runat="server" placeholder="PLZ" ID="txtBoxPLZ" Width="80" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                    <asp:TextBox runat="server" placeholder="Ort" ID="txtBoxPlace" Width="220" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                    <asp:Label ID="lblErrorPlace" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
+                </p>
+                <p>
+                    <asp:Label ID="lblErrorPLZ" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
+                </p>
+
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell> Telefon* </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox runat="server" placeholder="Telefon" ID="txtBoxPhone" Width="300" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
-                <asp:Label ID="lblErrorPhone" runat="server" Text="" ForeColor="Red"></asp:Label>
+                <asp:Label ID="lblErrorPhone" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
@@ -77,20 +83,21 @@
             <asp:TableCell runat="server"> E-Mail* </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox runat="server" placeholder="E-Mail" ID="txtBoxEmail" Width="300" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
-                <asp:Label ID="lblErrorEmail" runat="server" Text="" ForeColor="Red"></asp:Label>
+                <asp:Label ID="lblErrorEmail" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell> Passwort* </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox runat="server" placeholder="Passwort" ID="txtBoxPassword" Width="300" TextMode="Password" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
-                <asp:Label ID="lblErrorPwd" runat="server" Text="" ForeColor="Red"></asp:Label>
+                <asp:Label ID="lblErrorPwdx1" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell> Passwort bestätigen* </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox runat="server" placeholder="Passwort bestätigen" ID="txtBoxPasswordx2" Width="300" TextMode="Password" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:Label ID="lblErrorPwdx2" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
