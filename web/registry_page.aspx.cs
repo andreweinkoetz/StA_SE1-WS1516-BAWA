@@ -105,7 +105,7 @@ namespace web
 
                 case "txtBoxStraße":
                     if (!(errorOccured = handleAlphaInput(txtBoxStraße, errorOccured, lblErrorStreet,
-                        "Bitte geben Sie eine Straße ein!", "Straßennamen können nur Buchstaben enthalten!")))
+                        "Bitte geben Sie eine Straße ein!", "Straßennamen dürfen keine Zahlen enthalten!")))
                     {
                         userToInsert.Street = txtBoxStraße.Text;
                     }
@@ -353,7 +353,7 @@ namespace web
         /// <returns>true, falls die Eingabe nur aus Buchstaben besteht</returns>
         private bool IsAlphaString(string input)
         {
-            Regex template = new Regex(@"^[A-Za-z_äÄöÖüÜß\s]+$");
+            Regex template = new Regex(@"^\D{2,}$");
             return template.IsMatch(input);
         }
     }
