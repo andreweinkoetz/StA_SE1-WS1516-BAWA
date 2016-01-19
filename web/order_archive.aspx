@@ -27,8 +27,9 @@
         </Columns>
     </asp:GridView>
     <asp:ObjectDataSource ID="FinishedOrders" runat="server" SelectMethod="GetFinishedOrders" TypeName="bll.clsOrderFacade"></asp:ObjectDataSource>
+    <br />
     <p>
-        <asp:Button ID="btDownloadCSV" runat="server" Text="Download Report" Visible="false" OnClick="btDownloadCSV_Click" />
+        <asp:Button ID="btDownloadCSV" runat="server" Text="Download Report" Visible="false" OnClick="btDownloadCSV_Click" Height="30px" Width="150px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
     </p>
     <p>
         <asp:Label ID="lblError" runat="server" Text="" ForeColor="Red"></asp:Label>

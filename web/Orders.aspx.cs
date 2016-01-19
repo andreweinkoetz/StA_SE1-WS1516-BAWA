@@ -72,6 +72,10 @@ namespace web
         {
             String _msg;
             btOrder.Enabled = clsOrderFacade.CheckMinimumOrder(_sum, chkDelivery.Checked, out _msg);
+            if (!btOrder.Enabled)
+            {
+                btOrder.BackColor = System.Drawing.Color.Gray;
+            }
             lblStatus.Text = _msg;
         }
 

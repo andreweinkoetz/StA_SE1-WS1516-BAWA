@@ -17,10 +17,11 @@
     <hr />
 
     <p>
-        <asp:GridView ID="gvAdmData" runat="server" Width="100%" OnSelectedIndexChanged="gvAdmData_SelectedIndexChanged" AutoGenerateColumns="False">
+        <asp:GridView ID="gvAdmData" runat="server" Width="100%" OnSelectedIndexChanged="gvAdmData_SelectedIndexChanged" AutoGenerateColumns="False" Style="text-align:center">
         </asp:GridView>
     </p>
+    <br />
     <p>
-        <asp:Button ID="btCreateNew" runat="server" Text="" OnClick="btCreateNew_Click" Height="50px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" /> 
+        <asp:Button ID="btCreateNew" runat="server" Text="" OnClick="btCreateNew_Click" Height="30px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" /> 
     </p>
 </asp:Content>

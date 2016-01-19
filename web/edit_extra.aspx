@@ -43,10 +43,10 @@
             </asp:TableRow>
             <asp:TableFooterRow>
                 <asp:TableCell>
-                    <asp:Button ID="btEnter" runat="server" Text="" OnClick="btEnter_Click" Height="50px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Visible="true" />
+                    <asp:Button ID="btEnter" runat="server" Text="" OnClick="btEnter_Click" Height="30px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Visible="true" />
                 </asp:TableCell>
                 <asp:TableCell ColumnSpan="2" HorizontalAlign="Right">
-                    <asp:Button ID="btDelete" runat="server" Text="Extra löschen" OnClick="btDelete_Click" Height="50px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Enabled="false" />
+                    <asp:Button ID="btDelete" runat="server" Text="Extra löschen" OnClick="btDelete_Click" Height="30px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Enabled="false" />
                 </asp:TableCell>
             </asp:TableFooterRow>
         </asp:Table>

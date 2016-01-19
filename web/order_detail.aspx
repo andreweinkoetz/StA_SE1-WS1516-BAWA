@@ -16,7 +16,7 @@
     </table>
     <hr />
     <p>
-        <asp:GridView ID="gvOrderDetail" runat="server" Width="100%">
+        <asp:GridView ID="gvOrderDetail" runat="server" Style="text-align:center" Width="100%">
         </asp:GridView>
     </p>
     <table style="width: 100%">

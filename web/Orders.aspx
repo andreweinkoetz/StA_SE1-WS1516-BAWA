@@ -11,7 +11,7 @@
     <br />
     <% if (Session["selProducts"] != null && ((List<bll.clsProductExtended>)Session["selProducts"]).Count > 0)
         {%>
-    <asp:GridView ID="gvOrder" runat="server" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
+    <asp:GridView ID="gvOrder" runat="server" Style="text-align: center" Width="100%" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="#CCCCCC" />
         <FooterStyle BackColor="#CCCCCC" />
         <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
@@ -31,7 +31,7 @@
     <p style="text-align: right">
         <asp:Label ID="lblCouponCode" runat="server" Text="Gutschein:"></asp:Label>
         <asp:TextBox ID="txtCouponCode" Width="150px" runat="server"></asp:TextBox>
-        <asp:Button ID="btCoupon" OnClick="btCoupon_Click" runat="server" Text="Einlösen" />
+        <asp:Button ID="btCoupon" OnClick="btCoupon_Click" runat="server" Text="Einlösen" Height="30px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
         <br />
         <asp:Label ID="lblErrorCoupon" ForeColor="Red" runat="server" Text=""></asp:Label>
     </p>
@@ -39,9 +39,9 @@
     <table style="width: 100%;">
         <tr>
             <td style="text-align: left">
-                <asp:Button ID="clearCart" runat="server" Text="Warenkorb leeren" OnClick="clearCart_Click" /></td>
+                <asp:Button ID="clearCart" runat="server" Text="Warenkorb leeren" OnClick="clearCart_Click" Height="30px" Width="150px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" /></td>
             <td style="text-align: right">
-                <asp:CheckBox ID="chkDelivery" runat="server" Text="Liefern?" Checked="true" TextAlign="Right" OnCheckedChanged="chkDelivery_CheckedChanged" AutoPostBack="true" /><asp:Button ID="btOrder" runat="server" Text="Bestellung aufgeben" OnClick="btOrder_Click" /></td>
+                <asp:CheckBox ID="chkDelivery" runat="server" Text="Liefern?" Checked="true" TextAlign="Right" OnCheckedChanged="chkDelivery_CheckedChanged" AutoPostBack="true"/><asp:Button ID="btOrder" runat="server" Text="Bestellung aufgeben" OnClick="btOrder_Click" Height="30px" Width="150px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" /></td>
         </tr>
     </table>
 

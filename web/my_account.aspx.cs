@@ -21,7 +21,10 @@ namespace web
             {
                 int _uId = (int)Session["userID"];
                 WelcomeUser(_uId);
-                FillLblSum(_uId);
+                if (!IsPostBack)
+                {
+                    FillLblSum(_uId);
+                }
             }
         }
 

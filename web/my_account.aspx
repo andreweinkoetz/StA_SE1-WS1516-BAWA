@@ -19,17 +19,17 @@
     <p>
         <asp:GridView ID="gvMyOrders" runat="server" AutoGenerateColumns="False" DataSourceID="QOGetOrdersByUserID" Width="100%" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" ForeColor="Black" OnSelectedIndexChanged="gvMyOrders_SelectedIndexChanged">
             <Columns>
-                <asp:CommandField SelectImageUrl="~/img/detail_icon.png" ShowSelectButton="True" ButtonType="Image"></asp:CommandField>
+                <asp:CommandField SelectImageUrl="~/img/detail_icon.png" ShowSelectButton="True" ButtonType="Image" HeaderText="Detail"></asp:CommandField>
                 <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
                 <asp:BoundField DataField="OrderDate" HeaderText="Datum der Bestellung" SortExpression="OrderDate">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
-                <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Zum Liefern?" SortExpression="OrderDelivery">
+                <asp:CheckBoxField DataField="OrderDelivery" HeaderText="Zum<br/>Liefern?" SortExpression="OrderDelivery">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:CheckBoxField>
-                <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status der Bestellung" SortExpression="OrderStatusDescription">
+                <asp:BoundField DataField="OrderStatusDescription" HeaderText="Status" SortExpression="OrderStatusDescription">
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
                 <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Datum der Lieferung" SortExpression="OrderDeliveryDate">

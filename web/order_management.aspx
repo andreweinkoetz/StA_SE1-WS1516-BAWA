@@ -18,7 +18,7 @@
     <hr />
 
     <p>
-        <asp:GridView ID="gvOrderMgmt" runat="server" AutoGenerateColumns="False" Width="100%" OnSelectedIndexChanged="gvOrderMgmt_SelectedIndexChanged">
+        <asp:GridView ID="gvOrderMgmt" runat="server" Style="text-align:center" AutoGenerateColumns="False" Width="100%" OnSelectedIndexChanged="gvOrderMgmt_SelectedIndexChanged">
             <SelectedRowStyle BorderColor="Red" BorderStyle="Solid" BorderWidth="3px" />
             <RowStyle BorderStyle="None" />
             <Columns>

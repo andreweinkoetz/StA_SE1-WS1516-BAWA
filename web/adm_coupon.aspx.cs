@@ -84,6 +84,7 @@ namespace web
                 if (!insertSuccessful)
                 {
                     lblError.Text = "Fehler beim Einfügen in die Datenbank.<br />Hat dieser Benutzer evtl. schon diesen Gutschein? (siehe oben)";
+                    lblError.Visible = true;
                 } else
                 {
                     lblError.Visible = false;

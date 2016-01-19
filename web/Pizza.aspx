@@ -19,13 +19,13 @@
         <asp:GridView ID="gvPizza" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="ObjectDataSource2" OnDataBound="gvPizza_DataBound" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvPizza_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" />
+                <asp:CommandField ShowSelectButton="true" HeaderText="Wählen" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" />
                 <asp:BoundField DataField="Id" HeaderText="Nr." SortExpression="Id" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="PricePerUnit" HeaderText="Preis pro cm" SortExpression="PricePerUnit" DataFormatString="{0:C}" />
                 <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" Visible="False" />
                 <asp:BoundField DataField="CUnit" HeaderText="CUnit" SortExpression="CUnit" Visible="False" />
-                <asp:TemplateField HeaderText="Extras" ItemStyle-HorizontalAlign="Left" ItemStyle-CssClass="gvPizza">
+                <asp:TemplateField HeaderText="Extras" ItemStyle-HorizontalAlign="Left" ItemStyle-CssClass="gvPizza" ItemStyle-Width="200">
                     <ItemTemplate>
                         <asp:CheckBoxList ID="ExtrasCheckBoxList" runat="server" AutoPostBack="False" OnLoad="ExtrasCheckBoxList_Load" DataTextField="EName" DataValueField="EID">
                         </asp:CheckBoxList>
@@ -55,7 +55,7 @@
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/marker20-2.png" />
-                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
+                <asp:BoundField DataField="Id" HeaderText="Nr." SortExpression="Id" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:TemplateField HeaderText="Größe Pizza">
                     <ItemTemplate>

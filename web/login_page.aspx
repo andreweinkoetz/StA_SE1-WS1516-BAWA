@@ -48,7 +48,7 @@
         <asp:TableRow>
             <asp:TableCell></asp:TableCell>
             <asp:TableCell>
-                <asp:Button runat="server" Text="Bestätigen" ID="btnLogin" OnClick="btnLogin_Click" />
+                <asp:Button runat="server" Text="Bestätigen" ID="btnLogin" OnClick="btnLogin_Click" Height="30px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>

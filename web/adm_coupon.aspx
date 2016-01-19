@@ -65,7 +65,7 @@
         </asp:TableRow>
     </asp:Table>
     <p>
-        <asp:Label ID="lblError" ForeColor="Red" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblError" ForeColor="Red" runat="server" Visible="true" Text=""></asp:Label>
     </p>
 
     <asp:ObjectDataSource ID="AllUsersAsDictionary" runat="server" SelectMethod="GetAllUsersForCoupons" TypeName="bll.clsCouponFacade"></asp:ObjectDataSource>

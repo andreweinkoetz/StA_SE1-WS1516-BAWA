@@ -79,9 +79,9 @@
             <asp:TableCell></asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableCell runat="server"> E-Mail* </asp:TableCell>
+            <asp:TableCell runat="server"> E-Mail/Benutzername* </asp:TableCell>
             <asp:TableCell>
-                <asp:TextBox runat="server" placeholder="E-Mail" ID="txtBoxEmail" Width="300" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
+                <asp:TextBox runat="server" placeholder="E-Mail/Benutzername" ID="txtBoxEmail" Width="300" BorderStyle="Ridge" borderwith="2"></asp:TextBox>
                 <asp:Label ID="lblErrorEmail" runat="server" Text="" ForeColor="Red" Visible="false"></asp:Label>
             </asp:TableCell>
         </asp:TableRow>
@@ -102,7 +102,7 @@
         <asp:TableRow>
             <asp:TableCell></asp:TableCell>
             <asp:TableCell>
-                <asp:Button runat="server" Text="Senden" ID="btnSubmit" OnClick="btnSubmit_Click" />
+                <asp:Button runat="server" Text="Senden" ID="btnSubmit" OnClick="btnSubmit_Click" Height="30px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>

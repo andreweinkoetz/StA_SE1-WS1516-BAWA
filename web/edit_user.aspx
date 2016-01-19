@@ -116,10 +116,10 @@
             </asp:TableRow>
             <asp:TableRow>
                 <asp:TableCell>
-                    <asp:Button runat="server" Text="" ID="btEnter" OnClick="btEnter_Click" Height="50px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Visible="true" />
+                    <asp:Button runat="server" Text="" ID="btEnter" OnClick="btEnter_Click" Height="30px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Visible="true" />
                 </asp:TableCell>
                 <asp:TableCell>
-                    <asp:Button runat="server" Text="Benutzer löschen" ID="btDelete" OnClick="btDelete_Click" Height="50px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Enabled="false" />
+                    <asp:Button runat="server" Text="Benutzer löschen" ID="btDelete" OnClick="btDelete_Click" Height="30px" Width="200px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" Enabled="false" />
                 </asp:TableCell>
             </asp:TableRow>
         </asp:Table>
