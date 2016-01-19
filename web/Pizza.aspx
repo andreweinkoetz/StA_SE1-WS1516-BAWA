@@ -69,7 +69,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="Extras" HeaderText="Extras" SortExpression="Extras" />
-                <asp:TemplateField>
+                <asp:TemplateField HeaderText="Anzahl">
                     <ItemTemplate>
                         <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
                         <ajaxToolkit:NumericUpDownExtender ID="numericAmount" Width="50" runat="server" Maximum="25" Minimum="1" TargetControlID="txtAmount" />

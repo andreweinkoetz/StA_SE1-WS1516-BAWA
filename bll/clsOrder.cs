@@ -103,15 +103,22 @@ namespace bll
         }
 
         /// <summary>
-        /// Generiert eine neue Bestellnummer.
+        /// Überschriebene HashCode-Methode für 
+        /// eindeutige Bestellnummerngenerierung.
         /// </summary>
-        /// <returns>die generierte Bestellnummer</returns>
-        public int GenerateOrderNumber()
+        /// <returns>HashCode zur Verwendung als Bestellnummer.</returns>
+        public override int GetHashCode()
         {
-            Random rnd = new Random();
-            int _orderNumber = 2015 + rnd.Next() * 100 + UserId * rnd.Next();
-            return _orderNumber;
+            int hash = base.GetHashCode();
+            hash += 17 * ID + OrderDate.GetHashCode() + 31 * UserId;
+            if (OrderDelivery)
+            {
+                hash += 31;
+            }
+
+            return hash;
         }
+
     }
 
     /// <summary>

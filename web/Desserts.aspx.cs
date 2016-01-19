@@ -37,7 +37,7 @@ namespace web
             }
             else
             {
-                lblInfoDessert.Text += "<br />Wählen Sie das Dessert und legen Sie es über das Einkaufswagen-Symbol in Ihren Warenkorb.";
+                lblInfoDessert.Text += "<br />Wählen Sie das Dessert und legen Sie es anschließend am Fuße der Seite über das Einkaufswagen-Symbol in Ihren Warenkorb.";
             }
         }
 

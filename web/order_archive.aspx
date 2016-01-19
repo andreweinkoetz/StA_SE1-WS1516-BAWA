@@ -7,6 +7,7 @@
             <td style="text-align: left">
                 <asp:Label ID="lblOrderArchive" runat="server" Text="Bestellungen archivieren" Font-Bold="true" Font-Size="X-Large"></asp:Label>
                 <p style="font-size:small">Bestellarchivierung, ausschließlich für berechtigte Personen vorgesehen.</p>
+                <p style="font-size:small">Wählen Sie die zu archivierende Bestellung durch Betätigen des "Archiv"-Feldes.<br />Die Bestellung wird augenblicklich aus dem System entfernt und als CSV-Datei am Fuße der Seite zum Download angeboten.</p>
             </td>
             <td style="text-align: right">
                 <asp:Button ID="btBack" runat="server" Text="Zurück" OnClick="btBack_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
@@ -17,7 +18,7 @@
     <br />
     <asp:GridView ID="gvOrderArchive" runat="server" AutoGenerateColumns="False" DataSourceID="FinishedOrders" Width="100%" OnSelectedIndexChanged="gvOrderArchive_SelectedIndexChanged">
         <Columns>
-            <asp:CommandField ButtonType="Image" ShowSelectButton="true" SelectImageUrl="~/img/archive_icon.png" ItemStyle-HorizontalAlign="Center" />
+            <asp:CommandField ButtonType="Image" ShowSelectButton="true" SelectImageUrl="~/img/archive_icon.png" ItemStyle-HorizontalAlign="Center" HeaderText="Archiv" />
             <asp:BoundField DataField="OrderDeliveryDate" HeaderText="Lieferzeitpunkt" SortExpression="OrderDeliveryDate" ItemStyle-HorizontalAlign="Center" />
             <asp:BoundField DataField="OrderNumber" HeaderText="Bestellnummer" SortExpression="OrderNumber" ItemStyle-HorizontalAlign="Center"  />
             <asp:BoundField DataField="UserId" HeaderText="ID des Kunden" SortExpression="UserId" ItemStyle-HorizontalAlign="Center"  />

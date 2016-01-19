@@ -77,6 +77,7 @@ namespace web
             _cmdField.ButtonType = ButtonType.Image;
             _cmdField.SelectImageUrl = "~/img/edit_icon.png";
             _cmdField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
+            _cmdField.HeaderText = "Editieren";
 
             gvAdmData.Columns.Add(_cmdField);
 

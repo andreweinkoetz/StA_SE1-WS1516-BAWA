@@ -38,7 +38,18 @@ namespace web
                 {
                     Session["userID"] = _userId;
                     Session["roleID"] = userFacade.GetRoleOfUser(userToLogin.EMail);
-                    Response.Redirect("pizza.aspx");
+                    switch ((int)Session["roleID"])
+                    {
+                        case 1:
+                            Response.Redirect("administration.aspx");
+                            break;
+                        case 2:
+                            Response.Redirect("order_management.aspx");
+                            break;
+                        case 3:
+                            Response.Redirect("default.aspx");
+                            break;
+                    }
                 }
                 else
                 {

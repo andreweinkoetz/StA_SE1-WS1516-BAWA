@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/default_layout.Master" AutoEventWireup="true" CodeBehind="adm_coupon.aspx.cs" Inherits="web.AdmCoupon_Code" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentBox" runat="server">
+    <asp:ScriptManager runat="server" AjaxFrameworkMode="Enabled"></asp:ScriptManager>
     <table style="width: 100%">
         <tr>
             <td style="text-align: left">
@@ -22,7 +23,7 @@
             <SelectedRowStyle BorderColor="Red" BorderStyle="Solid" BorderWidth="3px" />
             <RowStyle BorderStyle="None" />
             <Columns>
-                <asp:CommandField ShowSelectButton="True" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" ItemStyle-HorizontalAlign="Center"/>
+                <asp:CommandField ShowSelectButton="True" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" ItemStyle-HorizontalAlign="Center" HeaderText="Wählen"/>
                 <asp:BoundField DataField="Id" HeaderText="CUID" SortExpression="Id" ItemStyle-HorizontalAlign="Center"/>
                 <asp:BoundField DataField="Discount" HeaderText="Rabatt in %" SortExpression="Discount" ItemStyle-HorizontalAlign="Center" />
                 <asp:BoundField DataField="Code" HeaderText="Gutschein-Code" SortExpression="Code" ItemStyle-HorizontalAlign="Center" />
@@ -37,6 +38,7 @@
     </p>
     <br />
     <hr />
+    <p style="font-size:small">Wählen Sie aus der Liste der aktiven Benutzer denjenigen aus, für den Sie einen Gutschein erstellen wollen.<br />Sie können nun entweder einen Gutscheincode generieren oder selbst einen vergeben. Die Auswahl der Höhe des Gutscheins ist obligatorisch.</p>
     <br />
     <asp:Table ID="tblNewCoupon" runat="server">
         <asp:TableHeaderRow>
@@ -53,6 +55,7 @@
             </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox ID="txtDiscount" runat="server"></asp:TextBox>
+                <ajaxToolkit:NumericUpDownExtender ID="discountExtender" runat="server" TargetControlID="txtDiscount" Width="100" Minimum="1" Maximum="100" Step="1" />
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>

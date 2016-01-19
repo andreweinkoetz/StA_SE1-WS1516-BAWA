@@ -21,7 +21,7 @@
         <asp:GridView ID="gvDesserts" runat="server" AutoGenerateColumns="False" OnDataBound="gvDesserts_DataBound" CellPadding="4" DataSourceID="ObjectDataSource2" ForeColor="#333333" GridLines="None" Style="text-align: center" Width="100%" OnSelectedIndexChanged="gvDesserts_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" />
+                <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/select_icon.png" HeaderText="Wählen" />
                 <asp:BoundField DataField="Id" HeaderText="Nr." SortExpression="Id" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                 <asp:BoundField DataField="PricePerUnit" HeaderText="Preis pro Stück" SortExpression="PricePerUnit" DataFormatString="{0:C}" />
@@ -54,7 +54,7 @@
                 <asp:CommandField ShowSelectButton="true" ButtonType="Image" SelectImageUrl="~/img/marker20-2.png" />
                 <asp:BoundField DataField="Id" HeaderText="Nr." SortExpression="Id" />
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-                <asp:TemplateField>
+                <asp:TemplateField HeaderText="Anzahl">
                     <ItemTemplate>
                         <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
                         <ajaxToolkit:NumericUpDownExtender ID="numericAmount" Width="50" runat="server" Maximum="25" Minimum="1" TargetControlID="txtAmount" />
