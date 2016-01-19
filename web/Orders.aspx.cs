@@ -76,6 +76,10 @@ namespace web
             {
                 btOrder.BackColor = System.Drawing.Color.Gray;
             }
+            else
+            {
+                btOrder.BackColor = System.Drawing.ColorTranslator.FromHtml("#CF323D");
+            }
             lblStatus.Text = _msg;
         }
 
@@ -157,6 +161,7 @@ namespace web
                     new clsCouponFacade().ToggleCoupon(_myOrder.CouponId);
                 }
 
+                //Rückmeldung der erfolgreichen Bestellung an Enduser.
                 OrderPlacedSuccessfully(_myOrder);
             }
         }
