@@ -77,7 +77,7 @@
                 <p><b>Bestellungen:</b><br />Verwalten Sie aktuelle Bestellungen oder archivieren Sie bereits abgeschlossene Bestellungen.<br /><br />Als Manager sind Sie außerdem in der Lage den Status, auch bereits abgeschlossener Bestellungen zu ändern.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
-                <p><b>Auswertungen:</b><br />Durch die Auswertungen erhalten Sie einen Überblick über die aktuelle wirtschaftliche Lage Ihres Unternehmens.<br /><br />Wählen Sie zwischen diversen Auswertungsmöglichkeiten und treffen Sie die richtigen Entscheidungen für Ihr Business.</p>
+                <p><b>Auswertungen:</b><br />Durch die Auswertungen erhalten Sie einen Überblick über die aktuelle wirtschaftliche Lage Ihres Unternehmens.<br /><br />Wählen Sie zwischen diversen Auswertungsmöglichkeiten und treffen Sie anschließend die richtigen wirtschaftlichen Entscheidungen.</p>
             </asp:TableCell>
             <asp:TableCell CssClass="tbl-td-Style">
                 <p><b>Gutscheinverwaltung:</b><br />Verwalten Sie hier die Gutscheine. Sie können neue Gutscheine für Ihre Kunden erstellen, sowie bereits bestehende aktivieren und deaktivieren.<br /><br />Den Gutscheincode können Sie entweder selbst vergeben oder generieren lassen.<br />Die Höhe des Rabatts (in %) ist ebenfalls frei wählbar.</p>

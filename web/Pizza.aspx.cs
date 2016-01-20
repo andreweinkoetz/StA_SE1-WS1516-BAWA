@@ -42,8 +42,8 @@ namespace web
             {
                 lblInfoPizza.Text += "<br />Wählen Sie zunächst den Extrabelag der Pizza (Zusatzkosten!). "
                     + " Anschließend wählen Sie die Pizza über das Hand-Symbol. <br />"
-                    + "Sie können nun am Fuße der Seite die Größe sowie Anzahl gleicher Pizzen festlegen und "
-                    + "die gewünschte Pizza über das Einkaufswagen-Symbol in Ihren Warenkorb legen.";
+                    + "Sie können nun am Fuße der Seite die Größe sowie Anzahl festlegen und danach "
+                    + "die Pizza über das Einkaufswagen-Symbol in Ihren Warenkorb legen.";
             }
         }
 

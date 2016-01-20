@@ -8,7 +8,7 @@
         <tr>
             <td style="text-align: left">
                 <asp:Label ID="lblAdmCoupon" runat="server" Text="Gutscheinverwaltung" Font-Bold="true" Font-Size="X-Large"></asp:Label>
-                <p style="font-size:small">Gutscheinadministration, ausschließlich für berechtigte Personen vorgesehen.<br />Wählen Sie zunächst den gewünschten Gutschein aus und ändern Sie dessen Aktivitätsstatus anschließend über die Schaltfläche am Fuße der Liste.<br />Bitte beachten Sie, dass nur der rot-umrandete Gutschein bearbeitet wird.</p>
+                <p style="font-size:small">Gutscheinadministration, ausschließlich für berechtigte Personen vorgesehen.<br />Wählen Sie zunächst den gewünschten Gutschein und ändern Sie dessen Aktivitätsstatus anschließend über die Schaltfläche am Fuße der Liste.<br />Bitte beachten Sie, dass nur der rot-umrandete Gutschein bearbeitet wird.</p>
             </td>
             <td style="text-align: right">
                 <asp:Button ID="btBack" runat="server" Text="Zurück" OnClick="btBack_Click" Height="50px" Width="100px" BackColor="#CF323D" ForeColor="White" Font-Bold="true" />
@@ -34,11 +34,11 @@
         </asp:GridView>
 
         <asp:ObjectDataSource ID="AllCoupons" runat="server" SelectMethod="GetAllCoupons" TypeName="bll.clsCouponFacade"></asp:ObjectDataSource>
-        <asp:Button ID="btToggleCoupon" runat="server" Text="Coupon (de-)aktivieren" OnClick="btToggleCoupon_Click" Height="30px" Width="200px" Enabled="false" BackColor="Gray" ForeColor="White" Font-Bold="true" />
+        <asp:Button ID="btToggleCoupon" runat="server" Text="Gutschein (de-)aktivieren" OnClick="btToggleCoupon_Click" Height="30px" Width="200px" Enabled="false" BackColor="Gray" ForeColor="White" Font-Bold="true" />
     </p>
     <br />
     <hr />
-    <p style="font-size:small">Wählen Sie aus der Liste der aktiven Benutzer denjenigen aus, für den Sie einen Gutschein erstellen wollen.<br />Sie können nun entweder einen Gutscheincode generieren oder selbst einen vergeben. Die Auswahl der Höhe des Gutscheins ist obligatorisch.</p>
+    <p style="font-size:small">Wählen Sie aus der Liste der aktiven Benutzer denjenigen aus, für den Sie einen Gutschein erstellen wollen.<br />Sie können einen Gutscheincode generieren lassen oder selbst vergeben. Die Auswahl der Höhe des Gutscheins ist obligatorisch.</p>
     <br />
     <asp:Table ID="tblNewCoupon" runat="server">
         <asp:TableHeaderRow>

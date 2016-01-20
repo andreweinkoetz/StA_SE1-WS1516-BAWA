@@ -185,7 +185,7 @@ namespace bll
                 }
             }
 
-            _estimatedTime += "Die Wartezeit beträgt vorraussichtlich <b>" + Math.Round(_minutes) + " Minuten</b>.";
+            _estimatedTime += "Die Wartezeit beträgt voraussichtlich <b>" + Math.Round(_minutes) + " Minuten</b>.";
 
             return _estimatedTime;
         }

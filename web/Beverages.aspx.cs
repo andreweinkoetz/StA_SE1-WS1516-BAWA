@@ -39,9 +39,9 @@ namespace web
             }
             else
             {
-                lblInfoBeverages.Text += "<br />Zunächst wählen Sie das Getränk über das Hand-Symbol. <br />"
-                                        + "Sie können nun am Fuße der Seite die Größe sowie Anzahl gleicher Getränke festlegen und "
-                                        + "das gewünschte Getränk über das Einkaufswagen-Symbol in Ihren Warenkorb legen.";
+                lblInfoBeverages.Text += "<br />Wählen Sie ein Getränk über das Hand-Symbol. <br />"
+                                        + "Sie können nun am Fuße der Seite die Größe sowie Anzahl festlegen und das Getränk"
+                                        + "anschließend über das Einkaufswagen-Symbol in Ihren Warenkorb legen.";
             }
         }
 
